@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Image Previewer</title>
+    <title>Pocket Image Previewer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/theme.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnQ43cDfOA0gC/qsBbIहिनीEgUOhOtrSFvoGCgaHvyksBB4juhjszKGLbACFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnQ43cDfOA0gC/qsBbIहिनीEgUOhOtrSFvoGCgaHvyksBB4juhjszKGLbACFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="image_data.js" defer></script>
     <script src="background.js" defer></script>
     <script src="audio.js" defer></script>
@@ -15,7 +16,7 @@
         body { scroll-behavior: smooth; background-color: #030711; }
         .container { background-color: rgba(61, 5, 68, 0.9); color: #a0aec0; position: relative; z-index: 10; /* backdrop-filter: blur(4px); */ }
         /* H1 styling handled by theme.css .title-glow if applied */
-        h2 { color: #f87171; } /* Filter/Folder Section Titles */
+        h2 { color: #f87171; } /* Filter/Folder/Size Section Titles */
         #empty-folder-message { color: #a0aec0; }
         .border-gray-200 { border-color: #000307; }
 
@@ -24,53 +25,31 @@
         #threejs-bg canvas { display: block; }
 
         /* --- Header Layout --- */
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start; /* Align items to top */
-            flex-wrap: wrap; /* Allow wrapping on small screens */
-            gap: 1rem; /* Space between logo and controls */
-            margin-bottom: 1.5rem; /* Space below header */
+        .header-container { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+        .logo-container h1 { /* Style the fallback title */
+             color: #e5e7eb; /* Example color */
+             /* Inherit from theme.css .title-glow if needed */
         }
-        /* Removed logo-container */
-        .controls-container {
-            display: flex;
-            flex-direction: column; /* Stack filters and tabs */
-            align-items: flex-end; /* Align controls to the right */
-            gap: 0.75rem; /* Space between filters and tabs */
-            flex-grow: 1; /* Allow controls to take available space */
+        .controls-container { display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; flex-grow: 1; }
+        #filter-controls, #tab-container, #size-controls { /* Added #size-controls */
+            display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; /* Row and column gap */ justify-content: flex-end; width: 100%;
         }
-        #filter-controls, #tab-container, #size-controls { /* Added size controls */
-             display: flex;
-             flex-wrap: wrap;
-             align-items: center;
-             gap: 0.5rem 1rem; /* Row and column gap */
-             justify-content: flex-end; /* Align items to the right */
-             width: 100%; /* Make control groups take full width */
-        }
-        #tab-container {
-             border-bottom: 2px solid #5a0866;
-             padding-bottom: 0.5rem; /* Add padding below tabs */
-             margin-bottom: 0; /* Remove margin as it's handled by container gap */
-        }
-        @media (max-width: 768px) {
-             .controls-label { display: none; }
-             .header-container { justify-content: center; }
-             .controls-container { align-items: center; }
-             #filter-controls, #tab-container, #size-controls { justify-content: center; }
-        }
+        #tab-container { border-bottom: 2px solid #5a0866; padding-bottom: 0.5rem; margin-bottom: 0; }
+        /* Hide labels on smaller screens for compactness */
+        @media (max-width: 768px) { .controls-label { display: none; } }
 
-
-        /* --- Tab & Filter Styles --- */
-        .filter-label, .size-label { color: #cbd5e0; margin-right: 0.25rem; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap; }
-        .filter-select, .size-slider { background-color: rgba(26, 1, 31, 0.8); border: 1px solid #5a0866; color: #e2e8f0; padding: 0.3rem 0.6rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer; }
-        .filter-select:focus, .size-slider:focus { outline: none; border-color: #63b3ed; box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.4); }
+        /* --- Tab & Filter & Slider Styles --- */
+        .filter-label, .size-label { /* Added .size-label */
+             color: #cbd5e0; margin-right: 0.25rem; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap;
+        }
+        .filter-select { background-color: rgba(26, 1, 31, 0.8); border: 1px solid #5a0866; color: #e2e8f0; padding: 0.3rem 0.6rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer; }
+        .filter-select:focus { outline: none; border-color: #63b3ed; box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.4); }
         .rarity-icon { height: 1em; width: 1em; display: inline-block; vertical-align: middle; margin-left: 0.25rem; }
-        .size-slider { padding: 0; height: 0.5rem; cursor: pointer; appearance: none; -webkit-appearance: none; background: #4a044e; border-radius: 9999px; } /* Basic slider style */
-        .size-slider::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 1rem; height: 1rem; background: #e70505; border-radius: 50%; cursor: pointer; }
-        .size-slider::-moz-range-thumb { width: 1rem; height: 1rem; background: #e70505; border-radius: 50%; cursor: pointer; border: none; }
-        .size-value { font-weight: 600; color: #f87171; min-width: 1.5rem; text-align: center; }
 
+        /* 1. Styles for Size Sliders */
+        .size-control-group { display: flex; align-items: center; gap: 0.5rem; }
+        .size-slider { cursor: pointer; accent-color: #c026d3; /* Example color */ width: 5rem; /* Adjust width as needed */ }
+        .size-display { font-weight: 600; color: #e2e8f0; min-width: 1.5ch; text-align: center; }
 
         .tab {
             padding: 0.5rem 1rem; margin-bottom: -2px; cursor: pointer;
@@ -84,10 +63,10 @@
         .tab.active { color: var(--tab-active-text-color); border-color: var(--tab-active-border-color); border-bottom-color: transparent; background-color: var(--tab-active-bg-color); border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem; font-weight: 600; }
         .tab img[data-broken="true"] { display: none; }
 
-
         /* --- Holo Effect CSS --- */
+        /* (Keep existing holo styles) */
         :root { --color1: rgb(78, 5, 60); --color2: rgb(248, 12, 12); --thumb-gradient-pos-x: 50%; --thumb-gradient-pos-y: 50%; --thumb-sparkle-pos-x: 50%; --thumb-sparkle-pos-y: 50%; --thumb-sparkle-opacity: 0.75; --lb-gradient-pos-x: 50%; --lb-gradient-pos-y: 50%; --lb-sparkle-pos-x: 50%; --lb-sparkle-pos-y: 50%; --lb-sparkle-opacity: 0.75; --click-effect-duration: 0.4s; }
-        #item-gallery { perspective: 900px; }
+        #item-gallery { perspective: 900px; transition: grid-template-columns 0.3s ease; } /* Add transition for grid changes */
         .thumbnail {
             transform-style: preserve-3d;
             transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
@@ -97,8 +76,8 @@
             border-radius: calc(var(--image-aspect-ratio, 0.75) * 5% / 3.5%);
             box-shadow: 0 2px 5px -2px var(--color1), 0 2px 5px -2px var(--color2), 0 15px 15px -10px rgba(0, 0, 0, 0.5);
             isolation: isolate; touch-action: none;
-             background-image: linear-gradient(45deg, rgba(45, 55, 72, 0.5) 25%, rgba(74, 85, 104, 0.5) 25%, rgba(74, 85, 104, 0.5) 50%, rgba(45, 55, 72, 0.5) 50%, rgba(45, 55, 72, 0.5) 75%, rgba(74, 85, 104, 0.5) 75%, rgba(74, 85, 104, 0.5) 100%);
-             background-size: 40px 40px;
+              background-image: linear-gradient(45deg, rgba(45, 55, 72, 0.5) 25%, rgba(74, 85, 104, 0.5) 25%, rgba(74, 85, 104, 0.5) 50%, rgba(45, 55, 72, 0.5) 50%, rgba(45, 55, 72, 0.5) 75%, rgba(74, 85, 104, 0.5) 75%, rgba(74, 85, 104, 0.5) 100%);
+              background-size: 40px 40px;
         }
         .thumbnail img { opacity: 0; transition: opacity 0.3s ease-in-out; width: 100%; height: auto; display: block; border-radius: inherit; }
          .thumbnail img.loaded { opacity: 1; }
@@ -109,9 +88,9 @@
              box-shadow: -10px -10px 15px -10px var(--color1), 10px 10px 15px -10px var(--color2), 0 0 8px 2px rgba(255,255,255,0.2), 0 35px 25px -15px rgba(0, 0, 0, 0.6);
         }
         .thumbnail.holo-click-active {
-            transition: transform var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1);
-            transform: scale(1.05) !important;
-            box-shadow: -15px -15px 25px -15px var(--color1), 15px 15px 25px -15px var(--color2), 0 0 15px 5px rgba(255,255,255,0.4), 0 45px 30px -20px rgba(0, 0, 0, 0.7);
+             transition: transform var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1);
+             transform: scale(1.05) !important;
+             box-shadow: -15px -15px 25px -15px var(--color1), 15px 15px 25px -15px var(--color2), 0 0 15px 5px rgba(255,255,255,0.4), 0 45px 30px -20px rgba(0, 0, 0, 0.7);
         }
         .thumbnail:before, .thumbnail:after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; top: 0; background-repeat: no-repeat; mix-blend-mode: color-dodge; transition: opacity 0.2s ease-out, background-position 0.05s linear, filter 0.2s ease-out; pointer-events: none; border-radius: inherit; }
         .thumbnail:before { background-position: var(--thumb-gradient-pos-x, 50%) var(--thumb-gradient-pos-y, 50%); background-size: 250% 250%; background-image: linear-gradient(115deg, transparent 20%, var(--color1) 45%, var(--color2) 55%, transparent 80%); opacity: 0; filter: brightness(.8) contrast(1.2); z-index: 1; }
@@ -121,7 +100,8 @@
          .thumbnail.holo-active:after { transition: opacity 0.1s ease-out, background-position 0.05s linear, filter 0.1s ease-out; }
         .thumbnail.holo-click-active:after { opacity: 1 !important; background-position: 50% 50% !important; filter: brightness(1.3) contrast(1.3); transition: opacity calc(var(--click-effect-duration) * 0.8) ease-out, filter calc(var(--click-effect-duration) * 0.8) ease-out; }
 
-        /* Lightbox Holo Styles - Keep subtle rotation */
+        /* --- Lightbox Holo Styles --- */
+        /* (Keep existing holo styles) */
         .lightbox-image-container { perspective: 1500px; transform-style: preserve-3d; position: relative; overflow: hidden; border-radius: 0.25rem; isolation: isolate; transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; will-change: transform, box-shadow; cursor: pointer; }
         .lightbox-image-container.holo-active { transition: transform 0.05s linear, box-shadow 0.1s ease-out; box-shadow: -5px -5px 10px -5px var(--color1), 5px 5px 10px -5px var(--color2), 0 0 5px 1px rgba(255,255,255,0.1); }
         .lightbox-image-container:before, .lightbox-image-container:after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; top: 0; background-repeat: no-repeat; mix-blend-mode: color-dodge; transition: opacity 0.2s ease-out, background-position 0.05s linear, filter 0.2s ease-out; pointer-events: none; border-radius: inherit; }
@@ -131,10 +111,36 @@
          .lightbox-image-container.holo-active:after { transition: opacity 0.1s ease-out, background-position 0.05s linear, filter 0.1s ease-out; }
         /* --- End Holo Styles --- */
 
-        /* Lightbox Size Modifiers */
-        .lightbox-content.size-s .lightbox-image-container { max-height: 60vh; max-width: 60vw; }
-        .lightbox-content.size-m .lightbox-image-container { max-height: 75vh; max-width: 75vw; }
-        .lightbox-content.size-l .lightbox-image-container { max-height: 90vh; max-width: 90vw; } /* Default */
+        /* 1. Gallery Size CSS Classes */
+        .gallery-size-s { grid-template-columns: repeat(4, minmax(0, 1fr)); } /* Small: More columns */
+        .gallery-size-m { grid-template-columns: repeat(3, minmax(0, 1fr)); } /* Medium: Default */
+        .gallery-size-l { grid-template-columns: repeat(2, minmax(0, 1fr)); } /* Large: Fewer columns */
+        /* Add responsive breakpoints for gallery sizes */
+        @media (min-width: 640px) { /* sm */
+            .gallery-size-s { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+            .gallery-size-m { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .gallery-size-l { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (min-width: 768px) { /* md */
+            .gallery-size-s { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+            .gallery-size-m { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+            .gallery-size-l { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .gallery-size-s { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+            .gallery-size-m { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+            .gallery-size-l { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1280px) { /* xl */
+            .gallery-size-s { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+            .gallery-size-m { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+            .gallery-size-l { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
+         @media (min-width: 1536px) { /* 2xl - Added for potentially larger screens */
+            .gallery-size-s { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+            .gallery-size-m { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+            .gallery-size-l { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+        }
 
 
         /* Focus style */
@@ -151,7 +157,22 @@
         /* Lightbox Styling */
         .lightbox-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s; padding: 1rem; }
         .lightbox-overlay.visible { opacity: 1; visibility: visible; transition: opacity 0.3s ease; }
-        .lightbox-content { position: relative; background-color: #1a011f; padding: 1rem; border-radius: 0.5rem; /* Max size set by size class */ display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1); transition: max-width 0.3s ease, max-height 0.3s ease; }
+        .lightbox-content {
+            position: relative; background-color: #1a011f; padding: 1rem; border-radius: 0.5rem;
+            /* Default size (Medium) - will be overridden by classes */
+            max-width: 85vw; max-height: 85vh;
+            display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            transition: max-width 0.3s ease, max-height 0.3s ease; /* 1. Transition for size change */
+        }
+        /* 1. Lightbox Size CSS Classes */
+        .lightbox-size-s .lightbox-image-container, /* Apply size constraints */
+        .lightbox-size-s .lightbox-image { max-width: 60vw; max-height: 60vh; }
+        .lightbox-size-m .lightbox-image-container,
+        .lightbox-size-m .lightbox-image { max-width: 80vw; max-height: 80vh; }
+        .lightbox-size-l .lightbox-image-container,
+        .lightbox-size-l .lightbox-image { max-width: 95vw; max-height: 95vh; }
+
         .lightbox-image { max-width: 100%; max-height: 100%; object-fit: contain; display: block; border-radius: 0.25rem; position: relative; z-index: 1; }
         .lightbox-controls { position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between; transform: translateY(-50%); padding: 0 0.5rem; pointer-events: none; z-index: 10; }
         .lightbox-controls button { background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; font-size: 1.25rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s ease; pointer-events: all; }
@@ -165,14 +186,7 @@
         @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
         .hidden { display: none; }
 
-        /* Load More Button */
-        #load-more-button { display: block; margin: 1.5rem auto 0; padding: 0.6rem 1.5rem; background: linear-gradient(to bottom right, #5a0866, #3d0544); color: #e2e8f0; border: 2px solid #7e22ce; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
-        #load-more-button:hover { background: linear-gradient(to bottom right, #7e22ce, #5a0866); transform: translateY(-1px); box-shadow: 0 6px 15px rgba(0,0,0,0.5); }
-        #load-more-button:active { transform: translateY(0px); box-shadow: 0 3px 8px rgba(0,0,0,0.4); }
-        #load-more-button:disabled { opacity: 0.5; cursor: not-allowed; background: #3d0544; box-shadow: none; transform: none; }
-
         /* Audio Styles are now in theme.css */
-        /* Footer Style is now in theme.css */
 
     </style>
 </head>
@@ -184,44 +198,44 @@
 
         <div class="header-container">
              <div class="logo-container">
-                  <h1 class="title-glow">Pocket Previewer</h1>
+                 <h1 class='text-2xl font-bold text-red-600 title-glow'>Pocket Image Previewer</h1>
              </div>
              <div class="controls-container">
-                  <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
-                       <div>
-                            <label for="type-filter" class="filter-label">Type:</label>
-                            <select id="type-filter" name="type-filter" class="filter-select">
-                                 <option value="all">All Types</option>
-                            </select>
-                       </div>
-                       <div>
-                            <label for="rarity-filter" class="filter-label">
-                                 Rarity:
-                                 <img id="rarity-icon-display" src="" alt="" class="rarity-icon hidden">
-                            </label>
-                            <select id="rarity-filter" name="rarity-filter" class="filter-select">
-                                 <option value="all">All Rarities</option>
-                            </select>
-                       </div>
-                  </div>
-                   <div id="size-controls" class="flex flex-wrap items-center gap-y-2">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
-                        <div>
-                            <label for="thumb-size-slider" class="size-label">Thumbnails:</label>
-                            <input type="range" id="thumb-size-slider" name="thumb-size" min="0" max="2" step="1" value="1" class="size-slider w-20 align-middle">
-                            <span id="thumb-size-value" class="size-value ml-2">M</span>
-                       </div>
-                       <div>
-                            <label for="popup-size-slider" class="size-label">Popup:</label>
-                            <input type="range" id="popup-size-slider" name="popup-size" min="0" max="2" step="1" value="2" class="size-slider w-20 align-middle">
-                            <span id="popup-size-value" class="size-value ml-2">L</span>
-                       </div>
-                  </div>
-                  <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Folder:</h2>
-                       {/* Tabs generated here */}
-                  </div>
+                 <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
+                     <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
+                     <div>
+                         <label for="type-filter" class="filter-label">Type:</label>
+                         <select id="type-filter" name="type-filter" class="filter-select">
+                             <option value="all">All Types</option>
+                         </select>
+                     </div>
+                     <div>
+                         <label for="rarity-filter" class="filter-label">
+                             Rarity:
+                             <img id="rarity-icon-display" src="" alt="" class="rarity-icon hidden">
+                         </label>
+                         <select id="rarity-filter" name="rarity-filter" class="filter-select">
+                             <option value="all">All Rarities</option>
+                         </select>
+                     </div>
+                 </div>
+                 <div id="size-controls" class="flex flex-wrap items-center gap-y-2">
+                    <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
+                    <div class="size-control-group">
+                        <label for="gallery-size-slider" class="size-label">Gallery:</label>
+                        <input type="range" id="gallery-size-slider" name="gallery-size-slider" min="0" max="2" step="1" value="1" class="size-slider">
+                        <span id="gallery-size-display" class="size-display">M</span>
+                    </div>
+                     <div class="size-control-group">
+                         <label for="lightbox-size-slider" class="size-label">Popup:</label>
+                         <input type="range" id="lightbox-size-slider" name="lightbox-size-slider" min="0" max="2" step="1" value="1" class="size-slider">
+                         <span id="lightbox-size-display" class="size-display">M</span>
+                     </div>
+                 </div>
+                 <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center">
+                     <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Folder:</h2>
+                     {/* Tabs generated here */}
+                 </div>
              </div>
         </div>
 
@@ -229,20 +243,12 @@
         <div class="border-t pt-4 border-black">
             <div id="item-gallery" class="mt-6 grid gap-4 items-start" role="grid">
             </div>
-            <button id="load-more-button" class="hidden">Load More</button>
             <p id="empty-folder-message" class="text-center mt-4 hidden">No images match the current filters.</p>
         </div>
-
-         <footer class="footer">
-             <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
-             This is a fan site for testing image loading and previewing elements.
-             <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
-        </footer>
-
     </div>
 
     <div id="lightbox-overlay" class="lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-         <div class="lightbox-content size-l"> {/* Default to large size */}
+         <div class="lightbox-content">
             <button id="lightbox-close" class="lightbox-close" aria-label="Close image viewer"><i class="fas fa-times"></i></button>
             <div id="lightbox-image-container" class="lightbox-image-container">
                 <div id="lightbox-spinner" class="spinner hidden"></div>
@@ -257,7 +263,6 @@
     </div>
 
     <div id="audio-prompt" style="display: block;">Click anywhere to enable audio</div>
-
     <div id="audio-control-container" style="display: none;"> <span id="song-name"></span>
          <button id="play-pause-button" class="audio-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
          <button id="next-song-button" class="audio-button" aria-label="Next Song"><i class="fas fa-forward-step"></i></button>
@@ -276,14 +281,13 @@
         const RESOURCE_FOLDER = 'resources';
         const ICON_SUFFIX = '-icon';
         const IMAGE_EXT = '.png';
-        const IMAGES_PER_LOAD = 21; // Default images per load
-        const SIZE_MAP = ['S', 'M', 'L']; // Map slider values to labels
-        const THUMB_GRID_CLASSES = [ // Tailwind classes per size [S, M, L]
-             'grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8', // Small
-             'grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7', // Medium (Default)
-             'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'  // Large
-        ];
-        const POPUP_SIZE_CLASSES = ['size-s', 'size-m', 'size-l']; // CSS classes for lightbox size
+        // 1. Size Slider Config
+        const GALLERY_SIZE_KEY = 'galleryImageSizePref';
+        const LIGHTBOX_SIZE_KEY = 'lightboxImageSizePref';
+        const SIZE_MAP = { 0: 'S', 1: 'M', 2: 'L' };
+        const GALLERY_SIZE_CLASSES = { 0: 'gallery-size-s', 1: 'gallery-size-m', 2: 'gallery-size-l' };
+        const LIGHTBOX_SIZE_CLASSES = { 0: 'lightbox-size-s', 1: 'lightbox-size-m', 2: 'lightbox-size-l' };
+        const DEFAULT_SIZE = 1; // Medium
 
         // --- Elements ---
         const itemGallery = document.getElementById('item-gallery');
@@ -292,7 +296,6 @@
         const rarityFilterSelect = document.getElementById('rarity-filter');
         const rarityIconDisplay = document.getElementById('rarity-icon-display');
         const emptyFolderMessage = document.getElementById('empty-folder-message');
-        const loadMoreButton = document.getElementById('load-more-button');
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         const lightboxContent = lightboxOverlay.querySelector('.lightbox-content');
         const lightboxImageContainer = document.getElementById('lightbox-image-container');
@@ -302,28 +305,26 @@
         const lightboxNextBtn = document.getElementById('lightbox-next');
         const lightboxFilename = document.getElementById('lightbox-filename');
         const lightboxSpinner = document.getElementById('lightbox-spinner');
-        const thumbSizeSlider = document.getElementById('thumb-size-slider');
-        const thumbSizeValue = document.getElementById('thumb-size-value');
-        const popupSizeSlider = document.getElementById('popup-size-slider');
-        const popupSizeValue = document.getElementById('popup-size-value');
+        // 1. Size Slider Elements
+        const gallerySizeSlider = document.getElementById('gallery-size-slider');
+        const gallerySizeDisplay = document.getElementById('gallery-size-display');
+        const lightboxSizeSlider = document.getElementById('lightbox-size-slider');
+        const lightboxSizeDisplay = document.getElementById('lightbox-size-display');
         // Audio Elements are handled in audio.js
 
         // --- State ---
         let currentFolderObject = null;
-        let currentImageFiles = []; // Images for the lightbox sequence (currently visible batch)
+        let currentImageFiles = [];
         let currentImageIndex = -1;
         let focusableElements = [];
         let currentFocusIndex = 0;
         let activeHoloTimeout = null;
         let activeLightboxHoloTimeout = null;
-        let currentlyDisplayedImages = []; // FULL list of images matching current filters/tab
-        let currentlyRenderedCount = 0;
+        let currentlyDisplayedImages = [];
         let currentTypeFilter = 'all';
         let currentRarityFilter = 'all';
         let baseImageSet = [];
-        let currentThumbSizeIndex = 1; // Default M (index 1)
-        let currentPopupSizeIndex = 2; // Default L (index 2)
-        let lastScrollY = 0; // To store scroll position
+        let lastScrollY = 0; // 2. Variable to store scroll position
 
         // --- Data loaded from image_data.js ---
         let rootImageStructure = null;
@@ -340,38 +341,36 @@
              let currentNode = startNode;
              const searchParts = (rootName && parts[0] === rootName) ? parts.slice(1) : parts;
              for (const part of searchParts) {
-                  if (!currentNode.children || !Array.isArray(currentNode.children)) { console.error(`Node '${currentNode.name}' has no children.`); return null; }
-                 const nextNode = currentNode.children.find(child => child.type === 'folder' && child.name === part);
-                 if (!nextNode) { console.error(`Could not find folder part: ${part} in path ${pathString}`); return null; }
-                 currentNode = nextNode;
+                 if (!currentNode.children || !Array.isArray(currentNode.children)) { console.error(`Node '${currentNode.name}' has no children.`); return null; }
+                const nextNode = currentNode.children.find(child => child.type === 'folder' && child.name === part);
+                if (!nextNode) { console.error(`Could not find folder part: ${part} in path ${pathString}`); return null; }
+                currentNode = nextNode;
              }
              return currentNode;
          }
 
         /** Recursively collects all image file objects from a node */
         function getAllImageFilesRecursive(node) {
-            let files = [];
-            if (!node || !node.children) return files;
-            node.children.forEach(child => {
-                if (child.type === 'file') { files.push(child); }
-                else if (child.type === 'folder') { files = files.concat(getAllImageFilesRecursive(child)); }
-            });
-            // files.sort((a, b) => a.path.localeCompare(b.path)); // Optional sort
-            return files;
-        }
+             let files = [];
+             if (!node || !node.children) return files;
+             node.children.forEach(child => {
+                 if (child.type === 'file') { files.push(child); }
+                 else if (child.type === 'folder') { files = files.concat(getAllImageFilesRecursive(child)); }
+             });
+             // files.sort((a, b) => a.path.localeCompare(b.path)); // Optional sort
+             return files;
+         }
 
         /** Opens the lightbox */
         function openLightbox(imagePath) {
-            lastScrollY = window.scrollY; // Store scroll position
-            console.log("Stored scrollY:", lastScrollY);
-            // Use currentlyDisplayedImages (the full filtered list) for finding index
-            const index = currentlyDisplayedImages.findIndex(img => img.path === imagePath);
+            const index = currentImageFiles.findIndex(img => img.path === imagePath);
             if (index === -1) { console.error("Image path not found for lightbox:", imagePath); return; }
 
-            // Set lightbox sequence to the full filtered list
-            currentImageFiles = currentlyDisplayedImages;
-            currentImageIndex = index;
+            // 2. Store scroll position BEFORE opening
+            lastScrollY = window.scrollY;
+            console.log("[openLightbox] Stored scrollY:", lastScrollY);
 
+            currentImageIndex = index;
             const imageFile = currentImageFiles[currentImageIndex];
             resetLightboxHoloEffect();
             lightboxSpinner.classList.remove('hidden'); lightboxImage.classList.add('hidden');
@@ -380,32 +379,50 @@
             lightboxImage.onerror = () => { console.error("Error loading image in lightbox:", imageFile.path); lightboxSpinner.classList.add('hidden'); lightboxImage.classList.remove('hidden'); lightboxImage.src = mainPlaceholderUrl; lightboxImage.alt = `Error loading ${imageFile.name}`; lightboxFilename.textContent = `Error loading: ${imageFile.name}`; };
             lightboxImage.src = imageFile.path; lightboxImage.alt = `Preview of ${imageFile.name}`;
             lightboxFilename.textContent = imageFile.name;
-            // Apply popup size class
-            lightboxContent.classList.remove(...POPUP_SIZE_CLASSES); // Remove old size classes
-            lightboxContent.classList.add(POPUP_SIZE_CLASSES[currentPopupSizeIndex]); // Add current size class
+
+            // Apply current lightbox size class
+            applyLightboxSize(parseInt(lightboxSizeSlider.value)); // Ensure size class is set
+
             lightboxOverlay.classList.add('visible');
             lightboxOverlay.setAttribute('aria-hidden', 'false');
-            lightboxCloseBtn.focus();
-            updateLightboxControls(); highlightThumbnail(imageFile.path);
+            // Small delay before focus allows transition to start
+            setTimeout(() => lightboxCloseBtn.focus(), 50);
+            updateLightboxControls();
+            highlightThumbnail(imageFile.path);
+
             // Prevent body scroll while lightbox is open
-             document.body.style.overflow = 'hidden';
-         }
+            document.body.style.overflow = 'hidden';
+        }
 
         /** Closes the lightbox */
         function closeLightbox() {
              lightboxOverlay.classList.remove('visible');
-            lightboxOverlay.setAttribute('aria-hidden', 'true');
-             document.body.style.overflow = ''; // Restore body scroll
-            currentImageIndex = -1;
+             lightboxOverlay.setAttribute('aria-hidden', 'true');
+             currentImageIndex = -1;
              resetLightboxHoloEffect();
-             // Restore scroll position
-             console.log("Attempting to restore scrollY to:", lastScrollY);
-             requestAnimationFrame(() => {
-                 window.scrollTo(0, lastScrollY);
-                 const opener = itemGallery.querySelector(`.thumbnail[data-path='${currentImageFiles[currentImageIndex]?.path}']`) || (focusableElements[currentFocusIndex] ? focusableElements[currentFocusIndex] : null);
-                 if (opener) { setTimeout(() => opener.focus(), 0); }
-             });
-             unhighlightAllThumbnails();
+
+             // Restore body scroll
+             document.body.style.overflow = '';
+
+             // Try to focus the previously focused element
+             const previouslyFocused = focusableElements[currentFocusIndex];
+
+             unhighlightAllThumbnails(); // Unhighlight first
+
+             // 2. Restore scroll position AFTER unhighlighting and BEFORE focusing
+             console.log("[closeLightbox] Attempting to restore scrollY to:", lastScrollY);
+             window.scrollTo({ top: lastScrollY, behavior: 'instant' }); // Use instant to avoid smooth scroll interfering
+
+             // Use a minimal timeout to ensure scroll restoration happens before focus potentially triggers another scroll
+             setTimeout(() => {
+                if (previouslyFocused) {
+                    previouslyFocused.focus({ preventScroll: true }); // Attempt to prevent focus scroll jump
+                    console.log("[closeLightbox] Focused previous element:", previouslyFocused);
+                } else if (focusableElements.length > 0) {
+                    focusableElements[0].focus({ preventScroll: true }); // Fallback to first element
+                     console.log("[closeLightbox] Focused first gallery element as fallback.");
+                }
+             }, 0); // Minimal delay
          }
         /** Shows the next image in the lightbox */
         function showNextImage() { if (currentImageIndex < currentImageFiles.length - 1) { openLightbox(currentImageFiles[currentImageIndex + 1].path); } }
@@ -414,11 +431,11 @@
         /** Updates lightbox controls */
         function updateLightboxControls() {
              lightboxPrevBtn.disabled = currentImageIndex <= 0;
-            lightboxNextBtn.disabled = currentImageIndex >= currentImageFiles.length - 1;
-            lightboxPrevBtn.classList.toggle('opacity-50', lightboxPrevBtn.disabled);
-            lightboxPrevBtn.classList.toggle('cursor-not-allowed', lightboxPrevBtn.disabled);
-            lightboxNextBtn.classList.toggle('opacity-50', lightboxNextBtn.disabled);
-            lightboxNextBtn.classList.toggle('cursor-not-allowed', lightboxNextBtn.disabled);
+             lightboxNextBtn.disabled = currentImageIndex >= currentImageFiles.length - 1;
+             lightboxPrevBtn.classList.toggle('opacity-50', lightboxPrevBtn.disabled);
+             lightboxPrevBtn.classList.toggle('cursor-not-allowed', lightboxPrevBtn.disabled);
+             lightboxNextBtn.classList.toggle('opacity-50', lightboxNextBtn.disabled);
+             lightboxNextBtn.classList.toggle('cursor-not-allowed', lightboxNextBtn.disabled);
          }
         /** Highlights the thumbnail */
         function highlightThumbnail(imagePath) {
@@ -429,171 +446,200 @@
         /** Removes highlight from all thumbnails */
         function unhighlightAllThumbnails() { itemGallery.querySelectorAll('.thumbnail.selected-inline').forEach(el => { el.classList.remove('selected-inline'); }); }
 
-        /** Appends a batch of images to the gallery */
-        function appendImagesToGallery(imagesToAppend) {
-             console.log(`[appendImagesToGallery] Appending ${imagesToAppend.length} images.`);
-             imagesToAppend.forEach(image => {
+        /** Renders the gallery based on a list of image file objects */
+        function renderGalleryView(imagesToDisplay) {
+            console.log(`[renderGalleryView] Rendering gallery with ${imagesToDisplay?.length || 0} images.`);
+            itemGallery.innerHTML = ''; // Clear previous content
+            focusableElements = [];
+            currentlyDisplayedImages = imagesToDisplay || [];
+            currentImageFiles = currentlyDisplayedImages; // Update the list for lightbox nav
+
+            // 1. Apply the current gallery size class before adding items
+            applyGallerySize(parseInt(gallerySizeSlider.value));
+
+            let hasContent = currentlyDisplayedImages.length > 0;
+
+            currentlyDisplayedImages.forEach(image => {
                 const thumbnailContainer = document.createElement('div');
-                thumbnailContainer.className = 'thumbnail';
-                thumbnailContainer.setAttribute('tabindex', '0'); thumbnailContainer.setAttribute('role', 'button');
-                thumbnailContainer.dataset.path = image.path; thumbnailContainer.setAttribute('aria-label', `Image: ${image.name}`);
+                thumbnailContainer.className = 'thumbnail'; // Base class
+                thumbnailContainer.setAttribute('tabindex', '0');
+                thumbnailContainer.setAttribute('role', 'button');
+                thumbnailContainer.dataset.path = image.path;
+                thumbnailContainer.setAttribute('aria-label', `Image: ${image.name}`);
 
                 const img = document.createElement('img');
-                img.src = image.path; img.alt = `Thumbnail ${image.name}`;
-                img.className = 'w-full h-auto block pointer-events-none';
-                img.loading = 'lazy';
+                img.src = image.path;
+                img.alt = `Thumbnail ${image.name}`;
+                img.className = 'w-full h-auto block pointer-events-none'; // Tailwind classes for image display
+                img.loading = 'lazy'; // Enable lazy loading
 
                 img.onload = () => {
-                     img.classList.add('loaded');
+                     img.classList.add('loaded'); // Add class when loaded for fade-in
                      if (img.naturalWidth && img.naturalHeight) {
                           const aspectRatio = img.naturalWidth / img.naturalHeight;
-                          const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
-                          thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio);
-                          thumbnailContainer.style.borderRadius = `${5 * borderRadiusMultiplier}% / ${3.5 / borderRadiusMultiplier}%`;
+                          // Adjust border-radius based on aspect ratio for a card-like feel
+                          const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5); // Clamp multiplier
+                          thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio); // Store for CSS
+                          // Example: Use calc for dynamic border radius
+                          thumbnailContainer.style.borderRadius = `calc(var(--image-aspect-ratio, 0.75) * 5% / 3.5%)`;
                      } else {
+                          // Fallback if natural dimensions aren't available immediately
                            thumbnailContainer.style.borderRadius = `${5 * 0.75}% / ${3.5 / 0.75}%`;
                      }
                  };
                 img.onerror = function() {
                      const container = this.closest('.thumbnail');
-                    if (container) {
-                         container.innerHTML = `<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ${image.name}"></i></div>`;
-                        container.style.cursor = 'not-allowed';
-                        container.removeAttribute('tabindex'); container.removeAttribute('role');
-                        container.removeAttribute('data-path'); container.style.pointerEvents = 'none';
-                        console.warn(`Thumbnail failed to load: ${image.path}`);
-                        focusableElements = Array.from(itemGallery.querySelectorAll('.thumbnail[tabindex="0"]'));
-                    }
+                     if (container) {
+                          // Replace with an error indicator, e.g., an icon
+                           container.innerHTML = `<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ${image.name}"></i></div>`;
+                          container.style.cursor = 'not-allowed';
+                          // Make it non-interactive
+                          container.removeAttribute('tabindex');
+                          container.removeAttribute('role');
+                          container.removeAttribute('data-path');
+                          container.style.pointerEvents = 'none';
+                          console.warn(`Thumbnail failed to load: ${image.path}`);
+                           // Remove from focusable elements if it was added
+                           const erroredIndex = focusableElements.findIndex(el => el === container);
+                           if (erroredIndex > -1) {
+                               focusableElements.splice(erroredIndex, 1);
+                           }
+                     }
                  };
 
+                // Holo click activation logic
                 const activateThumbnail = (eventSourceElement) => {
                      const internalImg = eventSourceElement.querySelector('img');
-                    if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') && !eventSourceElement.classList.contains('holo-click-active')) {
-                        eventSourceElement.classList.add('holo-click-active');
-                        resetHoloEffect(eventSourceElement, false);
-                        setTimeout(() => {
-                            eventSourceElement.classList.remove('holo-click-active');
-                            currentImageFiles = currentlyDisplayedImages; // Ensure lightbox uses full list
-                            if (!lightboxOverlay.classList.contains('visible')) { openLightbox(image.path); }
-                        }, CLICK_EFFECT_DURATION_MS);
-                    }
+                     // Check if it's not an error placeholder and not already animating
+                     if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') && !eventSourceElement.classList.contains('holo-click-active')) {
+                          eventSourceElement.classList.add('holo-click-active');
+                          resetHoloEffect(eventSourceElement, false); // Keep transform during click animation
+                          // Open lightbox AFTER the click animation finishes
+                          setTimeout(() => {
+                              eventSourceElement.classList.remove('holo-click-active');
+                              // Only open if the lightbox isn't already somehow visible
+                              if (!lightboxOverlay.classList.contains('visible')) {
+                                  openLightbox(image.path);
+                              }
+                          }, CLICK_EFFECT_DURATION_MS);
+                     }
                  };
                 thumbnailContainer.addEventListener('click', () => activateThumbnail(thumbnailContainer));
-                thumbnailContainer.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { activateThumbnail(thumbnailContainer); } });
+                thumbnailContainer.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault(); // Prevent space bar scrolling
+                        activateThumbnail(thumbnailContainer);
+                    }
+                });
 
+                thumbnailContainer.appendChild(img);
                 itemGallery.appendChild(thumbnailContainer);
-                focusableElements.push(thumbnailContainer); // Add *after* appending
+                // Add to focusable elements only if it's not an error placeholder initially (though error handles removal later)
+                if (!thumbnailContainer.querySelector('.bg-gray-600')) {
+                    focusableElements.push(thumbnailContainer);
+                }
             });
+
+            emptyFolderMessage.classList.toggle('hidden', hasContent); // Show/hide empty message
+             // Reset focus index after rendering
+             currentFocusIndex = 0;
+             // Note: Do not auto-focus here, let user initiate focus or handle via keyboard nav
         }
 
-
-        /** Renders the next batch of images */
-        function renderNextBatch() {
-             console.log(`[renderNextBatch] Current count: ${currentlyRenderedCount}, Total available: ${currentlyDisplayedImages.length}`);
-             const startIndex = currentlyRenderedCount;
-             const endIndex = Math.min(startIndex + IMAGES_PER_LOAD, currentlyDisplayedImages.length);
-             const batch = currentlyDisplayedImages.slice(startIndex, endIndex);
-
-             if (startIndex === 0) { // Only clear if it's the first batch for this view
-                  console.log("[renderNextBatch] Rendering initial batch, clearing gallery.");
-                  itemGallery.innerHTML = '';
-                  focusableElements = [];
-             }
-
-              if (batch.length === 0 && startIndex === 0) {
-                  console.log("[renderNextBatch] No images match current filters.");
-                  emptyFolderMessage.classList.remove('hidden');
-                  loadMoreButton.classList.add('hidden');
-                  return;
-             } else {
-                  emptyFolderMessage.classList.add('hidden');
-             }
-
-             appendImagesToGallery(batch);
-             currentlyRenderedCount = endIndex;
-
-             if (currentlyRenderedCount >= currentlyDisplayedImages.length) {
-                  loadMoreButton.classList.add('hidden');
-                  console.log("[renderNextBatch] All images loaded.");
-             } else {
-                  loadMoreButton.classList.remove('hidden');
-                  console.log(`[renderNextBatch] ${currentlyDisplayedImages.length - currentlyRenderedCount} images remaining.`);
-             }
-        }
-
-
-        /** Applies current filters and triggers rendering the first batch */
+        /** Applies current filters and re-renders the gallery */
         function applyFiltersAndRender() {
              console.log(`[applyFiltersAndRender] Applying filters: Type='${currentTypeFilter}', Rarity='${currentRarityFilter}'`);
              console.log(`[applyFiltersAndRender] Base image set size: ${baseImageSet.length}`);
-             let filteredImages = [...baseImageSet];
+             let filteredImages = [...baseImageSet]; // Start with the current folder's images
 
+             // Apply type filter
              if (currentTypeFilter !== 'all') {
-                  filteredImages = filteredImages.filter(img => img.cardType === currentTypeFilter);
+                 filteredImages = filteredImages.filter(img => img.cardType === currentTypeFilter);
              }
+             // Apply rarity filter
              if (currentRarityFilter !== 'all') {
-                  filteredImages = filteredImages.filter(img => img.cardRarity === currentRarityFilter);
+                 filteredImages = filteredImages.filter(img => img.cardRarity === currentRarityFilter);
              }
-
-             currentlyDisplayedImages = filteredImages; // Store the FULL filtered list
-             currentlyRenderedCount = 0; // Reset rendered count for new filter/tab
-             console.log(`[applyFiltersAndRender] Total filtered images: ${currentlyDisplayedImages.length}`);
 
              // Update Rarity Icon Display
              if (rarityIconDisplay) {
-                  if (currentRarityFilter !== 'all') {
-                       const iconFileName = `${currentRarityFilter.replace(/\s+/g, '')}${ICON_SUFFIX}${IMAGE_EXT}`;
-                       const iconPath = `${RESOURCE_FOLDER}/${iconFileName}`;
-                       rarityIconDisplay.src = iconPath;
-                       rarityIconDisplay.alt = `${currentRarityFilter} icon`;
-                       rarityIconDisplay.classList.remove('hidden');
-                       rarityIconDisplay.onerror = function() { this.classList.add('hidden'); };
-                  } else {
-                       rarityIconDisplay.classList.add('hidden'); rarityIconDisplay.src = ''; rarityIconDisplay.alt = '';
-                  }
+                 if (currentRarityFilter !== 'all') {
+                     // Construct filename: Remove spaces, add suffix and extension
+                      const iconFileName = `${currentRarityFilter.replace(/\s+/g, '')}${ICON_SUFFIX}${IMAGE_EXT}`;
+                      const iconPath = `${RESOURCE_FOLDER}/${iconFileName}`;
+                      console.log("[applyFiltersAndRender] Setting rarity icon src:", iconPath);
+                      rarityIconDisplay.src = iconPath;
+                      rarityIconDisplay.alt = `${currentRarityFilter} icon`;
+                      rarityIconDisplay.classList.remove('hidden'); // Attempt to show it
+                      rarityIconDisplay.onerror = function() { // Use function to preserve 'this'
+                          console.warn(`[applyFiltersAndRender] Rarity icon not found or failed to load: ${this.src}`);
+                          this.classList.add('hidden'); // Hide if icon not found/error
+                          this.src = ''; // Clear src to prevent broken image icon
+                      };
+                 } else {
+                      // Hide icon if 'All Rarities' is selected
+                      rarityIconDisplay.classList.add('hidden');
+                      rarityIconDisplay.src = '';
+                      rarityIconDisplay.alt = '';
+                 }
+             } else {
+                 console.warn("[applyFiltersAndRender] rarityIconDisplay element not found.");
              }
 
-             renderNextBatch(); // Render the first batch (this will clear the gallery)
-        }
+
+             console.log(`[applyFiltersAndRender] Filtered images count: ${filteredImages.length}`);
+             renderGalleryView(filteredImages); // Render the filtered list
+         }
 
         /** Populates filter dropdowns */
         function populateFilters() {
              if (!filterConfig || !typeFilterSelect || !rarityFilterSelect) { console.error("[populateFilters] Cannot populate: Missing config or select elements."); return; }
              console.log("[populateFilters] Config:", filterConfig);
 
-             // Type Filter
+             // --- Type Filter ---
+             // Clear existing options except the first ('All Types')
              while (typeFilterSelect.options.length > 1) { typeFilterSelect.remove(1); }
+             // Populate from config
              (filterConfig.typeOrder || []).forEach(type => {
-                  const option = document.createElement('option'); option.value = type; option.textContent = type; typeFilterSelect.appendChild(option);
+                 const option = document.createElement('option');
+                 option.value = type; option.textContent = type;
+                 typeFilterSelect.appendChild(option);
              });
 
-             // Rarity Filter
+             // --- Rarity Filter ---
+             // Clear existing options except the first ('All Rarities')
              while (rarityFilterSelect.options.length > 1) { rarityFilterSelect.remove(1); }
+             // Populate from config
              (filterConfig.rarityOrder || []).forEach(rarity => {
-                  const option = document.createElement('option'); option.value = rarity; option.textContent = rarity; rarityFilterSelect.appendChild(option);
+                 const option = document.createElement('option');
+                 option.value = rarity; option.textContent = rarity;
+                 rarityFilterSelect.appendChild(option);
              });
-        }
+         }
 
 
         /** Renders the navigation tabs using the defined folder order and colors */
         function renderTabs() {
             if (!tabContainer || !rootImageStructure || !filterConfig || !filterConfig.folderOrder || !filterConfig.folderColors) {
-                 console.error("[renderTabs] Missing elements or config.");
-                 const label = tabContainer.querySelector('h2');
-                 tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label); return;
+                console.error("[renderTabs] Missing elements or config.");
+                const label = tabContainer.querySelector('h2'); // Preserve label if exists
+                tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label);
+                return;
             }
-            const label = tabContainer.querySelector('h2');
-            tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label);
+            const label = tabContainer.querySelector('h2'); // Preserve label
+            tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label); // Clear old tabs but keep label
 
             const availableFolders = rootImageStructure.children.filter(item => item.type === 'folder');
 
             // --- Create "All" tab ---
             const allTab = document.createElement('button');
-            allTab.className = 'tab active'; allTab.dataset.folderPath = 'all';
-            const allColor = filterConfig.folderColors['all'] || filterConfig.folderColors['default'] || '#6B7280';
+            allTab.className = 'tab active'; // Start with 'All' active
+            allTab.dataset.folderPath = 'all';
+            // Get color, provide fallbacks
+            const allColor = filterConfig.folderColors['all'] || filterConfig.folderColors['default'] || '#6B7280'; // Gray fallback
             allTab.style.setProperty('--tab-active-border-color', allColor);
-            allTab.style.setProperty('--tab-active-bg-color', hexToRgba(allColor, 0.3));
-            allTab.style.setProperty('--tab-active-text-color', lightenHexColor(allColor, 0.8));
+            allTab.style.setProperty('--tab-active-bg-color', hexToRgba(allColor, 0.3)); // Semi-transparent bg
+            allTab.style.setProperty('--tab-active-text-color', lightenHexColor(allColor, 0.8)); // Lighten for text
             const allTextSpan = document.createElement('span'); allTextSpan.textContent = 'All'; allTab.appendChild(allTextSpan);
             tabContainer.appendChild(allTab);
 
@@ -601,332 +647,512 @@
             const sortedFolders = availableFolders.sort((a, b) => {
                 const indexA = filterConfig.folderOrder.indexOf(a.name);
                 const indexB = filterConfig.folderOrder.indexOf(b.name);
-                const effectiveIndexA = indexA === -1 ? Infinity : indexA;
+                const effectiveIndexA = indexA === -1 ? Infinity : indexA; // Put folders not in order at the end
                 const effectiveIndexB = indexB === -1 ? Infinity : indexB;
-                if (effectiveIndexA !== effectiveIndexB) return effectiveIndexA - effectiveIndexB;
-                return a.name.localeCompare(b.name);
+                if (effectiveIndexA !== effectiveIndexB) return effectiveIndexA - effectiveIndexB; // Sort by order first
+                return a.name.localeCompare(b.name); // Then alphabetically
              });
 
             sortedFolders.forEach(folder => {
                 const folderTab = document.createElement('button');
                 folderTab.className = 'tab'; folderTab.dataset.folderPath = folder.path;
-                const tabColor = filterConfig.folderColors[folder.name] || filterConfig.folderColors['default'] || '#6B7280';
+                const tabColor = filterConfig.folderColors[folder.name] || filterConfig.folderColors['default'] || '#6B7280'; // Use folder color or default/fallback
                 folderTab.style.setProperty('--tab-active-border-color', tabColor);
                 folderTab.style.setProperty('--tab-active-bg-color', hexToRgba(tabColor, 0.3));
                 folderTab.style.setProperty('--tab-active-text-color', lightenHexColor(tabColor, 0.8));
                 const textSpan = document.createElement('span'); textSpan.textContent = folder.name; folderTab.appendChild(textSpan);
+                // Add icon logic here if needed later
                 tabContainer.appendChild(folderTab);
             });
 
-            // --- Add event listener ---
+            // --- Add event listener (only once) ---
             if (!tabContainer.dataset.listenerAttached) {
                  tabContainer.addEventListener('click', (e) => {
-                      const clickedTab = e.target.closest('.tab');
-                      if (clickedTab) {
-                           const path = clickedTab.dataset.folderPath;
-                           tabContainer.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                           clickedTab.classList.add('active');
+                     const clickedTab = e.target.closest('.tab');
+                     if (clickedTab && !clickedTab.classList.contains('active')) { // Only act if clicking a non-active tab
+                         const path = clickedTab.dataset.folderPath;
+                         // Update active state visuals
+                         tabContainer.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                         clickedTab.classList.add('active');
 
-                           if (path === 'all') {
-                                currentFolderObject = { path: 'all', type: 'all' };
-                                baseImageSet = getAllImageFilesRecursive(rootImageStructure);
-                           } else {
-                                const targetFolder = findFolderByPath(path, rootImageStructure);
-                                if (targetFolder) {
-                                     currentFolderObject = targetFolder;
-                                     baseImageSet = targetFolder.children.filter(item => item.type === 'file');
-                                } else {
-                                     console.error("[Tab Click] Could not find folder for path:", path);
-                                     displayError(`Error: Could not find folder '${path}'.`);
-                                     baseImageSet = [];
-                                }
-                           }
-                           applyFiltersAndRender(); // Re-apply filters and render first batch
-                      }
+                         // Update the base image set based on the selected folder
+                         if (path === 'all') {
+                             currentFolderObject = { path: 'all', type: 'all' }; // Special object for "All"
+                             baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                         } else {
+                             const targetFolder = findFolderByPath(path, rootImageStructure);
+                             if (targetFolder) {
+                                 currentFolderObject = targetFolder;
+                                 baseImageSet = targetFolder.children.filter(item => item.type === 'file'); // Only files directly in the folder
+                             } else {
+                                 console.error("[Tab Click] Could not find folder for path:", path);
+                                 displayError(`Error: Could not find folder '${path}'.`);
+                                 baseImageSet = []; // Clear images if folder not found
+                             }
+                         }
+                         applyFiltersAndRender(); // Re-apply filters to the new base set and render
+                     }
                  });
                  tabContainer.dataset.listenerAttached = 'true';
-            }
-        }
+             }
+         }
 
         /** Displays an error message */
         function displayError(message) {
              itemGallery.innerHTML = `<p class="text-red-500 col-span-full p-4 bg-red-100 border border-red-400 rounded">${message}</p>`;
              emptyFolderMessage.classList.add('hidden');
-             loadMoreButton.classList.add('hidden');
          }
         /** Handles keyboard navigation within the gallery */
         function handleGalleryKeyDown(e) {
-            if (focusableElements.length === 0 || lightboxOverlay.classList.contains('visible')) return;
-              const gridElement = document.getElementById('item-gallery');
-              const gridStyle = window.getComputedStyle(gridElement);
-              const gridCols = gridStyle.getPropertyValue('grid-template-columns').split(' ').length;
+            if (focusableElements.length === 0 || lightboxOverlay.classList.contains('visible')) return; // Ignore if lightbox open or no items
+
+             const gridElement = itemGallery; // Already have ref
+             const gridStyle = window.getComputedStyle(gridElement);
+             // Robustly get column count - handles fractional values/gaps etc.
+             const gridCols = gridStyle.getPropertyValue('grid-template-columns').split(' ').length;
+
              let nextFocusIndex = currentFocusIndex;
+
              switch (e.key) {
-                 case 'ArrowRight': nextFocusIndex = (currentFocusIndex + 1) % focusableElements.length; break;
-                 case 'ArrowLeft': nextFocusIndex = (currentFocusIndex - 1 + focusableElements.length) % focusableElements.length; break;
-                 case 'ArrowDown': nextFocusIndex = Math.min(currentFocusIndex + gridCols, focusableElements.length - 1); break;
-                 case 'ArrowUp': nextFocusIndex = Math.max(currentFocusIndex - gridCols, 0); break;
-                  case 'Home': nextFocusIndex = 0; break;
-                  case 'End': nextFocusIndex = focusableElements.length - 1; break;
-                 default: return;
+                 case 'ArrowRight':
+                      nextFocusIndex = (currentFocusIndex + 1) % focusableElements.length;
+                      break;
+                 case 'ArrowLeft':
+                      nextFocusIndex = (currentFocusIndex - 1 + focusableElements.length) % focusableElements.length;
+                      break;
+                 case 'ArrowDown':
+                      nextFocusIndex = Math.min(currentFocusIndex + gridCols, focusableElements.length - 1);
+                      break;
+                 case 'ArrowUp':
+                      nextFocusIndex = Math.max(currentFocusIndex - gridCols, 0);
+                      break;
+                  case 'Home':
+                       nextFocusIndex = 0;
+                       break;
+                  case 'End':
+                       nextFocusIndex = focusableElements.length - 1;
+                       break;
+                  // Allow Enter/Space to be handled by the thumbnail's own listener
+                 // case 'Enter':
+                 // case ' ':
+                 //     if (focusableElements[currentFocusIndex]) {
+                 //         focusableElements[currentFocusIndex].click(); // Or call activateThumbnail
+                 //     }
+                 //     break;
+                 default:
+                      return; // Exit if key is not handled
              }
-             if (nextFocusIndex !== currentFocusIndex && nextFocusIndex < focusableElements.length) {
-                 e.preventDefault();
+
+             if (nextFocusIndex !== currentFocusIndex) {
+                 e.preventDefault(); // Prevent default arrow key scrolling
                  currentFocusIndex = nextFocusIndex;
-                 focusableElements[currentFocusIndex].focus();
+                 if (focusableElements[currentFocusIndex]) {
+                     focusableElements[currentFocusIndex].focus(); // Focus the new element
+                 }
              }
          }
         /** Handles keyboard events when the lightbox is open */
         function handleLightboxKeyDown(e) {
-              if (!lightboxOverlay.classList.contains('visible')) return;
+             if (!lightboxOverlay.classList.contains('visible')) return; // Should not happen, but safety check
+
              switch (e.key) {
-                 case 'Escape': closeLightbox(); break;
-                 case 'ArrowRight': if (!lightboxNextBtn.disabled) showNextImage(); break;
-                 case 'ArrowLeft': if (!lightboxPrevBtn.disabled) showPrevImage(); break;
+                 case 'Escape':
+                      closeLightbox();
+                      break;
+                 case 'ArrowRight':
+                      if (!lightboxNextBtn.disabled) showNextImage();
+                      break;
+                 case 'ArrowLeft':
+                      if (!lightboxPrevBtn.disabled) showPrevImage();
+                      break;
+                 // Add Home/End for lightbox? Optional.
+                 // case 'Home': showFirstImage(); break; // Need showFirstImage()
+                 // case 'End': showLastImage(); break; // Need showLastImage()
              }
          }
 
         // --- Thumbnail Holo Effect Logic ---
+        // (Keep existing functions: applyHoloListeners, handleHoloMove, handleHoloEnd, resetHoloEffect)
         function applyHoloListeners(containerSelector) {
-             const container = document.querySelector(containerSelector);
+            const container = document.querySelector(containerSelector);
             if (!container) return;
-            container.addEventListener('mousemove', handleHoloMove);
-            container.addEventListener('touchmove', handleHoloMove, { passive: false });
-            container.addEventListener('mouseout', handleHoloEnd);
-            container.addEventListener('touchend', handleHoloEnd);
-            container.addEventListener('touchcancel', handleHoloEnd);
-         }
+            container.addEventListener('pointermove', handleHoloMove); // Use pointermove for unified mouse/touch
+            container.addEventListener('pointerleave', handleHoloEnd); // Use pointerleave
+        }
         function handleHoloMove(e) {
+             if (e.pointerType === 'touch') return; // Let touch events be handled by click/tap
+
              const target = e.target.closest('.thumbnail');
-            if (!target || target.classList.contains('holo-click-active')) {
+             // Ignore if not on a valid thumb, or if click animation is active
+             if (!target || target.classList.contains('holo-click-active') || target.querySelector('.bg-gray-600')) {
                  const lastActive = itemGallery.querySelector('.thumbnail.holo-active');
-                 if(lastActive && !lastActive.classList.contains('holo-click-active')) resetHoloEffect(lastActive);
+                 // Reset any other active holo effect if mouse moved off it
+                 if(lastActive && !lastActive.classList.contains('holo-click-active')) {
+                    resetHoloEffect(lastActive);
+                 }
                  return;
-            }
-            const currentlyActive = itemGallery.querySelector('.thumbnail.holo-active');
-            if(currentlyActive && currentlyActive !== target) { resetHoloEffect(currentlyActive); }
-            const rect = target.getBoundingClientRect(); let clientX, clientY;
-            if (e.type === "touchmove") { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; e.preventDefault(); }
-            else { clientX = e.clientX; clientY = e.clientY; }
-            const offsetX = clientX - rect.left; const offsetY = clientY - rect.top;
-            const w = target.offsetWidth; const h = target.offsetHeight;
-            const px = Math.abs(Math.floor(100 / w * offsetX) - 100); const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
-            const pa = (50 - px) + (50 - py);
-            const lp = (50 + (px - 50) / 1.5); const tp = (50 + (py - 50) / 1.5);
-            const px_spark = (50 + (px - 50) / 7); const py_spark = (50 + (py - 50) / 7);
-            const p_opc = Math.min(Math.max(20 + (Math.abs(pa) * 1.5), 20), 90);
-            // Rotation removed for cleaner hover
-            target.classList.add('holo-active');
-            target.style.setProperty('--thumb-gradient-pos-x', `${lp}%`); target.style.setProperty('--thumb-gradient-pos-y', `${tp}%`);
-            target.style.setProperty('--thumb-sparkle-pos-x', `${px_spark}%`); target.style.setProperty('--thumb-sparkle-pos-y', `${py_spark}%`);
-            target.style.setProperty('--thumb-sparkle-opacity', p_opc / 100);
-            clearTimeout(activeHoloTimeout);
+             }
+
+             // If moving onto a new target, reset the old one
+             const currentlyActive = itemGallery.querySelector('.thumbnail.holo-active');
+             if(currentlyActive && currentlyActive !== target && !currentlyActive.classList.contains('holo-click-active')) {
+                resetHoloEffect(currentlyActive);
+             }
+
+             const rect = target.getBoundingClientRect();
+             const clientX = e.clientX; const clientY = e.clientY;
+
+             const offsetX = clientX - rect.left; const offsetY = clientY - rect.top;
+             const w = target.offsetWidth; const h = target.offsetHeight;
+             if (w === 0 || h === 0) return; // Avoid division by zero
+
+             const px = Math.abs(Math.floor(100 / w * offsetX) - 100);
+             const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
+             const pa = (50 - px) + (50 - py); // Angle calculation for brightness/opacity
+
+             // Calculate positions for gradient and sparkles
+             const lp = (50 + (px - 50) / 1.5); // Gradient X
+             const tp = (50 + (py - 50) / 1.5); // Gradient Y
+             const px_spark = (50 + (px - 50) / 7); // Sparkle X
+             const py_spark = (50 + (py - 50) / 7); // Sparkle Y
+             const p_opc = Math.min(Math.max(20 + (Math.abs(pa) * 1.5), 20), 90); // Sparkle opacity
+
+             target.classList.add('holo-active'); // Activate effect class
+
+             // Apply CSS variables
+             target.style.setProperty('--thumb-gradient-pos-x', `${lp}%`);
+             target.style.setProperty('--thumb-gradient-pos-y', `${tp}%`);
+             target.style.setProperty('--thumb-sparkle-pos-x', `${px_spark}%`);
+             target.style.setProperty('--thumb-sparkle-pos-y', `${py_spark}%`);
+             target.style.setProperty('--thumb-sparkle-opacity', p_opc / 100);
+
+             clearTimeout(activeHoloTimeout); // Prevent accidental reset if mouse pauses briefly
          }
         function handleHoloEnd(e) {
-              const target = e.target.closest('.thumbnail');
-             if (target && target.classList.contains('holo-active') && !target.classList.contains('holo-click-active')) {
-                  resetHoloEffect(target);
-             } else {
-                  const currentlyActive = itemGallery.querySelector('.thumbnail.holo-active');
-                  if (currentlyActive && !currentlyActive.classList.contains('holo-click-active')) {
-                       resetHoloEffect(currentlyActive);
-                  }
-             }
+            const target = e.target.closest('.thumbnail');
+            // Check if the element still exists and has the holo effect active (and not click-active)
+            if (target && target.classList.contains('holo-active') && !target.classList.contains('holo-click-active')) {
+                 // Use a small delay to prevent flickering if mouse quickly re-enters
+                 activeHoloTimeout = setTimeout(() => {
+                     resetHoloEffect(target);
+                 }, 50); // 50ms delay
+            } else {
+                // If pointer leaves the container entirely, reset any lingering active holo
+                const currentlyActive = itemGallery.querySelector('.thumbnail.holo-active:not(.holo-click-active)');
+                if (currentlyActive) {
+                     resetHoloEffect(currentlyActive);
+                }
+            }
          }
         function resetHoloEffect(element, resetTransform = true) {
-              element.classList.remove('holo-active');
+             element.classList.remove('holo-active');
+             // Only reset transform if specified AND click animation isn't happening
              if (resetTransform && !element.classList.contains('holo-click-active')) {
-                  element.style.transform = 'scale(1)'; // Reset scale
+                  element.style.transform = ''; // Reset transform (scale is handled by class removal)
              }
-             element.style.removeProperty('--thumb-gradient-pos-x'); element.style.removeProperty('--thumb-gradient-pos-y');
-             element.style.removeProperty('--thumb-sparkle-pos-x'); element.style.removeProperty('--thumb-sparkle-pos-y');
+             // Remove the inline style variables
+             element.style.removeProperty('--thumb-gradient-pos-x');
+             element.style.removeProperty('--thumb-gradient-pos-y');
+             element.style.removeProperty('--thumb-sparkle-pos-x');
+             element.style.removeProperty('--thumb-sparkle-pos-y');
              element.style.removeProperty('--thumb-sparkle-opacity');
          }
 
+
         // --- Lightbox Holo Effect Logic ---
+        // (Keep existing functions: applyLightboxHoloListeners, handleLightboxHoloMove, handleLightboxHoloEnd, resetLightboxHoloEffect)
         function applyLightboxHoloListeners(containerElement) {
-              if (!containerElement) { console.warn("Lightbox container not found for holo listeners."); return; } // Added check
-             containerElement.addEventListener('mousemove', handleLightboxHoloMove);
-             containerElement.addEventListener('touchmove', handleLightboxHoloMove, { passive: false });
-             containerElement.addEventListener('mouseleave', handleLightboxHoloEnd);
-             containerElement.addEventListener('touchend', handleLightboxHoloEnd);
-             containerElement.addEventListener('touchcancel', handleLightboxHoloEnd);
+            if (!containerElement) return;
+             // Use pointer events for consistency
+            containerElement.addEventListener('pointermove', handleLightboxHoloMove);
+            containerElement.addEventListener('pointerleave', handleLightboxHoloEnd);
          }
         function handleLightboxHoloMove(e) {
-             const target = lightboxImageContainer;
+            // Ignore touch scrolling on the image itself
+             if (e.pointerType === 'touch') return;
+
+            const target = lightboxImageContainer; // The container has the effect
             if (!target || !lightboxOverlay.classList.contains('visible')) return;
-            const relatedTarget = e.relatedTarget || e.target;
-            // Check if hovering over controls or the image itself (which is inside the container)
-            if (relatedTarget && (relatedTarget.closest('.lightbox-controls') || relatedTarget.closest('.lightbox-close') || relatedTarget === lightboxImage)) {
-                 if (target.classList.contains('holo-active')) { resetLightboxHoloEffect(); }
-                 return;
+
+            // Check if hovering over controls, if so, disable effect
+            const relatedTarget = e.target; // Target of the event itself
+            if (relatedTarget && (relatedTarget.closest('.lightbox-controls') || relatedTarget.closest('.lightbox-close'))) {
+                if (target.classList.contains('holo-active')) { resetLightboxHoloEffect(); }
+                return; // Do nothing if pointer is over controls
             }
-            const rect = target.getBoundingClientRect(); let clientX, clientY;
-            if (e.type === "touchmove") { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; e.preventDefault(); }
-            else { clientX = e.clientX; clientY = e.clientY; }
+
+            const rect = target.getBoundingClientRect();
+            const clientX = e.clientX; const clientY = e.clientY;
+
             const offsetX = clientX - rect.left; const offsetY = clientY - rect.top;
             const w = target.offsetWidth; const h = target.offsetHeight;
-            if (w === 0 || h === 0) return;
-            const px = Math.abs(Math.floor(100 / w * offsetX) - 100); const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
+            if (w === 0 || h === 0) return; // Avoid errors if element has no size
+
+            const px = Math.abs(Math.floor(100 / w * offsetX) - 100);
+            const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
             const pa = (50 - px) + (50 - py);
-            const lp = (50 + (px - 50) / 1.8); const tp = (50 + (py - 50) / 1.8);
-            const px_spark = (50 + (px - 50) / 8); const py_spark = (50 + (py - 50) / 8);
-            const p_opc = Math.min(Math.max(15 + (Math.abs(pa) * 1.2), 15), 75);
-            const ty = ((tp - 50) / 2.5) * -1; const tx = ((lp - 50) / 2.0) * 0.4;
-            target.classList.add('holo-active');
-            target.style.transform = `rotateX(${ty}deg) rotateY(${tx}deg)`;
-            target.style.setProperty('--lb-gradient-pos-x', `${lp}%`); target.style.setProperty('--lb-gradient-pos-y', `${tp}%`);
-            target.style.setProperty('--lb-sparkle-pos-x', `${px_spark}%`); target.style.setProperty('--lb-sparkle-pos-y', `${py_spark}%`);
+
+            // Calculate positions for gradient and sparkles (slightly different factors for lightbox)
+            const lp = (50 + (px - 50) / 1.8); // Gradient X
+            const tp = (50 + (py - 50) / 1.8); // Gradient Y
+            const px_spark = (50 + (px - 50) / 8); // Sparkle X
+            const py_spark = (50 + (py - 50) / 8); // Sparkle Y
+            const p_opc = Math.min(Math.max(15 + (Math.abs(pa) * 1.2), 15), 75); // Sparkle opacity (subtler range)
+
+            // Calculate subtle rotation based on position
+            const ty = ((tp - 50) / 2.5) * -1; // RotateX
+            const tx = ((lp - 50) / 2.0) * 0.4; // RotateY (less rotation)
+
+            target.classList.add('holo-active'); // Activate effect
+            target.style.transform = `rotateX(${ty}deg) rotateY(${tx}deg)`; // Apply rotation
+
+            // Apply CSS variables for gradients/sparkles
+            target.style.setProperty('--lb-gradient-pos-x', `${lp}%`);
+            target.style.setProperty('--lb-gradient-pos-y', `${tp}%`);
+            target.style.setProperty('--lb-sparkle-pos-x', `${px_spark}%`);
+            target.style.setProperty('--lb-sparkle-pos-y', `${py_spark}%`);
             target.style.setProperty('--lb-sparkle-opacity', p_opc / 100);
-            clearTimeout(activeLightboxHoloTimeout);
+
+            clearTimeout(activeLightboxHoloTimeout); // Prevent timeout reset
          }
         function handleLightboxHoloEnd(e) {
-              const relatedTarget = e.relatedTarget;
-             if (relatedTarget && lightboxImageContainer.contains(relatedTarget) && relatedTarget !== lightboxImageContainer) { return; } // Don't hide if moving to child
-            if (lightboxImageContainer.classList.contains('holo-active')) { resetLightboxHoloEffect(); }
+             // Ensure the pointer truly left the container, not just moved onto a child element like the image itself
+             const relatedTarget = e.relatedTarget;
+             if (relatedTarget && lightboxImageContainer.contains(relatedTarget)) {
+                 // Pointer is still inside the holo container (e.g., moved from container edge to image center)
+                 return;
+             }
+             // If the effect is active, reset it with a slight delay
+            if (lightboxImageContainer.classList.contains('holo-active')) {
+                 activeLightboxHoloTimeout = setTimeout(() => {
+                     resetLightboxHoloEffect();
+                 }, 50); // 50ms delay
+            }
          }
         function resetLightboxHoloEffect() {
              const target = lightboxImageContainer;
-             if (!target) return; // Add check
-            target.classList.remove('holo-active');
-            target.style.transform = '';
-            target.style.removeProperty('--lb-gradient-pos-x'); target.style.removeProperty('--lb-gradient-pos-y');
-            target.style.removeProperty('--lb-sparkle-pos-x'); target.style.removeProperty('--lb-sparkle-pos-y');
-            target.style.removeProperty('--lb-sparkle-opacity');
-            target.style.removeProperty('box-shadow');
+             target.classList.remove('holo-active');
+             // Reset transform and remove CSS variables
+             target.style.transform = '';
+             target.style.removeProperty('--lb-gradient-pos-x');
+             target.style.removeProperty('--lb-gradient-pos-y');
+             target.style.removeProperty('--lb-sparkle-pos-x');
+             target.style.removeProperty('--lb-sparkle-pos-y');
+             target.style.removeProperty('--lb-sparkle-opacity');
+             target.style.removeProperty('box-shadow'); // Also reset base box-shadow if needed
          }
 
         // --- Helper Functions for Color Manipulation ---
+        // (Keep existing functions: hexToRgba, lightenHexColor)
         function hexToRgba(hex, alpha = 1) {
-            hex = hex.replace('#', '');
-            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            const bigint = parseInt(hex, 16);
-            if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
-            const r = (bigint >> 16) & 255;
-            const g = (bigint >> 8) & 255;
-            const b = bigint & 255;
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-        function lightenHexColor(hex, percent) {
              hex = hex.replace('#', '');
-             if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-             const num = parseInt(hex, 16);
-             if (isNaN(num)) return '#FFFFFF';
-             const amt = Math.max(-255, Math.min(255, Math.round(2.55 * percent * 100)));
-             let r = (num >> 16) + amt;
-             let g = ((num >> 8) & 0x00FF) + amt;
-             let b = (num & 0x0000FF) + amt;
-             r = Math.max(0, Math.min(255, r));
-             g = Math.max(0, Math.min(255, g));
-             b = Math.max(0, Math.min(255, b));
-             const originalLuminance = (0.2126 * ((num >> 16)/255) + 0.7152 * (((num >> 8) & 0x00FF)/255) + 0.0722 * ((num & 0x0000FF)/255));
-             if (originalLuminance < 0.4 && percent > 0) {
-                  const minLightness = 180;
-                  r = Math.max(r, minLightness);
-                  g = Math.max(g, minLightness);
-                  b = Math.max(b, minLightness);
+             // Handle shorthand hex (e.g., #03F)
+             if (hex.length === 3) { hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]; }
+             const bigint = parseInt(hex, 16);
+             // Fallback for invalid hex
+             if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`; // Default gray
+             // Extract R, G, B
+             const r = (bigint >> 16) & 255;
+             const g = (bigint >> 8) & 255;
+             const b = bigint & 255;
+             return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+         }
+        function lightenHexColor(hex, percent) {
+              hex = hex.replace('#', '');
+              if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+              const num = parseInt(hex, 16);
+              if (isNaN(num)) return '#FFFFFF'; // Fallback for invalid hex
+
+              // Calculate amount to lighten/darken (positive percent lightens)
+              // Ensure amt is within -255 to 255
+              const amt = Math.max(-255, Math.min(255, Math.round(2.55 * percent * 100)));
+
+              let r = (num >> 16) + amt;
+              let g = ((num >> 8) & 0x00FF) + amt;
+              let b = (num & 0x0000FF) + amt;
+
+              // Clamp values to 0-255 range
+              r = Math.max(0, Math.min(255, r));
+              g = Math.max(0, Math.min(255, g));
+              b = Math.max(0, Math.min(255, b));
+
+             // --- Accessibility Improvement ---
+             // Calculate perceived luminance (simple approximation)
+             // Formula: L = 0.2126 * R + 0.7152 * G + 0.0722 * B
+             // Normalize RGB to 0-1 range first
+             const originalLuminance = (
+                 0.2126 * ((num >> 16) / 255) +
+                 0.7152 * (((num >> 8) & 0x00FF) / 255) +
+                 0.0722 * ((num & 0x0000FF) / 255)
+             );
+
+             // If original color is dark and we are lightening, ensure minimum brightness for readability
+             if (originalLuminance < 0.4 && percent > 0) { // 0.4 is a threshold, adjust if needed
+                 const minLightness = 180; // Minimum R, G, B value (out of 255)
+                 r = Math.max(r, minLightness);
+                 g = Math.max(g, minLightness);
+                 b = Math.max(b, minLightness);
+                  // Recalculate final color string after potential adjustment
              }
-             return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+             // --- End Accessibility Improvement ---
+
+
+              // Convert back to hex, ensuring 6 digits with padding
+              const finalHex = (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+              return `#${finalHex}`;
+          }
+
+
+        // --- 1. Size Slider Functions ---
+        /** Applies the selected gallery size class */
+        function applyGallerySize(value) {
+            if (!itemGallery) return;
+            const sizeValue = parseInt(value);
+            // Remove old size classes
+            Object.values(GALLERY_SIZE_CLASSES).forEach(cls => itemGallery.classList.remove(cls));
+            // Add the new class
+            const newClass = GALLERY_SIZE_CLASSES[sizeValue];
+            if (newClass) {
+                itemGallery.classList.add(newClass);
+                console.log(`[applyGallerySize] Applied class: ${newClass}`);
+            } else {
+                itemGallery.classList.add(GALLERY_SIZE_CLASSES[DEFAULT_SIZE]); // Fallback
+                console.warn(`[applyGallerySize] Invalid size value ${value}, applied default.`);
+            }
+            // Update the text display (S/M/L)
+            if (gallerySizeDisplay) gallerySizeDisplay.textContent = SIZE_MAP[sizeValue] || SIZE_MAP[DEFAULT_SIZE];
         }
+
+        /** Applies the selected lightbox size class */
+        function applyLightboxSize(value) {
+            if (!lightboxContent) return;
+             const sizeValue = parseInt(value);
+             // Remove old classes from the content div
+             Object.values(LIGHTBOX_SIZE_CLASSES).forEach(cls => lightboxContent.classList.remove(cls));
+             // Add the new class
+             const newClass = LIGHTBOX_SIZE_CLASSES[sizeValue];
+             if (newClass) {
+                 lightboxContent.classList.add(newClass);
+                 console.log(`[applyLightboxSize] Applied class: ${newClass}`);
+             } else {
+                 lightboxContent.classList.add(LIGHTBOX_SIZE_CLASSES[DEFAULT_SIZE]); // Fallback
+                 console.warn(`[applyLightboxSize] Invalid size value ${value}, applied default.`);
+             }
+             // Update the text display (S/M/L)
+             if (lightboxSizeDisplay) lightboxSizeDisplay.textContent = SIZE_MAP[sizeValue] || SIZE_MAP[DEFAULT_SIZE];
+         }
 
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-             console.log("[Init] DOM Loaded. Checking for imageData...");
-             // Corrected check for the loaded data structure
-             if (typeof imageData === 'undefined' || typeof imageData.imageStructure !== 'object' || typeof imageData.filterConfig !== 'object') {
-                 console.error("[Init] ERROR: 'imageData' object (with .imageStructure and .filterConfig) is missing or invalid in image_data.js.");
-                 displayError(`Configuration Error! Please run 'npm run build:images' and ensure 'image_data.js' is generated correctly with both 'imageStructure' and 'filterConfig' keys.`);
+            console.log("[Init] DOM Loaded. Checking for imageStructure data...");
+            if (typeof imageStructure === 'undefined' || !imageStructure.imageStructure || !imageStructure.filterConfig) {
+                console.error("[Init] ERROR: 'imageStructure' object missing or invalid.");
+                 displayError(`Configuration Error! Please ensure 'image_data.js' exists and is correctly generated (e.g., run 'npm run build:images').`);
+                 // Disable controls if data is missing
+                 [typeFilterSelect, rarityFilterSelect, gallerySizeSlider, lightboxSizeSlider].forEach(el => el && (el.disabled = true));
+                return;
+            }
+            console.log("[Init] imageStructure data found:", imageStructure);
+            rootImageStructure = imageStructure.imageStructure;
+            filterConfig = imageStructure.filterConfig;
+
+            if (!rootImageStructure || !rootImageStructure.path || !filterConfig.rarityOrder) {
+                 console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
+                 displayError(`Configuration Error! Data loaded from image_data.js is incomplete or malformed.`);
+                  // Disable controls
+                  [typeFilterSelect, rarityFilterSelect, gallerySizeSlider, lightboxSizeSlider].forEach(el => el && (el.disabled = true));
                  return;
              }
-             console.log("[Init] imageData found:", imageData);
-             rootImageStructure = imageData.imageStructure;
-             filterConfig = imageData.filterConfig;
 
-             if (!rootImageStructure || !rootImageStructure.path || !filterConfig.rarityOrder) {
-                  console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
-                  displayError(`Configuration Error! Data loaded from image_data.js is incomplete.`);
-                  return;
-             }
+            // Populate dynamic elements
+            populateFilters();
+            renderTabs(); // Also sets the initial active tab and baseImageSet
 
-             populateFilters();
-             renderTabs();
+            // 1. Initialize Sliders from localStorage or defaults
+            const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_SIZE.toString();
+            const savedLightboxSize = localStorage.getItem(LIGHTBOX_SIZE_KEY) || DEFAULT_SIZE.toString();
 
-             // --- Size Slider Initialization ---
-             const savedThumbSize = localStorage.getItem('thumbnailSizeIndex');
-             const savedPopupSize = localStorage.getItem('popupSizeIndex');
-             currentThumbSizeIndex = savedThumbSize !== null ? parseInt(savedThumbSize, 10) : 1;
-             currentPopupSizeIndex = savedPopupSize !== null ? parseInt(savedPopupSize, 10) : 2;
+            gallerySizeSlider.value = savedGallerySize;
+            lightboxSizeSlider.value = savedLightboxSize;
 
-             thumbSizeSlider.value = currentThumbSizeIndex;
-             popupSizeSlider.value = currentPopupSizeIndex;
-             thumbSizeValue.textContent = SIZE_MAP[currentThumbSizeIndex];
-             popupSizeValue.textContent = SIZE_MAP[currentPopupSizeIndex];
-             updateGalleryGridClass();
-             // Apply initial popup size class
-             lightboxContent.classList.remove(...POPUP_SIZE_CLASSES);
-             lightboxContent.classList.add(POPUP_SIZE_CLASSES[currentPopupSizeIndex]);
+            applyGallerySize(parseInt(savedGallerySize)); // Apply initial gallery size
+            applyLightboxSize(parseInt(savedLightboxSize)); // Apply initial lightbox size
+
+            // Set initial base image set based on the initially active tab (should be 'All')
+            const initialActiveTab = tabContainer.querySelector('.tab.active');
+            if (initialActiveTab && initialActiveTab.dataset.folderPath === 'all') {
+                 baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                 currentFolderObject = { path: 'all', type: 'all' };
+            } else if (initialActiveTab) { // Handle case where a specific folder might somehow be default active
+                 const initialPath = initialActiveTab.dataset.folderPath;
+                 const targetFolder = findFolderByPath(initialPath, rootImageStructure);
+                 if (targetFolder) {
+                     currentFolderObject = targetFolder;
+                     baseImageSet = targetFolder.children.filter(item => item.type === 'file');
+                 } else { // Fallback to 'All' if initial tab folder not found
+                     baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                     currentFolderObject = { path: 'all', type: 'all' };
+                     // Optionally update tab visual back to 'All'
+                     tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                     tabContainer.querySelector('.tab[data-folder-path="all"]')?.classList.add('active');
+                 }
+            } else { // Absolute fallback if no active tab found
+                 baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                 currentFolderObject = { path: 'all', type: 'all' };
+            }
 
 
-             // --- Size Slider Event Listeners ---
-             thumbSizeSlider.addEventListener('input', (e) => {
-                  const newIndex = parseInt(e.target.value, 10);
-                  currentThumbSizeIndex = newIndex;
-                  thumbSizeValue.textContent = SIZE_MAP[newIndex];
-                  localStorage.setItem('thumbnailSizeIndex', newIndex);
-                  updateGalleryGridClass();
+            console.log("[Init] Initial base image set size:", baseImageSet.length);
+            applyFiltersAndRender(); // Initial render based on filters and the initial base set
+
+            // --- Event Listeners ---
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+            lightboxPrevBtn.addEventListener('click', showPrevImage);
+            lightboxNextBtn.addEventListener('click', showNextImage);
+            // Close lightbox if clicking the overlay itself (not the content)
+            lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) { closeLightbox(); } });
+
+            typeFilterSelect.addEventListener('change', (e) => { currentTypeFilter = e.target.value; applyFiltersAndRender(); });
+            rarityFilterSelect.addEventListener('change', (e) => { currentRarityFilter = e.target.value; applyFiltersAndRender(); }); // Apply filter AND update icon
+
+            // 1. Size Slider Listeners
+             gallerySizeSlider.addEventListener('input', (e) => {
+                 const value = parseInt(e.target.value);
+                 applyGallerySize(value);
+                 localStorage.setItem(GALLERY_SIZE_KEY, value.toString());
              });
-             popupSizeSlider.addEventListener('input', (e) => {
-                  const newIndex = parseInt(e.target.value, 10);
-                  currentPopupSizeIndex = newIndex;
-                  popupSizeValue.textContent = SIZE_MAP[newIndex];
-                  localStorage.setItem('popupSizeIndex', newIndex);
-                  if (lightboxOverlay.classList.contains('visible')) {
-                       lightboxContent.classList.remove(...POPUP_SIZE_CLASSES);
-                       lightboxContent.classList.add(POPUP_SIZE_CLASSES[newIndex]);
-                  }
+             lightboxSizeSlider.addEventListener('input', (e) => {
+                 const value = parseInt(e.target.value);
+                 applyLightboxSize(value);
+                 localStorage.setItem(LIGHTBOX_SIZE_KEY, value.toString());
              });
-             // --- End Size Slider Init ---
 
-             baseImageSet = getAllImageFilesRecursive(rootImageStructure);
-             console.log("[Init] Initial base image set size:", baseImageSet.length);
-             applyFiltersAndRender(); // Initial render
 
-             // --- Event Listeners ---
-             loadMoreButton.addEventListener('click', renderNextBatch);
-             lightboxCloseBtn.addEventListener('click', closeLightbox);
-             lightboxPrevBtn.addEventListener('click', showPrevImage);
-             lightboxNextBtn.addEventListener('click', showNextImage);
-             lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) { closeLightbox(); } });
-             typeFilterSelect.addEventListener('change', (e) => { currentTypeFilter = e.target.value; applyFiltersAndRender(); });
-             rarityFilterSelect.addEventListener('change', (e) => { currentRarityFilter = e.target.value; applyFiltersAndRender(); });
-             document.addEventListener('keydown', (e) => { if (lightboxOverlay.classList.contains('visible')) { handleLightboxKeyDown(e); } else { if (document.activeElement && (itemGallery.contains(document.activeElement) || tabContainer.contains(document.activeElement))) { handleGalleryKeyDown(e); } } });
-             applyHoloListeners('#item-gallery');
-             // Ensure lightbox container exists before adding listener
-             if (lightboxImageContainer) {
-                applyLightboxHoloListeners(lightboxImageContainer);
-             } else {
-                 console.error("Lightbox image container not found for holo listeners.");
-             }
+            // Keyboard navigation listener
+            document.addEventListener('keydown', (e) => {
+                if (lightboxOverlay.classList.contains('visible')) {
+                     handleLightboxKeyDown(e);
+                 } else {
+                     // Check if focus is within the gallery or tabs before handling gallery keys
+                     if (document.activeElement && (itemGallery.contains(document.activeElement) || tabContainer.contains(document.activeElement))) {
+                         handleGalleryKeyDown(e);
+                     }
+                     // Could add global key listeners here if needed (e.g., focus search)
+                 }
+            });
+
+            // Holo effect listeners
+            applyHoloListeners('#item-gallery');
+            applyLightboxHoloListeners('#lightbox-image-container');
+
+            // Initial focus management - maybe focus the first tab or filter?
+            // Optional: focus first filter or tab
+            // typeFilterSelect.focus();
         });
 
-        /** Updates the grid classes on the gallery based on currentThumbSizeIndex */
-        function updateGalleryGridClass() {
-             if (!itemGallery) return;
-             const existingGridClasses = Array.from(itemGallery.classList).filter(cls => cls.startsWith('grid-cols') || cls.startsWith('sm:grid-cols') || cls.startsWith('md:grid-cols') || cls.startsWith('lg:grid-cols') || cls.startsWith('xl:grid-cols'));
-             itemGallery.classList.remove(...existingGridClasses);
-             itemGallery.classList.add(...THUMB_GRID_CLASSES[currentThumbSizeIndex].split(' '));
-        }
-
-        // --- (Paste ALL other JS functions here) ---
-         // findFolderByPath, getAllImageFilesRecursive, openLightbox, closeLightbox,
-         // showNextImage, showPrevImage, updateLightboxControls, highlightThumbnail,
-         // unhighlightAllThumbnails, renderGalleryView, applyFiltersAndRender,
-         // populateFilters, renderTabs, displayError, handleGalleryKeyDown,
-         // handleLightboxKeyDown, applyHoloListeners, handleHoloMove, handleHoloEnd,
-         // resetHoloEffect, applyLightboxHoloListeners, handleLightboxHoloMove,
-         // handleLightboxHoloEnd, resetLightboxHoloEffect, hexToRgba, lightenHexColor
-
+        // --- (Ensure ALL JS function definitions are included) ---
+        // Functions like findFolderByPath, getAllImageFilesRecursive, etc. should be defined above.
 
     </script>
 
