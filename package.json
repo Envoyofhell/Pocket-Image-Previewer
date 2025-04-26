@@ -1,0 +1,13 @@
+{
+    "name": "image-previewer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build:images": "node generate_image_structure.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }

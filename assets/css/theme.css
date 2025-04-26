@@ -1,0 +1,113 @@
+/* theme.css */
+
+/* Ensure Pirata One font is loaded if used */
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
+/* Base Styles */
+.font-pirata {
+    font-family: 'Pirata One', cursive;
+}
+
+/* Apply title glow to the specific H1 if needed */
+h1.title-glow {
+    font-size: 3rem; /* Adjusted default size for better fit */
+    line-height: 1.1;
+    text-shadow: 0 0 5px rgba(255, 100, 100, 0.8),
+                 0 0 10px rgba(255, 0, 0, 0.7),
+                 0 0 18px rgba(138, 43, 226, 0.6),
+                 0 0 25px rgba(75, 0, 130, 0.5);
+    z-index: 1;
+    animation: text-flicker 3s linear infinite alternate;
+    color: #dc2626; /* text-red-600 */
+    text-align: center;
+    white-space: nowrap; /* Prevent wrapping */
+    margin-bottom: 1rem; /* Add some space below */
+    padding-top: 0.5rem; /* Add padding above */
+}
+
+@keyframes text-flicker {
+    0%, 10%, 12%, 20%, 22%, 30%, 32%, 40%, 42%, 50%, 52%, 60%, 62%, 70%, 72%, 80%, 82%, 90%, 92%, 100% {
+        text-shadow: 0 0 5px rgba(255, 100, 100, 0.8), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 18px rgba(138, 43, 226, 0.6), 0 0 25px rgba(75, 0, 130, 0.5);
+        opacity: 1;
+    }
+    11%, 21%, 31%, 41%, 51%, 61%, 71%, 81%, 91% {
+        text-shadow: 0 0 4px rgba(255, 100, 100, 0.6), 0 0 8px rgba(255, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.4), 0 0 20px rgba(75, 0, 130, 0.3);
+        opacity: 0.95;
+    }
+}
+
+/* Mobile Responsiveness for Title */
+@media (max-width: 768px) {
+    h1.title-glow {
+        font-size: 2.5rem; /* Smaller title */
+        line-height: 1.1;
+    }
+}
+
+/* --- Audio Prompt Style --- */
+#audio-prompt {
+   position: fixed; top: 10px; left: 10px; background-color: rgba(148, 30, 30, 0.7);
+   color: #ccc; padding: 8px 12px; font-size: 0.9rem; border-radius: 5px;
+   z-index: 1001; cursor: pointer; border: 1px solid rgba(255, 100, 100, 0.5);
+   box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* --- Audio Controls Styling --- */
+#audio-control-container {
+   position: fixed; bottom: 15px; right: 15px; display: flex;
+   align-items: center; gap: 10px; z-index: 1000;
+   background-color: rgba(26, 1, 31, 0.8);
+   padding: 8px; border-radius: 6px; border: 1px solid #5a0866;
+   box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+#song-name {
+    color: #e2e8f0; font-size: 14px; margin-right: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 150px;
+}
+#mute-button { position: relative; }
+#volume-container {
+   position: absolute; bottom: calc(100% + 10px); left: 50%;
+   transform: translateX(-50%); display: none;
+   width: 24px; height: 120px; background: rgba(50, 50, 50, 0.8);
+   border-radius: 6px; padding: 5px 0; box-sizing: border-box; border: 1px solid #666;
+}
+#volume-slider {
+   width: 100px; height: 8px; transform-origin: center center;
+   transform: rotate(-90deg); position: absolute;
+   top: 56px; left: -38px; cursor: pointer; appearance: none;
+   background: rgba(255,255,255,0.3); border-radius: 4px; outline: none;
+}
+#volume-slider::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; background: #ddd; border-radius: 50%; cursor: pointer; border: 1px solid #888; }
+#volume-slider::-moz-range-thumb { width: 16px; height: 16px; background: #ddd; border-radius: 50%; cursor: pointer; border: none; }
+
+.audio-button {
+   background: rgba(0,0,0,0.6); color: #e2e8f0; border: 1px solid #5a0866;
+   padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 1rem;
+   display: inline-flex; align-items: center; justify-content: center;
+   transition: background-color 0.2s ease, color 0.2s ease;
+}
+.audio-button:hover { background: rgba(90, 8, 102, 0.7); color: white; }
+.audio-button i { line-height: 1; }
+
+/* Footer Style */
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #5a0866; /* Match theme border */
+    color: #a0aec0; /* Lighter text */
+    font-size: 0.8rem;
+    position: relative; /* Keep above background */
+    z-index: 10;
+}
+.footer img {
+    height: 25px; /* Smaller logo in footer */
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+    opacity: 0.7;
+}
+
