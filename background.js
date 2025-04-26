@@ -1,286 +1,269 @@
-// background.js - Optimized Three.js background animation for Forte Card Previewer
-// Creates a performant particle system that adapts to the device capabilities
+// background.js - Three.js Particle Background Script
+// Supports 3 visual states: 'normal', 'rave', 'techno'
 
-let camera, scene, renderer;
-let particles, particleGeometry;
-let mouseX = 0, mouseY = 0;
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
-let animationFrame = null;
-let isInitialized = false;
-let isRunning = true;
-let particleCount = 0;
-let performanceMode = 'high'; // high, medium, low
+(function() {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', init);
-
-/**
- * Initialize the Three.js background
- */
-function init() {
-    const threejsBg = document.getElementById('threejs-bg');
-    if (!threejsBg) {
-        console.error('No #threejs-bg element found');
-        return;
-    }
-
-    // Auto-detect device performance capability based on screen and device pixel ratio
-    detectPerformanceMode();
-    
-    console.log(`Initializing Three.js background in ${performanceMode} performance mode`);
-
-    // Initialize scene
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z = 450;
-
-    // Create renderer with settings based on performance mode
-    renderer = new THREE.WebGLRenderer({ 
-        antialias: performanceMode === 'high', 
-        alpha: true,
-        powerPreference: 'high-performance'
-    });
-    renderer.setPixelRatio(window.devicePixelRatio > 2 ? 2 : window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0); // Transparent background
-    
-    // Add to DOM
-    threejsBg.appendChild(renderer.domElement);
-
-    // Create particles with count based on performance mode
-    createParticles();
-
-    // Add event listeners
-    window.addEventListener('resize', onWindowResize, false);
-    
-    // Don't track mouse movements in low performance mode to save CPU
-    if (performanceMode !== 'low') {
-        document.addEventListener('mousemove', onDocumentMouseMove, false);
-    }
-    
-    // Start animation loop
-    animate();
-    
-    // Throttle animation in low performance mode when page is not in view
-    if (performanceMode === 'low' || performanceMode === 'medium') {
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-    }
-
-    isInitialized = true;
-    console.log("Three.js background initialized successfully.");
-}
-
-/**
- * Detect device performance capabilities and set appropriate mode
- */
-function detectPerformanceMode() {
-    // Get device metrics
-    const screenWidth = window.screen.width;
-    const screenHeight = window.screen.height;
-    const pixelRatio = window.devicePixelRatio || 1;
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isLowPowerDevice = navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : false;
-    
-    // Check for mobile with high DPI (likely taxing on GPU)
-    if (isMobile && pixelRatio > 2) {
-        performanceMode = 'low';
-        particleCount = 50; // Very low particle count
-    }
-    // Check for mobile with normal DPI
-    else if (isMobile || isLowPowerDevice) {
-        performanceMode = 'medium';
-        particleCount = 100; // Low particle count
-    }
-    // Check for small screens (like tablets)
-    else if (screenWidth * screenHeight < 1920 * 1080) {
-        performanceMode = 'medium';
-        particleCount = 150; // Medium particle count
-    }
-    // High performance mode for desktops
-    else {
-        performanceMode = 'high';
-        particleCount = 200; // High particle count
-    }
-    
-    // Allow override from URL parameter for testing
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('perfMode')) {
-        const requestedMode = urlParams.get('perfMode');
-        if (['high', 'medium', 'low'].includes(requestedMode)) {
-            performanceMode = requestedMode;
-            
-            // Adjust particle count based on requested mode
-            if (performanceMode === 'high') particleCount = 200;
-            else if (performanceMode === 'medium') particleCount = 100;
-            else particleCount = 50;
+    try {
+        if (typeof THREE === 'undefined') {
+            console.error("Three.js library not loaded. Background cannot be initialized.");
+            return;
         }
-    }
-}
 
-/**
- * Create particle system
- */
-function createParticles() {
-    particleGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const sizes = new Float32Array(particleCount);
+        // --- Variable Declarations ---
+        var scene, camera, renderer;
+        var container, HEIGHT, WIDTH, fieldOfView, aspectRatio, nearPlane, farPlane;
+        var geometry, particleCount, i, materials = [], mouseX = 0, mouseY = 0; // Removed unused h, color, size here
+        var windowHalfX, windowHalfY, cameraZ, fogHex, fogDensity, parameters = {}, parameterCount, particles;
+        var rafId = null;
+        var backgroundState = 'normal'; // Current visual state ('normal', 'rave', 'techno')
 
-    // Color palette - use theme colors for consistency
-    const palette = [
-        new THREE.Color(0xe70505), // Red
-        new THREE.Color(0xff9500), // Orange
-        new THREE.Color(0xffd700), // Gold
-        new THREE.Color(0x4a044e), // Purple
-        new THREE.Color(0xb026ff)  // Violet
-    ];
+        // --- Configuration Constants ---
+        const BACKGROUND_COLOR = 0x0a0514;
+        const FOG_COLOR = 0x0a0514;
+        const FOG_DENSITY = 0.001;
+        const PARTICLE_COUNT = 10000;
 
-    // Set particle attributes
-    for (let i = 0; i < particleCount; i++) {
-        // Position with different spread based on performance mode
-        const spread = performanceMode === 'high' ? 1000 : (performanceMode === 'medium' ? 800 : 600);
-        positions[i * 3] = (Math.random() - 0.5) * spread;     // x
-        positions[i * 3 + 1] = (Math.random() - 0.5) * spread; // y
-        positions[i * 3 + 2] = (Math.random() - 0.5) * spread; // z
+        // Parameters for NORMAL state: [ [H, S, L], BaseSize ]
+        const PARTICLE_PARAMS_NORMAL = [
+            [[0.95, 0.7, 0.25], 3], [[0.80, 0.7, 0.22], 2.5], [[0.0, 0.7, 0.22], 2.5],
+            [[0.85, 0.6, 0.20], 2], [[0.98, 0.6, 0.20], 2]
+        ];
+        // Parameters for RAVE state: [ [H, S, L], BaseSize ] (Renamed from ENHANCED)
+        const PARTICLE_PARAMS_RAVE = [
+            [[0.95, 0.9, 0.60], 3.5], [[0.80, 0.9, 0.55], 3], [[0.0, 0.9, 0.55], 3],
+            [[0.85, 0.8, 0.50], 2.5], [[0.98, 0.8, 0.50], 2.5]
+        ];
+        // Parameters for TECHNO state: [ [Sat, Light], BaseSize ] (Hue set dynamically in render)
+        const PARTICLE_PARAMS_TECHNO = [
+            [[1.0, 0.7], 3.5], [[1.0, 0.6], 2.5], [[0.9, 0.7], 3.0],
+            [[1.0, 0.6], 3.0], [[0.8, 0.7], 2.0]
+        ];
 
-        // Random color from palette
-        const color = palette[Math.floor(Math.random() * palette.length)];
-        colors[i * 3] = color.r;
-        colors[i * 3 + 1] = color.g;
-        colors[i * 3 + 2] = color.b;
+        const CAMERA_Z = 1000;
+        const ROTATION_SPEED_NORMAL = 0.000015;
+        const ROTATION_SPEED_RAVE = 0.00008; // Renamed from ENHANCED
+        const ROTATION_SPEED_TECHNO = 0.00025; // Faster rotation for techno
+        const BREATHING_INTENSITY = 25;
+        const BREATHING_SPEED = 0.0001; // Can also vary this per state if desired
 
-        // Random size based on performance mode
-        const maxSize = performanceMode === 'high' ? 12 : (performanceMode === 'medium' ? 10 : 8);
-        sizes[i] = Math.random() * maxSize + 2;
-    }
+        /** Initializes the Three.js environment. */
+        function initThreeJS() {
+            container = document.getElementById('threejs-bg');
+            if (!container) { console.error("Three.js container #threejs-bg not found."); return; }
 
-    // Set buffer attributes
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    particleGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            // Setup dimensions and camera parameters
+            HEIGHT = window.innerHeight; WIDTH = window.innerWidth;
+            windowHalfX = WIDTH / 2; windowHalfY = HEIGHT / 2;
+            fieldOfView = 75; aspectRatio = WIDTH / HEIGHT; nearPlane = 1; farPlane = 3000;
+            cameraZ = CAMERA_Z; fogHex = FOG_COLOR; fogDensity = FOG_DENSITY;
 
-    // Particle material with quality settings based on mode
-    const particleMaterial = new THREE.PointsMaterial({
-        size: 2,
-        vertexColors: true,
-        transparent: true,
-        opacity: performanceMode === 'low' ? 0.5 : 0.7,
-        sizeAttenuation: true,
-        depthWrite: false // Improve performance by not writing to depth buffer
-    });
+            // Create camera and scene
+            camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
+            camera.position.z = cameraZ;
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(fogHex, fogDensity);
 
-    // Create the particle system
-    particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
-}
+            // Create particle geometry
+            geometry = new THREE.BufferGeometry();
+            const positions = []; particleCount = PARTICLE_COUNT;
+            for (i = 0; i < particleCount; i++) {
+                const x = Math.random() * 2000 - 1000; const y = Math.random() * 2000 - 1000; const z = Math.random() * 2000 - 1000;
+                positions.push(x, y, z);
+            }
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
 
-/**
- * Handle mouse movement
- */
-function onDocumentMouseMove(event) {
-    mouseX = (event.clientX - windowHalfX) * 0.05;
-    mouseY = (event.clientY - windowHalfY) * 0.05;
-}
+            // Create materials and points objects based on initial parameters (normal state)
+            parameters = PARTICLE_PARAMS_NORMAL;
+            parameterCount = parameters.length;
+            materials = [];
+            for (i = 0; i < parameterCount; i++) {
+                // Note: color is set dynamically in render, only need size here for material creation
+                const size = parameters[i][1];
+                materials[i] = new THREE.PointsMaterial({
+                    size: size, vertexColors: false, blending: THREE.NormalBlending,
+                    transparent: true, opacity: 0.7
+                });
+                particles = new THREE.Points(geometry, materials[i]);
+                particles.rotation.x = Math.random() * 6; particles.rotation.y = Math.random() * 6; particles.rotation.z = Math.random() * 6;
+                scene.add(particles);
+            }
 
-/**
- * Handle window resize
- */
-function onWindowResize() {
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
+            // Initialize renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(WIDTH, HEIGHT);
+            renderer.setClearColor(BACKGROUND_COLOR, 1);
+            container.appendChild(renderer.domElement);
 
-/**
- * Handle page visibility changes to save resources when tab is not visible
- */
-function handleVisibilityChange() {
-    if (document.hidden) {
-        pauseAnimation();
-    } else {
-        resumeAnimation();
-    }
-}
+            // --- Event Listeners ---
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            document.addEventListener('touchstart', onDocumentTouchStart, { passive: false });
+            document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
 
-/**
- * Animation loop
- */
-function animate() {
-    animationFrame = requestAnimationFrame(animate);
-    render();
-}
+            // Listen for state changes from interactions.js
+            document.addEventListener('background-state-change', (e) => {
+                const newState = e.detail.state;
+                if (['normal', 'rave', 'techno'].includes(newState)) {
+                    console.log("Background state change received:", newState);
+                    backgroundState = newState;
+                } else {
+                    console.warn("Received unknown background state:", newState);
+                    backgroundState = 'normal'; // Fallback to normal
+                }
+            });
 
-/**
- * Pause animation when page not visible
- */
-function pauseAnimation() {
-    if (!isRunning) return;
-    
-    cancelAnimationFrame(animationFrame);
-    isRunning = false;
-    console.log("Background animation paused");
-}
-
-/**
- * Resume animation when page becomes visible
- */
-function resumeAnimation() {
-    if (isRunning) return;
-    
-    animate();
-    isRunning = true;
-    console.log("Background animation resumed");
-}
-
-/**
- * Render scene
- */
-function render() {
-    // Different animation speeds and complexity based on performance mode
-    const rotationSpeed = performanceMode === 'high' ? 0.0007 : 
-                          (performanceMode === 'medium' ? 0.0005 : 0.0003);
-    
-    const particleAnimationSpeed = performanceMode === 'high' ? 0.001 : 
-                                  (performanceMode === 'medium' ? 0.0007 : 0.0005);
-    
-    // Rotate the entire particle system
-    particles.rotation.x += 0.0005;
-    particles.rotation.y += rotationSpeed;
-    
-    // Make camera follow mouse movement (disabled in low performance mode)
-    if (performanceMode !== 'low') {
-        camera.position.x += (mouseX - camera.position.x) * 0.01;
-        camera.position.y += (-mouseY - camera.position.y) * 0.01;
-        camera.lookAt(scene.position);
-    }
-    
-    // Only update particle positions on high/medium performance modes
-    if (performanceMode !== 'low') {
-        // Update particle positions for twinkling effect
-        const positions = particleGeometry.attributes.position.array;
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3 + 1] += Math.sin(Date.now() * particleAnimationSpeed + i) * 0.1;
+            animate(); // Start animation loop
+            console.log("Three.js background initialized.");
         }
-        particleGeometry.attributes.position.needsUpdate = true;
-    }
-    
-    renderer.render(scene, camera);
-}
 
-// Export functions for potential use by other modules
-window.forteBackground = {
-    pause: pauseAnimation,
-    resume: resumeAnimation,
-    setPerformanceMode: (mode) => {
-        if (['high', 'medium', 'low'].includes(mode) && mode !== performanceMode) {
-            performanceMode = mode;
-            // Rebuild particles if already initialized
-            if (isInitialized) {
-                scene.remove(particles);
-                createParticles();
+        /** Animation loop ticker. */
+        function animate() {
+            rafId = requestAnimationFrame(animate);
+            renderThreeJS();
+        }
+
+        /** Renders a single frame. */
+        function renderThreeJS() {
+            // --- Determine current parameters based on state ---
+            let currentRotationSpeed;
+            let currentParams;
+            let rotationMultiplier;
+            let followSpeed = 0.02; // Default follow speed
+
+            switch (backgroundState) {
+                case 'rave':
+                    currentRotationSpeed = ROTATION_SPEED_RAVE;
+                    currentParams = PARTICLE_PARAMS_RAVE;
+                    rotationMultiplier = 12;
+                    followSpeed = 0.03;
+                    break;
+                case 'techno':
+                    currentRotationSpeed = ROTATION_SPEED_TECHNO;
+                    currentParams = PARTICLE_PARAMS_TECHNO;
+                    rotationMultiplier = 30; // Much higher multiplier for erratic spin
+                    followSpeed = 0.04; // Slightly faster follow? Optional.
+                    break;
+                case 'normal':
+                default: // Fallback to normal
+                    currentRotationSpeed = ROTATION_SPEED_NORMAL;
+                    currentParams = PARTICLE_PARAMS_NORMAL;
+                    rotationMultiplier = 1;
+                    followSpeed = 0.02;
+                    break;
+            }
+            const time = Date.now() * currentRotationSpeed; // Time for rotation
+
+            // --- Animate camera ---
+            camera.position.z = cameraZ + Math.sin(Date.now() * BREATHING_SPEED) * BREATHING_INTENSITY;
+            camera.position.x += (mouseX - camera.position.x) * followSpeed;
+            camera.position.y += (-mouseY - camera.position.y) * followSpeed;
+            camera.lookAt(scene.position);
+
+            // --- Animate particle systems rotation ---
+            for (i = 0; i < scene.children.length; i++) {
+                const object = scene.children[i];
+                if (object instanceof THREE.Points) {
+                    // Base rotation
+                    object.rotation.y = time * rotationMultiplier * (i < (parameterCount / 2) ? i + 1 : -(i + 1));
+                    // Add extra small random rotation for techno 'erratic' feel? Optional.
+                    if (backgroundState === 'techno') {
+                        object.rotation.x += (Math.random() - 0.5) * 0.005;
+                        object.rotation.z += (Math.random() - 0.5) * 0.005;
+                    }
+                }
+            }
+
+            // --- Animate materials (Color, Opacity, Size) ---
+            parameterCount = currentParams.length; // Update count in case arrays differ
+            for (i = 0; i < materials.length; i++) {
+                const material = materials[i]; // Get the material
+                 // Use modulo for safety if materials.length > currentParams.length
+                const paramIndex = i % parameterCount;
+
+                if (backgroundState === 'techno') {
+                    const technoParams = currentParams[paramIndex][0]; // [Sat, Light]
+                    const baseSize = currentParams[paramIndex][1];     // Base Size
+                    const technoSat = technoParams[0];
+                    const technoLight = technoParams[1];
+
+                    // Rapidly cycle hue across the full spectrum, offset by particle index
+                    let h = (Date.now() * 0.001 + i * 0.1) % 1; // Adjust 0.001 speed, 0.1 offset as needed
+                    material.color.setHSL(h, technoSat, technoLight);
+
+                    material.opacity = 0.9; // Higher opacity
+                    // Base size + slight random variation each frame for flickering effect
+                    material.size = baseSize + (Math.random() - 0.5) * 1.0; // Adjust variation range (e.g., * 1.0)
+
+                } else { // Logic for 'normal' and 'rave' states
+                    const normalRaveParams = currentParams[paramIndex][0]; // [H, S, L]
+                    const baseSize = currentParams[paramIndex][1];
+                    const baseH = normalRaveParams[0];
+                    const baseS = normalRaveParams[1];
+                    const baseL = normalRaveParams[2];
+
+                    // Gentle hue shift for normal/rave
+                    const hueSpeed = backgroundState === 'rave' ? 0.0006 : 0.0003;
+                    let h_norm_rave = baseH + Math.sin(Date.now() * hueSpeed + i * Math.PI) * 0.05;
+                    h_norm_rave = (h_norm_rave + 1) % 1; // Wrap hue
+
+                    material.color.setHSL(h_norm_rave, baseS, baseL);
+                    material.opacity = backgroundState === 'rave' ? 0.85 : 0.7;
+                    material.size = baseSize; // Use defined base size
+                }
+            }
+
+            // Render the scene
+            if (renderer) { renderer.render(scene, camera); }
+        }
+
+        // --- Event Handlers ---
+        function onDocumentMouseMove(e) { /* ... (Keep code from previous complete version) ... */
+             mouseX = e.clientX - windowHalfX; mouseY = e.clientY - windowHalfY;
+        }
+        function onDocumentTouchStart(e) { /* ... (Keep code from previous complete version w/ conditional preventDefault) ... */
+            if (e.touches.length === 1) {
+                if (e.target === container || e.target === renderer?.domElement) { /* Conditional preventDefault() */ }
+                mouseX = e.touches[0].pageX - windowHalfX; mouseY = e.touches[0].pageY - windowHalfY;
             }
         }
+        function onDocumentTouchMove(e) { /* ... (Keep code from previous complete version w/ conditional preventDefault) ... */
+             if (e.touches.length === 1) {
+                 if (e.target === container || e.target === renderer?.domElement) { /* Conditional preventDefault() */ }
+                 mouseX = e.touches[0].pageX - windowHalfX; mouseY = e.touches[0].pageY - windowHalfY;
+             }
+        }
+        function onWindowResize() { /* ... (Keep code from previous complete version) ... */
+            try {
+                WIDTH = window.innerWidth; HEIGHT = window.innerHeight; windowHalfX = WIDTH / 2; windowHalfY = HEIGHT / 2;
+                if(camera){ camera.aspect = WIDTH / HEIGHT; camera.updateProjectionMatrix(); }
+                if (renderer) renderer.setSize(WIDTH, HEIGHT);
+            } catch(e) { console.error("Error on window resize:", e); }
+        }
+
+        // --- Initialize ---
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThreeJS);
+        } else {
+            initThreeJS();
+        }
+
+        // --- Cleanup ---
+        window.addEventListener('unload', () => { /* ... (Keep code from previous complete version) ... */
+             if (rafId) cancelAnimationFrame(rafId);
+             window.removeEventListener('resize', onWindowResize);
+             document.removeEventListener('mousemove', onDocumentMouseMove);
+             document.removeEventListener('touchstart', onDocumentTouchStart);
+             document.removeEventListener('touchmove', onDocumentTouchMove);
+             // Need reference to remove custom event listener handler if it wasn't anonymous
+             console.log("Three.js background cleaned up.");
+        });
+
+    // Catch top-level errors
+    } catch (e) {
+        console.error("Error in Three.js background script:", e);
+        const bgContainer = document.getElementById('threejs-bg');
+        if (bgContainer) bgContainer.style.background = '#111';
     }
-};
+})(); // End of IIFE
