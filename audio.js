@@ -5,10 +5,7 @@
 
     // --- Configuration ---
     const playlist = [
-        './audio/pocket.mp3',
-        './audio/Home Menu.mp3',
-        './audio/Wonder Pick.mp3',
-        './audio/Home Menu.mp3', 
+        './audio/Wuthering Waves Background 1.mp3',
     ];
     const DEFAULT_VOLUME = 0.2;
     const VOLUME_SLIDER_HIDE_DELAY = 300; // Delay in ms before hiding slider
