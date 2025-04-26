@@ -1,191 +1,244 @@
 // generate_image_structure.js
-// Purpose: Scan the './img' directory recursively, parse filenames using external config,
-// and generate 'image_data.js' with the structured data and config.
+// Purpose: Scan './img', parse complex Forte filenames using external config,
+// collect unique creators, and generate 'image_data.js'.
 
 const fs = require('fs');
 const path = require('path');
 
 // --- Configuration ---
-const imageDirectory = './img'; // <<< ENSURE THIS IS './img'
+const imageDirectory = './img';
 const outputFilePath = './image_data.js';
-const outputVariableName = 'imageStructure';
+const outputVariableName = 'imageData'; // Contains structure + config
 const supportedExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'];
-const configFilePath = './filter_config.json'; // Path to the new config file
+const configFilePath = './filter_config.json';
+const BLANK_SUFFIX = '-BL-';
 
-// --- Load Filtering Rules from JSON ---
+// --- Load Filtering Rules ---
 let filterConfig;
-let RARITY_MAP;
-let TYPE_MAP;
-let RARITY_ORDER;
-let TYPE_ORDER;
+let TYPE_MAP, TRAINER_TYPE_MAP, SET_MAP, FORTE_MAP;
+let allCreators = new Set();
 
 try {
     console.log(`Loading filter configuration from: ${configFilePath}`);
     const configFileContent = fs.readFileSync(configFilePath, 'utf8');
     filterConfig = JSON.parse(configFileContent);
 
-    // Validate loaded config (basic checks)
-    if (!filterConfig || typeof filterConfig.rarityMap !== 'object' || typeof filterConfig.typeMap !== 'object' || !Array.isArray(filterConfig.rarityOrder) || !Array.isArray(filterConfig.typeOrder)) {
-        throw new Error("Invalid format in filter_config.json. Ensure rarityMap, typeMap, rarityOrder, and typeOrder exist.");
+    // Basic validation (removed rarity checks)
+    if (!filterConfig || typeof filterConfig.typeMap !== 'object' ||
+        typeof filterConfig.trainerTypeMap !== 'object' || typeof filterConfig.setMap !== 'object' ||
+        typeof filterConfig.forteMap !== 'object' || !Array.isArray(filterConfig.typeOrder) ||
+        !Array.isArray(filterConfig.trainerTypeOrder) || !Array.isArray(filterConfig.setOrder) ||
+        typeof filterConfig.setColors !== 'object') { // Changed to setColors
+        throw new Error("Invalid format in filter_config.json. Check all required maps/orders/colors (excluding rarity).");
     }
 
-    RARITY_MAP = filterConfig.rarityMap;
     TYPE_MAP = filterConfig.typeMap;
-    RARITY_ORDER = filterConfig.rarityOrder;
-    TYPE_ORDER = filterConfig.typeOrder;
+    TRAINER_TYPE_MAP = filterConfig.trainerTypeMap;
+    SET_MAP = filterConfig.setMap;
+    FORTE_MAP = filterConfig.forteMap;
     console.log("✅ Filter configuration loaded successfully.");
 
 } catch (err) {
     console.error(`❌ FATAL ERROR loading or parsing ${configFilePath}:`, err.message);
-    process.exit(1); // Stop if config is missing or invalid
+    process.exit(1);
 }
 
-
 /**
- * Parses filename to determine card type and rarity using loaded config.
- * @param {string} filename - The filename to parse.
- * @returns {{cardType: string | null, cardRarity: string | null}} - Detected type and rarity.
+ * Parses complex filename based on defined rules from config.
+ * @param {string} filename - The filename to parse (without extension).
+ * @returns {object} - Object containing parsed properties.
  */
-function parseFilename(filename) {
-    let cardType = null;
-    let cardRarity = null;
+function parseFilenameAdvanced(filename) {
+    let remainingFilename = filename;
+    const parsed = {
+        dexNumber: null, setCode: null, setName: null, setNumber: null,
+        cardName: null, isForte: false, types: [], isTrainer: false,
+        trainerType: null, creator: null, isBlank: false, isNumbered: true,
+        cardRarity: null // Keep property but set to null
+    };
 
-    // Use loaded TYPE_MAP
-    for (const prefix in TYPE_MAP) {
-        if (filename.startsWith(prefix)) {
-            cardType = TYPE_MAP[prefix];
-            break;
+    // 1. Creator (@...)
+    const creatorMatch = remainingFilename.match(/@([a-zA-Z0-9_]+)$/);
+    if (creatorMatch) {
+        parsed.creator = creatorMatch[1];
+        allCreators.add(parsed.creator);
+        remainingFilename = remainingFilename.substring(0, remainingFilename.lastIndexOf('@')).trim();
+    }
+
+    // 2. Blank (-BL-)
+    if (remainingFilename.endsWith(BLANK_SUFFIX)) {
+        parsed.isBlank = true;
+        remainingFilename = remainingFilename.substring(0, remainingFilename.length - BLANK_SUFFIX.length).trim();
+    }
+
+    // 3. Forte (_F_)
+    if (remainingFilename.includes('_F_')) {
+        parsed.isForte = true;
+    }
+
+    // 4. Dex Number (#xxxx)
+    const dexMatch = remainingFilename.match(/^#(\d{1,4})\s*/);
+    if (dexMatch) {
+        parsed.dexNumber = dexMatch[1].padStart(4, '0');
+    }
+
+    // 5. Trainer (-TR-) and Trainer Type (-TT-)
+    if (remainingFilename.includes('-TR-')) {
+        parsed.isTrainer = true;
+        parsed.cardType = 'Trainer';
+        let foundTrainerType = false;
+        for (const code in TRAINER_TYPE_MAP) {
+            if (remainingFilename.includes(code)) {
+                parsed.trainerType = TRAINER_TYPE_MAP[code];
+                foundTrainerType = true;
+                break;
+            }
+        }
+        if (!foundTrainerType && TRAINER_TYPE_MAP['-XX-']) {
+            parsed.trainerType = TRAINER_TYPE_MAP['-XX-'];
         }
     }
 
-    // Use loaded RARITY_MAP
-    for (const code in RARITY_MAP) {
-        if (filename.includes(code)) {
-            cardRarity = RARITY_MAP[code];
-            break;
-        }
+    // 6. Set Code (_xx_) and Set Number (_xxx_ or ....)
+    const setMatch = remainingFilename.match(/(_[A-Za-z0-9]{1,3}b?_)(?:(\d{3})|(\.{3,}))_/);
+    if (setMatch) {
+        parsed.setCode = setMatch[1];
+        parsed.setName = SET_MAP[parsed.setCode] || "Other"; // Default to "Other" if code not in map
+        if (setMatch[2]) { parsed.setNumber = setMatch[2]; parsed.isNumbered = true; }
+        else if (setMatch[3]) { parsed.setNumber = '...'; parsed.isNumbered = false; }
+    } else {
+        parsed.setName = "Other"; // Assign to "Other" if no set code pattern found
+        parsed.isNumbered = false; // Assume not numbered if no set code found
     }
 
-    return { cardType, cardRarity };
+    // 7. Pokemon Types (-T-)
+    if (!parsed.isTrainer) {
+        for (const code in TYPE_MAP) {
+            if (remainingFilename.includes(code)) {
+                parsed.types.push(TYPE_MAP[code]);
+            }
+        }
+        if (parsed.types.length > 0) { parsed.cardType = 'Pokemon'; }
+    }
+
+    // 8. Card Name (-Name-) - Improved Extraction
+    // Try to find content between hyphens that isn't a known code
+    const nameMatch = remainingFilename.match(/-([^-_\s@][^-@_]*[^-_\s@])-/); // Content between hyphens, not starting/ending with _, not containing @
+     if (nameMatch && nameMatch[1]) {
+         // Further refine: remove known codes if they are accidentally included within the hyphens
+         let potentialName = nameMatch[1];
+         const allCodes = [
+             ...Object.keys(TYPE_MAP),
+             ...Object.keys(TRAINER_TYPE_MAP),
+             ...Object.keys(FORTE_MAP),
+             ...Object.keys(SET_MAP),
+             '-TR-', '_F_'
+         ];
+         allCodes.forEach(code => {
+             potentialName = potentialName.replace(code, '');
+         });
+         potentialName = potentialName.trim();
+         if (potentialName) {
+             parsed.cardName = potentialName;
+         }
+     }
+
+     // Fallback if no hyphenated name found
+     if (!parsed.cardName) {
+         let fallbackName = remainingFilename;
+         // Remove known codes/prefixes/suffixes more aggressively
+         if (parsed.dexNumber) fallbackName = fallbackName.replace(`#${parsed.dexNumber.replace(/^0+/, '')}`, '');
+         if (parsed.setCode) fallbackName = fallbackName.replace(parsed.setCode, '');
+         if (parsed.setNumber) fallbackName = fallbackName.replace(parsed.setNumber + '_', '');
+         if (parsed.isForte) fallbackName = fallbackName.replace('_F_', '');
+         if (parsed.isTrainer) fallbackName = fallbackName.replace('-TR-', '');
+         Object.keys(TYPE_MAP).forEach(code => { fallbackName = fallbackName.replace(code, ''); });
+         Object.keys(TRAINER_TYPE_MAP).forEach(code => { fallbackName = fallbackName.replace(code, ''); });
+         // Clean up underscores and hyphens
+         fallbackName = fallbackName.replace(/_+/g, ' ').replace(/-+/g, ' ').trim();
+         if (fallbackName) {
+             parsed.cardName = fallbackName;
+         } else if (parsed.isTrainer) {
+             parsed.cardName = parsed.trainerType || "Trainer"; // Default trainer name
+         }
+     }
+
+
+    // Rarity is removed
+    parsed.cardRarity = null;
+
+    return parsed;
 }
 
 
-/**
- * Recursively scans a directory and builds a nested object structure.
- * Includes type/rarity parsing for image files.
- */
+/** Recursively scans directory */
 function buildDirectoryStructure(dirPath, rootDir) {
     const absoluteDirPath = path.resolve(dirPath);
-    console.log(`Scanning: ${absoluteDirPath}`);
-
     if (!fs.existsSync(absoluteDirPath) || !fs.statSync(absoluteDirPath).isDirectory()) {
-        console.error(`❌ Error: Path not found or is not a directory - ${absoluteDirPath}`);
-        if (absoluteDirPath === path.resolve(rootDir)) {
-             console.error(`❌ FATAL: Root directory '${rootDir}' not found.`);
-             process.exit(1);
-        }
+        if (absoluteDirPath === path.resolve(rootDir)) { console.error(`❌ FATAL: Root directory '${rootDir}' not found.`); process.exit(1); }
         return null;
     }
-
     const currentRelativePath = path.relative('.', dirPath).replace(/\\/g, '/');
     const currentName = path.basename(dirPath);
-    console.log(`   -> Processing Folder: Name='${currentName}', RelativePath='${currentRelativePath}'`);
-
     const children = [];
-
     try {
         const files = fs.readdirSync(dirPath);
-
         files.forEach(file => {
             const currentItemPath = path.join(dirPath, file);
             let stat;
             try { stat = fs.statSync(currentItemPath); }
-            catch (statErr) { console.error(`❌ Error getting stats for ${currentItemPath}:`, statErr.message); return; }
-
+            catch (statErr) { console.error(`❌ Stats error for ${currentItemPath}:`, statErr.message); return; }
             if (stat.isDirectory()) {
-                console.log(`      L Found Subfolder: ${file}`);
                 const subStructure = buildDirectoryStructure(currentItemPath, rootDir);
-                if (subStructure) {
-                     console.log(`      L Adding Subfolder object for '${subStructure.name}'`);
-                     children.push(subStructure);
-                } else { console.log(`      L Skipping empty/invalid subfolder: ${file}`); }
+                if (subStructure) { children.push(subStructure); }
             } else {
                 const ext = path.extname(file).toLowerCase();
                 if (supportedExtensions.includes(ext)) {
                      const fileRelativePath = path.relative('.', currentItemPath).replace(/\\/g, '/');
-                     // *** Parse filename using loaded config ***
-                     const { cardType, cardRarity } = parseFilename(file);
-                     const fileObject = {
-                         name: file,
-                         type: 'file',
-                         path: fileRelativePath,
-                         cardType: cardType, // Add detected type
-                         cardRarity: cardRarity // Add detected rarity
-                     };
-                     console.log(`     L Adding Image: '${fileObject.name}' (Type: ${cardType || 'N/A'}, Rarity: ${cardRarity || 'N/A'})`);
-                     children.push(fileObject);
+                     const filenameWithoutExt = path.basename(file, ext);
+                     const parsedData = parseFilenameAdvanced(filenameWithoutExt); // Use new parser
+                     children.push({ name: file, type: 'file', path: fileRelativePath, ...parsedData });
                 }
             }
         });
     } catch (readErr) { console.error(`❌ Error reading directory ${dirPath}:`, readErr); process.exit(1); }
 
     children.sort((a, b) => {
-        if (a.type === b.type) { return a.name.localeCompare(b.name); }
-        return a.type === 'folder' ? -1 : 1;
+        if (a.type === 'folder' && b.type !== 'folder') return -1;
+        if (a.type !== 'folder' && b.type === 'folder') return 1;
+        if (a.type === 'file' && b.type === 'file') {
+             const numA = a.isNumbered ? parseInt(a.setNumber || '9999', 10) : Infinity;
+             const numB = b.isNumbered ? parseInt(b.setNumber || '9999', 10) : Infinity;
+             if (numA !== numB) return numA - numB;
+        }
+        return a.name.localeCompare(b.name);
     });
 
-    const structure = {
-        name: currentName,
-        type: 'folder',
-        path: currentRelativePath,
-        children: children
-    };
-     console.log(`   <- Finished processing folder '${structure.name}'. Returning structure with ${structure.children.length} children.`);
-    return structure;
+    return { name: currentName, type: 'folder', path: currentRelativePath, children };
 }
 
 // --- Main Execution ---
 try {
-    const absoluteRootPath = path.resolve(imageDirectory);
     console.log(`\n--- Starting Image Scan ---`);
-    console.log(`Root directory: ${imageDirectory} (Absolute: ${absoluteRootPath})`);
-    console.log(`Output file: ${outputFilePath}`);
-    console.log(`Supported extensions: ${supportedExtensions.join(', ')}\n`);
-
     const structure = buildDirectoryStructure(imageDirectory, imageDirectory);
-
     if (!structure) { console.error(`\n❌ Failed to generate structure.`); process.exit(1); }
+    console.log(`\n✅ Scan complete.`);
 
-    // --- Final Check ---
-    if (!structure.name || !structure.path || !Array.isArray(structure.children)) { console.error(`\n❌ Error: Generated structure invalid.`); process.exit(1); }
-    const expectedRootName = path.basename(imageDirectory);
-    const expectedRootPath = imageDirectory.replace(/\\/g, '/');
-    if (structure.name !== expectedRootName || structure.path !== expectedRootPath) { console.warn(`\n⚠️ Warning: Root mismatch.`); }
-    console.log(`\n✅ Scan complete. Root: '${structure.name}', Path: '${structure.path}', Children: ${structure.children.length}`);
+    // Add collected creators to filterConfig before saving
+    filterConfig.creators = Array.from(allCreators).sort();
+    // Remove rarity config before saving
+    delete filterConfig.rarityMap;
+    delete filterConfig.rarityOrder;
 
-    console.log(`\nPreparing to write data...`);
-
-    // Use the loaded filterConfig directly
-    const outputObject = {
-         imageStructure: structure,
-         filterConfig: filterConfig // Include the loaded config in the output
-    };
-
+    const outputObject = { imageStructure: structure, filterConfig: filterConfig };
     let outputString = '';
     try {
-        outputString = `// This file is automatically generated by generate_image_structure.js
-// Do not edit this file manually!
-
-const ${outputVariableName} = ${JSON.stringify(outputObject, null, 2)};
-`;
-        console.log(`   Data formatted successfully. Length: ${outputString.length}`);
+        outputString = `// Auto-generated by generate_image_structure.js\nconst ${outputVariableName} = ${JSON.stringify(outputObject, null, 2)};`;
+        console.log(`   Data formatted.`);
     } catch (stringifyError) { console.error(`❌ Error stringifying data:`, stringifyError); process.exit(1); }
-
-    // Write to file
     try {
-        console.log(`   Attempting to write to: ${path.resolve(outputFilePath)}`);
         fs.writeFileSync(outputFilePath, outputString, 'utf8');
-        console.log(`✅ Data successfully written to: ${path.resolve(outputFilePath)}`);
-    } catch (writeError) { console.error(`❌❌❌ CRITICAL ERROR writing file!`, writeError); process.exit(1); }
-
+        console.log(`✅ Data written to: ${path.resolve(outputFilePath)}`);
+    } catch (writeError) { console.error(`❌❌❌ ERROR writing file!`, writeError); process.exit(1); }
 } catch (error) { console.error("\n❌ Unexpected error:", error); process.exit(1); }
+

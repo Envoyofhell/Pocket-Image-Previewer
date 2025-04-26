@@ -1,57 +1,56 @@
 {
-    "rarityMap": {
-      "_C_": "Common",
-      "_U_": "Uncommon",
-      "_R_": "Rare",
-      "_RR_": "Double Rare",
-      "_AR_": "Illustration Rare",
-      "_SR_": "Special Rare",
-      "_SAR_": "Special Illustration Rare",
-      "_IR_": "Immersive Rare",
-      "_S_": "Shiny",
-      "_SSR_": "Shiny Special Rare",
-      "_UR_": "Ultra Rare"
-    },
-    "rarityOrder": [
-      "Common",
-      "Uncommon",
-      "Rare",
-      "Double Rare",
-      "Shiny",
-      "Illustration Rare",
-      "Special Rare",
-      "Shiny Special Rare",
-      "Special Illustration Rare",
-      "Immersive Rare",
-      "Ultra Rare"
-    ],
-    "typeMap": {
-      "cPK_": "Pokemon",
-      "cTR_": "Trainer"
-    },
-    "typeOrder": [
-      "Pokemon",
-      "Trainer"
-    ],
-    "folderOrder": [
-      "Promo-A",
-      "Genetic Apex",
-      "Mythical Island",
-      "Space-Time Smackdown",
-      "Triumphant Light",
-      "Shining Revelry",
-      "Celestial Guardians"
-    ],
-    "folderColors": {
-      "Promo-A": "#A0A0A0",
-      "Genetic Apex": "#F97316",
-      "Mythical Island": "#10B981",
-      "Space-Time Smackdown": "#6366F1",
-      "Triumphant Light": "#FACC15",
-      "Shining Revelry": "#EC4899",
-      "Celestial Guardians": "#F1F5F9",
-      "default": "#6B7280",
-      "all": "#DC2626"
-    }
+  "typeMap": {
+    "-G-": "Grass",
+    "-F-": "Fire",
+    "-W-": "Water",
+    "-L-": "Lightning",
+    "-Ft-": "Fighting",
+    "-P-": "Psychic",
+    "-N-": "Colorless",
+    "-D-": "Darkness",
+    "-M-": "Metal",
+    "-Dr-": "Dragon",
+    "-Y-": "Fairy"
+  },
+  "typeOrder": [
+    "Grass", "Fire", "Water", "Lightning", "Fighting", "Psychic",
+    "Darkness", "Metal", "Dragon", "Fairy", "Colorless"
+  ],
+  "trainerTypeMap": {
+    "-IT-": "Item",
+    "-PT-": "Pokemon Tool",
+    "-ST-": "Stadium",
+    "-SU-": "Supporter",
+    "-XX-": "Declassified"
+  },
+  "trainerTypeOrder": [
+    "Supporter", "Item", "Pokemon Tool", "Stadium", "Declassified"
+  ],
+  "setMap": {
+    "_01_": "Forte Arrivals",
+    "_01a_": "Celestial Resonance",
+    "_01b_": "Ancient Awakenings",
+    "_PR_": "Promo",
+    "_MISC_": "Misc"
+  },
+  "setOrder": [
+    "Forte Arrivals",
+    "Celestial Resonance",
+    "Ancient Awakenings",
+    "Promo",
+    "Other" 
+  ],
+  "forteMap": {
+      "_F_": "Forte"
+  },
+  "setColors": { 
+    "Forte Arrivals": "#4ade80",
+    "Celestial Resonance": "#a78bfa",
+    "Ancient Awakenings": "#fbbf24",
+    "Promo": "#A0A0A0",
+    "Misc": "#4B5563", 
+    "Other": "#71717a",
+    "default": "#6B7280",
+    "all": "#DC2626"
   }
-  
+}
