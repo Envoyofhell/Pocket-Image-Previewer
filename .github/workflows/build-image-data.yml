@@ -1,0 +1,58 @@
+# .github/workflows/build-image-data.yml
+
+name: Build Image Data
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    branches: [ main ] # Adjust branch name if needed (e.g., master)
+    paths: # Only run if relevant files change (optional but recommended)
+      - 'img/**'
+      - 'filter_config.json'
+      - 'generate_image_structure.js'
+      - 'package.json'
+      - 'package-lock.json' # or 'pnpm-lock.yaml' if using pnpm
+      - '.github/workflows/build-image-data.yml'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Sets up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify your desired Node.js version
+          cache: 'npm' # or 'pnpm' if you use pnpm
+
+      # Installs dependencies (good practice, even if not strictly needed for this script)
+      - name: Install Dependencies
+        run: npm install # Use 'pnpm install' if you initialized with pnpm
+
+      # Runs the build script defined in package.json
+      - name: Run Build Script
+        run: npm run build:images # This executes 'node generate_image_structure.js'
+
+      # Commit changes if image_data.js was modified
+      - name: Commit updated image_data.js
+        uses: stefanzweifel/git-auto-commit-action@v5 # Uses a dedicated action for committing
+        with:
+          commit_message: "Automated: Update image_data.js"
+          file_pattern: image_data.js # Only commit if this specific file changed
+          commit_user_name: GitHub Action Bot # Name for the commit user
+          commit_user_email: actions@github.com # Email for the commit user
+          commit_author: GitHub Action Bot <actions@github.com> # Author details
+          # Optional: Add push_options: '--force' if you need to force push (use with caution)
