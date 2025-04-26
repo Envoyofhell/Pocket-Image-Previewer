@@ -11,6 +11,7 @@
     <script src="image_data.js" defer></script>
     <script src="background.js" defer></script>
     <script src="audio.js" defer></script>
+    <script src="likes.js" defer></script>
 </head>
 <body class="font-sans p-4 md:p-8">
     <!-- Page Loading Overlay -->
@@ -24,62 +25,60 @@
     <div id="threejs-bg"></div>
 
     <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-6">
-        <!-- Brand Container with Logo and Title -->
-        <div class="brand-container">
-            <div class="logo-container">
-                <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo" 
-                     onerror="this.src='https://placehold.co/100x100/f87171/ffffff.png?text=F'; this.onerror=null;">
+        <!-- Brand Container with Logo and Title - UPDATED LAYOUT -->
+        <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+            <div class="brand-container flex flex-col items-center md:items-start mb-4 md:mb-0">
+                <div class="logo-container mb-2">
+                    <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo w-48 md:w-64" 
+                         onerror="this.src='https://placehold.co/200x120/f87171/ffffff.png?text=F'; this.onerror=null;">
+                </div>
+                <h1 class="title-glow text-2xl md:text-3xl">Card Previewer</h1>
             </div>
-            <div class="title-container">
-                <h1 class="title-glow">Card Previewer</h1>
-                <p class="title-subtitle">Browse and preview custom card designs</p>
+
+            <div class="controls-container w-full md:w-auto">
+                <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
+                    <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
+                    <div>
+                        <label for="type-filter" class="filter-label">Type:</label>
+                        <select id="type-filter" name="type-filter" class="filter-select">
+                            <option value="all">All Types</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="forte-filter" class="filter-label">Forte:</label>
+                        <select id="forte-filter" name="forte-filter" class="filter-select">
+                            <option value="all">All</option>
+                            <option value="yes">Forte Only</option>
+                            <option value="no">Non-Forte</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="trainer-type-filter" class="filter-label">Trainer Type:</label>
+                        <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
+                            <option value="all">All Trainers</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="creator-filter" class="filter-label">Creator:</label>
+                        <select id="creator-filter" name="creator-filter" class="filter-select">
+                            <option value="all">All Creators</option>
+                        </select>
+                    </div>
+               </div>
+               <div id="size-controls" class="flex flex-wrap items-center gap-y-2 mt-2">
+                   <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
+                    <div class="size-control-group">
+                        <label for="gallery-size-slider" class="size-label">Gallery:</label>
+                        <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider w-20 align-middle">
+                        <span id="gallery-size-display" class="size-display">M</span>
+                   </div>
+              </div>
             </div>
         </div>
 
-        <div class="header-container">
-             <div class="controls-container">
-                  <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
-                       <div>
-                            <label for="type-filter" class="filter-label">Type:</label>
-                            <select id="type-filter" name="type-filter" class="filter-select">
-                                 <option value="all">All Types</option>
-                            </select>
-                       </div>
-                       <div>
-                            <label for="forte-filter" class="filter-label">Forte:</label>
-                            <select id="forte-filter" name="forte-filter" class="filter-select">
-                                 <option value="all">All</option>
-                                 <option value="yes">Forte Only</option>
-                                 <option value="no">Non-Forte</option>
-                            </select>
-                       </div>
-                        <div>
-                            <label for="trainer-type-filter" class="filter-label">Trainer Type:</label>
-                            <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
-                                 <option value="all">All Trainers</option>
-                            </select>
-                       </div>
-                        <div>
-                            <label for="creator-filter" class="filter-label">Creator:</label>
-                            <select id="creator-filter" name="creator-filter" class="filter-select">
-                                 <option value="all">All Creators</option>
-                            </select>
-                       </div>
-                  </div>
-                   <div id="size-controls" class="flex flex-wrap items-center gap-y-2">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
-                        <div class="size-control-group">
-                            <label for="gallery-size-slider" class="size-label">Gallery:</label>
-                            <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider w-20 align-middle">
-                            <span id="gallery-size-display" class="size-display">M</span>
-                       </div>
-                  </div>
-                  <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center">
-                       <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Set:</h2>
-                       <!-- Tabs generated here -->
-                  </div>
-             </div>
+        <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center mb-4">
+            <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Set:</h2>
+            <!-- Tabs generated here -->
         </div>
 
         <div class="border-t pt-4 border-black">
@@ -176,6 +175,16 @@
                             <div class="info-label">File Name</div>
                             <div id="info-file-name" class="info-value text-xs break-all opacity-50">-</div>
                         </div>
+                        <!-- Like controls in lightbox -->
+                        <div class="info-item">
+                            <div class="info-label">Likes</div>
+                            <div class="info-value flex items-center">
+                                <span id="lb-like-count" class="mr-2">0</span>
+                                <button id="lb-like-button" class="like-button" aria-label="Like this card">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -250,6 +259,76 @@
          </div>
     </div>
 
+    <style>
+        /* Additional styles for the likes feature */
+        .like-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .like-button:hover {
+            background: rgba(220, 38, 38, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .like-button.liked i {
+            font-weight: 900;
+            animation: heartBeat 0.5s;
+        }
+        
+        .thumbnail {
+            position: relative;
+        }
+        
+        .thumbnail-like-container {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: white;
+            z-index: 5;
+        }
+        
+        .thumbnail-like-count {
+            font-size: 0.8rem;
+            margin-right: 4px;
+        }
+        
+        .thumbnail-like-button {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            padding: 2px;
+            transition: transform 0.2s ease;
+        }
+        
+        .thumbnail-like-button:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+    </style>
+
     <script>
         // --- Configuration ---
         const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error";
@@ -304,6 +383,8 @@
         const infoTrainerType = document.getElementById('info-trainer-type');
         const infoCreator = document.getElementById('info-creator');
         const infoFileName = document.getElementById('info-file-name');
+        const lbLikeButton = document.getElementById('lb-like-button');
+        const lbLikeCount = document.getElementById('lb-like-count');
 
         // --- State ---
         let currentSetTab = 'all';
@@ -329,6 +410,7 @@
         let isZoomed = false;
         let imageCache = new Map(); // Cache for preloaded images
         let intersectionObserver; // For lazy loading and in-view effects
+        let backgroundAnimationPaused = false; // Track background animation state
 
         // --- Data loaded from image_data.js ---
         let rootImageStructure = null;
@@ -452,6 +534,21 @@
             
             // Initialize holo effect
             applyFancyHoloListeners('#fancy-holo-container');
+            
+            // Pause background animation
+            pauseBackgroundAnimation(true);
+            
+            // Update like button and count in lightbox
+            updateLightboxLikeStatus(imageObject.path);
+        }
+        
+        /** Pause or resume the background animation */
+        function pauseBackgroundAnimation(pause) {
+            backgroundAnimationPaused = pause;
+            // The background.js script will check this variable
+            if (typeof window.setBackgroundPaused === 'function') {
+                window.setBackgroundPaused(pause);
+            }
         }
         
         /** Load an image into the fancy lightbox */
@@ -603,6 +700,9 @@
                 highlightThumbnail(prevImage.path);
                 resetZoom();
                 
+                // Update like button and count in lightbox
+                updateLightboxLikeStatus(prevImage.path);
+                
                 // Preload adjacent images
                 preloadAdjacentImages();
             }
@@ -619,6 +719,9 @@
                 updateFancyNavigation();
                 highlightThumbnail(nextImage.path);
                 resetZoom();
+                
+                // Update like button and count in lightbox
+                updateLightboxLikeStatus(nextImage.path);
                 
                 // Preload adjacent images
                 preloadAdjacentImages();
@@ -649,6 +752,9 @@
             resetFancyHoloEffect();
             resetZoom();
             document.body.style.overflow = '';
+            
+            // Resume background animation
+            pauseBackgroundAnimation(false);
             
             // Restore scroll position
             window.scrollTo({ top: lastScrollY, behavior: 'instant' });
@@ -744,6 +850,33 @@
             }
         }
 
+        /** Update like status in the lightbox */
+        function updateLightboxLikeStatus(imagePath) {
+            if (!lbLikeButton || !lbLikeCount) return;
+            
+            // Get the like count and status for this card
+            const likeData = getLikeData(imagePath);
+            lbLikeCount.textContent = likeData.count;
+            
+            // Update button style
+            if (likeData.liked) {
+                lbLikeButton.classList.add('liked');
+                lbLikeButton.querySelector('i').classList.remove('far');
+                lbLikeButton.querySelector('i').classList.add('fas');
+            } else {
+                lbLikeButton.classList.remove('liked');
+                lbLikeButton.querySelector('i').classList.remove('fas');
+                lbLikeButton.querySelector('i').classList.add('far');
+            }
+            
+            // Add click handler
+            lbLikeButton.onclick = function() {
+                toggleLike(imagePath);
+                updateLightboxLikeStatus(imagePath);
+                updateAllThumbnailLikes();
+            };
+        }
+
         /** Renders the gallery based on a list of image file objects */
         function renderGalleryView(imagesToDisplay) {
             console.log(`[renderGalleryView] Rendering gallery with ${imagesToDisplay?.length || 0} images.`);
@@ -834,7 +967,31 @@
                     } 
                 });
 
+                // Add like container to thumbnail
+                const likeData = window.getLikeData ? window.getLikeData(image.path) : { count: 0, liked: false };
+                const likeContainer = document.createElement('div');
+                likeContainer.className = 'thumbnail-like-container';
+                likeContainer.innerHTML = `
+                    <span class="thumbnail-like-count">${likeData.count}</span>
+                    <button class="thumbnail-like-button" aria-label="Like this card">
+                        <i class="${likeData.liked ? 'fas' : 'far'} fa-heart"></i>
+                    </button>
+                `;
+                
+                // Like button click handler
+                const likeButton = likeContainer.querySelector('.thumbnail-like-button');
+                likeButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent opening the lightbox
+                    if (window.toggleLike) window.toggleLike(image.path);
+                    updateAllThumbnailLikes();
+                    // If the lightbox is open and showing this card, update it too
+                    if (fancyLightbox.classList.contains('visible') && currentFancyCardImage && currentFancyCardImage.path === image.path) {
+                        updateLightboxLikeStatus(image.path);
+                    }
+                });
+
                 thumbnailContainer.appendChild(img);
+                thumbnailContainer.appendChild(likeContainer);
                 itemGallery.appendChild(thumbnailContainer);
                 focusableElements.push(thumbnailContainer);
                 
@@ -859,6 +1016,33 @@
                     }
                 });
             }
+        }
+
+        /** Update all thumbnail like counters and icons */
+        function updateAllThumbnailLikes() {
+            itemGallery.querySelectorAll('.thumbnail').forEach(thumbnail => {
+                const path = thumbnail.dataset.path;
+                if (!path) return;
+                
+                const likeContainer = thumbnail.querySelector('.thumbnail-like-container');
+                if (!likeContainer) return;
+                
+                const likeCount = likeContainer.querySelector('.thumbnail-like-count');
+                const likeButton = likeContainer.querySelector('.thumbnail-like-button i');
+                
+                const likeData = getLikeData(path);
+                if (likeCount) likeCount.textContent = likeData.count;
+                
+                if (likeButton) {
+                    if (likeData.liked) {
+                        likeButton.classList.remove('far');
+                        likeButton.classList.add('fas');
+                    } else {
+                        likeButton.classList.remove('fas');
+                        likeButton.classList.add('far');
+                    }
+                }
+            });
         }
 
         /** Applies current filters and triggers rendering */
