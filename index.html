@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forte Card Previewer</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/theme.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="dist/tailwind.css"></script>
-</head>
-<body class="font-sans p-4 md:p-8">
-    <!-- Page Loading Overlay -->
-    <div id="page-loading-overlay" class="page-loading-overlay">
+
+    <link rel="stylesheet" href="assets/css/theme.css">
+
+    </head>
+<body class="font-sans"> <div id="page-loading-overlay" class="page-loading-overlay">
         <div class="loader-container">
             <div class="loader"></div>
             <div class="loader-text">Loading Forte Card Previewer</div>
@@ -20,248 +20,136 @@
 
     <div id="threejs-bg"></div>
 
-    <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-6">
-        <!-- Brand Container with Logo and Title -->
-        <div class="flex flex-col md:flex-row items-center justify-between mb-6">
-            <div class="brand-container flex flex-col items-center md:items-start mb-4 md:mb-0">
-                <div class="logo-container mb-2">
-                    <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo w-48 md:w-64" 
-                         onerror="this.src='https://placehold.co/200x120/f87171/ffffff.png?text=F'; this.onerror=null;">
-                </div>
-                <h1 class="title-glow text-2xl md:text-3xl">Card Previewer</h1>
+    <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-4 md:p-6">
+
+        <div class="header-container"> <div class="brand-area">
+                <div class="logo-container">
+                    <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo"
+                         onerror="this.style.display='none';"> </div>
+                <h1 class="title-glow font-pirata">Card Previewer</h1>
             </div>
 
-            <div class="controls-container w-full md:w-auto">
-                <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
-                    <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
-                    <div>
-                        <label for="type-filter" class="filter-label">Type:</label>
-                        <select id="type-filter" name="type-filter" class="filter-select">
-                            <option value="all">All Types</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="forte-filter" class="filter-label">Forte:</label>
-                        <select id="forte-filter" name="forte-filter" class="filter-select">
-                            <option value="all">All</option>
-                            <option value="yes">Forte Only</option>
-                            <option value="no">Non-Forte</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="trainer-type-filter" class="filter-label">Trainer Type:</label>
-                        <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
-                            <option value="all">All Trainers</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="creator-filter" class="filter-label">Creator:</label>
-                        <select id="creator-filter" name="creator-filter" class="filter-select">
-                            <option value="all">All Creators</option>
-                        </select>
-                    </div>
-               </div>
-               <div id="size-controls" class="flex flex-wrap items-center gap-y-2 mt-2">
-                   <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
-                    <div class="size-control-group">
-                        <label for="gallery-size-slider" class="size-label">Gallery:</label>
-                        <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider w-20 align-middle">
-                        <span id="gallery-size-display" class="size-display">M</span>
+            <div class="controls-area">
+
+                <div class="filter-size-row">
+                    <div id="filter-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4">
+                        <h2 class="controls-label hidden md:block">Filters:</h2>
+                        <div>
+                            <label for="type-filter" class="filter-label">Type:</label>
+                            <select id="type-filter" name="type-filter" class="filter-select">
+                                <option value="all">All Types</option>
+                                </select>
+                        </div>
+                        <div>
+                            <label for="forte-filter" class="filter-label">Forte:</label>
+                            <select id="forte-filter" name="forte-filter" class="filter-select">
+                                <option value="all">All</option>
+                                <option value="yes">Forte Only</option>
+                                <option value="no">Non-Forte</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="trainer-type-filter" class="filter-label">Trainer:</label>
+                            <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
+                                <option value="all">All Trainers</option>
+                                </select>
+                        </div>
+                        <div>
+                            <label for="creator-filter" class="filter-label">Creator:</label>
+                            <select id="creator-filter" name="creator-filter" class="filter-select">
+                                <option value="all">All Creators</option>
+                                </select>
+                        </div>
                    </div>
-              </div>
-            </div>
-        </div>
+                   <div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4">
+                       <h2 class="controls-label hidden md:block">Sizes:</h2>
+                       <div class="size-control-group"> <label for="gallery-size-slider" class="size-label">Gallery:</label>
+                           <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider">
+                           <span id="gallery-size-display" class="size-display">M</span>
+                       </div>
+                   </div>
+                </div> <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-end w-full">
+                    <h2 class="controls-label hidden md:block">Set:</h2>
+                    </div>
 
-        <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center mb-4">
-            <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Set:</h2>
-            <!-- Tabs generated here -->
-        </div>
-
-        <div class="border-t pt-4 border-black">
-            <div id="item-gallery" class="mt-6 grid gap-4 items-start" role="grid">
-                <!-- Cards rendered here -->
-            </div>
+            </div> </div>
+        <div class="gallery-section border-t border-[var(--color-border)] pt-4 mt-4"> <div id="item-gallery" class="grid gap-4 items-start" role="grid">
+                </div>
             <p id="empty-folder-message" class="text-center mt-4 hidden">No images match the current filters.</p>
         </div>
 
-         <footer class="footer">
-             <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
-             This is a fan site for testing elements (image loading and previewing).
-             <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
-        </footer>
-    </div>
-
-    <!-- Fancy Popup Lightbox -->
-    <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <footer class="footer">
+              <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
+              <span>Fan Project - Testing Previewer</span>
+              <img src="resources/tcg-pocket-logo.png" alt="" onerror="this.style.display='none'">
+         </footer>
+    </div> <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="fancy-lightbox-content">
-            <!-- Header -->
             <div class="fancy-lightbox-header">
                 <h2 class="fancy-lightbox-title">
-                    <i class="fas fa-crown mr-2"></i>
+                    <i class="fas fa-crown mr-2 text-[var(--color-accent)]"></i>
                     <span id="card-title">Forte Card Viewer</span>
                 </h2>
                 <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
-            <!-- Body (Left: Info, Right: Card) -->
+
             <div class="fancy-lightbox-body">
-                <!-- Left: Card Info -->
                 <div class="fancy-card-info">
-                    <!-- Basic Info Section -->
                     <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-id-card"></i>
-                            <span>Card Details</span>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Card Name</div>
-                            <div id="info-card-name" class="info-value">-</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Set</div>
-                            <div id="info-set-name" class="info-value">-</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Number</div>
-                            <div id="info-card-number" class="info-value">-</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Dex Number</div>
-                            <div id="info-dex-number" class="info-value">-</div>
-                        </div>
+                        <div class="info-section-title"><i class="fas fa-id-card text-[var(--color-accent)]"></i><span>Card Details</span></div>
+                        <div class="info-item"><div class="info-label">Card Name</div><div id="info-card-name" class="info-value">-</div></div>
+                        <div class="info-item"><div class="info-label">Set</div><div id="info-set-name" class="info-value">-</div></div>
+                        <div class="info-item"><div class="info-label">Number</div><div id="info-card-number" class="info-value">-</div></div>
+                         <div class="info-item"><div class="info-label">Dex Number</div><div id="info-dex-number" class="info-value">-</div></div>
                     </div>
-                    
-                    <!-- Type & Classification -->
                     <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-tag"></i>
-                            <span>Classification</span>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Card Type</div>
-                            <div id="info-card-type" class="info-value">-</div>
-                            <!-- Dynamically add type badges here -->
-                            <div id="info-type-badges" class="card-types">
-                                <!-- Type badges go here -->
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Forte Status</div>
-                            <div id="info-forte-status" class="info-value">-</div>
-                        </div>
-                        <div id="info-trainer-type-container" class="info-item" style="display: none;">
-                            <div class="info-label">Trainer Type</div>
-                            <div id="info-trainer-type" class="info-value">-</div>
-                        </div>
+                        <div class="info-section-title"><i class="fas fa-tag text-[var(--color-accent)]"></i><span>Classification</span></div>
+                        <div class="info-item"><div class="info-label">Card Type</div><div id="info-card-type" class="info-value">-</div><div id="info-type-badges" class="card-types"></div></div>
+                        <div class="info-item"><div class="info-label">Forte Status</div><div id="info-forte-status" class="info-value">-</div></div>
+                        <div id="info-trainer-type-container" class="info-item" style="display: none;"><div class="info-label">Trainer Type</div><div id="info-trainer-type" class="info-value">-</div></div>
                     </div>
-                    
-                    <!-- Creation Info -->
                     <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-user-edit"></i>
-                            <span>Creation Info</span>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Creator</div>
-                            <div id="info-creator" class="info-value">-</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">File Name</div>
-                            <div id="info-file-name" class="info-value text-xs break-all opacity-50">-</div>
-                        </div>
-                        <!-- Like controls in lightbox -->
-                        <div class="info-item">
-                            <div class="info-label">Likes</div>
-                            <div class="info-value flex items-center">
-                                <span id="lb-like-count" class="mr-2">0</span>
-                                <button id="lb-like-button" class="like-button" aria-label="Like this card">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <div class="info-section-title"><i class="fas fa-user-edit text-[var(--color-accent)]"></i><span>Creation & Popularity</span></div>
+                        <div class="info-item"><div class="info-label">Creator</div><div id="info-creator" class="info-value">-</div></div>
+                        <div class="info-item"><div class="info-label">File Name</div><div id="info-file-name" class="info-value text-xs break-all opacity-50">-</div></div>
+                        <div class="info-item"><div class="info-label">Likes</div><div class="info-value flex items-center"><span id="lb-like-count" class="mr-2">0</span><button id="lb-like-button" class="like-button" aria-label="Like this card"><i class="far fa-heart"></i></button></div></div>
                     </div>
                 </div>
-                
-                <!-- Right: Card Display -->
+
                 <div class="fancy-card-display">
-                    <div id="fancy-spinner" class="spinner"></div>
-                    
-                    <!-- Card container with holo effect -->
-                    <div id="fancy-holo-container" class="fancy-holo-container">
+                    <div id="fancy-spinner" class="spinner hidden"></div> <div id="fancy-holo-container" class="fancy-holo-container">
                         <div id="fancy-holo-inner" class="fancy-holo-inner">
                             <img id="fancy-card-image" class="fancy-card-image hidden" src="" alt="Card preview">
                         </div>
                     </div>
-                    
-                    <!-- Card view controls -->
-                    <div id="fancy-card-controls" class="fancy-card-controls">
-                        <button id="fancy-normal-view" class="fancy-control-button active" data-view="normal">
-                            <i class="fas fa-image"></i>
-                            <span>Normal</span>
-                        </button>
-                        <button id="fancy-textless-view" class="fancy-control-button" data-view="textless" disabled>
-                            <i class="fas fa-square"></i>
-                            <span>Textless</span>
-                        </button>
-                    </div>
-                    
-                    <!-- Navigation buttons -->
-                    <div class="fancy-nav-controls">
-                        <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Zoom controls -->
-                    <div class="fancy-zoom-controls">
-                        <button id="fancy-zoom-in" class="fancy-zoom-button" aria-label="Zoom in">
-                            <i class="fas fa-search-plus"></i>
-                        </button>
-                        <button id="fancy-zoom-reset" class="fancy-zoom-button" aria-label="Reset zoom">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                        <button id="fancy-zoom-out" class="fancy-zoom-button" aria-label="Zoom out">
-                            <i class="fas fa-search-minus"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Keyboard controls hint -->
-                    <div class="keyboard-hint">
-                        <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
-                        <span><kbd>+</kbd> <kbd>-</kbd> Zoom</span>
-                        <span><kbd>Esc</kbd> Close</span>
-                    </div>
+                    <div id="fancy-card-controls" class="fancy-card-controls"><button id="fancy-normal-view" class="fancy-control-button active" data-view="normal"><i class="fas fa-image"></i><span>Normal</span></button><button id="fancy-textless-view" class="fancy-control-button" data-view="textless" disabled><i class="fas fa-square"></i><span>Textless</span></button></div>
+                    <div class="fancy-nav-controls"><button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button><button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card"><i class="fas fa-chevron-right"></i></button></div>
+                    <div class="fancy-zoom-controls"><button id="fancy-zoom-in" class="fancy-zoom-button" aria-label="Zoom in"><i class="fas fa-search-plus"></i></button><button id="fancy-zoom-reset" class="fancy-zoom-button" aria-label="Reset zoom"><i class="fas fa-expand"></i></button><button id="fancy-zoom-out" class="fancy-zoom-button" aria-label="Zoom out"><i class="fas fa-search-minus"></i></button></div>
+                    <div class="keyboard-hint"><span><kbd>←</kbd> <kbd>→</kbd> Navigate</span><span><kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd> Zoom</span><span><kbd>Esc</kbd> Close</span><span><kbd>Space</kbd> Toggle View</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="audio-prompt" style="display: block;">Click anywhere to enable audio</div>
-
     <div id="audio-control-container" style="display: none;">
          <span id="song-name"></span>
          <button id="play-pause-button" class="audio-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
          <button id="next-song-button" class="audio-button" aria-label="Next Song"><i class="fas fa-forward-step"></i></button>
-         <div id="mute-button" class="audio-button" aria-label="Mute/Unmute">
+         <div id="mute-button" class="audio-button relative" aria-label="Mute/Unmute">
               <i class="fas fa-volume-high"></i>
-              <div id="volume-container">
-                   <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.6">
-              </div>
+              <div id="volume-container" class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 p-2 bg-[rgba(30,41,59,0.9)] rounded hidden"> <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" class="volume-slider-style"> </div>
          </div>
     </div>
 
-    <!-- Script loading in correct order -->
+    
     <script src="image_data.js"></script>
     <script src="background.js"></script>
     <script src="db-likes.js"></script>
     <script src="audio.js"></script>
 
-    <!-- Main Application Script -->
     <script>
         // --- Configuration ---
         const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error";
@@ -287,7 +175,7 @@
         const emptyFolderMessage = document.getElementById('empty-folder-message');
         const gallerySizeSlider = document.getElementById('gallery-size-slider');
         const gallerySizeDisplay = document.getElementById('gallery-size-display');
-        
+
         // --- Fancy Lightbox Elements ---
         const fancyLightbox = document.getElementById('fancy-lightbox');
         const fancyLightboxContent = fancyLightbox.querySelector('.fancy-lightbox-content');
@@ -304,7 +192,7 @@
         const fancyZoomIn = document.getElementById('fancy-zoom-in');
         const fancyZoomOut = document.getElementById('fancy-zoom-out');
         const fancyZoomReset = document.getElementById('fancy-zoom-reset');
-        
+
         // --- Card Info Elements ---
         const infoCardName = document.getElementById('info-card-name');
         const infoSetName = document.getElementById('info-set-name');
@@ -355,7 +243,7 @@
         /** Preload an image and store in cache */
         function preloadImage(src) {
             if (!src || imageCache.has(src)) return Promise.resolve();
-            
+
             return new Promise(function(resolve, reject) {
                 const img = new Image();
                 img.onload = function() {
@@ -369,18 +257,18 @@
                 img.src = src;
             });
         }
-        
+
         /** Preload next and previous images */
         function preloadAdjacentImages() {
             if (!PRELOAD_NEXT_PREV || !currentImageFiles || currentImageIndex < 0) return;
-            
+
             // Preload next image if available
             if (currentImageIndex < currentImageFiles.length - 1) {
                 const nextImage = currentImageFiles[currentImageIndex + 1];
                 preloadImage(encodeImagePath(nextImage.path))
                     .catch(function(err) { console.log('Non-critical preload error:', err); });
             }
-            
+
             // Preload previous image if available
             if (currentImageIndex > 0) {
                 const prevImage = currentImageFiles[currentImageIndex - 1];
@@ -417,20 +305,20 @@
 
         /** Opens the Fancy Lightbox */
         function openFancyLightbox(imageObject) {
-            if (!imageObject) { 
-                console.error("Invalid image object passed to openFancyLightbox"); 
-                return; 
+            if (!imageObject) {
+                console.error("Invalid image object passed to openFancyLightbox");
+                return;
             }
-            
+
             // Store current scroll position and current card
             lastScrollY = window.scrollY;
             currentFancyCardImage = imageObject;
-            
+
             // Set up the navigation sequence (filtered, non-blank images)
-            currentImageFiles = currentlyDisplayedImages.filter(function(img) { 
-                return !img.isBlank; 
+            currentImageFiles = currentlyDisplayedImages.filter(function(img) {
+                return !img.isBlank;
             });
-            
+
             currentImageIndex = -1;
             for (let i = 0; i < currentImageFiles.length; i++) {
                 if (currentImageFiles[i].path === imageObject.path) {
@@ -438,72 +326,72 @@
                     break;
                 }
             }
-            
+
             if (currentImageIndex === -1) {
                 console.warn("Fallback: Clicked image not in displayed non-blanks. Using base set for nav.");
-                currentImageFiles = baseImageSet.filter(function(img) { 
-                    return !img.isBlank; 
+                currentImageFiles = baseImageSet.filter(function(img) {
+                    return !img.isBlank;
                 });
-                
+
                 for (let i = 0; i < currentImageFiles.length; i++) {
                     if (currentImageFiles[i].path === imageObject.path) {
                         currentImageIndex = i;
                         break;
                     }
                 }
-                
-                if (currentImageIndex === -1) { 
-                    currentImageFiles = [imageObject]; 
-                    currentImageIndex = 0; 
+
+                if (currentImageIndex === -1) {
+                    currentImageFiles = [imageObject];
+                    currentImageIndex = 0;
                 }
             }
-            
+
             // Update the card title
             fancyCardTitle.textContent = imageObject.cardName || "Card Preview";
-            
+
             // Update card info panel
             updateCardInfo(imageObject);
-            
+
             // Check for blank version
             checkBlankVersion(imageObject);
-            
+
             // Reset zoom state
             resetZoom();
-            
+
             // Load the image
             loadFancyCardImage(imageObject.path);
-            
+
             // Preload adjacent images
             preloadAdjacentImages();
-            
+
             // Update navigation controls
             updateFancyNavigation();
-            
+
             // Show the lightbox
             fancyLightbox.classList.add('visible');
             fancyLightbox.setAttribute('aria-hidden', 'false');
-            
+
             // Prevent body scroll
             document.body.style.overflow = 'hidden';
-            
+
             // Focus the close button (for accessibility)
-            setTimeout(function() { 
-                fancyLightboxClose.focus(); 
+            setTimeout(function() {
+                fancyLightboxClose.focus();
             }, 100);
-            
+
             // Highlight the selected thumbnail in the gallery
             highlightThumbnail(imageObject.path);
-            
+
             // Initialize holo effect
             applyFancyHoloListeners('#fancy-holo-container');
-            
+
             // Pause background animation
             pauseBackgroundAnimation(true);
-            
+
             // Update like button and count in lightbox
             updateLightboxLikeStatus(imageObject.path);
         }
-        
+
         /** Pause or resume the background animation */
         function pauseBackgroundAnimation(pause) {
             backgroundAnimationPaused = pause;
@@ -512,17 +400,17 @@
                 window.setBackgroundPaused(pause);
             }
         }
-        
+
         /** Load an image into the fancy lightbox */
         function loadFancyCardImage(path) {
             fancySpinner.classList.remove('hidden');
             fancyCardImage.classList.add('hidden');
             fancyHoloInner.classList.remove('holo-active');
-            
+
             // Properly encode the image path
             const encodedPath = encodeImagePath(path);
             console.log("Loading image: " + encodedPath);
-            
+
             // Check if in cache first
             if (imageCache.has(encodedPath)) {
                 console.log("Loading from cache: " + encodedPath);
@@ -533,18 +421,18 @@
                 fancyCardImage.classList.add('loaded');
                 return;
             }
-            
+
             // Set up image load handler
             fancyCardImage.onload = function() {
                 fancySpinner.classList.add('hidden');
                 fancyCardImage.classList.remove('hidden');
                 fancyCardImage.classList.add('loaded');
                 console.log("Fancy image loaded: " + path);
-                
+
                 // Store in cache
                 imageCache.set(encodedPath, fancyCardImage.cloneNode(false));
             };
-            
+
             // Set up error handler
             fancyCardImage.onerror = function() {
                 console.error("Failed to load fancy image: " + path);
@@ -553,16 +441,16 @@
                 fancyCardImage.src = mainPlaceholderUrl;
                 fancyCardImage.alt = "Error loading image";
             };
-            
+
             // Load the image
             fancyCardImage.src = encodedPath;
             fancyCardImage.alt = "Card preview: " + path.split('/').pop();
         }
-        
+
         /** Update the card info panel with card details */
         function updateCardInfo(card) {
             if (!card) return;
-            
+
             // Update basic card info
             infoCardName.textContent = card.cardName || 'Unknown';
             infoSetName.textContent = card.setName || 'Unknown Set';
@@ -570,17 +458,17 @@
             infoDexNumber.textContent = card.dexNumber || 'N/A';
             infoCardType.textContent = card.cardType || 'Unknown';
             infoFileName.textContent = card.name || 'Unknown';
-            
+
             // Update Forte status with badge if it's a Forte card
             if (card.isForte) {
                 infoForteStatus.innerHTML = '<div class="forte-badge"><i class="fas fa-crown"></i> Forte</div>';
             } else {
                 infoForteStatus.textContent = 'No';
             }
-            
+
             // Update creator info
             infoCreator.textContent = card.creator || 'Unknown';
-            
+
             // Show/hide trainer type info based on card type
             if (card.cardType === 'Trainer' && card.trainerType) {
                 infoTrainerTypeContainer.style.display = 'block';
@@ -588,7 +476,7 @@
             } else {
                 infoTrainerTypeContainer.style.display = 'none';
             }
-            
+
             // Clear and update type badges
             infoTypeBadges.innerHTML = '';
             if (card.types && card.types.length > 0) {
@@ -596,7 +484,8 @@
                     const type = card.types[i];
                     const badge = document.createElement('span');
                     badge.className = "card-type-badge type-" + type;
-                    badge.innerHTML = '<i class="fas fa-fire-alt"></i> ' + type;
+                    // You might want icons specific to types here
+                    badge.innerHTML = '<i class="fas fa-tag"></i> ' + type;
                     infoTypeBadges.appendChild(badge);
                 }
             } else if (card.cardType === 'Trainer') {
@@ -604,21 +493,26 @@
                 badge.className = 'card-type-badge';
                 badge.innerHTML = '<i class="fas fa-user"></i> Trainer';
                 infoTypeBadges.appendChild(badge);
+            } else if (card.cardType === 'Energy') {
+                 const badge = document.createElement('span');
+                badge.className = 'card-type-badge';
+                badge.innerHTML = '<i class="fas fa-bolt"></i> Energy';
+                infoTypeBadges.appendChild(badge);
             }
         }
-        
+
         /** Check if a blank version of the card exists */
         function checkBlankVersion(card) {
             if (!card) return;
-            
+
             const ext = getExtension(card.name);
             const baseFilename = card.name.replace(BLANK_SUFFIX + ext, '').replace(ext, '');
             const potentialBlankPath = card.path.replace(card.name, baseFilename + BLANK_SUFFIX + ext);
             const potentialNormalPath = card.path.replace(card.name, baseFilename + ext);
-            
+
             // Check if this is a blank version by looking for -BL- in the name
             const isBlank = card.name.indexOf(BLANK_SUFFIX) !== -1;
-            
+
             if (isBlank) {
                 fancyNormalVersionPath = potentialNormalPath;
                 fancyBlankVersionPath = card.path;
@@ -626,36 +520,36 @@
                 fancyNormalVersionPath = card.path;
                 fancyBlankVersionPath = potentialBlankPath;
             }
-            
+
             // Look for a matching card with the same name but blank/normal version
             const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
-            
+
             let matchingCard = null;
             for (let i = 0; i < allImagesFull.length; i++) {
                 const img = allImagesFull[i];
-                if ((isBlank && img.path === potentialNormalPath) || 
+                if ((isBlank && img.path === potentialNormalPath) ||
                     (!isBlank && img.path === potentialBlankPath)) {
                     matchingCard = img;
                     break;
                 }
             }
-            
+
             fancyHasBlankVersion = !!matchingCard;
-            
+
             // Enable/disable textless button
             fancyTextlessView.disabled = !fancyHasBlankVersion;
-            
+
             // Set active button based on current view
             fancyNormalView.classList.toggle('active', !isBlank);
             fancyTextlessView.classList.toggle('active', isBlank);
         }
-        
+
         /** Update fancy lightbox navigation controls */
         function updateFancyNavigation() {
             fancyPrevButton.disabled = currentImageIndex <= 0;
             fancyNextButton.disabled = currentImageIndex >= currentImageFiles.length - 1;
         }
-        
+
         /** Navigate to the previous image */
         function showPreviousCard() {
             if (currentImageIndex > 0) {
@@ -667,15 +561,15 @@
                 updateFancyNavigation();
                 highlightThumbnail(prevImage.path);
                 resetZoom();
-                
+
                 // Update like button and count in lightbox
                 updateLightboxLikeStatus(prevImage.path);
-                
+
                 // Preload adjacent images
                 preloadAdjacentImages();
             }
         }
-        
+
         /** Navigate to the next image */
         function showNextCard() {
             if (currentImageIndex < currentImageFiles.length - 1) {
@@ -687,19 +581,19 @@
                 updateFancyNavigation();
                 highlightThumbnail(nextImage.path);
                 resetZoom();
-                
+
                 // Update like button and count in lightbox
                 updateLightboxLikeStatus(nextImage.path);
-                
+
                 // Preload adjacent images
                 preloadAdjacentImages();
             }
         }
-        
+
         /** Switch between normal and textless views */
         function switchCardView(view) {
             if (!fancyHasBlankVersion) return;
-            
+
             if (view === 'normal' && fancyNormalVersionPath) {
                 loadFancyCardImage(fancyNormalVersionPath);
                 fancyNormalView.classList.add('active');
@@ -710,41 +604,41 @@
                 fancyNormalView.classList.remove('active');
             }
         }
-        
+
         /** Close the fancy lightbox */
         function closeFancyLightbox() {
             fancyLightbox.classList.remove('visible');
             fancyLightbox.setAttribute('aria-hidden', 'true');
-            
+
             // Reset state
             resetFancyHoloEffect();
             resetZoom();
             document.body.style.overflow = '';
-            
+
             // Resume background animation
             pauseBackgroundAnimation(false);
-            
+
             // Restore scroll position
             window.scrollTo({ top: lastScrollY, behavior: 'instant' });
-            
+
             // Find and focus the thumbnail that was clicked
             const focusedImageObject = currentImageFiles[currentImageIndex];
-            const opener = focusedImageObject ? 
-                itemGallery.querySelector(".thumbnail[data-path='" + focusedImageObject.path + "']") : 
+            const opener = focusedImageObject ?
+                itemGallery.querySelector(".thumbnail[data-path='" + focusedImageObject.path + "']") :
                 null;
-                
+
             unhighlightAllThumbnails();
-            
+
             // Focus back on the thumbnail
             setTimeout(function() {
-                if (opener) { 
-                    opener.focus({ preventScroll: true }); 
-                } else if (focusableElements.length > 0) { 
-                    focusableElements[0].focus({ preventScroll: true }); 
+                if (opener) {
+                    opener.focus({ preventScroll: true });
+                } else if (focusableElements.length > 0) {
+                    focusableElements[0].focus({ preventScroll: true });
                 }
             }, 10);
         }
-        
+
         /** Zoom operations */
         function zoomIn() {
             fancyHoloInner.classList.remove('zoom-out');
@@ -752,13 +646,13 @@
             fancyHoloContainer.classList.add('zoomed');
             isZoomed = true;
         }
-        
+
         function zoomOut() {
             fancyHoloInner.classList.remove('zoom-in');
             fancyHoloInner.classList.add('zoom-out');
-            isZoomed = true;
+            isZoomed = true; // Still considered zoomed when zoomed out
         }
-        
+
         function resetZoom() {
             fancyHoloInner.classList.remove('zoom-in', 'zoom-out');
             fancyHoloContainer.classList.remove('zoomed');
@@ -769,32 +663,38 @@
         function highlightThumbnail(imagePath) {
             unhighlightAllThumbnails();
             const thumbContainer = itemGallery.querySelector(".thumbnail[data-path='" + imagePath + "']");
-            if (thumbContainer) { 
-                thumbContainer.classList.add('selected-inline'); 
+            if (thumbContainer) {
+                thumbContainer.classList.add('selected-inline');
             }
         }
-        
+
         /** Removes highlight from all thumbnails */
-        function unhighlightAllThumbnails() { 
+        function unhighlightAllThumbnails() {
             const selectedThumbnails = itemGallery.querySelectorAll('.thumbnail.selected-inline');
             for (let i = 0; i < selectedThumbnails.length; i++) {
                 selectedThumbnails[i].classList.remove('selected-inline');
             }
         }
-        
+
         /** Properly encode image paths to handle special characters */
         function encodeImagePath(path) {
             if (!path) return '';
-            
+
             // Split the path by segments and encode each part separately
             // Keep the directory separators intact
             const segments = path.split('/');
             const encodedSegments = [];
             for (let i = 0; i < segments.length; i++) {
-                encodedSegments.push(encodeURIComponent(segments[i]));
+                // Avoid encoding ':' in drive letters (e.g., C:)
+                if (i === 0 && segments[i].length === 2 && segments[i][1] === ':') {
+                     encodedSegments.push(segments[i]);
+                } else {
+                    encodedSegments.push(encodeURIComponent(segments[i]));
+                }
             }
             return encodedSegments.join('/');
         }
+
 
         /** Set up intersection observer for lazy loading and in-view effects */
         function setupIntersectionObserver() {
@@ -802,20 +702,21 @@
                 intersectionObserver = new IntersectionObserver(function(entries) {
                     entries.forEach(function(entry) {
                         const thumbnail = entry.target;
-                        
+
                         // Apply or remove the 'in-view' class
                         if (entry.isIntersecting) {
                             thumbnail.classList.add('in-view');
-                            
+
                             // Force load image if it's in view
                             const img = thumbnail.querySelector('img');
                             if (img && !img.classList.contains('loaded') && img.dataset.src) {
                                 img.src = img.dataset.src;
-                                delete img.dataset.src;
+                                delete img.dataset.src; // Remove data-src after loading
                             }
                         } else {
                             thumbnail.classList.remove('in-view');
-                            resetHoloEffect(thumbnail, true);
+                            // Reset holo effect when out of view
+                            resetHoloEffect(thumbnail, true); // Reset transform as well
                         }
                     });
                 }, {
@@ -823,73 +724,74 @@
                     rootMargin: '100px', // load a bit before they come into view
                     threshold: 0.1 // trigger when 10% visible
                 });
+            } else {
+                 // Fallback for browsers without IntersectionObserver
+                console.warn("IntersectionObserver not supported. Lazy loading disabled.");
             }
         }
+
 
         /** Update like status in the lightbox */
         function updateLightboxLikeStatus(imagePath) {
             if (!lbLikeButton || !lbLikeCount) return;
-            
+
             // Get the like count and status for this card
             const likeData = window.getLikeData ? window.getLikeData(imagePath) : { count: 0, liked: false };
             lbLikeCount.textContent = likeData.count;
-            
+
             // Update button style
+            const iconElement = lbLikeButton.querySelector('i');
             if (likeData.liked) {
                 lbLikeButton.classList.add('liked');
-                const iconElement = lbLikeButton.querySelector('i');
-                if (iconElement) {
+                 if (iconElement) {
                     iconElement.classList.remove('far');
                     iconElement.classList.add('fas');
                 }
             } else {
                 lbLikeButton.classList.remove('liked');
-                const iconElement = lbLikeButton.querySelector('i');
-                if (iconElement) {
+                 if (iconElement) {
                     iconElement.classList.remove('fas');
                     iconElement.classList.add('far');
                 }
             }
-            
-            // Add click handler
-            lbLikeButton.onclick = function() {
+
+            // Add click handler (ensure it's not added multiple times)
+             lbLikeButton.onclick = function() { // Use direct assignment to overwrite previous
                 if (window.toggleLike) {
                     window.toggleLike(imagePath);
-                    updateLightboxLikeStatus(imagePath);
-                    updateAllThumbnailLikes();
+                    updateLightboxLikeStatus(imagePath); // Update lightbox UI
+                    updateAllThumbnailLikes(); // Update gallery UI
                 }
             };
         }
 
+
         /** Renders the gallery based on a list of image file objects */
         function renderGalleryView(imagesToDisplay) {
             console.log("[renderGalleryView] Rendering gallery with " + (imagesToDisplay ? imagesToDisplay.length : 0) + " images.");
-            
-            // Disconnect observer from old elements
+
+            // Disconnect observer from old elements before clearing
             if (intersectionObserver) {
                 intersectionObserver.disconnect();
             }
-            
-            itemGallery.innerHTML = '';
-            focusableElements = [];
-            currentlyDisplayedImages = imagesToDisplay || []; // Full list for this view
 
-            // Filter out blanks for initial gallery display
+            itemGallery.innerHTML = ''; // Clear previous gallery
+            focusableElements = [];
+            currentlyDisplayedImages = imagesToDisplay || []; // Store FULL filtered list
+
+            // Filter out blanks for initial gallery display (but keep in currentlyDisplayedImages for lightbox nav)
             const nonBlankImagesToDisplay = currentlyDisplayedImages.filter(function(img) {
                 return !img.isBlank;
             });
-            
-            currentImageFiles = nonBlankImagesToDisplay; // Set lightbox sequence to non-blanks
 
             let hasContent = nonBlankImagesToDisplay.length > 0;
-
             console.log("[renderGalleryView] Displaying " + nonBlankImagesToDisplay.length + " non-blank images.");
 
             for (let i = 0; i < nonBlankImagesToDisplay.length; i++) {
                 const image = nonBlankImagesToDisplay[i];
                 const thumbnailContainer = document.createElement('div');
                 thumbnailContainer.className = 'thumbnail';
-                thumbnailContainer.setAttribute('tabindex', '0'); 
+                thumbnailContainer.setAttribute('tabindex', '0');
                 thumbnailContainer.setAttribute('role', 'button');
                 thumbnailContainer.dataset.path = image.path;
                 thumbnailContainer.dataset.object = JSON.stringify(image);
@@ -897,37 +799,43 @@
                 thumbnailContainer.id = 'thumbnail-' + i; // Unique ID for hover timeouts
 
                 const img = document.createElement('img');
-                
+
                 // Lazy loading - store path in data-src
                 const encodedPath = encodeImagePath(image.path);
-                img.dataset.src = encodedPath;
+                img.dataset.src = encodedPath; // Store original src in data-src
                 img.alt = "Thumbnail " + image.name;
                 img.className = 'w-full h-auto block pointer-events-none';
-                
+
                 // Image load handling
                 img.onload = function() {
                     img.classList.add('loaded');
-                    if (img.naturalWidth && img.naturalHeight) {
+                     // Calculate aspect ratio and apply border-radius
+                     if (img.naturalWidth && img.naturalHeight) {
                         const aspectRatio = img.naturalWidth / img.naturalHeight;
-                        const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
+                         // Adjust multiplier for more pronounced effect on wide/tall cards
+                         const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
                         thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio);
+                        // Dynamic border radius based on aspect ratio
                         thumbnailContainer.style.borderRadius = (5 * borderRadiusMultiplier) + "% / " + (3.5 / borderRadiusMultiplier) + "%";
-                    } else { 
-                        thumbnailContainer.style.borderRadius = (5 * 0.75) + "% / " + (3.5 / 0.75) + "%"; 
+                    } else {
+                         // Fallback if dimensions aren't available immediately
+                         thumbnailContainer.style.borderRadius = (5 * 0.75) + "% / " + (3.5 / 0.75) + "%"; // Default 3:4 aspect
                     }
                 };
-                
+
                 img.onerror = function() {
                     console.error("Failed to load image: " + image.path + ", Encoded as: " + encodedPath);
                     const container = this.closest('.thumbnail');
                     if (container) {
+                         // Replace with error icon, remove functionality
                         container.innerHTML = '<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ' + image.name + '"></i></div>';
                         container.style.cursor = 'not-allowed';
-                        container.removeAttribute('tabindex'); 
+                        container.removeAttribute('tabindex');
                         container.removeAttribute('role');
-                        container.removeAttribute('data-path'); 
+                        container.removeAttribute('data-path');
                         container.style.pointerEvents = 'none';
                         console.warn("Thumbnail failed to load: " + image.path);
+                         // Re-evaluate focusable elements after removing one
                         focusableElements = Array.from(itemGallery.querySelectorAll('.thumbnail[tabindex="0"]'));
                     }
                 };
@@ -935,50 +843,51 @@
                 const activateThumbnail = function(eventSourceElement) {
                     const internalImg = eventSourceElement.querySelector('img');
                     const imgDataStr = eventSourceElement.dataset.object;
-                    if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') && 
+                     // Check if not already animating and has data
+                     if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') &&
                         !eventSourceElement.classList.contains('holo-click-active') && imgDataStr) {
-                        
+
                         eventSourceElement.classList.add('holo-click-active');
-                        resetHoloEffect(eventSourceElement, false);
-                        
+                        resetHoloEffect(eventSourceElement, false); // Don't reset transform immediately
+
                         setTimeout(function() {
-                            eventSourceElement.classList.remove('holo-click-active');
+                            eventSourceElement.classList.remove('holo-click-active'); // Reset class after animation
                             openFancyLightbox(JSON.parse(imgDataStr));
                         }, CLICK_EFFECT_DURATION_MS);
                     }
                 };
-                
-                thumbnailContainer.addEventListener('click', function() { 
-                    activateThumbnail(thumbnailContainer); 
-                });
-                
-                thumbnailContainer.addEventListener('keydown', function(e) { 
-                    if (e.key === 'Enter' || e.key === ' ') { 
-                        e.preventDefault(); 
-                        activateThumbnail(thumbnailContainer); 
-                    } 
+
+                thumbnailContainer.addEventListener('click', function() {
+                    activateThumbnail(thumbnailContainer);
                 });
 
-                // Add like container to thumbnail
+                thumbnailContainer.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        activateThumbnail(thumbnailContainer);
+                    }
+                });
+
+                // --- Add like container ---
                 const likeData = window.getLikeData ? window.getLikeData(image.path) : { count: 0, liked: false };
                 const likeContainer = document.createElement('div');
                 likeContainer.className = 'thumbnail-like-container';
-                likeContainer.innerHTML = 
+                likeContainer.innerHTML =
                     '<span class="thumbnail-like-count">' + likeData.count + '</span>' +
                     '<button class="thumbnail-like-button" aria-label="Like this card">' +
                     '<i class="' + (likeData.liked ? 'fas' : 'far') + ' fa-heart"></i>' +
                     '</button>';
-                
+
                 // Like button click handler
                 const likeButton = likeContainer.querySelector('.thumbnail-like-button');
-                likeButton.addEventListener('click', function(e) {
+                 likeButton.addEventListener('click', function(e) {
                     e.stopPropagation(); // Prevent opening the lightbox
                     if (window.toggleLike) {
                         window.toggleLike(image.path);
-                        updateAllThumbnailLikes();
+                        updateAllThumbnailLikes(); // Update all gallery buttons
                         // If the lightbox is open and showing this card, update it too
-                        if (fancyLightbox.classList.contains('visible') && 
-                            currentFancyCardImage && 
+                        if (fancyLightbox.classList.contains('visible') &&
+                            currentFancyCardImage &&
                             currentFancyCardImage.path === image.path) {
                             updateLightboxLikeStatus(image.path);
                         }
@@ -986,34 +895,27 @@
                 });
 
                 thumbnailContainer.appendChild(img);
-                thumbnailContainer.appendChild(likeContainer);
+                thumbnailContainer.appendChild(likeContainer); // Add like button
                 itemGallery.appendChild(thumbnailContainer);
                 focusableElements.push(thumbnailContainer);
-                
-                // Observe this thumbnail for intersection
+
+                // Observe this thumbnail for intersection if observer is available
                 if (intersectionObserver) {
                     intersectionObserver.observe(thumbnailContainer);
-                }
-            }
-
-            emptyFolderMessage.classList.toggle('hidden', hasContent);
-            currentFocusIndex = 0;
-            
-            // Initial load for visible thumbnails
-            if (!intersectionObserver) {
-                // No IntersectionObserver support, load all visible images immediately
-                const thumbnails = itemGallery.querySelectorAll('.thumbnail');
-                for (let i = 0; i < thumbnails.length; i++) {
-                    const thumbnail = thumbnails[i];
-                    thumbnail.classList.add('in-view');
-                    const img = thumbnail.querySelector('img');
-                    if (img && img.dataset.src) {
+                } else {
+                     // No observer, load image directly
+                     if (img.dataset.src) {
                         img.src = img.dataset.src;
                         delete img.dataset.src;
                     }
-                }
+                     thumbnailContainer.classList.add('in-view'); // Assume in view
+                 }
             }
+
+            emptyFolderMessage.classList.toggle('hidden', hasContent);
+            currentFocusIndex = 0; // Reset focus index
         }
+
 
         /** Update all thumbnail like counters and icons */
         function updateAllThumbnailLikes() {
@@ -1021,180 +923,186 @@
             for (let i = 0; i < thumbnails.length; i++) {
                 const thumbnail = thumbnails[i];
                 const path = thumbnail.dataset.path;
-                if (!path) continue;
-                
+                if (!path) continue; // Skip if no path (e.g., error placeholder)
+
                 const likeContainer = thumbnail.querySelector('.thumbnail-like-container');
                 if (!likeContainer) continue;
-                
+
                 const likeCount = likeContainer.querySelector('.thumbnail-like-count');
-                const likeButton = likeContainer.querySelector('.thumbnail-like-button i');
-                
+                const likeButtonIcon = likeContainer.querySelector('.thumbnail-like-button i');
+
                 const likeData = window.getLikeData ? window.getLikeData(path) : { count: 0, liked: false };
                 if (likeCount) likeCount.textContent = likeData.count;
-                
-                if (likeButton) {
+
+                if (likeButtonIcon) {
                     if (likeData.liked) {
-                        likeButton.classList.remove('far');
-                        likeButton.classList.add('fas');
+                        likeButtonIcon.classList.remove('far');
+                        likeButtonIcon.classList.add('fas');
                     } else {
-                        likeButton.classList.remove('fas');
-                        likeButton.classList.add('far');
+                        likeButtonIcon.classList.remove('fas');
+                        likeButtonIcon.classList.add('far');
                     }
                 }
             }
         }
 
+
         /** Applies current filters and triggers rendering */
         function applyFiltersAndRender() {
-            console.log("[applyFiltersAndRender] Applying filters: Type='" + currentTypeFilter + 
-                        "', Forte='" + currentForteFilter + 
-                        "', Trainer='" + currentTrainerTypeFilter + 
+            console.log("[applyFiltersAndRender] Applying filters: Type='" + currentTypeFilter +
+                        "', Forte='" + currentForteFilter +
+                        "', Trainer='" + currentTrainerTypeFilter +
                         "', Creator='" + currentCreatorFilter + "'");
             console.log("[applyFiltersAndRender] Base image set size (for current tab): " + baseImageSet.length);
-            
-            let filteredImages = [].concat(baseImageSet); // Create a copy
 
-            if (currentTypeFilter !== 'all') { 
-                filteredImages = filteredImages.filter(function(img) { 
-                    return img.cardType === currentTypeFilter; 
-                }); 
+            let filteredImages = [].concat(baseImageSet); // Create a copy to filter
+
+            if (currentTypeFilter !== 'all') {
+                filteredImages = filteredImages.filter(function(img) {
+                    return img.cardType === currentTypeFilter;
+                });
             }
-            
-            if (currentForteFilter === 'yes') { 
-                filteredImages = filteredImages.filter(function(img) { 
-                    return img.isForte === true; 
-                }); 
-            } else if (currentForteFilter === 'no') { 
-                filteredImages = filteredImages.filter(function(img) { 
-                    return img.isForte === false; 
-                }); 
+
+            if (currentForteFilter === 'yes') {
+                filteredImages = filteredImages.filter(function(img) {
+                    return img.isForte === true;
+                });
+            } else if (currentForteFilter === 'no') {
+                filteredImages = filteredImages.filter(function(img) {
+                    return img.isForte === false;
+                });
             }
-            
-            if (currentTrainerTypeFilter !== 'all' && (currentTypeFilter === 'Trainer' || currentTypeFilter === 'all')) { 
-                filteredImages = filteredImages.filter(function(img) { 
-                    return img.trainerType === currentTrainerTypeFilter; 
-                }); 
+
+            if (currentTrainerTypeFilter !== 'all' && (currentTypeFilter === 'Trainer' || currentTypeFilter === 'all')) {
+                filteredImages = filteredImages.filter(function(img) {
+                    return img.trainerType === currentTrainerTypeFilter;
+                });
             }
-            
-            if (currentCreatorFilter !== 'all') { 
-                filteredImages = filteredImages.filter(function(img) { 
-                    return img.creator === currentCreatorFilter; 
-                }); 
+
+             if (currentCreatorFilter !== 'all') {
+                filteredImages = filteredImages.filter(function(img) {
+                    return img.creator === currentCreatorFilter;
+                });
             }
+
 
             currentlyDisplayedImages = filteredImages; // Store the FULL filtered list (includes blanks)
             console.log("[applyFiltersAndRender] Total filtered images (incl. blanks): " + currentlyDisplayedImages.length);
 
-            renderGalleryView(currentlyDisplayedImages); // Render ALL filtered images
+            renderGalleryView(currentlyDisplayedImages); // Render gallery with filtered images
         }
+
 
         /** Populates filter dropdowns */
         function populateFilters() {
             if (!filterConfig || !typeFilterSelect || !trainerTypeFilterSelect || !creatorFilterSelect || !forteFilterSelect) {
-                console.error("[populateFilters] Cannot populate: Missing config or select elements."); 
-                return;
+                 console.error("[populateFilters] Cannot populate: Missing config or select elements.");
+                 return;
             }
-            
+
             console.log("[populateFilters] Config:", filterConfig);
 
             // Type Filter
-            while (typeFilterSelect.options.length > 1) { typeFilterSelect.remove(1); }
+            while (typeFilterSelect.options.length > 1) { typeFilterSelect.remove(1); } // Keep "All Types"
             if (filterConfig.typeOrder) {
                 for (let i = 0; i < filterConfig.typeOrder.length; i++) {
                     const type = filterConfig.typeOrder[i];
-                    const option = document.createElement('option'); 
-                    option.value = type; 
-                    option.textContent = type; 
-                    typeFilterSelect.appendChild(option); 
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    typeFilterSelect.appendChild(option);
                 }
             }
 
             // Trainer Type Filter
-            while (trainerTypeFilterSelect.options.length > 1) { trainerTypeFilterSelect.remove(1); }
-            if (filterConfig.trainerTypeOrder) {
+             while (trainerTypeFilterSelect.options.length > 1) { trainerTypeFilterSelect.remove(1); } // Keep "All Trainers"
+             if (filterConfig.trainerTypeOrder) {
                 for (let i = 0; i < filterConfig.trainerTypeOrder.length; i++) {
                     const type = filterConfig.trainerTypeOrder[i];
-                    const option = document.createElement('option'); 
-                    option.value = type; 
-                    option.textContent = type; 
-                    trainerTypeFilterSelect.appendChild(option); 
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = type;
+                    trainerTypeFilterSelect.appendChild(option);
                 }
             }
 
             // Creator Filter
-            while (creatorFilterSelect.options.length > 1) { creatorFilterSelect.remove(1); }
-            const sortedCreators = Array.from(allCreators).sort();
+            while (creatorFilterSelect.options.length > 1) { creatorFilterSelect.remove(1); } // Keep "All Creators"
+             const sortedCreators = Array.from(allCreators).sort();
             console.log("[populateFilters] Found creators:", sortedCreators);
-            for (let i = 0; i < sortedCreators.length; i++) {
+             for (let i = 0; i < sortedCreators.length; i++) {
                 const creator = sortedCreators[i];
-                if (creator) { 
-                    const option = document.createElement('option'); 
-                    option.value = creator; 
-                    option.textContent = creator; 
-                    creatorFilterSelect.appendChild(option); 
+                if (creator) { // Avoid adding empty creator names
+                    const option = document.createElement('option');
+                    option.value = creator;
+                    option.textContent = creator;
+                    creatorFilterSelect.appendChild(option);
                 }
             }
         }
+
 
         /** Renders the navigation tabs based on Sets */
         function renderTabs() {
             if (!tabContainer || !rootImageStructure || !filterConfig || !filterConfig.setOrder || !filterConfig.setColors) {
                 console.error("[renderTabs] Missing elements or config.");
-                const label = tabContainer.querySelector('h2'); 
-                tabContainer.innerHTML = ''; 
-                if (label) tabContainer.appendChild(label); 
+                const label = tabContainer.querySelector('h2');
+                tabContainer.innerHTML = ''; // Clear existing tabs
+                if (label) tabContainer.appendChild(label); // Re-add label if it exists
                 return;
             }
-            
-            const label = tabContainer.querySelector('h2'); 
-            tabContainer.innerHTML = ''; 
-            if (label) tabContainer.appendChild(label);
+
+            const label = tabContainer.querySelector('h2'); // Preserve label
+            tabContainer.innerHTML = ''; // Clear existing tabs
+            if (label) tabContainer.appendChild(label); // Re-add label
 
             const allImagesForSets = getAllImageFilesRecursive(rootImageStructure);
-            
-            // Get unique set names
+
+            // Get unique set names that actually have images
             const availableSetNames = new Set();
             for (let i = 0; i < allImagesForSets.length; i++) {
                 const setName = allImagesForSets[i].setName;
-                if (setName) availableSetNames.add(setName);
-            }
-            
-            console.log("[renderTabs] Available set names:", Array.from(availableSetNames));
+                 // Ensure setName is valid and not 'Misc' for explicit tabs
+                 if (setName && setName !== "Misc") availableSetNames.add(setName);
+             }
+
+            console.log("[renderTabs] Available set names for tabs:", Array.from(availableSetNames));
 
             // --- Create "All" tab ---
             const allTab = document.createElement('button');
-            allTab.className = 'tab active'; 
+            allTab.className = 'tab active'; // Start with "All" active
             allTab.dataset.setName = 'all';
-            const allColor = filterConfig.setColors['all'] || filterConfig.setColors['default'] || '#6B7280';
+            const allColor = filterConfig.setColors['all'] || filterConfig.setColors['default'] || '#6B7280'; // Default grey
             allTab.style.setProperty('--tab-active-border-color', allColor);
             allTab.style.setProperty('--tab-active-bg-color', hexToRgba(allColor, 0.3));
             allTab.style.setProperty('--tab-active-text-color', lightenHexColor(allColor, 0.8));
-            const allTextSpan = document.createElement('span'); 
-            allTextSpan.textContent = 'All'; 
+            const allTextSpan = document.createElement('span');
+            allTextSpan.textContent = 'All';
             allTab.appendChild(allTextSpan);
             tabContainer.appendChild(allTab);
 
-            // --- Create Tabs based on setOrder ---
+            // --- Create Tabs based on setOrder and availability ---
             for (let i = 0; i < filterConfig.setOrder.length; i++) {
                 const setName = filterConfig.setOrder[i];
-                if (availableSetNames.has(setName) || setName === "Other") {
-                    const setTab = document.createElement('button');
-                    setTab.className = 'tab'; 
+                 // Only create tabs for sets that have images and are not 'Misc'
+                 if (availableSetNames.has(setName) && setName !== "Misc") {
+                     const setTab = document.createElement('button');
+                    setTab.className = 'tab';
                     setTab.dataset.setName = setName;
                     const tabColor = filterConfig.setColors[setName] || filterConfig.setColors['default'] || '#6B7280';
                     setTab.style.setProperty('--tab-active-border-color', tabColor);
                     setTab.style.setProperty('--tab-active-bg-color', hexToRgba(tabColor, 0.3));
                     setTab.style.setProperty('--tab-active-text-color', lightenHexColor(tabColor, 0.8));
-                    const textSpan = document.createElement('span'); 
-                    textSpan.textContent = setName; 
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = setName;
                     setTab.appendChild(textSpan);
                     tabContainer.appendChild(setTab);
-                } else { 
-                    console.log("[renderTabs] Skipping tab for set \"" + setName + "\" as no images found."); 
+                } else {
+                    console.log("[renderTabs] Skipping tab for set \"" + setName + "\" as no images found or it's 'Misc'.");
                 }
             }
 
-            // --- Add event listener ---
+            // --- Add event listener (once) ---
             if (!tabContainer.dataset.listenerAttached) {
                 tabContainer.addEventListener('click', function(e) {
                     const clickedTab = e.target.closest('.tab');
@@ -1207,38 +1115,43 @@
                         clickedTab.classList.add('active');
                         currentSetTab = setName;
 
+                        // Get all images again to filter based on the new tab
                         const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
                         if (setName === 'all') {
-                            baseImageSet = allImagesFull.filter(function(img) { 
-                                return img.setName !== "Misc"; 
-                            }); // Exclude MISC
+                            // For "All", filter out "Misc" set
+                             baseImageSet = allImagesFull.filter(function(img) {
+                                return img.setName !== "Misc";
+                            });
                         } else {
-                            baseImageSet = allImagesFull.filter(function(img) { 
-                                return img.setName === setName; 
+                            baseImageSet = allImagesFull.filter(function(img) {
+                                return img.setName === setName;
                             });
                         }
                         console.log("[Tab Click] Set base set to '" + setName + "':", baseImageSet.length);
-                        applyFiltersAndRender();
+                        applyFiltersAndRender(); // Re-apply filters with the new base set
                     }
                 });
                 tabContainer.dataset.listenerAttached = 'true';
             }
         }
 
+
         /** Displays an error message */
         function displayError(message) {
             itemGallery.innerHTML = '<p class="text-red-500 col-span-full p-4 bg-red-100 border border-red-400 rounded">' + message + '</p>';
             emptyFolderMessage.classList.add('hidden');
         }
-        
+
         /** Handles keyboard navigation within the gallery */
         function handleGalleryKeyDown(e) {
             if (focusableElements.length === 0 || fancyLightbox.classList.contains('visible')) return;
+
+             // Calculate number of columns based on computed style
             const gridElement = document.getElementById('item-gallery');
-            const gridStyle = window.getComputedStyle(gridElement);
+             const gridStyle = window.getComputedStyle(gridElement);
             const gridColsText = gridStyle.getPropertyValue('grid-template-columns');
-            const gridCols = gridColsText.split(' ').length;
-            
+            const gridCols = gridColsText.split(' ').length; // Count columns
+
             let nextFocusIndex = currentFocusIndex;
             switch (e.key) {
                 case 'ArrowRight': nextFocusIndex = (currentFocusIndex + 1) % focusableElements.length; break;
@@ -1247,21 +1160,23 @@
                 case 'ArrowUp': nextFocusIndex = Math.max(currentFocusIndex - gridCols, 0); break;
                 case 'Home': nextFocusIndex = 0; break;
                 case 'End': nextFocusIndex = focusableElements.length - 1; break;
-                default: return;
+                default: return; // Exit if not a navigation key
             }
+
             if (nextFocusIndex !== currentFocusIndex && nextFocusIndex < focusableElements.length) {
-                e.preventDefault();
+                e.preventDefault(); // Prevent default scroll behavior
                 currentFocusIndex = nextFocusIndex;
-                if(focusableElements[currentFocusIndex]) { 
-                    focusableElements[currentFocusIndex].focus(); 
+                if(focusableElements[currentFocusIndex]) {
+                    focusableElements[currentFocusIndex].focus(); // Move focus
                 }
             }
         }
-        
+
+
         /** Handles keyboard events when the lightbox is open */
         function handleFancyLightboxKeyDown(e) {
             if (!fancyLightbox.classList.contains('visible')) return;
-            
+
             switch (e.key) {
                 case 'Escape':
                     closeFancyLightbox();
@@ -1273,18 +1188,18 @@
                     if (!fancyNextButton.disabled) showNextCard();
                     break;
                 case '+':
-                case '=':
+                case '=': // Handle both + and = for zoom in
                     zoomIn();
                     break;
                 case '-':
-                case '_':
+                case '_': // Handle both - and _ for zoom out
                     zoomOut();
                     break;
-                case '0':
+                case '0': // Reset zoom
                     resetZoom();
                     break;
-                case ' ':
-                    // Toggle textless if available
+                case ' ': // Toggle textless view
+                     // Toggle textless if available
                     if (!fancyTextlessView.disabled) {
                         if (fancyNormalView.classList.contains('active')) {
                             switchCardView('textless');
@@ -1292,372 +1207,450 @@
                             switchCardView('normal');
                         }
                     }
+                     e.preventDefault(); // Prevent space bar scrolling page
                     break;
             }
         }
 
         // --- Thumbnail Holo Effect Logic ---
-        function applyHoloListeners(containerSelector) {
-            const container = document.querySelector(containerSelector);
-            if (!container) return;
-            container.addEventListener('pointermove', handleHoloMove);
-            container.addEventListener('pointerleave', handleHoloEnd);
+         function applyHoloListeners(containerSelector) {
+             // Ensure listeners are added to the correct container (gallery)
+            const galleryContainer = document.querySelector(containerSelector);
+            if (!galleryContainer) return;
+
+            // Using pointer events covers mouse and potentially touch on some devices
+            galleryContainer.addEventListener('pointermove', handleHoloMove);
+            galleryContainer.addEventListener('pointerleave', handleHoloEnd); // Reset when pointer leaves gallery entirely
+             // Optional: Reset on pointerup in case pointer leaves while button held
+             galleryContainer.addEventListener('pointerup', handleHoloEnd);
         }
-        
+
+
         function handleHoloMove(e) {
+             // Ignore touch events for hover effect
             if (e.pointerType === 'touch') return;
+
             const target = e.target.closest('.thumbnail');
-            if (!target || !target.classList.contains('in-view') || 
-                target.classList.contains('holo-click-active') || 
+            // Check if target is a valid thumbnail, in view, not animating click, and not an error placeholder
+             if (!target || !target.classList.contains('in-view') ||
+                target.classList.contains('holo-click-active') ||
                 target.querySelector('.bg-gray-600')) {
+                 // If moving over a non-holo element, reset any active holo on other elements
+                 const activeHolo = itemGallery.querySelector('.thumbnail.holo-active:not(.holo-click-active)');
+                 if(activeHolo && activeHolo !== target) {
+                     resetHoloEffect(activeHolo);
+                 }
                 return;
             }
-            
-            const rect = target.getBoundingClientRect(); 
+
+            // --- Reset other active elements ---
+             // Find any other element that might still have the holo-active class and reset it
+             const otherActiveHolo = itemGallery.querySelector('.thumbnail.holo-active:not(.holo-click-active)');
+             if(otherActiveHolo && otherActiveHolo !== target) {
+                resetHoloEffect(otherActiveHolo);
+             }
+            // --- End Reset ---
+
+
+            const rect = target.getBoundingClientRect();
             const clientX = e.clientX;
             const clientY = e.clientY;
-            
-            const offsetX = clientX - rect.left; 
+
+            // Calculate position relative to the element's boundaries
+            const offsetX = clientX - rect.left;
             const offsetY = clientY - rect.top;
-            const w = target.offsetWidth; 
+            const w = target.offsetWidth;
             const h = target.offsetHeight;
-            
-            if (w === 0 || h === 0) return;
-            
-            const px = Math.abs(Math.floor(100 / w * offsetX) - 100); 
-            const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
-            const pa = (50 - px) + (50 - py);
-            const lp = (50 + (px - 50) / 1.5); 
-            const tp = (50 + (py - 50) / 1.5);
-            const px_spark = (50 + (px - 50) / 7); 
-            const py_spark = (50 + (py - 50) / 7);
-            const p_opc = Math.min(Math.max(20 + (Math.abs(pa) * 1.5), 20), 90);
-            
+
+            if (w === 0 || h === 0) return; // Avoid division by zero
+
+            // Calculate percentage position within the element
+            const px = (offsetX / w) * 100;
+            const py = (offsetY / h) * 100;
+
+            // Calculate distances from center (0-50 range)
+            const dist_x = Math.abs(px - 50);
+            const dist_y = Math.abs(py - 50);
+
+            // Calculate 3D rotation angles (more rotation further from center)
+            const max_angle = 10; // Max rotation angle
+            const rotate_y = ((px - 50) / 50) * max_angle;
+            const rotate_x = ((py - 50) / 50) * -max_angle; // Invert X rotation
+
+            // Calculate gradient position (moves opposite to mouse)
+            const lp = 50 + rotate_y * -0.6; // Adjust multiplier for sensitivity
+            const tp = 50 + rotate_x * 0.6;
+
+            // Calculate sparkle position (moves slightly with mouse)
+            const px_spark = 50 + (px - 50) / 7;
+            const py_spark = 50 + (py - 50) / 7;
+
+            // Calculate sparkle opacity (brighter further from center)
+            const p_opc = Math.min(Math.max(0.3 + (dist_x + dist_y) / 100 * 0.8, 0.3), 0.9);
+
             target.classList.add('holo-active');
-            target.style.setProperty('--thumb-gradient-pos-x', lp + "%"); 
+            target.style.setProperty('--thumb-gradient-pos-x', lp + "%");
             target.style.setProperty('--thumb-gradient-pos-y', tp + "%");
-            target.style.setProperty('--thumb-sparkle-pos-x', px_spark + "%"); 
+            target.style.setProperty('--thumb-sparkle-pos-x', px_spark + "%");
             target.style.setProperty('--thumb-sparkle-pos-y', py_spark + "%");
-            target.style.setProperty('--thumb-sparkle-opacity', p_opc / 100);
-            
-            // Clear any existing timeout for this element
+            target.style.setProperty('--thumb-sparkle-opacity', p_opc);
+
+             // Add slight transform for 3D effect
+            target.style.transform = `perspective(900px) rotateX(${rotate_x}deg) rotateY(${rotate_y}deg) scale(1.03)`;
+
+
+            // Clear any existing timeout for this element to prevent premature fade-out
             clearHoverEffectTimeout(target.id);
-            
-            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS if pointer stops
             setHoverEffectTimeout(target.id, function() {
-                resetHoloEffect(target);
+                 // Check if the pointer is *still* over this element before fading
+                 const currentTarget = document.elementFromPoint(clientX, clientY)?.closest('.thumbnail');
+                 if (currentTarget === target) {
+                     resetHoloEffect(target);
+                 }
             }, HOVER_EFFECT_TIMEOUT_MS);
         }
-        
-        function clearHoverEffectTimeout(elementId) {
+
+         function clearHoverEffectTimeout(elementId) {
             if (hoverEffectTimeouts.has(elementId)) {
                 clearTimeout(hoverEffectTimeouts.get(elementId));
                 hoverEffectTimeouts.delete(elementId);
             }
         }
-        
+
         function setHoverEffectTimeout(elementId, callback, timeout) {
             const timeoutId = setTimeout(callback, timeout);
             hoverEffectTimeouts.set(elementId, timeoutId);
         }
-        
+
         function handleHoloEnd(e) {
             const target = e.target.closest('.thumbnail');
-            if (target && target.classList.contains('in-view') && 
-                target.classList.contains('holo-active') && 
-                !target.classList.contains('holo-click-active')) {
-                
+            // Check if leaving the thumbnail itself, not just moving within it
+            const relatedTarget = e.relatedTarget ? e.relatedTarget.closest('.thumbnail') : null;
+
+            if (target && target !== relatedTarget && target.classList.contains('holo-active') && !target.classList.contains('holo-click-active')) {
                 resetHoloEffect(target);
             }
         }
-        
+
         function resetHoloEffect(element, resetTransform = true) {
             if (!element) return;
-            
+
             element.classList.remove('holo-active');
-            if (resetTransform && !element.classList.contains('holo-click-active')) { 
-                element.style.transform = 'scale(1)'; 
-            }
-            element.style.removeProperty('--thumb-gradient-pos-x'); 
+            // Only reset transform if not currently animating the click effect
+             if (resetTransform && !element.classList.contains('holo-click-active')) {
+                 element.style.transform = ''; // Reset transform applied by hover
+             }
+            // Remove potentially set CSS variables
+            element.style.removeProperty('--thumb-gradient-pos-x');
             element.style.removeProperty('--thumb-gradient-pos-y');
-            element.style.removeProperty('--thumb-sparkle-pos-x'); 
+            element.style.removeProperty('--thumb-sparkle-pos-x');
             element.style.removeProperty('--thumb-sparkle-pos-y');
             element.style.removeProperty('--thumb-sparkle-opacity');
-            
-            // Clear any pending timeouts
+
+            // Clear any pending fade-out timeouts for this specific element
             if (element.id) {
                 clearHoverEffectTimeout(element.id);
             }
         }
-        
+
+
         // --- Fancy Lightbox Holo Effect Logic ---
-        function applyFancyHoloListeners(containerSelector) {
-            const container = document.querySelector(containerSelector);
+         function applyFancyHoloListeners(containerSelector) {
+             const container = document.querySelector(containerSelector);
             if (!container) return;
             container.addEventListener('pointermove', handleFancyHoloMove);
             container.addEventListener('pointerleave', handleFancyHoloEnd);
+            // Add pointerup to handle cases where user releases drag outside container
+             container.addEventListener('pointerup', handleFancyHoloEnd);
         }
-        
+
         function handleFancyHoloMove(e) {
-            if (e.pointerType === 'touch' || isZoomed) return;
-            
+            // Disable holo if zoomed or touch event
+            if (e.pointerType === 'touch' || isZoomed) {
+                 // Ensure effect is reset if zoom/touch starts during hover
+                 resetFancyHoloEffect();
+                 return;
+             }
+
             const container = fancyHoloContainer;
-            const target = fancyHoloInner;
+            const target = fancyHoloInner; // Apply effects to the inner div
             if (!container || !target) return;
-            
+
             const rect = container.getBoundingClientRect();
             let clientX = e.clientX;
             let clientY = e.clientY;
-            
+
             // Calculate relative position within container
             const relativeX = clientX - rect.left;
             const relativeY = clientY - rect.top;
-            
+
             // Calculate percentage position (0-100) for both axes
             const percentX = (relativeX / rect.width) * 100;
             const percentY = (relativeY / rect.height) * 100;
-            
+
             // Calculate rotation degrees based on mouse position
-            // Map from 0-100% to -20 to 20 degrees for subtle effect
-            const rotateY = ((percentX / 100) - 0.5) * 20;
-            const rotateX = (((percentY / 100) - 0.5) * -20);
-            
-            // Calculate normalized values for effects
+             // Map from 0-100% to a rotation range (e.g., -15 to 15 degrees)
+            const max_angle = 15; // Adjust for desired intensity
+            const rotateY = ((percentX / 100) - 0.5) * max_angle * 2; // Double for Y rotation
+            const rotateX = (((percentY / 100) - 0.5) * -max_angle * 2); // Double for X rotation
+
+            // Calculate normalized values (0-1) for effects
             const normX = percentX / 100;
             const normY = percentY / 100;
-            
-            // Calculate gradient positions (shift slightly from mouse)
-            const gradientX = 50 + ((percentX - 50) / 1.5);
-            const gradientY = 50 + ((percentY - 50) / 1.5);
-            
-            // Calculate sparkle effect positions (subtler movement)
+
+            // Calculate gradient positions (shift slightly opposite to mouse)
+             const gradientX = 50 + ((percentX - 50) / -1.5); // Invert direction
+             const gradientY = 50 + ((percentY - 50) / -1.5);
+
+            // Calculate sparkle effect positions (subtler movement with mouse)
             const sparkleX = 50 + ((percentX - 50) / 5);
             const sparkleY = 50 + ((percentY - 50) / 5);
-            
+
             // Calculate opacity based on distance from center (more intense at edges)
             const distFromCenter = Math.sqrt(Math.pow((normX - 0.5) * 2, 2) + Math.pow((normY - 0.5) * 2, 2));
-            const sparkleOpacity = Math.min(0.3 + distFromCenter * 0.7, 0.9);
-            
+            const sparkleOpacity = Math.min(0.4 + distFromCenter * 0.6, 0.9); // Adjusted range
+
             // Apply the effects
             target.classList.add('holo-active');
-            target.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
-            
-            // Set CSS variables for gradient and sparkle effect positions
+             // Apply transform to the inner element
+             target.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            // Set CSS variables for pseudo-elements on the inner div
             target.style.setProperty('--lb-gradient-pos-x', gradientX + "%");
             target.style.setProperty('--lb-gradient-pos-y', gradientY + "%");
             target.style.setProperty('--lb-sparkle-pos-x', sparkleX + "%");
             target.style.setProperty('--lb-sparkle-pos-y', sparkleY + "%");
             target.style.setProperty('--lb-sparkle-opacity', sparkleOpacity);
-            
+
+            // Clear existing timeout to prevent premature fade-out
             clearTimeout(fancyActiveHoloTimeout);
-            
-            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS if pointer stops moving
             fancyActiveHoloTimeout = setTimeout(function() {
-                resetFancyHoloEffect();
+                 // Check if pointer is still over the container before resetting
+                 const currentElement = document.elementFromPoint(clientX, clientY);
+                 if (container.contains(currentElement)) {
+                     resetFancyHoloEffect();
+                 }
             }, HOVER_EFFECT_TIMEOUT_MS);
         }
-        
+
         function handleFancyHoloEnd(e) {
-            if (isZoomed) return;
-            
-            const target = fancyHoloInner;
+             // Ignore if zoomed
+             if (isZoomed) return;
+
+            const target = fancyHoloInner; // Effects applied here
             if (!target) return;
-            
-            const relatedTarget = e.relatedTarget;
-            if (relatedTarget && fancyHoloContainer.contains(relatedTarget)) {
-                return; // Still within container, don't reset
-            }
-            
-            resetFancyHoloEffect();
+
+            // Check if the pointer left the main container, not just moved within it
+             const relatedTarget = e.relatedTarget;
+             if (!relatedTarget || !fancyHoloContainer.contains(relatedTarget)) {
+                 resetFancyHoloEffect();
+             }
         }
-        
+
         function resetFancyHoloEffect() {
-            const target = fancyHoloInner;
+            const target = fancyHoloInner; // Target for reset
             if (!target) return;
-            
+
             target.classList.remove('holo-active');
-            
+
             // Only reset transform if not zoomed
-            if (!isZoomed) {
-                target.style.transform = '';
-            }
-            
-            // Remove CSS variables
+             if (!isZoomed) {
+                 target.style.transform = ''; // Reset transform
+             }
+
+            // Remove CSS variables used by pseudo-elements
             target.style.removeProperty('--lb-gradient-pos-x');
             target.style.removeProperty('--lb-gradient-pos-y');
             target.style.removeProperty('--lb-sparkle-pos-x');
             target.style.removeProperty('--lb-sparkle-pos-y');
             target.style.removeProperty('--lb-sparkle-opacity');
-            
-            // Clear any pending timeouts
+
+            // Clear any pending fade-out timeouts
             clearTimeout(fancyActiveHoloTimeout);
         }
 
         // --- Helper Functions for Color Manipulation ---
-        function hexToRgba(hex, alpha) {
+         function hexToRgba(hex, alpha) {
             if (alpha === undefined) alpha = 1;
-            
+
             hex = hex.replace('#', '');
-            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2]; // Expand shorthand hex
             const bigint = parseInt(hex, 16);
-            if (isNaN(bigint)) return "rgba(107, 114, 128, " + alpha + ")";
-            const r = (bigint >> 16) & 255; 
-            const g = (bigint >> 8) & 255; 
+            if (isNaN(bigint)) return "rgba(107, 114, 128, " + alpha + ")"; // Default grey on error
+
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
             const b = bigint & 255;
             return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
         }
-        
+
+
         function lightenHexColor(hex, percent) {
             hex = hex.replace('#', '');
-            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            const num = parseInt(hex, 16); 
-            if (isNaN(num)) return '#FFFFFF';
-            const amt = Math.max(-255, Math.min(255, Math.round(2.55 * percent * 100)));
-            let r = (num >> 16) + amt; 
-            let g = ((num >> 8) & 0x00FF) + amt; 
+            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+            const num = parseInt(hex, 16);
+            if (isNaN(num)) return '#FFFFFF'; // Default white on error
+
+             // Calculate lightness adjustment amount
+             // Percent > 0 lightens, Percent < 0 darkens
+             const amt = Math.round(2.55 * percent * 100); // Scale percent to 0-255 range
+
+            let r = (num >> 16) + amt;
+            let g = ((num >> 8) & 0x00FF) + amt;
             let b = (num & 0x0000FF) + amt;
-            r = Math.max(0, Math.min(255, r)); 
-            g = Math.max(0, Math.min(255, g)); 
+
+             // Clamp values to 0-255 range
+            r = Math.max(0, Math.min(255, r));
+            g = Math.max(0, Math.min(255, g));
             b = Math.max(0, Math.min(255, b));
-            const originalLuminance = (0.2126*((num>>16)/255) + 0.7152*(((num>>8)&0x00FF)/255) + 0.0722*((num&0x0000FF)/255));
-            if (originalLuminance < 0.4 && percent > 0) { 
-                const minLightness = 180; 
-                r=Math.max(r,minLightness); 
-                g=Math.max(g,minLightness); 
-                b=Math.max(b,minLightness);
-            }
-            return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+
+             // Ensure dark colors become significantly lighter for text visibility
+             // Calculate perceived luminance (adjust coefficients if needed)
+             const lumR = (r / 255); const lumG = (g / 255); const lumB = (b / 255);
+             const luminance = 0.2126 * lumR + 0.7152 * lumG + 0.0722 * lumB;
+
+             // If original color is dark (luminance < 0.4) and we are lightening,
+             // ensure the resulting color is at least somewhat light
+             if (luminance < 0.4 && amt > 0) {
+                 const minLightness = 180; // Minimum RGB value for light text
+                 r = Math.max(r, minLightness);
+                 g = Math.max(g, minLightness);
+                 b = Math.max(b, minLightness);
+             }
+
+
+             // Convert back to hex, ensuring 6 digits with padding
+            return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
         }
 
         /** Applies the selected gallery size class */
-        function applyGallerySize(sizeIndex) {
+         function applyGallerySize(sizeIndex) {
             if (!itemGallery || sizeIndex === undefined || sizeIndex === null) return;
+            // Ensure index is valid (0, 1, or 2)
             const validIndex = Math.max(0, Math.min(sizeIndex, Object.keys(GALLERY_SIZE_CLASSES).length - 1));
-            
-            // Remove all size classes
+
+            // Remove all existing size classes first
             for (let i = 0; i < Object.values(GALLERY_SIZE_CLASSES).length; i++) {
                 itemGallery.classList.remove(Object.values(GALLERY_SIZE_CLASSES)[i]);
             }
-            
+
             // Add the active size class
             itemGallery.classList.add(GALLERY_SIZE_CLASSES[validIndex]);
-            
+
             console.log("[applyGallerySize] Applied class: " + GALLERY_SIZE_CLASSES[validIndex]);
+            // Update the display text (S, M, L)
             if (gallerySizeDisplay) {
                 gallerySizeDisplay.textContent = SIZE_MAP[validIndex] || SIZE_MAP[DEFAULT_GALLERY_SIZE_INDEX];
             }
         }
 
-        /** Check if element is in viewport */
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
+
+        /** Check if element is in viewport (with buffer) */
+         function isElementInViewport(el) {
+             const rect = el.getBoundingClientRect();
+             const buffer = 100; // Pixels above/below/left/right to consider "in viewport"
             return (
-                rect.top >= -100 &&
-                rect.left >= -100 &&
-                rect.bottom <= (window.innerHeight + 100) &&
-                rect.right <= (window.innerWidth + 100)
+                rect.top >= -buffer &&
+                rect.left >= -buffer &&
+                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + buffer &&
+                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) + buffer
             );
         }
-        
+
+
         /** Ensure the loading overlay is hidden even if there's an error */
         function ensurePageLoaded() {
             if (pageLoadingOverlay) {
                 pageLoadingOverlay.classList.add('loaded');
             }
-            console.log("Forced page loading complete");
+            console.log("Forced page loading complete state check");
         }
+
 
         // --- Initialization ---
         function initApp() {
             console.log("[Init] DOM Loaded. Checking for imageData...");
-            
-            // Set a fallback timeout to ensure the page loads even if there's an error
-            setTimeout(ensurePageLoaded, 5000);
-            
+
+            // Set a fallback timeout to hide loader if init fails
+            setTimeout(ensurePageLoaded, 5000); // Hide after 5s regardless
+
             // Set up intersection observer for lazy loading
             setupIntersectionObserver();
-            
+
             try {
                 // First check for data loaded from image_data.js
-                if (typeof imageData === 'undefined' || 
-                    !imageData.imageStructure || 
+                 if (typeof imageData === 'undefined' ||
+                    !imageData.imageStructure ||
                     !imageData.filterConfig) {
                     console.error("[Init] ERROR: 'imageData' object is missing or invalid in image_data.js.");
                     displayError("Configuration Error! Please ensure 'image_data.js' is generated correctly with the variable name 'imageData' containing 'imageStructure' and 'filterConfig' keys.");
-                    
+
+                    // Disable controls if data is missing
                     const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
                     for (let i = 0; i < elements.length; i++) {
                         if (elements[i]) elements[i].disabled = true;
                     }
-                    
-                    ensurePageLoaded();
+
+                    ensurePageLoaded(); // Hide loader even on error
                     return;
                 }
-                
+
                 console.log("[Init] imageData found:", imageData);
                 rootImageStructure = imageData.imageStructure;
                 filterConfig = imageData.filterConfig;
 
-                // Validate further
+                // Validate further (basic checks)
                 if (!rootImageStructure.path || !filterConfig.setOrder) {
                     console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
                     displayError("Configuration Error! Data loaded from image_data.js is incomplete.");
-                    
+
                     const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
                     for (let i = 0; i < elements.length; i++) {
-                        if (elements[i]) elements[i].disabled = true;
+                         if (elements[i]) elements[i].disabled = true;
                     }
-                    
+
                     ensurePageLoaded();
                     return;
                 }
 
-                baseImageSet = getAllImageFilesRecursive(rootImageStructure);
-                populateFilters();
-                renderTabs();
+                // --- Initial Data Setup ---
+                // Get all images first to populate creators list
+                 baseImageSet = getAllImageFilesRecursive(rootImageStructure); // Includes Misc initially
+                 populateFilters(); // Needs allCreators populated first
+                renderTabs(); // Renders tabs based on available sets
 
-                // --- Size Slider Initialization ---
-                const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
-                gallerySizeSlider.value = savedGallerySize; 
+                 // --- Size Slider Initialization ---
+                 const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
+                gallerySizeSlider.value = savedGallerySize;
                 applyGallerySize(parseInt(savedGallerySize, 10));
 
                 // --- Size Slider Event Listeners ---
-                gallerySizeSlider.addEventListener('input', function(e) { 
-                    const v = parseInt(e.target.value, 10); 
-                    applyGallerySize(v); 
-                    localStorage.setItem(GALLERY_SIZE_KEY, v.toString()); 
+                gallerySizeSlider.addEventListener('input', function(e) {
+                    const v = parseInt(e.target.value, 10);
+                    applyGallerySize(v);
+                    localStorage.setItem(GALLERY_SIZE_KEY, v.toString());
                 });
 
-                // Initial Render based on 'All' tab (excluding MISC)
-                baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(function(img) { 
-                    return img.setName !== "Misc"; 
+                 // --- Initial Render ---
+                 // Set initial base set for 'All' tab (excluding MISC)
+                 baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(function(img) {
+                    return img.setName !== "Misc";
                 });
-                
                 console.log("[Init] Initial base image set size (excluding MISC):", baseImageSet.length);
-                applyFiltersAndRender();
+                applyFiltersAndRender(); // Render initial view based on default filters
 
-                // --- Event Listeners ---
-                // Filter dropdowns
-                typeFilterSelect.addEventListener('change', function(e) { 
-                    currentTypeFilter = e.target.value; 
-                    applyFiltersAndRender(); 
-                });
-                
-                forteFilterSelect.addEventListener('change', function(e) { 
-                    currentForteFilter = e.target.value; 
-                    applyFiltersAndRender(); 
-                });
-                
-                trainerTypeFilterSelect.addEventListener('change', function(e) { 
-                    currentTrainerTypeFilter = e.target.value; 
-                    applyFiltersAndRender(); 
-                });
-                
-                creatorFilterSelect.addEventListener('change', function(e) { 
-                    currentCreatorFilter = e.target.value; 
-                    applyFiltersAndRender(); 
-                });
-                
+
+                 // --- Event Listeners ---
+                 // Filter dropdowns
+                typeFilterSelect.addEventListener('change', function(e) { currentTypeFilter = e.target.value; applyFiltersAndRender(); });
+                forteFilterSelect.addEventListener('change', function(e) { currentForteFilter = e.target.value; applyFiltersAndRender(); });
+                trainerTypeFilterSelect.addEventListener('change', function(e) { currentTrainerTypeFilter = e.target.value; applyFiltersAndRender(); });
+                creatorFilterSelect.addEventListener('change', function(e) { currentCreatorFilter = e.target.value; applyFiltersAndRender(); });
+
                 // Fancy lightbox controls
                 fancyLightboxClose.addEventListener('click', closeFancyLightbox);
                 fancyPrevButton.addEventListener('click', showPreviousCard);
@@ -1667,54 +1660,86 @@
                 fancyZoomIn.addEventListener('click', zoomIn);
                 fancyZoomOut.addEventListener('click', zoomOut);
                 fancyZoomReset.addEventListener('click', resetZoom);
-                
-                // Dragging interactions for card
+
+                 // --- Dragging interactions for Lightbox Card ---
                 let isDragging = false;
-                let dragStartX = 0;
-                let dragStartY = 0;
-                let rotateX = 0;
-                let rotateY = 0;
-                
-                fancyHoloContainer.addEventListener('mousedown', function(e) {
-                    if (isZoomed) return;
+                let dragStartX = 0, dragStartY = 0;
+                let currentRotateX = 0, currentRotateY = 0; // Store current rotation
+
+                 fancyHoloContainer.addEventListener('pointerdown', function(e) {
+                     // Only allow dragging if NOT zoomed
+                     if (isZoomed || e.pointerType === 'touch') return; // Ignore touch drag for now
                     isDragging = true;
                     dragStartX = e.clientX;
                     dragStartY = e.clientY;
+                     // Get current rotation from style if already rotated
+                     const transformStyle = window.getComputedStyle(fancyHoloInner).transform;
+                     if (transformStyle && transformStyle !== 'none') {
+                         // Basic parsing - might need refinement for complex transforms
+                         const matrix = new DOMMatrixReadOnly(transformStyle);
+                         currentRotateX = Math.asin(-matrix.m23) * (180 / Math.PI);
+                         currentRotateY = Math.atan2(matrix.m13, matrix.m33) * (180 / Math.PI);
+                     } else {
+                         currentRotateX = 0;
+                         currentRotateY = 0;
+                     }
+
                     fancyHoloContainer.style.cursor = 'grabbing';
-                    e.preventDefault();
+                     fancyHoloInner.style.transition = 'none'; // Disable transition during drag
+                    e.preventDefault(); // Prevent text selection during drag
                 });
-                
-                document.addEventListener('mousemove', function(e) {
+
+                document.addEventListener('pointermove', function(e) {
                     if (!isDragging) return;
-                    
+
                     const deltaX = e.clientX - dragStartX;
                     const deltaY = e.clientY - dragStartY;
-                    
-                    // Scale the rotation (smaller values for subtler effect)
-                    rotateY = deltaX * 0.1;
-                    rotateX = -deltaY * 0.1;
-                    
-                    // Apply rotation directly
-                    fancyHoloInner.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+
+                    // Calculate new rotation based on drag delta and current rotation
+                     // Adjust sensitivity by changing the multiplier (e.g., 0.1)
+                     const newRotateY = currentRotateY + (deltaX * 0.1);
+                     const newRotateX = currentRotateX - (deltaY * 0.1); // Invert Y delta
+
+                    // Apply rotation directly to the inner element
+                    fancyHoloInner.style.transform = `perspective(1000px) rotateX(${newRotateX}deg) rotateY(${newRotateY}deg)`;
                 });
-                
-                document.addEventListener('mouseup', function() {
+
+                document.addEventListener('pointerup', function(e) {
                     if (isDragging) {
                         isDragging = false;
-                        fancyHoloContainer.style.cursor = 'grab';
-                        
-                        // Smoothly reset to center if not zoomed
-                        if (!isZoomed) {
-                            fancyHoloInner.style.transition = 'transform 0.5s ease-out';
-                            fancyHoloInner.style.transform = '';
-                            setTimeout(function() {
-                                fancyHoloInner.style.transition = '';
-                            }, 500);
-                        }
+                        fancyHoloContainer.style.cursor = 'grab'; // Reset cursor
+
+                         // Optionally smoothly reset to center if not zoomed
+                         if (!isZoomed) {
+                             fancyHoloInner.style.transition = 'transform 0.5s ease-out'; // Add transition back
+                             fancyHoloInner.style.transform = ''; // Reset transform
+                             // Remove transition after animation (important)
+                             setTimeout(function() {
+                                 if (!isDragging) { // Check again in case drag restarted quickly
+                                      fancyHoloInner.style.transition = '';
+                                 }
+                             }, 500);
+                         } else {
+                             // If zoomed, just stop dragging, don't reset rotation
+                             fancyHoloInner.style.transition = ''; // Ensure no transition
+                         }
+                         // Update stored rotation based on final drag position
+                         // This might be slightly off if reset animation is used.
+                         // Could refine by storing final delta before reset.
+                         const transformStyle = window.getComputedStyle(fancyHoloInner).transform;
+                         if (transformStyle && transformStyle !== 'none') {
+                             const matrix = new DOMMatrixReadOnly(transformStyle);
+                             currentRotateX = Math.asin(-matrix.m23) * (180 / Math.PI);
+                             currentRotateY = Math.atan2(matrix.m13, matrix.m33) * (180 / Math.PI);
+                         } else {
+                              currentRotateX = 0; currentRotateY = 0;
+                         }
+
                     }
                 });
-                
-                // Double-click to zoom
+
+
+                // Double-click to zoom/reset
                 fancyHoloContainer.addEventListener('dblclick', function() {
                     if (isZoomed) {
                         resetZoom();
@@ -1722,49 +1747,46 @@
                         zoomIn();
                     }
                 });
-                
+
                 // Keydown listeners for gallery and lightbox
                 document.addEventListener('keydown', function(e) {
                     if (fancyLightbox.classList.contains('visible')) {
                         handleFancyLightboxKeyDown(e);
                     } else {
-                        // Only handle gallery keys if focus is in the gallery
-                        const activeElement = document.activeElement;
-                        if (activeElement && (
-                            itemGallery.contains(activeElement) || 
-                            tabContainer.contains(activeElement)
-                        )) {
+                        // Only handle gallery keys if focus is within gallery or tabs
+                         const activeElement = document.activeElement;
+                         if (activeElement && (itemGallery.contains(activeElement) || tabContainer.contains(activeElement))) {
                             handleGalleryKeyDown(e);
                         }
                     }
                 });
-                
-                // Apply holo effects
+
+                // Apply holo effects to gallery thumbnails
                 applyHoloListeners('#item-gallery');
-                
-                // Trigger lazy loading for initial viewport
-                if (intersectionObserver) {
-                    const initialThumbnails = itemGallery.querySelectorAll('.thumbnail');
-                    for (let i = 0; i < initialThumbnails.length; i++) {
-                        const thumbnail = initialThumbnails[i];
-                        if (isElementInViewport(thumbnail)) {
-                            thumbnail.classList.add('in-view');
-                            const img = thumbnail.querySelector('img');
-                            if (img && img.dataset.src) {
-                                img.src = img.dataset.src;
-                                delete img.dataset.src;
-                            }
-                        }
+
+                // --- Initial Load Trigger ---
+                // Trigger initial load for visible elements if using Intersection Observer
+                 if (intersectionObserver) {
+                     const initialThumbnails = itemGallery.querySelectorAll('.thumbnail');
+                     for (let i = 0; i < initialThumbnails.length; i++) {
+                         const thumbnail = initialThumbnails[i];
+                        // Check if visible and trigger observer manually if needed (sometimes helps)
+                         if (isElementInViewport(thumbnail)) {
+                             // Force observer check for initially visible items
+                              intersectionObserver.unobserve(thumbnail);
+                              intersectionObserver.observe(thumbnail);
+                         }
                     }
-                }
-                
-                // Hide loading overlay when everything is ready
+                 }
+
+
+                // Hide loading overlay when everything is set up
                 ensurePageLoaded();
-                
+
             } catch (error) {
                 console.error("[Init] Critical error during initialization:", error);
-                displayError("An error occurred during initialization. Please reload the page.");
-                ensurePageLoaded();
+                displayError("An error occurred during initialization. Please check the console and reload the page.");
+                ensurePageLoaded(); // Ensure loader hides even on critical error
             }
         }
 
@@ -1772,7 +1794,7 @@
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initApp);
         } else {
-            initApp();
+            initApp(); // DOM is already loaded
         }
     </script>
 </body>
