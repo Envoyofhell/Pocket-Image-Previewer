@@ -32,14 +32,13 @@
 }
 
 /* Coming Soon Tabs */
-.tab-coming-soon {
+.preview-locked-tab {
     opacity: 0.7;
-    cursor: not-allowed;
     background-color: rgba(55, 65, 81, 0.2) !important;
     border-color: rgba(75, 85, 99, 0.5) !important;
 }
 
-.tab-coming-soon:hover {
+.preview-locked-tab:hover {
     background-color: rgba(55, 65, 81, 0.3) !important;
     transform: none !important;
 }

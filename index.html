@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pirata+One&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -61,15 +63,7 @@
                                 <option value="all">All Creators</option>
                             </select>
                         </div>
-                    </div> <div id="access-controls" class="flex items-center gap-x-3 ml-auto pl-4"> <button id="unlock-button" class="access-button" title="Unlock Full Version">
-                            <i id="unlock-icon" class="fas fa-lock"></i> </button>
-                    </div>
-                    <div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4" style="display: none;">
-                       </div>
-    
-               </div> <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-end w-full">
                    </div>
-            </div>
                    <div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4" style="display: none;">
                        <h2 class="controls-label hidden md:block">Sizes:</h2>
                        <div class="size-control-group">
@@ -86,7 +80,7 @@
         </div>
 
         <div class="gallery-section border-t border-[var(--color-border)] pt-4 mt-4"> <div id="item-gallery" class="grid gap-4 items-start" role="grid"> </div>
-            <p id="empty-folder-message" class="text-center mt-4 hidden">No images match the current filters.</p>
+            <p id="empty-folder-message" class="text-center mt-4 hidden">More Cards for the set In progress. Check Back Soon!</p>
         </div>
 
         <footer class="footer">
@@ -171,34 +165,29 @@
          </div>
     </div>
 
+    <script src="js/preview.js" defer></script>   
     <script src="image_data.js"></script>
      <script src="js/background.js"></script> 
      <script src="db-likes.js"></script>   
      <script src="js/audio.js"></script>
      <script>
         // --- Configuration ---
-        const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error";
-        const mainPlaceholderUrl = "https://placehold.co/600x400/cccccc/ffffff.png?text=Loading...";
+        const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error"; // Gallery placeholder
+        const mainPlaceholderUrl = "https://placehold.co/600x400/cccccc/ffffff.png?text=Loading..."; // Lightbox placeholder
         const CLICK_EFFECT_DURATION_MS = 400;
-        const HOVER_EFFECT_TIMEOUT_MS = 1000;
-        const RESOURCE_FOLDER = 'resources';
-        const BLANK_SUFFIX = '-BL-';
-        const SIZE_MAP = ['S', 'M', 'L'];
-        const GALLERY_SIZE_CLASSES = { 0: 'gallery-size-s', 1: 'gallery-size-m', 2: 'gallery-size-l' };
-        const DEFAULT_GALLERY_SIZE_INDEX = 1;
-        const GALLERY_SIZE_KEY = 'galleryImageSizePref';
-        const PRELOAD_NEXT_PREV = true;
-        const INITIAL_PRELOAD_COUNT = 24;
-        // --- Preview Mode Config ---
-        const PREVIEW_PASSWORD = "forte"; // *** CHANGE THIS PASSWORD ***
-        const PREVIEW_STORAGE_KEY = 'fortePreviewUnlocked'; // localStorage key
-        const ALLOWED_PROMOS_PREVIEW = ["001", "002"]; // Set numbers of promos allowed
-        const UNBOUND_SET_NAME = "Other"; // Internal setName for Unbound cards (check your config)
-        const PROMO_SET_NAME = "Promo"; // Internal setName for Promo cards
-    
+        const HOVER_EFFECT_TIMEOUT_MS = 1000; // Timeout for thumbnail hover effect reset
+        const RESOURCE_FOLDER = 'resources'; // Used? Verify if needed elsewhere
+        const BLANK_SUFFIX = '-BL-'; // Suffix for textless card filenames
+        const SIZE_MAP = ['S', 'M', 'L']; // For gallery size slider display
+        const GALLERY_SIZE_CLASSES = { 0: 'gallery-size-s', 1: 'gallery-size-m', 2: 'gallery-size-l' }; // CSS classes for gallery size
+        const DEFAULT_GALLERY_SIZE_INDEX = 1; // Default size index (Medium)
+        const GALLERY_SIZE_KEY = 'galleryImageSizePref'; // localStorage key for size preference
+        const PRELOAD_NEXT_PREV = true; // Preload next/prev images in lightbox viewer?
+        const INITIAL_PRELOAD_COUNT = 24; // <<< OPTIMIZATION: Number of initial gallery images to preload on page load
+
         // --- Elements ---
         const pageLoadingOverlay = document.getElementById('page-loading-overlay');
-        const loadingTextElement = document.getElementById('loading-text');
+        const loadingTextElement = document.getElementById('loading-text'); // Element to show loading progress text
         const itemGallery = document.getElementById('item-gallery');
         const tabContainer = document.getElementById('tab-container');
         const typeFilterSelect = document.getElementById('type-filter');
@@ -208,9 +197,8 @@
         const emptyFolderMessage = document.getElementById('empty-folder-message');
         const gallerySizeSlider = document.getElementById('gallery-size-slider');
         const gallerySizeDisplay = document.getElementById('gallery-size-display');
-        const unlockButton = document.getElementById('unlock-button'); // New element
-        const unlockIcon = document.getElementById('unlock-icon');     // New element
-        // ... (Keep all other element references: Lightbox, Card Info, etc.) ...
+
+        // --- Fancy Lightbox Elements ---
         const fancyLightbox = document.getElementById('fancy-lightbox');
         const fancyLightboxContent = fancyLightbox.querySelector('.fancy-lightbox-content');
         const fancyLightboxClose = document.getElementById('fancy-lightbox-close');
@@ -226,6 +214,8 @@
         const fancyZoomIn = document.getElementById('fancy-zoom-in');
         const fancyZoomOut = document.getElementById('fancy-zoom-out');
         const fancyZoomReset = document.getElementById('fancy-zoom-reset');
+
+        // --- Card Info Elements ---
         const infoCardName = document.getElementById('info-card-name');
         const infoSetName = document.getElementById('info-set-name');
         const infoCardNumber = document.getElementById('info-card-number');
@@ -239,112 +229,284 @@
         const infoFileName = document.getElementById('info-file-name');
         const lbLikeButton = document.getElementById('lb-like-button');
         const lbLikeCount = document.getElementById('lb-like-count');
-    
+
         // --- State ---
-        let isPreviewMode = true; // Start locked by default
-        let currentSetTab = 'all';
-        let currentImageFiles = []; // For lightbox nav
-        let currentImageIndex = -1;
-        let focusableElements = [];
-        let currentFocusIndex = 0;
-        let currentlyDisplayedImages = []; // Full list matching user filters *and* preview mode
+        let currentSetTab = 'all'; // Currently selected set tab ('all' or specific set name)
+        let currentImageFiles = []; // Filtered, non-blank image objects for lightbox navigation
+        let currentImageIndex = -1; // Index within currentImageFiles
+        let focusableElements = []; // Array of focusable gallery thumbnail elements
+        let currentFocusIndex = 0; // Index for gallery keyboard navigation
+        let currentlyDisplayedImages = []; // FULL list of image objects matching current filters (incl. blanks)
         let currentTypeFilter = 'all';
         let currentForteFilter = 'all';
         let currentTrainerTypeFilter = 'all';
         let currentCreatorFilter = 'all';
-        let baseImageSet = []; // Images for current tab AFTER preview filtering
+        let baseImageSet = []; // All image objects for the currently selected SET tab
         let currentGallerySizeIndex = DEFAULT_GALLERY_SIZE_INDEX;
-        let lastScrollY = 0;
-        let allCreators = new Set();
-        let currentFancyCardImage = null;
-        let fancyHasBlankVersion = false;
-        let fancyBlankVersionPath = '';
-        let fancyNormalVersionPath = '';
-        let fancyActiveHoloTimeout = null;
-        let isZoomed = false;
-        let imageCache = new Map(); // Session Cache
-        let intersectionObserver; // Lazy Loader
-        let backgroundAnimationPaused = false;
-        let hoverEffectTimeouts = new Map();
-    
+        let lastScrollY = 0; // Store scroll position before opening lightbox
+        let allCreators = new Set(); // Populated from image data
+        let currentFancyCardImage = null; // The image *object* currently shown in lightbox
+        let fancyHasBlankVersion = false; // Does the lightbox image have a textless version?
+        let fancyBlankVersionPath = ''; // Path to textless version
+        let fancyNormalVersionPath = ''; // Path to normal version
+        let fancyActiveHoloTimeout = null; // Timeout ID for lightbox holo effect reset
+        let isZoomed = false; // Is the lightbox image zoomed?
+        let imageCache = new Map(); // <<< OPTIMIZATION: Session Cache Map (Key: encodedPath, Value: Promise<Image> or Image)
+        let intersectionObserver; // <<< OPTIMIZATION: Instance for lazy loading gallery thumbnails
+        let backgroundAnimationPaused = false; // State for pausing Three.js background
+        let hoverEffectTimeouts = new Map(); // Track timeouts for gallery thumbnail holo hover effect resets
+
         // --- Data loaded from image_data.js ---
-        let rootImageStructure = null;
-        let filterConfig = null;
-        let allImagesMasterList = []; // Store the full list of all images once loaded
-    
+        let rootImageStructure = null; // Populated in initApp
+        let filterConfig = null; // Populated in initApp
+
+
         // ===============================================
         // === IMAGE PRELOADING & CACHING LOGIC ========
         // ===============================================
-        // (Keep the preloadImage, preloadInitialImages, preloadAdjacentLightboxImages, preloadAdjacentGalleryImages functions here)
+
+        /**
+         * Preloads an image source into the session cache (imageCache).
+         * Returns a Promise that resolves with the HTMLImageElement.
+         * Handles concurrent requests for the same image.
+         * @param {string} encodedSrc - The URI encoded path to the image.
+         * @returns {Promise<HTMLImageElement>} A promise that resolves with the loaded image element.
+         */
         function preloadImage(encodedSrc) {
             if (!encodedSrc) return Promise.reject(new Error("Invalid src"));
+
+            // Check cache first
             if (imageCache.has(encodedSrc)) {
-                const cached = imageCache.get(encodedSrc);
-                return (cached instanceof HTMLImageElement) ? Promise.resolve(cached) : cached;
+                const cachedItem = imageCache.get(encodedSrc);
+                // If already loaded Image, return resolved promise
+                if (cachedItem instanceof HTMLImageElement) return Promise.resolve(cachedItem);
+                // If it's a Promise (already loading), return that promise
+                return cachedItem;
             }
+
+            // Not in cache, create loading promise
             const loadPromise = new Promise((resolve, reject) => {
                 const img = new Image();
-                img.onload = () => { imageCache.set(encodedSrc, img); resolve(img); };
-                img.onerror = () => { imageCache.delete(encodedSrc); console.warn(`[Cache] Failed load: ${encodedSrc}`); reject(new Error(`Failed load: ${encodedSrc}`)); };
+                img.onload = () => {
+                    imageCache.set(encodedSrc, img); // Replace promise with Image on success
+                    resolve(img);
+                };
+                img.onerror = () => {
+                    imageCache.delete(encodedSrc); // Remove failed promise
+                    console.warn(`[Cache] Failed to load image: ${encodedSrc}`);
+                    reject(new Error(`Failed load: ${encodedSrc}`));
+                };
                 img.src = encodedSrc;
             });
-            imageCache.set(encodedSrc, loadPromise);
+
+            imageCache.set(encodedSrc, loadPromise); // Store promise immediately
             return loadPromise;
         }
+
+        /**
+         * Preloads the first N non-blank images from the currently displayed set.
+         * Updates the loading text overlay during preload.
+         * @param {number} count - The number of images to attempt preloading.
+         */
         async function preloadInitialImages(count) {
             console.log(`[Preload] Starting initial preload for up to ${count} gallery images.`);
-            // Use baseImageSet which is already filtered for preview mode if active
-            if (!baseImageSet) return;
-            const nonBlankImages = baseImageSet.filter(img => !img.isBlank); // Preload non-blanks from current view
+            if (!currentlyDisplayedImages) return;
+
+            const nonBlankImages = currentlyDisplayedImages.filter(img => !img.isBlank);
             const imagesToPreload = nonBlankImages.slice(0, count);
             const preloadPromises = [];
             const totalToLoad = imagesToPreload.length;
+
             if (totalToLoad === 0) { console.log("[Preload] No initial images to preload."); return; }
+
             loadingTextElement.textContent = `Preloading images... (0/${totalToLoad})`;
+
             for (let i = 0; i < totalToLoad; i++) {
                 const image = imagesToPreload[i];
                 const encodedPath = encodeImagePath(image.path);
                 if (encodedPath) {
-                    if (loadingTextElement && i > 0) { loadingTextElement.textContent = `Preloading images... (${i}/${totalToLoad})`; }
-                    preloadPromises.push(preloadImage(encodedPath).catch(err => { /* ignore */ }));
+                    if (loadingTextElement && i > 0) { // Update status text
+                        loadingTextElement.textContent = `Preloading images... (${i}/${totalToLoad})`;
+                    }
+                    preloadPromises.push(preloadImage(encodedPath).catch(err => { /* ignore non-critical errors */ }));
                 }
             }
-            await Promise.allSettled(preloadPromises);
+
+            await Promise.allSettled(preloadPromises); // Wait for all to finish/fail
             console.log(`[Preload] Finished initial batch of ${totalToLoad} images.`);
-            if (loadingTextElement) loadingTextElement.textContent = "Loading Forte Card Previewer...";
+            if (loadingTextElement) loadingTextElement.textContent = "Loading Forte Card Previewer..."; // Reset text
         }
-        function preloadAdjacentLightboxImages() { /* ... function code ... */ }
-        function preloadAdjacentGalleryImages(visibleThumbnail) { /* ... function code ... */ }
-    
-    
+
+        /** Preloads adjacent images (next/prev) for the lightbox viewer */
+        function preloadAdjacentLightboxImages() {
+            if (!PRELOAD_NEXT_PREV || !currentImageFiles || currentImageIndex < 0) return;
+            const pathsToPreload = [];
+            // Next image
+            if (currentImageIndex < currentImageFiles.length - 1) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex + 1].path));
+            // Previous image
+            if (currentImageIndex > 0) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex - 1].path));
+            // Optional: Next+1 image
+             if (currentImageIndex < currentImageFiles.length - 2) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex + 2].path));
+
+            // Trigger preloads async
+            pathsToPreload.forEach(path => { if (path) preloadImage(path).catch(()=>{}); });
+        }
+
+        /** Preloads adjacent images (next/prev) in the gallery grid relative to a visible thumbnail */
+        function preloadAdjacentGalleryImages(visibleThumbnail) {
+            if (!visibleThumbnail) return;
+            const currentIndex = focusableElements.indexOf(visibleThumbnail);
+            if (currentIndex === -1) return; // Not found
+
+            const pathsToPreload = new Set(); // Use Set to avoid duplicates
+            // Check next 1, 2
+            for (let i = 1; i <= 2; i++) {
+                const nextThumb = focusableElements[currentIndex + i];
+                const nextImg = nextThumb?.querySelector('img[data-src]'); // Only preload if not loaded/loading
+                if (nextImg?.dataset?.src) pathsToPreload.add(nextImg.dataset.src);
+            }
+            // Check prev 1
+            const prevThumb = focusableElements[currentIndex - 1];
+            const prevImg = prevThumb?.querySelector('img[data-src]');
+            if (prevImg?.dataset?.src) pathsToPreload.add(prevImg.dataset.src);
+
+            // Trigger preloads async
+            pathsToPreload.forEach(path => { if (path) preloadImage(path).catch(()=>{}); });
+        }
+
+
         // ===============================================
         // === UTILITY FUNCTIONS =========================
         // ===============================================
-        function getExtension(filename = '') { /* ... function code ... */ }
-        function encodeImagePath(path) { /* ... function code ... */ }
-        function pauseBackgroundAnimation(pause) { /* ... function code ... */ }
-        function hexToRgba(hex, alpha = 1) { /* ... function code ... */ }
-        function lightenHexColor(hex, percent) { /* ... function code ... */ }
-        function isElementInViewport(el) { /* ... function code ... */ }
-        function ensurePageLoaded() { /* ... function code ... */ }
-        function displayError(message) { /* ... function code ... */ }
-    
+
+        /** Gets the file extension from a filename string */
+        function getExtension(filename = '') {
+            const lastDot = filename.lastIndexOf('.');
+            // Basic validation: ensure dot exists, is not first char, and not last char
+            if (lastDot < 1 || lastDot === filename.length - 1) return '';
+            return filename.substring(lastDot);
+        }
+
+        /** Properly encode image paths for use in URLs/src attributes */
+         function encodeImagePath(path) {
+            if (!path) return '';
+            try {
+                // Split path by '/', encode each segment, rejoin. Handles most common cases.
+                return path.split('/').map((segment, index) => {
+                    // Avoid encoding Windows drive letters (e.g., C:)
+                    if (index === 0 && /^[a-zA-Z]:$/.test(segment)) {
+                        return segment;
+                    }
+                    // Encode characters unsafe in URLs (% $ & + , / : ; = ? @ # etc.)
+                    // Use encodeURIComponent for robust encoding.
+                    return encodeURIComponent(segment);
+                }).join('/');
+            } catch (e) {
+                console.error("Error encoding path:", path, e);
+                return path; // Fallback to original path on error
+            }
+        }
+
+        /** Pause or resume the background animation via external function */
+        function pauseBackgroundAnimation(pause) {
+            backgroundAnimationPaused = pause;
+            // Assumes background.js defines setBackgroundPaused globally
+            if (typeof window.setBackgroundPaused === 'function') {
+                try {
+                    window.setBackgroundPaused(pause);
+                } catch (e) {
+                    console.error("Error calling setBackgroundPaused:", e);
+                }
+            }
+        }
+
+        /** Helper to convert Hex color to RGBA string */
+        function hexToRgba(hex, alpha = 1) {
+             if (!hex || typeof hex !== 'string') return `rgba(107, 114, 128, ${alpha})`; // Default grey on invalid input
+             hex = hex.replace('#', '');
+             if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+             const bigint = parseInt(hex, 16);
+             if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
+             const r = (bigint >> 16) & 255;
+             const g = (bigint >> 8) & 255;
+             const b = bigint & 255;
+             return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+         }
+
+        /** Helper to lighten a Hex color by a percentage */
+         function lightenHexColor(hex, percent) {
+            if (!hex || typeof hex !== 'string') return '#FFFFFF'; // Default white on invalid input
+            hex = hex.replace('#', '');
+             if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+             const num = parseInt(hex, 16);
+             if (isNaN(num)) return '#FFFFFF';
+
+             const amt = Math.round(2.55 * percent * 100); // Scale percent
+             let r = (num >> 16) + amt;
+             let g = ((num >> 8) & 0x00FF) + amt;
+             let b = (num & 0x0000FF) + amt;
+
+             // Clamp values
+             r = Math.max(0, Math.min(255, r));
+             g = Math.max(0, Math.min(255, g));
+             b = Math.max(0, Math.min(255, b));
+
+            // Ensure sufficient contrast if lightening a dark color
+            const lumR = r / 255, lumG = g / 255, lumB = b / 255;
+            const luminance = 0.2126 * lumR + 0.7152 * lumG + 0.0722 * lumB;
+            if (luminance < 0.4 && amt > 0) { // Original color was dark, and we are lightening
+               const minLightness = 180; // Ensure resulting components are reasonably light
+               r = Math.max(r, minLightness); g = Math.max(g, minLightness); b = Math.max(b, minLightness);
+            }
+
+             return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
+         }
+
+        /** Check if element is approximately in viewport */
+        function isElementInViewport(el) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            // Check if element is within the vertical bounds of the viewport
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        }
+
+        /** Force hide loading overlay */
+         function ensurePageLoaded() {
+             if (pageLoadingOverlay && !pageLoadingOverlay.classList.contains('loaded')) {
+                 pageLoadingOverlay.classList.add('loaded');
+                 console.log("[Load State] Page loading visually complete (overlay hidden).");
+                 // Optional: Remove overlay from DOM after transition
+                 /*
+                 pageLoadingOverlay.addEventListener('transitionend', () => {
+                     if (pageLoadingOverlay) pageLoadingOverlay.remove();
+                 }, { once: true });
+                 */
+             }
+         }
+
+        /** Display error message in the gallery area */
+         function displayError(message) {
+             itemGallery.innerHTML = `<p class="error-message" style="color: red; text-align: center; padding: 2em;">${message}</p>`; // Basic inline style
+             emptyFolderMessage.classList.add('hidden');
+             ensurePageLoaded(); // Ensure loading overlay is hidden on error
+         }
+
+
         // ===============================================
-        // === DATA HANDLING =============================
+        // === DATA HANDLING & STATE MANAGEMENT ========
         // ===============================================
+
         /** Recursively finds all file objects and populates creators set */
         function getAllImageFilesRecursive(node) {
-            // --- Keep this function definition here ---
-            // It populates the global 'allCreators' set
             let files = [];
-            if (!node?.children) return files;
+            if (!node?.children) return files; // Guard against null/undefined node or children
             for (const child of node.children) {
                 if (child.type === 'file') {
                     if (child.creator && !allCreators.has(child.creator)) {
                         allCreators.add(child.creator);
                     }
-                    // Ensure isBlank is set during initial load if generator missed it
-                    child.isBlank = child.isBlank ?? (child.name?.includes(BLANK_SUFFIX) ?? false);
+                    // Add isBlank property directly to the object for easier access later
+                    child.isBlank = child.name?.includes(BLANK_SUFFIX) ?? false;
                     files.push(child);
                 } else if (child.type === 'folder') {
                     files = files.concat(getAllImageFilesRecursive(child));
@@ -352,258 +514,6 @@
             }
             return files;
         }
-    
-    
-        // ===============================================
-        // === NEW: PREVIEW MODE / UNLOCK LOGIC =========
-        // ===============================================
-    
-        /** Updates the unlock icon based on the isPreviewMode state */
-        function updateUnlockIcon() {
-            if (!unlockIcon || !unlockButton) return;
-            if (isPreviewMode) {
-                unlockIcon.classList.remove('fa-lock-open');
-                unlockIcon.classList.add('fa-lock');
-                unlockButton.title = "Unlock Full Version";
-                unlockButton.classList.remove('unlocked');
-            } else {
-                unlockIcon.classList.remove('fa-lock');
-                unlockIcon.classList.add('fa-lock-open');
-                unlockButton.title = "Full Version Unlocked"; // Simple title
-                unlockButton.classList.add('unlocked');
-            }
-        }
-    
-        /** Handles the click on the unlock button */
-        function handleUnlockAttempt() {
-            if (!isPreviewMode) {
-                // Currently unlocked - Optionally implement re-locking here
-                // For now, just inform the user or do nothing
-                 alert("Full version is already unlocked.");
-                // To re-lock:
-                // isPreviewMode = true;
-                // localStorage.removeItem(PREVIEW_STORAGE_KEY);
-                // updateUnlockIcon();
-                // renderTabs();
-                // handleTabChange(currentSetTab); // Re-apply preview filter
-                return;
-            }
-    
-            // Prompt for password (replace with a modal for better UX)
-            const enteredPassword = prompt("Enter password to unlock full version:");
-    
-            if (enteredPassword === null) return; // User cancelled
-    
-            if (enteredPassword === PREVIEW_PASSWORD) {
-                // Correct password
-                alert("Password correct! Unlocking full version."); // Replace alert
-                isPreviewMode = false; // Set state to unlocked
-                try {
-                    localStorage.setItem(PREVIEW_STORAGE_KEY, "unlocked"); // Save state
-                } catch (e) { console.error("Error saving unlock state:", e); }
-                console.log("[Access] Unlocked Full Mode.");
-                updateUnlockIcon(); // Update button icon
-                renderTabs(); // Re-render tabs (removes "Coming Soon")
-                // Re-filter and render the currently selected tab with full data
-                handleTabChange(currentSetTab);
-            } else {
-                // Incorrect password
-                alert("Incorrect password."); // Replace alert
-            }
-        }
-    
-        // ===============================================
-        // === FILTERING AND TABS (Updated for Preview) ==
-        // ===============================================
-    
-        /**
-         * Applies USER filter state (Type, Forte, etc.) to the CURRENT baseImageSet
-         * (which is already filtered by preview mode via handleTabChange),
-         * determines gallery display list (prioritizing normal), and triggers rendering.
-         */
-        function applyFiltersAndRender() {
-            console.log(`[Filter] Applying USER filters: Type='${currentTypeFilter}', Forte='${currentForteFilter}', etc.`);
-            console.log(`[Filter] Current baseImageSet size (after potential preview filter): ${baseImageSet.length}`);
-    
-            // --- Step 1: Filter the CURRENT baseImageSet based on user filter controls ---
-            let userFilteredImages = baseImageSet.filter(img => {
-                const typeMatch = currentTypeFilter === 'all' || img.cardType === currentTypeFilter;
-                const forteMatch = currentForteFilter === 'all' ||
-                                   (currentForteFilter === 'yes' && img.isForte === true) ||
-                                   (currentForteFilter === 'no' && img.isForte === false);
-                const trainerMatch = currentTrainerTypeFilter === 'all' ||
-                                   ((currentTypeFilter === 'all' || img.cardType === 'Trainer') && img.trainerType === currentTrainerTypeFilter);
-                const creatorMatch = currentCreatorFilter === 'all' || img.creator === currentCreatorFilter;
-                return typeMatch && forteMatch && trainerMatch && creatorMatch;
-            });
-            console.log(`[Filter] Found ${userFilteredImages.length} images matching user filters (incl. blanks).`);
-    
-            // Store this list (it reflects user filters *and* preview mode)
-            currentlyDisplayedImages = userFilteredImages;
-    
-            // --- Step 2: Determine the final list to RENDER in the gallery grid ---
-            // Prioritize normal over blank from the user-filtered list
-            const imagesToRenderMap = new Map();
-            for (const image of userFilteredImages) {
-                const ext = getExtension(image.name);
-                const isBlank = image.isBlank ?? (image.name?.includes(BLANK_SUFFIX) ?? false);
-                const baseName = isBlank ? image.name.replace(BLANK_SUFFIX + ext, '') : image.name.replace(ext, '');
-                const cardKey = `${image.setName || 'UnknownSet'}_${baseName}`;
-                const existingEntry = imagesToRenderMap.get(cardKey);
-                if (!existingEntry || (existingEntry.isBlank && !isBlank)) {
-                    imagesToRenderMap.set(cardKey, { ...image, isBlank });
-                }
-            }
-            const imagesToRenderInGallery = Array.from(imagesToRenderMap.values());
-            console.log(`[Filter] Determined ${imagesToRenderInGallery.length} unique cards to render in gallery.`);
-    
-            // --- Step 3: Render the gallery ---
-            renderGalleryView(imagesToRenderInGallery);
-        }
-    
-        /** Populates filter dropdowns based on ALL available data */
-        function populateFilters() {
-            // This should use the full 'allCreators' list populated from the master list
-            if (!filterConfig || !typeFilterSelect || !trainerTypeFilterSelect || !creatorFilterSelect) {
-                console.error("[Populate Filters] Missing config or select elements."); return;
-            }
-            console.log("[Populate Filters] Populating dropdowns...");
-            const clearOptions = (sel) => { while (sel.options.length > 1) sel.remove(1); };
-            clearOptions(typeFilterSelect); filterConfig.typeOrder?.forEach(t => { if(t) typeFilterSelect.add(new Option(t, t)); });
-            clearOptions(trainerTypeFilterSelect); filterConfig.trainerTypeOrder?.forEach(t => { if(t) trainerTypeFilterSelect.add(new Option(t, t)); });
-            clearOptions(creatorFilterSelect);
-            const sortedCreators = Array.from(allCreators).filter(Boolean).sort(); // Use global allCreators
-            console.log(`[Populate Filters] Populating with ${sortedCreators.length} creators.`);
-            sortedCreators.forEach(c => { creatorFilterSelect.add(new Option(c, c)); });
-        }
-    
-        /** Renders the set navigation tabs, handling preview mode display */
-        function renderTabs() {
-            if (!tabContainer || !allImagesMasterList || !filterConfig?.setOrder || !filterConfig?.setColors) { // Check allImagesMasterList
-                console.error("[Render Tabs] Missing elements, master list, or config."); return;
-            }
-            const label = tabContainer.querySelector('h2'); tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label);
-    
-            // Determine available sets from the MASTER list, not the filtered one
-            const availableSetNames = new Set(allImagesMasterList.map(img => img.setName).filter(name => name && name !== "Misc"));
-            console.log("[Render Tabs] Available set names:", Array.from(availableSetNames));
-    
-            const createTabButton = (setName, text) => {
-                const button = document.createElement('button');
-                button.className = 'tab';
-                button.dataset.setName = setName;
-    
-                // --- Preview Mode Logic for Tabs ---
-                let isComingSoon = false;
-                const allowedPreviewSets = ['all', PROMO_SET_NAME, UNBOUND_SET_NAME]; // Internal names allowed
-                if (isPreviewMode && !allowedPreviewSets.includes(setName)) {
-                    isComingSoon = true;
-                    text = "Coming Soon"; // Override display text
-                    button.classList.add('tab-coming-soon'); // Add class for styling
-                    button.disabled = true; // Disable the button
-                }
-                // --- End Preview Mode Logic ---
-    
-                const tabColor = filterConfig.setColors[setName] || filterConfig.setColors['default'] || '#6B7280';
-                button.style.setProperty('--tab-active-border-color', tabColor);
-                button.style.setProperty('--tab-active-bg-color', hexToRgba(tabColor, 0.3));
-                const textSpan = document.createElement('span');
-                textSpan.textContent = text; // Use potentially overridden text
-    
-                // --- Custom Text Color Logic ---
-                if (setName === UNBOUND_SET_NAME) { // Special style for Unbound/Other
-                    button.style.setProperty('--tab-active-text-color', '#A020F0'); // Example Purple
-                } else if (isComingSoon) {
-                    button.style.setProperty('--tab-active-text-color', '#9ca3af'); // Grey for active coming soon
-                    textSpan.style.opacity = '0.6'; // Fade inactive text
-                } else {
-                    button.style.setProperty('--tab-active-text-color', lightenHexColor(tabColor, 0.8));
-                }
-                // --- End Custom Text Color ---
-    
-                button.appendChild(textSpan);
-                return button;
-            };
-    
-            // Create "All" tab (always enabled)
-            const allTab = createTabButton('all', 'All');
-            if (currentSetTab === 'all') allTab.classList.add('active'); // Set active if it's the current tab
-            tabContainer.appendChild(allTab);
-    
-            // Create Tabs based on setOrder
-            filterConfig.setOrder.forEach(setName => {
-                // Create tab regardless of images, but handle "Coming Soon"
-                if (setName !== 'all') { // 'all' tab already created
-                    // Use the internal setName from setOrder to create the button
-                    const setTab = createTabButton(setName, setName); // Use internal name as default text
-                    if (currentSetTab === setName) setTab.classList.add('active'); // Set active if it's the current tab
-                    tabContainer.appendChild(setTab);
-                }
-            });
-    
-            // Attach event listener (ensure only once)
-            if (!tabContainer.dataset.listenerAttached) {
-                tabContainer.addEventListener('click', (e) => {
-                    const clickedTab = e.target.closest('.tab:not([disabled])'); // Only react if not disabled
-                    if (clickedTab && !clickedTab.classList.contains('active')) {
-                        const newSetName = clickedTab.dataset.setName;
-                        tabContainer.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                        clickedTab.classList.add('active');
-                        // Call handler to update state and trigger re-render
-                        handleTabChange(newSetName);
-                    }
-                });
-                tabContainer.dataset.listenerAttached = 'true';
-            }
-        }
-    
-        /**
-         * Handles tab changes: Updates currentSetTab, filters the MASTER list based on preview mode,
-         * sets the baseImageSet, and triggers applyFiltersAndRender.
-         */
-        function handleTabChange(newSetName) {
-            console.log(`[Tab Change] Switching to tab: ${newSetName}`);
-            currentSetTab = newSetName; // Update global state
-    
-            // 1. Get the correct subset from the MASTER list based on the tab clicked
-            let setFilteredList;
-            if (newSetName === 'all') {
-                // 'All' tab shows everything except 'Misc'
-                setFilteredList = allImagesMasterList.filter(img => img.setName !== "Misc");
-            } else {
-                // Specific set tab shows only images from that set
-                setFilteredList = allImagesMasterList.filter(img => img.setName === newSetName);
-            }
-            console.log(`[Tab Change] Images in set '${newSetName}': ${setFilteredList.length}`);
-    
-            // 2. Apply PREVIEW MODE filtering if active
-            if (isPreviewMode) {
-                console.log("[Tab Change] Applying Preview Mode filter...");
-                baseImageSet = setFilteredList.filter(img => {
-                    // Always allow "Unbound" cards
-                    if (img.setName === UNBOUND_SET_NAME) return true;
-                    // Allow specific promos
-                    if (img.setName === PROMO_SET_NAME && ALLOWED_PROMOS_PREVIEW.includes(img.setNumber)) return true;
-                    // Allow cards if the *tab itself* is 'all' (we filter sets later based on tabs)
-                    // This seems redundant now, as we filter by tab first. Let's remove this.
-                    // if (currentSetTab === 'all' && (img.setName === UNBOUND_SET_NAME || (img.setName === PROMO_SET_NAME && ALLOWED_PROMOS_PREVIEW.includes(img.setNumber)))) return true;
-    
-                    // If not Unbound or allowed Promo, exclude in preview mode
-                    return false;
-                });
-                console.log(`[Tab Change] Images after Preview Mode filter: ${baseImageSet.length}`);
-            } else {
-                // Full access mode: baseImageSet is just the list filtered by the tab
-                baseImageSet = setFilteredList;
-                console.log(`[Tab Change] Full Access Mode - baseImageSet size: ${baseImageSet.length}`);
-            }
-    
-            // 3. Trigger user filter application and gallery rendering
-            applyFiltersAndRender();
-        }
-    
-    
-        
 
         // ===============================================
         // === LIGHTBOX LOGIC ============================
@@ -669,18 +579,28 @@
             fancyCardImage.classList.add('hidden'); // Hide while loading
             fancyHoloInner.classList.remove('holo-active'); // Reset holo state
 
-            function encodeImagePath(path) {
-        if (!path) return '';
-        try {
-            // Only replace '#' with '%23'. Keep spaces and other characters as is.
-            // If other characters cause issues, add specific replacements here.
-            // NOTE: This assumes your server/local setup can handle spaces in paths.
-            return path.replace(/#/g, '%23');
-        } catch (e) {
-            console.error("Error encoding path:", path, e);
-            return path; // Fallback to original path on error
+            const encodedPath = encodeImagePath(path);
+            console.log(`[Lightbox] Loading image: ${encodedPath}`);
+
+            try {
+                // Use preloadImage - checks cache, fetches if needed, returns Promise<Image>
+                const imgElement = await preloadImage(encodedPath);
+                // Success! Set the src from the resolved Image object
+                fancyCardImage.src = imgElement.src;
+                fancyCardImage.alt = `Card preview: ${path?.split('/')?.pop() ?? 'image'}`;
+                console.log(`[Lightbox] Image loaded/retrieved from cache: ${encodedPath}`);
+            } catch (error) {
+                // Failure loading image
+                console.error(`[Lightbox] Failed to load image: ${path}`, error);
+                fancyCardImage.src = mainPlaceholderUrl; // Show placeholder on error
+                fancyCardImage.alt = "Error loading image";
+            } finally {
+                // Always hide spinner and show the img element (even if src is placeholder)
+                fancySpinner.classList.add('hidden');
+                fancyCardImage.classList.remove('hidden');
+                fancyCardImage.classList.add('loaded'); // Mark loading attempt as complete
+            }
         }
-    }
 
         /** Updates the information panel in the lightbox */
         function updateCardInfo(card) {
@@ -733,7 +653,7 @@
      * Checks if a blank/normal counterpart exists using pre-calculated data from image_data.js.
      * Updates lightbox button states and stores paths.
      */
-     function checkBlankVersion(card) {
+    function checkBlankVersion(card) {
         fancyHasBlankVersion = false; // Assume no counterpart initially
         fancyNormalVersionPath = null;
         fancyBlankVersionPath = null;
@@ -1736,7 +1656,9 @@ document.addEventListener('forteSettingChanged', (event) => {
     </script>
     <script src="js/legendpopup.js" defer></script>     
     <script src="js/settings.js" defer></script>
-     <script src="js/effects.js" defer></script>   
+    <script src="js/effects.js" defer></script>   
+    <script src="js/card-view.js" defer></script>   
+
      <script>
         // Your main application script, now with effect functions removed
         // and calls updated to use ForteEffects.*

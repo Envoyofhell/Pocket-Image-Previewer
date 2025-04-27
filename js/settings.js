@@ -217,6 +217,7 @@
                      <div class="settings-section">
                         <h4>Data</h4>
                          <div class="setting-item">
+                            <label for="setting-clear-likes">Additional Options for liking coming soon</label>
                             <label for="setting-clear-likes">Clear Liked Cards</label>
                             <button id="setting-clear-likes" class="settings-button-action">Clear Data</button>
                         </div>
