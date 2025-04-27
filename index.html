@@ -4,913 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forte Card Previewer</title>
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/theme.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="image_data.js" defer></script>
-    
-    <style>
-        /* --- Base Styles --- */
-        body {
-            background-color: #0f172a;
-            color: #e5e7eb;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        /* Ensure Pirata One font is loaded if used */
-        @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
-
-        .font-pirata {
-            font-family: 'Pirata One', cursive;
-        }
-
-        /* Apply title glow to the specific H1 if needed */
-        h1.title-glow {
-            font-size: 2.5rem; /* Adjusted default size for better fit */
-            line-height: 1.1;
-            text-shadow: 0 0 5px rgba(255, 100, 100, 0.8),
-                         0 0 10px rgba(255, 0, 0, 0.7),
-                         0 0 18px rgba(138, 43, 226, 0.6),
-                         0 0 25px rgba(75, 0, 130, 0.5);
-            z-index: 1;
-            animation: text-flicker 3s linear infinite alternate;
-            color: #dc2626; /* text-red-600 */
-            text-align: center;
-            white-space: nowrap; /* Prevent wrapping */
-            margin-bottom: 0.5rem; /* Add some space below */
-        }
-
-        @keyframes text-flicker {
-            0%, 10%, 12%, 20%, 22%, 30%, 32%, 40%, 42%, 50%, 52%, 60%, 62%, 70%, 72%, 80%, 82%, 90%, 92%, 100% {
-                text-shadow: 0 0 5px rgba(255, 100, 100, 0.8), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 18px rgba(138, 43, 226, 0.6), 0 0 25px rgba(75, 0, 130, 0.5);
-                opacity: 1;
-            }
-            11%, 21%, 31%, 41%, 51%, 61%, 71%, 81%, 91% {
-                text-shadow: 0 0 4px rgba(255, 100, 100, 0.6), 0 0 8px rgba(255, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.4), 0 0 20px rgba(75, 0, 130, 0.3);
-                opacity: 0.95;
-            }
-        }
-
-        /* Mobile Responsiveness for Title */
-        @media (max-width: 768px) {
-            h1.title-glow {
-                font-size: 2rem; /* Smaller title */
-                line-height: 1.1;
-            }
-        }
-
-        /* --- Audio Prompt Style --- */
-        #audio-prompt {
-            position: fixed; top: 10px; left: 10px; background-color: rgba(148, 30, 30, 0.7);
-            color: #ccc; padding: 8px 12px; font-size: 0.9rem; border-radius: 5px;
-            z-index: 1001; cursor: pointer; border: 1px solid rgba(255, 100, 100, 0.5);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-        }
-
-        /* --- Audio Controls Styling --- */
-        #audio-control-container {
-            position: fixed; bottom: 15px; right: 15px; display: flex;
-            align-items: center; gap: 10px; z-index: 1000;
-            background-color: rgba(26, 1, 31, 0.8);
-            padding: 8px; border-radius: 6px; border: 1px solid #5a0866;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
-        }
-        #song-name {
-            color: #e2e8f0; font-size: 14px; margin-right: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            max-width: 150px;
-        }
-        #mute-button { position: relative; }
-        #volume-container {
-            position: absolute; bottom: calc(100% + 10px); left: 50%;
-            transform: translateX(-50%); display: none;
-            width: 24px; height: 120px; background: rgba(50, 50, 50, 0.8);
-            border-radius: 6px; padding: 5px 0; box-sizing: border-box; border: 1px solid #666;
-        }
-        #volume-slider {
-            width: 100px; height: 8px; transform-origin: center center;
-            transform: rotate(-90deg); position: absolute;
-            top: 56px; left: -38px; cursor: pointer; appearance: none;
-            background: rgba(255,255,255,0.3); border-radius: 4px; outline: none;
-        }
-        #volume-slider::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; background: #ddd; border-radius: 50%; cursor: pointer; border: 1px solid #888; }
-        #volume-slider::-moz-range-thumb { width: 16px; height: 16px; background: #ddd; border-radius: 50%; cursor: pointer; border: none; }
-
-        .audio-button {
-            background: rgba(0,0,0,0.6); color: #e2e8f0; border: 1px solid #5a0866;
-            padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 1rem;
-            display: inline-flex; align-items: center; justify-content: center;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        .audio-button:hover { background: rgba(90, 8, 102, 0.7); color: white; }
-        .audio-button i { line-height: 1; }
-
-        /* Improved Footer Style */
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #5a0866; /* Match theme border */
-            color: #a0aec0; /* Lighter text */
-            font-size: 0.8rem;
-            position: relative; /* Keep above background */
-            z-index: 10;
-        }
-        .footer img {
-            height: 25px; /* Smaller logo in footer */
-            width: auto;
-            display: inline-block;
-            vertical-align: middle;
-            margin: 0 0.5rem;
-            opacity: 0.7;
-        }
-
-        /* Container styles */
-        .container {
-            background-color: rgba(17, 24, 39, 0.85);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Updated Controls and Layout */
-        .filter-label {
-            font-size: 0.85rem;
-            margin-right: 0.25rem;
-            color: #d1d5db;
-        }
-
-        .filter-select {
-            background-color: rgba(30, 41, 59, 0.8);
-            color: #f3f4f6;
-            border: 1px solid #4b5563;
-            border-radius: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            padding-right: 2rem;
-            font-size: 0.875rem;
-            margin-right: 0.75rem;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-        }
-
-        .size-label {
-            font-size: 0.85rem;
-            margin-right: 0.25rem;
-            color: #d1d5db;
-        }
-
-        .size-slider {
-            margin: 0 0.5rem;
-        }
-
-        .size-display {
-            font-weight: bold;
-            color: #f3f4f6;
-            min-width: 1rem;
-            text-align: center;
-        }
-
-        /* Tab Styling */
-        .tab {
-            background-color: rgba(30, 41, 59, 0.6);
-            color: #d1d5db;
-            border: 1px solid #4b5563;
-            border-radius: 0.375rem;
-            padding: 0.375rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .tab:hover {
-            background-color: rgba(30, 41, 59, 0.8);
-            color: #f3f4f6;
-        }
-
-        .tab.active {
-            background-color: var(--tab-active-bg-color, rgba(220, 38, 38, 0.3));
-            color: var(--tab-active-text-color, #f3f4f6);
-            border-color: var(--tab-active-border-color, #dc2626);
-            box-shadow: 0 0 0 1px var(--tab-active-border-color, #dc2626);
-        }
-
-        /* Gallery Sizes */
-        #item-gallery {
-            transition: all 0.3s ease;
-            display: grid;
-            gap: 1rem;
-        }
-
-        .gallery-size-s {
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        }
-
-        .gallery-size-m {
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        }
-
-        .gallery-size-l {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        }
-
-        /* Thumbnail Styling */
-        .thumbnail {
-            position: relative;
-            border-radius: 5%/3.5%;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            background-color: rgba(15, 23, 42, 0.7);
-            --thumb-gradient-pos-x: 50%;
-            --thumb-gradient-pos-y: 50%;
-            --thumb-sparkle-opacity: 0;
-            --thumb-sparkle-pos-x: 50%;
-            --thumb-sparkle-pos-y: 50%;
-            --image-aspect-ratio: 0.75;
-        }
-
-        .thumbnail::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                circle at var(--thumb-gradient-pos-x) var(--thumb-gradient-pos-y),
-                rgba(255, 255, 255, 0.1) 0%,
-                rgba(255, 255, 255, 0) 60%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .thumbnail::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='glow' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='5' result='blur'/%3E%3CfeComposite in='blur' operator='over' in2='SourceGraphic'/%3E%3C/filter%3E%3Ccircle cx='50' cy='50' r='8' fill='white' filter='url(%23glow)'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: var(--thumb-sparkle-pos-x) var(--thumb-sparkle-pos-y);
-            background-size: 700% 700%;
-            mix-blend-mode: screen;
-            opacity: var(--thumb-sparkle-opacity, 0);
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .thumbnail.holo-active::before {
-            opacity: 0.7;
-        }
-
-        .thumbnail:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.12);
-        }
-
-        .thumbnail.in-view.holo-click-active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .thumbnail.selected-inline {
-            box-shadow: 0 0 0 2px #ef4444, 0 5px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .thumbnail:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5), 0 5px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Loading animation */
-        .page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(3, 7, 18, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .page-loading-overlay.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-container {
-            text-align: center;
-        }
-
-        .loader {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #ef4444;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 1rem;
-        }
-
-        .loader-text {
-            color: #e2e8f0;
-            font-size: 1.25rem;
-            font-weight: 500;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Lightbox styles */
-        .fancy-lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(3, 7, 18, 0.95);
-            z-index: 9000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .fancy-lightbox-overlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .fancy-lightbox-content {
-            background-color: rgba(17, 24, 39, 0.95);
-            border-radius: 0.75rem;
-            width: 90%;
-            max-width: 1200px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(55, 65, 81, 0.5);
-        }
-
-        .fancy-lightbox-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(55, 65, 81, 0.5);
-            background-color: rgba(31, 41, 55, 0.8);
-        }
-
-        .fancy-lightbox-title {
-            margin: 0;
-            color: #f3f4f6;
-            font-size: 1.25rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-
-        .fancy-lightbox-title i {
-            color: #fbbf24;
-            margin-right: 0.5rem;
-        }
-
-        .fancy-lightbox-close {
-            background: none;
-            border: none;
-            color: #d1d5db;
-            font-size: 1.25rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .fancy-lightbox-close:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #f3f4f6;
-        }
-
-        .fancy-lightbox-body {
-            display: flex;
-            flex-direction: row;
-            flex-grow: 1;
-            overflow: hidden;
-        }
-
-        .fancy-card-info {
-            width: 300px;
-            padding: 1.5rem;
-            border-right: 1px solid rgba(55, 65, 81, 0.5);
-            overflow-y: auto;
-            background-color: rgba(17, 24, 39, 0.7);
-        }
-
-        .info-section {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(55, 65, 81, 0.5);
-        }
-
-        .info-section:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .info-section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f3f4f6;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .info-section-title i {
-            color: #fbbf24;
-            margin-right: 0.5rem;
-        }
-
-        .info-item {
-            margin-bottom: 0.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-label {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            margin-bottom: 0.25rem;
-        }
-
-        .info-value {
-            font-size: 0.875rem;
-            color: #e5e7eb;
-        }
-
-        .card-types {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .card-type-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            background-color: rgba(55, 65, 81, 0.7);
-            color: #e5e7eb;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .card-type-badge i {
-            margin-right: 0.25rem;
-        }
-
-        .forte-badge {
-            display: inline-flex;
-            align-items: center;
-            color: #fbbf24;
-            font-weight: 600;
-        }
-
-        .forte-badge i {
-            margin-right: 0.25rem;
-        }
-
-        .fancy-card-display {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 1.5rem;
-            overflow: hidden;
-        }
-
-        .spinner {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #ef4444;
-            animation: spin 1s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        .spinner.hidden {
-            display: none;
-        }
-
-        .fancy-holo-container {
-            position: relative;
-            max-width: 100%;
-            max-height: 100%;
-            cursor: grab;
-            border-radius: 4%/3.5%;
-            overflow: hidden;
-            transition: transform 0.2s ease;
-        }
-
-        .fancy-holo-container.zoomed {
-            cursor: move;
-            overflow: visible;
-        }
-
-        .fancy-holo-inner {
-            position: relative;
-            transition: transform 0.2s ease;
-            --lb-gradient-pos-x: 50%;
-            --lb-gradient-pos-y: 50%;
-            --lb-sparkle-opacity: 0;
-            --lb-sparkle-pos-x: 50%;
-            --lb-sparkle-pos-y: 50%;
-        }
-
-        .fancy-holo-inner::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                circle at var(--lb-gradient-pos-x) var(--lb-gradient-pos-y),
-                rgba(255, 255, 255, 0.15) 0%,
-                rgba(255, 255, 255, 0) 70%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .fancy-holo-inner::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='glow' x='-50%25' y='-50%25' width='200%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='5' result='blur'/%3E%3CfeComposite in='blur' operator='over' in2='SourceGraphic'/%3E%3C/filter%3E%3Ccircle cx='50' cy='50' r='8' fill='white' filter='url(%23glow)'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: var(--lb-sparkle-pos-x) var(--lb-sparkle-pos-y);
-            background-size: 700% 700%;
-            mix-blend-mode: screen;
-            opacity: var(--lb-sparkle-opacity, 0);
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .fancy-holo-inner.holo-active::before {
-            opacity: 1;
-        }
-
-        .fancy-card-image {
-            max-width: 100%;
-            max-height: 60vh;
-            border-radius: 4%/3.5%;
-            display: block;
-        }
-
-        .fancy-card-image.hidden {
-            display: none;
-        }
-
-        .fancy-holo-inner.zoom-in {
-            transform: scale(1.5);
-        }
-
-        .fancy-holo-inner.zoom-out {
-            transform: scale(0.75);
-        }
-
-        .fancy-card-controls, .fancy-zoom-controls, .fancy-nav-controls {
-            position: absolute;
-            display: flex;
-        }
-
-        .fancy-card-controls {
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            background-color: rgba(17, 24, 39, 0.8);
-            border-radius: 0.5rem;
-            padding: 0.25rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .fancy-control-button, .fancy-zoom-button, .fancy-nav-button {
-            background: none;
-            border: none;
-            color: #d1d5db;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.875rem;
-        }
-
-        .fancy-control-button span {
-            margin-left: 0.375rem;
-        }
-
-        .fancy-control-button:hover:not(:disabled), .fancy-zoom-button:hover:not(:disabled), .fancy-nav-button:hover:not(:disabled) {
-            background-color: rgba(55, 65, 81, 0.5);
-            color: #f3f4f6;
-        }
-
-        .fancy-control-button.active {
-            background-color: rgba(99, 102, 241, 0.3);
-            color: #f3f4f6;
-        }
-
-        .fancy-control-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .fancy-zoom-controls {
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: rgba(17, 24, 39, 0.8);
-            border-radius: 0.5rem;
-            padding: 0.25rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .fancy-nav-controls {
-            left: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .fancy-nav-button {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 9999px;
-            background-color: rgba(17, 24, 39, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .fancy-nav-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .keyboard-hint {
-            position: absolute;
-            bottom: 0.75rem;
-            left: 1.5rem;
-            font-size: 0.75rem;
-            color: #9ca3af;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .keyboard-hint kbd {
-            background-color: rgba(55, 65, 81, 0.7);
-            border-radius: 0.25rem;
-            padding: 0.125rem 0.375rem;
-            margin: 0 0.125rem;
-            font-size: 0.75rem;
-            color: #e5e7eb;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        /* Type-specific badge colors */
-        .type-Grass { background-color: rgba(74, 222, 128, 0.3); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
-        .type-Fire { background-color: rgba(248, 113, 113, 0.3); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
-        .type-Water { background-color: rgba(96, 165, 250, 0.3); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
-        .type-Lightning { background-color: rgba(250, 204, 21, 0.3); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.3); }
-        .type-Fighting { background-color: rgba(234, 88, 12, 0.3); color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.3); }
-        .type-Psychic { background-color: rgba(216, 180, 254, 0.3); color: #d8b4fe; border: 1px solid rgba(216, 180, 254, 0.3); }
-        .type-Darkness { background-color: rgba(71, 85, 105, 0.3); color: #94a3b8; border: 1px solid rgba(71, 85, 105, 0.3); }
-        .type-Metal { background-color: rgba(148, 163, 184, 0.3); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
-        .type-Dragon { background-color: rgba(168, 85, 247, 0.3); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
-        .type-Fairy { background-color: rgba(244, 114, 182, 0.3); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.3); }
-        .type-Colorless { background-color: rgba(203, 213, 225, 0.3); color: #e2e8f0; border: 1px solid rgba(203, 213, 225, 0.3); }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .fancy-lightbox-body {
-                flex-direction: column;
-            }
-
-            .fancy-card-info {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(55, 65, 81, 0.5);
-                padding: 1rem;
-                max-height: 30vh;
-            }
-
-            .info-section {
-                margin-bottom: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-
-            .fancy-card-display {
-                padding: 1rem;
-            }
-
-            .fancy-card-image {
-                max-height: 50vh;
-            }
-
-            .fancy-zoom-controls {
-                bottom: 1rem;
-                right: 1rem;
-            }
-
-            .fancy-card-controls {
-                bottom: 1rem;
-            }
-
-            .fancy-nav-controls {
-                flex-direction: row;
-                top: auto;
-                bottom: 5rem;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .keyboard-hint {
-                display: none;
-            }
-        }
-
-       /* --- Logo and Header --- */
-       .brand-container {
-            display: flex;
-            flex-direction: column; /* Stack logo and title */
-            align-items: center; /* Center items */
-            margin-bottom: 1rem; /* Space below brand */
-        }
-        .logo-container {
-             margin-bottom: 0rem; /* No space between logo and title */
-             width: auto; /* Allow natural width */
-             max-width: 200px; /* Limit max logo width */
-             height: auto; /* Maintain aspect ratio */
-        }
-        .forte-logo {
-             max-width: 100%; /* Ensure logo fits container */
-             height: auto; /* Maintain aspect ratio */
-             object-fit: contain; /* Ensure logo isn't distorted */
-             filter: drop-shadow(0 0 8px rgba(248, 113, 113, 0.6)); /* Softer shadow */
-        }
-        h1.title-glow {
-            font-family: 'Pirata One', cursive; /* Apply Pirata One font */
-            font-size: 2.25rem; /* Slightly smaller title */
-            line-height: 1.1;
-            text-shadow: 0 0 5px rgba(255, 100, 100, 0.8),
-                         0 0 10px rgba(255, 0, 0, 0.7),
-                         0 0 18px rgba(138, 43, 226, 0.6),
-                         0 0 25px rgba(75, 0, 130, 0.5);
-            z-index: 1;
-            animation: text-flicker 3s linear infinite alternate;
-            color: var(--color-error); /* Use error color for base */
-            text-align: center;
-            white-space: nowrap;
-            margin-bottom: 0.5rem;
-        }
-        @keyframes text-flicker { /* Keep existing flicker */
-             0%, 10%, 12%, 20%, 22%, 30%, 32%, 40%, 42%, 50%, 52%, 60%, 62%, 70%, 72%, 80%, 82%, 90%, 92%, 100% {
-                 text-shadow: 0 0 5px rgba(255, 100, 100, 0.8), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 18px rgba(138, 43, 226, 0.6), 0 0 25px rgba(75, 0, 130, 0.5);
-                 opacity: 1;
-             }
-             11%, 21%, 31%, 41%, 51%, 61%, 71%, 81%, 91% {
-                 text-shadow: 0 0 4px rgba(255, 100, 100, 0.6), 0 0 8px rgba(255, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.4), 0 0 20px rgba(75, 0, 130, 0.3);
-                 opacity: 0.95;
-             }
-        }
-         @media (max-width: 768px) { /* Mobile title size */
-             h1.title-glow { font-size: 1.75rem; }
-             .logo-container { max-width: 150px; }
-         }
-
-
-        /* Like button styles */
-        .like-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(220, 38, 38, 0.1);
-            color: #dc2626;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .like-button:hover {
-            background: rgba(220, 38, 38, 0.2);
-            transform: scale(1.1);
-        }
-        
-        .like-button.liked i {
-            font-weight: 900;
-            animation: heartBeat 0.5s;
-        }
-        
-        .thumbnail-like-container {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2px 8px;
-            border-radius: 12px;
-            color: white;
-            z-index: 5;
-        }
-        
-        .thumbnail-like-count {
-            font-size: 0.8rem;
-            margin-right: 4px;
-        }
-        
-        .thumbnail-like-button {
-            background: none;
-            border: none;
-            color: #dc2626;
-            cursor: pointer;
-            padding: 2px;
-            transition: transform 0.2s ease;
-        }
-        
-        .thumbnail-like-button:hover {
-            transform: scale(1.2);
-        }
-        
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-
-        /* Background element */
-        #threejs-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-    </style>
+    <script src="dist/tailwind.css"></script>
 </head>
 <body class="font-sans p-4 md:p-8">
     <!-- Page Loading Overlay -->
@@ -924,7 +21,7 @@
     <div id="threejs-bg"></div>
 
     <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-6">
-        <!-- Brand Container with Logo and Title - UPDATED LAYOUT -->
+        <!-- Brand Container with Logo and Title -->
         <div class="flex flex-col md:flex-row items-center justify-between mb-6">
             <div class="brand-container flex flex-col items-center md:items-start mb-4 md:mb-0">
                 <div class="logo-container mb-2">
@@ -1158,843 +255,19 @@
          </div>
     </div>
 
-    <!-- Inline Background.js Script -->
-    <script>
-        // background.js - Three.js Particle Background Script
-        (function() {
-            'use strict';
-
-            try {
-                if (typeof THREE === 'undefined') {
-                    console.error("Three.js library not loaded. Background cannot be initialized.");
-                    return;
-                }
-
-                // --- Variable Declarations ---
-                var scene, camera, renderer;
-                var container, HEIGHT, WIDTH, fieldOfView, aspectRatio, nearPlane, farPlane;
-                var geometry, particleCount, i, materials = [], mouseX = 0, mouseY = 0;
-                var windowHalfX, windowHalfY, cameraZ, fogHex, fogDensity, parameters = {}, parameterCount, particles;
-                var rafId = null;
-                var backgroundState = 'normal'; // Current visual state ('normal', 'rave', 'techno')
-                var isPaused = false; // Flag to pause the animation
-
-                // --- Configuration Constants ---
-                const BACKGROUND_COLOR = 0x0a0514;
-                const FOG_COLOR = 0x0a0514;
-                const FOG_DENSITY = 0.001;
-                const PARTICLE_COUNT = 15000; // Increased from 10000
-
-                // Parameters for NORMAL state: [ [H, S, L], BaseSize ]
-                const PARTICLE_PARAMS_NORMAL = [
-                    [[0.95, 0.7, 0.35], 4], // Increased base sizes
-                    [[0.80, 0.7, 0.32], 3.5],
-                    [[0.0, 0.7, 0.32], 3.5],
-                    [[0.85, 0.6, 0.30], 3],
-                    [[0.98, 0.6, 0.30], 3]
-                ];
-                // Parameters for RAVE state: [ [H, S, L], BaseSize ]
-                const PARTICLE_PARAMS_RAVE = [
-                    [[0.95, 0.9, 0.70], 4.5],
-                    [[0.80, 0.9, 0.65], 4],
-                    [[0.0, 0.9, 0.65], 4],
-                    [[0.85, 0.8, 0.60], 3.5],
-                    [[0.98, 0.8, 0.60], 3.5]
-                ];
-                // Parameters for TECHNO state: [ [Sat, Light], BaseSize ]
-                const PARTICLE_PARAMS_TECHNO = [
-                    [[1.0, 0.8], 4.5],
-                    [[1.0, 0.7], 3.5],
-                    [[0.9, 0.8], 4.0],
-                    [[1.0, 0.7], 4.0],
-                    [[0.8, 0.8], 3.0]
-                ];
-
-                const CAMERA_Z = 1000;
-                const ROTATION_SPEED_NORMAL = 0.000035; // Increased from 0.000015
-                const ROTATION_SPEED_RAVE = 0.00012; // Increased from 0.00008
-                const ROTATION_SPEED_TECHNO = 0.00035; // Increased from 0.00025
-                const BREATHING_INTENSITY = 40; // Increased from 25
-                const BREATHING_SPEED = 0.00015; // Increased from 0.0001
-
-                // Make the function globally available
-                window.setBackgroundPaused = function(paused) {
-                    isPaused = paused;
-                    console.log("Background animation paused:", isPaused);
-                    if (!isPaused && !rafId) {
-                        // Resume animation if it was stopped
-                        animate();
-                    }
-                };
-
-                /** Initializes the Three.js environment. */
-                function initThreeJS() {
-                    container = document.getElementById('threejs-bg');
-                    if (!container) { console.error("Three.js container #threejs-bg not found."); return; }
-
-                    // Setup dimensions and camera parameters
-                    HEIGHT = window.innerHeight; WIDTH = window.innerWidth;
-                    windowHalfX = WIDTH / 2; windowHalfY = HEIGHT / 2;
-                    fieldOfView = 75; aspectRatio = WIDTH / HEIGHT; nearPlane = 1; farPlane = 3000;
-                    cameraZ = CAMERA_Z; fogHex = FOG_COLOR; fogDensity = FOG_DENSITY;
-
-                    // Create camera and scene
-                    camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
-                    camera.position.z = cameraZ;
-                    scene = new THREE.Scene();
-                    scene.fog = new THREE.FogExp2(fogHex, fogDensity);
-
-                    // Create particle geometry
-                    geometry = new THREE.BufferGeometry();
-                    const positions = []; particleCount = PARTICLE_COUNT;
-                    for (i = 0; i < particleCount; i++) {
-                        // Create a more dynamic distribution - particles closer to the center
-                        let radius = Math.random() * 2000;
-                        let theta = Math.random() * Math.PI * 2;
-                        let phi = Math.random() * Math.PI;
-                        
-                        const x = radius * Math.sin(phi) * Math.cos(theta);
-                        const y = radius * Math.sin(phi) * Math.sin(theta);
-                        const z = radius * Math.cos(phi);
-                        
-                        positions.push(x, y, z);
-                    }
-                    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-
-                    // Create materials and points objects based on initial parameters (normal state)
-                    parameters = PARTICLE_PARAMS_NORMAL;
-                    parameterCount = parameters.length;
-                    materials = [];
-                    for (i = 0; i < parameterCount; i++) {
-                        // Note: color is set dynamically in render, only need size here for material creation
-                        const size = parameters[i][1];
-                        materials[i] = new THREE.PointsMaterial({
-                            size: size, vertexColors: false, blending: THREE.AdditiveBlending, // Changed to AdditiveBlending
-                            transparent: true, opacity: 0.8 // Increased opacity
-                        });
-                        particles = new THREE.Points(geometry, materials[i]);
-                        particles.rotation.x = Math.random() * 6; particles.rotation.y = Math.random() * 6; particles.rotation.z = Math.random() * 6;
-                        scene.add(particles);
-                    }
-
-                    // Initialize renderer
-                    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                    renderer.setPixelRatio(window.devicePixelRatio);
-                    renderer.setSize(WIDTH, HEIGHT);
-                    renderer.setClearColor(BACKGROUND_COLOR, 1);
-                    container.appendChild(renderer.domElement);
-
-                    // --- Event Listeners ---
-                    window.addEventListener('resize', onWindowResize, false);
-                    document.addEventListener('mousemove', onDocumentMouseMove, false);
-                    document.addEventListener('touchstart', onDocumentTouchStart, { passive: false });
-                    document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
-
-                    // Listen for state changes from interactions.js
-                    document.addEventListener('background-state-change', (e) => {
-                        const newState = e.detail.state;
-                        if (['normal', 'rave', 'techno'].includes(newState)) {
-                            console.log("Background state change received:", newState);
-                            backgroundState = newState;
-                        } else {
-                            console.warn("Received unknown background state:", newState);
-                            backgroundState = 'normal'; // Fallback to normal
-                        }
-                    });
-
-                    animate(); // Start animation loop
-                    console.log("Three.js background initialized.");
-                }
-
-                /** Animation loop ticker. */
-                function animate() {
-                    if (!isPaused) {
-                        rafId = requestAnimationFrame(animate);
-                        renderThreeJS();
-                    } else {
-                        cancelAnimationFrame(rafId);
-                        rafId = null;
-                    }
-                }
-
-                /** Renders a single frame. */
-                function renderThreeJS() {
-                    // --- Determine current parameters based on state ---
-                    let currentRotationSpeed;
-                    let currentParams;
-                    let rotationMultiplier;
-                    let followSpeed = 0.02; // Default follow speed
-
-                    switch (backgroundState) {
-                        case 'rave':
-                            currentRotationSpeed = ROTATION_SPEED_RAVE;
-                            currentParams = PARTICLE_PARAMS_RAVE;
-                            rotationMultiplier = 12;
-                            followSpeed = 0.03;
-                            break;
-                        case 'techno':
-                            currentRotationSpeed = ROTATION_SPEED_TECHNO;
-                            currentParams = PARTICLE_PARAMS_TECHNO;
-                            rotationMultiplier = 30; // Much higher multiplier for erratic spin
-                            followSpeed = 0.04; // Slightly faster follow? Optional.
-                            break;
-                        case 'normal':
-                        default: // Fallback to normal
-                            currentRotationSpeed = ROTATION_SPEED_NORMAL;
-                            currentParams = PARTICLE_PARAMS_NORMAL;
-                            rotationMultiplier = 1;
-                            followSpeed = 0.02;
-                            break;
-                    }
-                    const time = Date.now() * currentRotationSpeed; // Time for rotation
-
-                    // --- Animate camera ---
-                    camera.position.z = cameraZ + Math.sin(Date.now() * BREATHING_SPEED) * BREATHING_INTENSITY;
-                    camera.position.x += (mouseX - camera.position.x) * followSpeed;
-                    camera.position.y += (-mouseY - camera.position.y) * followSpeed;
-                    camera.lookAt(scene.position);
-
-                    // --- Animate particle systems rotation ---
-                    for (i = 0; i < scene.children.length; i++) {
-                        const object = scene.children[i];
-                        if (object instanceof THREE.Points) {
-                            // Base rotation
-                            object.rotation.y = time * rotationMultiplier * (i < (parameterCount / 2) ? i + 1 : -(i + 1));
-                            // Add extra random rotation for all states
-                            object.rotation.x += (Math.random() - 0.5) * 0.002;
-                            object.rotation.z += (Math.random() - 0.5) * 0.002;
-                            
-                            // Add extra small random rotation for techno 'erratic' feel
-                            if (backgroundState === 'techno') {
-                                object.rotation.x += (Math.random() - 0.5) * 0.007;
-                                object.rotation.z += (Math.random() - 0.5) * 0.007;
-                            }
-                        }
-                    }
-
-                    // --- Animate materials (Color, Opacity, Size) ---
-                    parameterCount = currentParams.length; // Update count in case arrays differ
-                    for (i = 0; i < materials.length; i++) {
-                        const material = materials[i]; // Get the material
-                         // Use modulo for safety if materials.length > currentParams.length
-                        const paramIndex = i % parameterCount;
-
-                        if (backgroundState === 'techno') {
-                            const technoParams = currentParams[paramIndex][0]; // [Sat, Light]
-                            const baseSize = currentParams[paramIndex][1];     // Base Size
-                            const technoSat = technoParams[0];
-                            const technoLight = technoParams[1];
-
-                            // Rapidly cycle hue across the full spectrum, offset by particle index
-                            let h = (Date.now() * 0.002 + i * 0.2) % 1; // Faster color cycling
-                            material.color.setHSL(h, technoSat, technoLight);
-
-                            material.opacity = 0.95; // Higher opacity
-                            // Base size + more random variation each frame for flickering effect
-                            material.size = baseSize + (Math.random() - 0.5) * 1.5; // More variation
-
-                        } else { // Logic for 'normal' and 'rave' states
-                            const normalRaveParams = currentParams[paramIndex][0]; // [H, S, L]
-                            const baseSize = currentParams[paramIndex][1];
-                            const baseH = normalRaveParams[0];
-                            const baseS = normalRaveParams[1];
-                            const baseL = normalRaveParams[2];
-
-                            // More pronounced hue shift for normal/rave
-                            const hueSpeed = backgroundState === 'rave' ? 0.001 : 0.0005;
-                            let h_norm_rave = baseH + Math.sin(Date.now() * hueSpeed + i * Math.PI) * 0.1;
-                            h_norm_rave = (h_norm_rave + 1) % 1; // Wrap hue
-
-                            material.color.setHSL(h_norm_rave, baseS, baseL);
-                            material.opacity = backgroundState === 'rave' ? 0.9 : 0.8;
-                            // Add slight size variation even for normal/rave
-                            material.size = baseSize + (Math.random() - 0.5) * 0.5;
-                        }
-                    }
-
-                    // Render the scene
-                    if (renderer) { renderer.render(scene, camera); }
-                }
-
-                // --- Event Handlers ---
-                function onDocumentMouseMove(e) {
-                     mouseX = e.clientX - windowHalfX; mouseY = e.clientY - windowHalfY;
-                }
-                function onDocumentTouchStart(e) {
-                    if (e.touches.length === 1) {
-                        if (e.target === container || e.target === renderer?.domElement) { /* Conditional preventDefault() */ }
-                        mouseX = e.touches[0].pageX - windowHalfX; mouseY = e.touches[0].pageY - windowHalfY;
-                    }
-                }
-                function onDocumentTouchMove(e) {
-                     if (e.touches.length === 1) {
-                         if (e.target === container || e.target === renderer?.domElement) { /* Conditional preventDefault() */ }
-                         mouseX = e.touches[0].pageX - windowHalfX; mouseY = e.touches[0].pageY - windowHalfY;
-                     }
-                }
-                function onWindowResize() {
-                    try {
-                        WIDTH = window.innerWidth; HEIGHT = window.innerHeight; windowHalfX = WIDTH / 2; windowHalfY = HEIGHT / 2;
-                        if(camera){ camera.aspect = WIDTH / HEIGHT; camera.updateProjectionMatrix(); }
-                        if (renderer) renderer.setSize(WIDTH, HEIGHT);
-                    } catch(e) { console.error("Error on window resize:", e); }
-                }
-
-                // --- Initialize ---
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initThreeJS);
-                } else {
-                    initThreeJS();
-                }
-
-                // --- Cleanup ---
-                window.addEventListener('unload', () => {
-                     if (rafId) cancelAnimationFrame(rafId);
-                     window.removeEventListener('resize', onWindowResize);
-                     document.removeEventListener('mousemove', onDocumentMouseMove);
-                     document.removeEventListener('touchstart', onDocumentTouchStart);
-                     document.removeEventListener('touchmove', onDocumentTouchMove);
-                     console.log("Three.js background cleaned up.");
-                });
-
-            // Catch top-level errors
-            } catch (e) {
-                console.error("Error in Three.js background script:", e);
-                const bgContainer = document.getElementById('threejs-bg');
-                if (bgContainer) bgContainer.style.background = '#111';
-            }
-        })();
-    </script>
-
-    <!-- Inline likes.js Script -->
-    <script>
-        // likes.js - Handles card like system with IP-based limitation
-        (function() {
-            'use strict';
-
-            // --- Constants ---
-            const LIKES_STORAGE_KEY = 'forte_card_likes'; // For localStorage
-            const SESSION_ID_KEY = 'forte_session_id';    // For sessionStorage
-            const MAX_USER_LIKES_PER_DAY = 10;            // Limit likes per day per user/device
-
-            // --- Global Functions - Define upfront to avoid errors ---
-            window.getLikeData = function(cardPath) {
-                if (!cardPath) return { count: 0, liked: false };
-                // This will be replaced with real implementation on init
-                return { count: 0, liked: false };
-            };
-
-            window.toggleLike = function(cardPath) {
-                if (!cardPath) return false;
-                // This will be replaced with real implementation on init
-                return false;
-            };
-
-            window.getUserLikeCount = function() {
-                // This will be replaced with real implementation on init
-                return 0;
-            };
-
-            // --- State ---
-            let cardLikes = {}; // Card path -> {count: number, likedBy: [sessionIds]}
-            let userLikes = {}; // sessionId -> [{timestamp: Date, cardPath: string}]
-            let currentSessionId = null;
-
-            // --- Initialize ---
-            function init() {
-                loadLikesFromStorage();
-                ensureSessionId();
-                
-                // Generate fingerprint on first use
-                if (!sessionStorage.getItem('forte_fingerprint')) {
-                    generateFingerprint().then(fingerprint => {
-                        sessionStorage.setItem('forte_fingerprint', fingerprint);
-                        console.log('Device fingerprint generated');
-                    });
-                }
-                
-                // Replace the stub global functions with real ones
-                window.getLikeData = getLikeData;
-                window.toggleLike = toggleLike;
-                window.getUserLikeCount = getUserLikeCount;
-
-                console.log('Likes system initialized');
-            }
-
-            // --- IP & Browser Fingerprinting ---
-            
-            /**
-             * Creates a session ID for the current user
-             * Combines fingerprinting with a timestamp to create a unique session
-             */
-            function ensureSessionId() {
-                // Try to get existing session ID
-                currentSessionId = sessionStorage.getItem(SESSION_ID_KEY);
-                
-                if (!currentSessionId) {
-                    // Create a new session ID
-                    const timestamp = Date.now();
-                    const randomPart = Math.random().toString(36).substring(2, 10);
-                    
-                    // Use stored fingerprint if available, otherwise use browser info + timestamp
-                    const fingerprint = sessionStorage.getItem('forte_fingerprint') || generateBasicFingerprint();
-                    
-                    currentSessionId = `${fingerprint}-${timestamp}-${randomPart}`;
-                    sessionStorage.setItem(SESSION_ID_KEY, currentSessionId);
-                    
-                    // Initialize user likes for this session
-                    userLikes[currentSessionId] = [];
-                    saveLikesToStorage();
-                    
-                    console.log('New session initialized');
-                }
-            }
-            
-            /**
-             * Creates a simple browser fingerprint based on available info
-             */
-            function generateBasicFingerprint() {
-                const browser = navigator.userAgent;
-                const screenInfo = `${screen.width}x${screen.height}x${screen.colorDepth}`;
-                const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
-                const languages = navigator.languages ? navigator.languages.join(',') : navigator.language;
-                
-                // Create a hash from these values
-                let fingerprint = browser + screenInfo + timeZone + languages;
-                return stringToHash(fingerprint);
-            }
-            
-            /**
-             * Generates a more comprehensive device fingerprint
-             * Uses available browser APIs and hardware info
-             */
-            async function generateFingerprint() {
-                // Start with basic info
-                const basicInfo = generateBasicFingerprint();
-                
-                // Try to add canvas fingerprinting
-                let canvasFingerprint = 'nocanvas';
-                try {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = 200;
-                    canvas.height = 50;
-                    
-                    // Text with custom font/position
-                    ctx.textBaseline = 'top';
-                    ctx.font = '14px Arial';
-                    ctx.fillStyle = '#f60';
-                    ctx.fillRect(125, 1, 62, 20);
-                    ctx.fillStyle = '#069';
-                    ctx.fillText('Forte Cards', 2, 15);
-                    
-                    // Add a gradient
-                    const gradient = ctx.createLinearGradient(0, 0, 200, 0);
-                    gradient.addColorStop(0, 'red');
-                    gradient.addColorStop(0.5, 'green');
-                    gradient.addColorStop(1.0, 'blue');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, 25, 200, 25);
-                    
-                    // Get the data URL and hash it
-                    canvasFingerprint = canvas.toDataURL();
-                    canvasFingerprint = stringToHash(canvasFingerprint);
-                } catch (e) {
-                    console.log('Canvas fingerprinting not available');
-                }
-                
-                // Try to add audio fingerprinting
-                let audioFingerprint = 'noaudio';
-                try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const analyser = audioContext.createAnalyser();
-                    const oscillator = audioContext.createOscillator();
-                    const dynamicsCompressor = audioContext.createDynamicsCompressor();
-                    
-                    // Configure nodes
-                    analyser.fftSize = 32;
-                    
-                    // Set non-default values
-                    dynamicsCompressor.threshold.value = -50;
-                    dynamicsCompressor.knee.value = 40;
-                    dynamicsCompressor.ratio.value = 12;
-                    dynamicsCompressor.attack.value = 0;
-                    dynamicsCompressor.release.value = 0.25;
-                    
-                    // Connect nodes
-                    oscillator.connect(dynamicsCompressor);
-                    dynamicsCompressor.connect(analyser);
-                    analyser.connect(audioContext.destination);
-                    
-                    // Start oscillator & get frequency data
-                    oscillator.start(0);
-                    const dataArray = new Uint8Array(analyser.frequencyBinCount);
-                    analyser.getByteFrequencyData(dataArray);
-                    oscillator.stop(0);
-                    
-                    // Convert frequency data to string and hash
-                    audioFingerprint = stringToHash(dataArray.join(','));
-                } catch (e) {
-                    console.log('Audio fingerprinting not available');
-                }
-                
-                // Combine fingerprints
-                const combinedFingerprint = `${basicInfo}-${canvasFingerprint}-${audioFingerprint}`;
-                return stringToHash(combinedFingerprint);
-            }
-            
-            /**
-             * Converts a string to a hash
-             */
-            function stringToHash(str) {
-                let hash = 0;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash; // Convert to 32bit integer
-                }
-                return Math.abs(hash).toString(36);
-            }
-
-            // --- Like System Functions ---
-            
-            /**
-             * Gets like data for a specific card
-             * Returns count and whether the current user has liked it
-             */
-            function getLikeData(cardPath) {
-                if (!cardPath) return { count: 0, liked: false };
-                
-                const likeInfo = cardLikes[cardPath] || { count: 0, likedBy: [] };
-                const isLiked = likeInfo.likedBy.includes(currentSessionId);
-                
-                return {
-                    count: likeInfo.count,
-                    liked: isLiked
-                };
-            }
-            
-            /**
-             * Toggles a like for the current user on the specified card
-             * Handles like/unlike with proper constraints
-             */
-            function toggleLike(cardPath) {
-                if (!cardPath || !currentSessionId) return false;
-                
-                // Initialize if first like for this card
-                if (!cardLikes[cardPath]) {
-                    cardLikes[cardPath] = {
-                        count: 0,
-                        likedBy: []
-                    };
-                }
-                
-                // Initialize if first like for this user
-                if (!userLikes[currentSessionId]) {
-                    userLikes[currentSessionId] = [];
-                }
-                
-                const liked = cardLikes[cardPath].likedBy.includes(currentSessionId);
-                
-                if (liked) {
-                    // Unlike: remove session from likedBy and decrement count
-                    cardLikes[cardPath].likedBy = cardLikes[cardPath].likedBy.filter(id => id !== currentSessionId);
-                    cardLikes[cardPath].count = Math.max(0, cardLikes[cardPath].count - 1);
-                    
-                    // Remove from user likes
-                    userLikes[currentSessionId] = userLikes[currentSessionId].filter(like => like.cardPath !== cardPath);
-                    
-                    console.log(`Unliked card: ${cardPath}`);
-                } else {
-                    // Check if user has reached their daily like limit
-                    const recentLikes = getRecentLikes();
-                    if (recentLikes.length >= MAX_USER_LIKES_PER_DAY) {
-                        console.log(`Like limit reached (${MAX_USER_LIKES_PER_DAY} per day)`);
-                        return false;
-                    }
-                    
-                    // Like: add session to likedBy and increment count
-                    cardLikes[cardPath].likedBy.push(currentSessionId);
-                    cardLikes[cardPath].count++;
-                    
-                    // Add to user likes
-                    userLikes[currentSessionId].push({
-                        timestamp: new Date().toISOString(),
-                        cardPath: cardPath
-                    });
-                    
-                    console.log(`Liked card: ${cardPath}`);
-                }
-                
-                // Save to storage
-                saveLikesToStorage();
-                
-                return !liked; // Return new like state
-            }
-            
-            /**
-             * Returns the number of likes by this user in the last 24 hours
-             */
-            function getUserLikeCount() {
-                return getRecentLikes().length;
-            }
-            
-            /**
-             * Gets user likes from the last 24 hours
-             */
-            function getRecentLikes() {
-                if (!userLikes[currentSessionId]) return [];
-                
-                const oneDayAgo = new Date();
-                oneDayAgo.setDate(oneDayAgo.getDate() - 1);
-                
-                return userLikes[currentSessionId].filter(like => {
-                    const likeDate = new Date(like.timestamp);
-                    return likeDate > oneDayAgo;
-                });
-            }
-
-            // --- Storage Functions ---
-            
-            /**
-             * Loads likes from localStorage
-             */
-            function loadLikesFromStorage() {
-                try {
-                    const storedLikes = localStorage.getItem(LIKES_STORAGE_KEY);
-                    if (storedLikes) {
-                        const parsedData = JSON.parse(storedLikes);
-                        cardLikes = parsedData.cardLikes || {};
-                        userLikes = parsedData.userLikes || {};
-                        console.log('Likes loaded from storage');
-                    }
-                } catch (e) {
-                    console.error('Error loading likes from storage:', e);
-                    // Reset to defaults on error
-                    cardLikes = {};
-                    userLikes = {};
-                }
-            }
-            
-            /**
-             * Saves likes to localStorage
-             */
-            function saveLikesToStorage() {
-                try {
-                    const dataToStore = {
-                        cardLikes: cardLikes,
-                        userLikes: userLikes
-                    };
-                    localStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify(dataToStore));
-                } catch (e) {
-                    console.error('Error saving likes to storage:', e);
-                }
-            }
-            
-            // Initialize on load
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
-        })();
-    </script>
-
-    <!-- Inline Audio Script -->
-    <script>
-        // audio.js - Handles background music playback and controls
-        (function() {
-            'use strict';
-
-            // --- Configuration ---
-            const playlist = [
-         './audio/Background1.mp3',
-            ];
-            const DEFAULT_VOLUME = 0.2;
-            const VOLUME_SLIDER_HIDE_DELAY = 300; // Delay in ms before hiding slider
-
-            // --- Elements ---
-            let audioPrompt, audioControlContainer, playPauseButton, nextSongButton, muteButton, volumeContainer, volumeSlider, songNameDisplay;
-
-            // --- State ---
-            let audio = null;
-            let currentSongIndex = 0;
-            let isAudioInitialized = false;
-            let isMuted = false;
-            let volumeBeforeMute = DEFAULT_VOLUME;
-            let volumeHideTimeout = null; // Timeout ID for hiding the slider
-
-            /** Initializes Audio after user interaction */
-            function initAudio() {
-                if (isAudioInitialized || !audioPrompt) return;
-                console.log("[Audio] Initializing...");
-                try {
-                    if (!audio) {
-                         audio = new Audio();
-                         audio.volume = volumeSlider ? parseFloat(volumeSlider.value) : DEFAULT_VOLUME;
-                         audio.loop = false;
-                         audio.addEventListener('ended', playNextSong);
-                         audio.addEventListener('error', handleAudioError);
-                         audio.addEventListener('play', updatePlayPauseIcon);
-                         audio.addEventListener('pause', updatePlayPauseIcon);
-                    }
-                    playSong(currentSongIndex);
-                    isAudioInitialized = true;
-                    audioPrompt.style.display = 'none';
-                    if(audioControlContainer) audioControlContainer.style.display = 'flex';
-                    console.log("[Audio] Initialized.");
-                } catch (e) {
-                    console.error("[Audio] Error initializing audio:", e);
-                    if(audioPrompt) audioPrompt.textContent = "Audio Error";
-                }
-            }
-
-            /** Plays a song by index */
-            function playSong(index) {
-                 if (!audio || index < 0 || index >= playlist.length) {
-                      console.warn("[Audio] Invalid song index or audio element:", index);
-                      return;
-                 }
-                 currentSongIndex = index;
-                 const songPath = playlist[currentSongIndex];
-                 console.log("[Audio] Playing song:", songPath);
-                 audio.src = songPath;
-                 const playPromise = audio.play();
-                 if (playPromise !== undefined) {
-                     playPromise.then(_ => updateSongNameDisplay())
-                                .catch(error => { console.error("[Audio] Playback failed:", error); updatePlayPauseIcon(); });
-                 } else { updateSongNameDisplay(); }
-            }
-
-             /** Toggles Play/Pause */
-             function togglePlayPause() {
-                  if (!isAudioInitialized) { initAudio(); return; }
-                  if (audio.paused) { audio.play().catch(e => console.error("Play error:", e)); }
-                  else { audio.pause(); }
-             }
-
-             /** Plays the next song */
-             function playNextSong() {
-                  if (!isAudioInitialized) return;
-                  let nextIndex = (currentSongIndex + 1) % playlist.length;
-                  playSong(nextIndex);
-             }
-
-             /** Updates the displayed song name */
-             function updateSongNameDisplay() {
-                  if (!songNameDisplay || currentSongIndex < 0 || currentSongIndex >= playlist.length) return;
-                  const songPath = playlist[currentSongIndex];
-                  const filename = songPath.substring(songPath.lastIndexOf('/') + 1).replace(/\.[^/.]+$/, "");
-                  songNameDisplay.textContent = filename;
-                  songNameDisplay.title = filename;
-             }
-
-             /** Toggles Mute/Unmute */
-             function toggleMute() {
-                  if (!isAudioInitialized) return;
-                  isMuted = !isMuted; audio.muted = isMuted;
-                  if (isMuted) {
-                       volumeBeforeMute = audio.volume; if(volumeSlider) volumeSlider.value = 0;
-                       muteButton.setAttribute('aria-label', 'Unmute');
-                  } else {
-                       audio.volume = volumeBeforeMute; if(volumeSlider) volumeSlider.value = volumeBeforeMute;
-                       muteButton.setAttribute('aria-label', 'Mute');
-                  }
-                   updateMuteIcon(isMuted ? 0 : audio.volume);
-             }
-
-             /** Updates mute button icon */
-             function updateMuteIcon(volume) {
-                  if (!muteButton) return;
-                  let iconClass = 'fa-volume-high';
-                  if (volume <= 0 || isMuted) { iconClass = 'fa-volume-xmark'; }
-                  else if (volume <= 0.5) { iconClass = 'fa-volume-low'; }
-                  muteButton.innerHTML = `<i class="fas ${iconClass}"></i>`;
-             }
-
-              /** Updates play/pause button icon */
-             function updatePlayPauseIcon() {
-                  if (!playPauseButton) return;
-                  if (audio.paused) { playPauseButton.innerHTML = '<i class="fas fa-play"></i>'; playPauseButton.setAttribute('aria-label', 'Play'); }
-                  else { playPauseButton.innerHTML = '<i class="fas fa-pause"></i>'; playPauseButton.setAttribute('aria-label', 'Pause'); }
-             }
-
-             /** Handles audio errors */
-             function handleAudioError(e) {
-                  console.error("[Audio] Error:", e);
-                  if(songNameDisplay) songNameDisplay.textContent = "Audio Error";
-                  updatePlayPauseIcon();
-             }
-
-            // --- Functions to show/hide volume slider with delay ---
-            function showVolumeSlider() {
-                if (!volumeContainer) return;
-                clearTimeout(volumeHideTimeout); // Cancel any pending hide
-                volumeContainer.style.display = 'block';
-            }
-
-            function startHideVolumeSlider() {
-                if (!volumeContainer) return;
-                clearTimeout(volumeHideTimeout); // Clear previous timeout
-                volumeHideTimeout = setTimeout(() => {
-                    volumeContainer.style.display = 'none';
-                }, VOLUME_SLIDER_HIDE_DELAY); // Hide after delay
-            }
-
-            // --- Initialization ---
-            function initializeAudioControls() {
-                // Get elements
-                audioPrompt = document.getElementById('audio-prompt');
-                audioControlContainer = document.getElementById('audio-control-container');
-                playPauseButton = document.getElementById('play-pause-button');
-                nextSongButton = document.getElementById('next-song-button');
-                muteButton = document.getElementById('mute-button');
-                volumeContainer = document.getElementById('volume-container');
-                volumeSlider = document.getElementById('volume-slider');
-                songNameDisplay = document.getElementById('song-name');
-
-                if (!audioPrompt || !audioControlContainer || !playPauseButton || !nextSongButton || !muteButton || !volumeContainer || !volumeSlider || !songNameDisplay) {
-                    console.error("[Audio] Could not find all required audio control elements."); return;
-                }
-
-                // Set initial slider value
-                volumeSlider.value = DEFAULT_VOLUME;
-
-                // Add Event Listeners
-                audioPrompt.addEventListener('click', initAudio);
-                document.body.addEventListener('click', initAudio, { once: true });
-                playPauseButton.addEventListener('click', togglePlayPause);
-                nextSongButton.addEventListener('click', playNextSong);
-                muteButton.addEventListener('click', toggleMute);
-
-                // --- MODIFIED: Volume Slider Interaction with Delay ---
-                muteButton.addEventListener('mouseenter', showVolumeSlider);
-                muteButton.addEventListener('mouseleave', startHideVolumeSlider); // Start hide timer
-                volumeContainer.addEventListener('mouseenter', showVolumeSlider); // Keep open if mouse enters container
-                volumeContainer.addEventListener('mouseleave', startHideVolumeSlider); // Start hide timer when leaving container
-
-                volumeSlider.addEventListener('input', (e) => {
-                     if (!isAudioInitialized) return;
-                     const newVolume = parseFloat(e.target.value);
-                     audio.volume = newVolume;
-                     if (newVolume > 0 && isMuted) { isMuted = false; audio.muted = false; muteButton.setAttribute('aria-label', 'Mute'); }
-                     else if (newVolume <= 0 && !isMuted) { isMuted = true; audio.muted = true; muteButton.setAttribute('aria-label', 'Unmute'); }
-                     volumeBeforeMute = newVolume; updateMuteIcon(newVolume);
-                });
-            }
-
-            // Wait for DOM content to initialize controls
-            if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initializeAudioControls); }
-            else { initializeAudioControls(); }
-        })();
-    </script>
-
-    <!-- Main Script -->
+    <!-- Script loading in correct order -->
+    <script src="image_data.js"></script>
+    <script src="background.js"></script>
+    <script src="db-likes.js"></script>
+    <script src="audio.js"></script>
+
+    <!-- Main Application Script -->
     <script>
         // --- Configuration ---
         const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error";
         const mainPlaceholderUrl = "https://placehold.co/600x400/cccccc/ffffff.png?text=Loading...";
         const CLICK_EFFECT_DURATION_MS = 400;
+        const HOVER_EFFECT_TIMEOUT_MS = 1000; // 1 second timeout for hover effects
         const RESOURCE_FOLDER = 'resources';
         const BLANK_SUFFIX = '-BL-';
         const SIZE_MAP = ['S', 'M', 'L'];
@@ -2072,6 +345,7 @@
         let imageCache = new Map(); // Cache for preloaded images
         let intersectionObserver; // For lazy loading and in-view effects
         let backgroundAnimationPaused = false; // Track background animation state
+        let hoverEffectTimeouts = new Map(); // Store timeouts for hover effects by element ID
 
         // --- Data loaded from image_data.js ---
         let rootImageStructure = null;
@@ -2082,15 +356,15 @@
         function preloadImage(src) {
             if (!src || imageCache.has(src)) return Promise.resolve();
             
-            return new Promise((resolve, reject) => {
+            return new Promise(function(resolve, reject) {
                 const img = new Image();
-                img.onload = () => {
+                img.onload = function() {
                     imageCache.set(src, img);
                     resolve(img);
                 };
-                img.onerror = () => {
-                    console.warn(`Failed to preload: ${src}`);
-                    reject(new Error(`Failed to preload: ${src}`));
+                img.onerror = function() {
+                    console.warn("Failed to preload: " + src);
+                    reject(new Error("Failed to preload: " + src));
                 };
                 img.src = src;
             });
@@ -2104,14 +378,14 @@
             if (currentImageIndex < currentImageFiles.length - 1) {
                 const nextImage = currentImageFiles[currentImageIndex + 1];
                 preloadImage(encodeImagePath(nextImage.path))
-                    .catch(err => console.log('Non-critical preload error:', err));
+                    .catch(function(err) { console.log('Non-critical preload error:', err); });
             }
             
             // Preload previous image if available
             if (currentImageIndex > 0) {
                 const prevImage = currentImageFiles[currentImageIndex - 1];
                 preloadImage(encodeImagePath(prevImage.path))
-                    .catch(err => console.log('Non-critical preload error:', err));
+                    .catch(function(err) { console.log('Non-critical preload error:', err); });
             }
         }
 
@@ -2127,32 +401,57 @@
         function getAllImageFilesRecursive(node) {
             let files = [];
             if (!node || !node.children) return files;
-            node.children.forEach(child => {
+            for (let i = 0; i < node.children.length; i++) {
+                const child = node.children[i];
                 if (child.type === 'file') {
-                    if(child.creator && !allCreators.has(child.creator)) allCreators.add(child.creator);
+                    if(child.creator && !allCreators.has(child.creator)) {
+                        allCreators.add(child.creator);
+                    }
                     files.push(child);
                 } else if (child.type === 'folder') {
                     files = files.concat(getAllImageFilesRecursive(child));
                 }
-            });
+            }
             return files;
         }
 
         /** Opens the Fancy Lightbox */
         function openFancyLightbox(imageObject) {
-            if (!imageObject) { console.error("Invalid image object passed to openFancyLightbox"); return; }
+            if (!imageObject) { 
+                console.error("Invalid image object passed to openFancyLightbox"); 
+                return; 
+            }
             
             // Store current scroll position and current card
             lastScrollY = window.scrollY;
             currentFancyCardImage = imageObject;
             
             // Set up the navigation sequence (filtered, non-blank images)
-            currentImageFiles = currentlyDisplayedImages.filter(img => !img.isBlank);
-            currentImageIndex = currentImageFiles.findIndex(img => img.path === imageObject.path);
+            currentImageFiles = currentlyDisplayedImages.filter(function(img) { 
+                return !img.isBlank; 
+            });
+            
+            currentImageIndex = -1;
+            for (let i = 0; i < currentImageFiles.length; i++) {
+                if (currentImageFiles[i].path === imageObject.path) {
+                    currentImageIndex = i;
+                    break;
+                }
+            }
+            
             if (currentImageIndex === -1) {
                 console.warn("Fallback: Clicked image not in displayed non-blanks. Using base set for nav.");
-                currentImageFiles = baseImageSet.filter(img => !img.isBlank);
-                currentImageIndex = currentImageFiles.findIndex(img => img.path === imageObject.path);
+                currentImageFiles = baseImageSet.filter(function(img) { 
+                    return !img.isBlank; 
+                });
+                
+                for (let i = 0; i < currentImageFiles.length; i++) {
+                    if (currentImageFiles[i].path === imageObject.path) {
+                        currentImageIndex = i;
+                        break;
+                    }
+                }
+                
                 if (currentImageIndex === -1) { 
                     currentImageFiles = [imageObject]; 
                     currentImageIndex = 0; 
@@ -2188,7 +487,9 @@
             document.body.style.overflow = 'hidden';
             
             // Focus the close button (for accessibility)
-            setTimeout(() => fancyLightboxClose.focus(), 100);
+            setTimeout(function() { 
+                fancyLightboxClose.focus(); 
+            }, 100);
             
             // Highlight the selected thumbnail in the gallery
             highlightThumbnail(imageObject.path);
@@ -2220,13 +521,13 @@
             
             // Properly encode the image path
             const encodedPath = encodeImagePath(path);
-            console.log(`Loading image: ${encodedPath}`);
+            console.log("Loading image: " + encodedPath);
             
             // Check if in cache first
             if (imageCache.has(encodedPath)) {
-                console.log(`Loading from cache: ${encodedPath}`);
+                console.log("Loading from cache: " + encodedPath);
                 fancyCardImage.src = encodedPath;
-                fancyCardImage.alt = `Card preview: ${path.split('/').pop()}`;
+                fancyCardImage.alt = "Card preview: " + path.split('/').pop();
                 fancySpinner.classList.add('hidden');
                 fancyCardImage.classList.remove('hidden');
                 fancyCardImage.classList.add('loaded');
@@ -2234,28 +535,28 @@
             }
             
             // Set up image load handler
-            fancyCardImage.onload = () => {
+            fancyCardImage.onload = function() {
                 fancySpinner.classList.add('hidden');
                 fancyCardImage.classList.remove('hidden');
                 fancyCardImage.classList.add('loaded');
-                console.log(`Fancy image loaded: ${path}`);
+                console.log("Fancy image loaded: " + path);
                 
                 // Store in cache
                 imageCache.set(encodedPath, fancyCardImage.cloneNode(false));
             };
             
             // Set up error handler
-            fancyCardImage.onerror = () => {
-                console.error(`Failed to load fancy image: ${path}`);
+            fancyCardImage.onerror = function() {
+                console.error("Failed to load fancy image: " + path);
                 fancySpinner.classList.add('hidden');
                 fancyCardImage.classList.remove('hidden');
                 fancyCardImage.src = mainPlaceholderUrl;
-                fancyCardImage.alt = `Error loading image`;
+                fancyCardImage.alt = "Error loading image";
             };
             
             // Load the image
             fancyCardImage.src = encodedPath;
-            fancyCardImage.alt = `Card preview: ${path.split('/').pop()}`;
+            fancyCardImage.alt = "Card preview: " + path.split('/').pop();
         }
         
         /** Update the card info panel with card details */
@@ -2291,16 +592,17 @@
             // Clear and update type badges
             infoTypeBadges.innerHTML = '';
             if (card.types && card.types.length > 0) {
-                card.types.forEach(type => {
+                for (let i = 0; i < card.types.length; i++) {
+                    const type = card.types[i];
                     const badge = document.createElement('span');
-                    badge.className = `card-type-badge type-${type}`;
-                    badge.innerHTML = `<i class="fas fa-fire-alt"></i> ${type}`;
+                    badge.className = "card-type-badge type-" + type;
+                    badge.innerHTML = '<i class="fas fa-fire-alt"></i> ' + type;
                     infoTypeBadges.appendChild(badge);
-                });
+                }
             } else if (card.cardType === 'Trainer') {
                 const badge = document.createElement('span');
                 badge.className = 'card-type-badge';
-                badge.innerHTML = `<i class="fas fa-user"></i> Trainer`;
+                badge.innerHTML = '<i class="fas fa-user"></i> Trainer';
                 infoTypeBadges.appendChild(badge);
             }
         }
@@ -2311,11 +613,11 @@
             
             const ext = getExtension(card.name);
             const baseFilename = card.name.replace(BLANK_SUFFIX + ext, '').replace(ext, '');
-            const potentialBlankPath = card.path.replace(card.name, `${baseFilename}${BLANK_SUFFIX}${ext}`);
-            const potentialNormalPath = card.path.replace(card.name, `${baseFilename}${ext}`);
+            const potentialBlankPath = card.path.replace(card.name, baseFilename + BLANK_SUFFIX + ext);
+            const potentialNormalPath = card.path.replace(card.name, baseFilename + ext);
             
             // Check if this is a blank version by looking for -BL- in the name
-            const isBlank = card.name.includes(BLANK_SUFFIX);
+            const isBlank = card.name.indexOf(BLANK_SUFFIX) !== -1;
             
             if (isBlank) {
                 fancyNormalVersionPath = potentialNormalPath;
@@ -2327,11 +629,16 @@
             
             // Look for a matching card with the same name but blank/normal version
             const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
-            const matchingCard = allImagesFull.find(img => {
-                return isBlank ? 
-                    img.path === potentialNormalPath :
-                    img.path === potentialBlankPath;
-            });
+            
+            let matchingCard = null;
+            for (let i = 0; i < allImagesFull.length; i++) {
+                const img = allImagesFull[i];
+                if ((isBlank && img.path === potentialNormalPath) || 
+                    (!isBlank && img.path === potentialBlankPath)) {
+                    matchingCard = img;
+                    break;
+                }
+            }
             
             fancyHasBlankVersion = !!matchingCard;
             
@@ -2423,13 +730,13 @@
             // Find and focus the thumbnail that was clicked
             const focusedImageObject = currentImageFiles[currentImageIndex];
             const opener = focusedImageObject ? 
-                itemGallery.querySelector(`.thumbnail[data-path='${focusedImageObject.path}']`) : 
+                itemGallery.querySelector(".thumbnail[data-path='" + focusedImageObject.path + "']") : 
                 null;
                 
             unhighlightAllThumbnails();
             
             // Focus back on the thumbnail
-            setTimeout(() => {
+            setTimeout(function() {
                 if (opener) { 
                     opener.focus({ preventScroll: true }); 
                 } else if (focusableElements.length > 0) { 
@@ -2460,16 +767,19 @@
 
         /** Highlights the thumbnail */
         function highlightThumbnail(imagePath) {
-             unhighlightAllThumbnails();
-             const thumbContainer = itemGallery.querySelector(`.thumbnail[data-path='${imagePath}']`);
-             if (thumbContainer) { thumbContainer.classList.add('selected-inline'); }
+            unhighlightAllThumbnails();
+            const thumbContainer = itemGallery.querySelector(".thumbnail[data-path='" + imagePath + "']");
+            if (thumbContainer) { 
+                thumbContainer.classList.add('selected-inline'); 
+            }
         }
         
         /** Removes highlight from all thumbnails */
         function unhighlightAllThumbnails() { 
-            itemGallery.querySelectorAll('.thumbnail.selected-inline').forEach(el => { 
-                el.classList.remove('selected-inline'); 
-            }); 
+            const selectedThumbnails = itemGallery.querySelectorAll('.thumbnail.selected-inline');
+            for (let i = 0; i < selectedThumbnails.length; i++) {
+                selectedThumbnails[i].classList.remove('selected-inline');
+            }
         }
         
         /** Properly encode image paths to handle special characters */
@@ -2478,14 +788,19 @@
             
             // Split the path by segments and encode each part separately
             // Keep the directory separators intact
-            return path.split('/').map(segment => encodeURIComponent(segment)).join('/');
+            const segments = path.split('/');
+            const encodedSegments = [];
+            for (let i = 0; i < segments.length; i++) {
+                encodedSegments.push(encodeURIComponent(segments[i]));
+            }
+            return encodedSegments.join('/');
         }
 
         /** Set up intersection observer for lazy loading and in-view effects */
         function setupIntersectionObserver() {
             if ('IntersectionObserver' in window) {
-                intersectionObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
+                intersectionObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
                         const thumbnail = entry.target;
                         
                         // Apply or remove the 'in-view' class
@@ -2522,12 +837,18 @@
             // Update button style
             if (likeData.liked) {
                 lbLikeButton.classList.add('liked');
-                lbLikeButton.querySelector('i').classList.remove('far');
-                lbLikeButton.querySelector('i').classList.add('fas');
+                const iconElement = lbLikeButton.querySelector('i');
+                if (iconElement) {
+                    iconElement.classList.remove('far');
+                    iconElement.classList.add('fas');
+                }
             } else {
                 lbLikeButton.classList.remove('liked');
-                lbLikeButton.querySelector('i').classList.remove('fas');
-                lbLikeButton.querySelector('i').classList.add('far');
+                const iconElement = lbLikeButton.querySelector('i');
+                if (iconElement) {
+                    iconElement.classList.remove('fas');
+                    iconElement.classList.add('far');
+                }
             }
             
             // Add click handler
@@ -2542,7 +863,7 @@
 
         /** Renders the gallery based on a list of image file objects */
         function renderGalleryView(imagesToDisplay) {
-            console.log(`[renderGalleryView] Rendering gallery with ${imagesToDisplay?.length || 0} images.`);
+            console.log("[renderGalleryView] Rendering gallery with " + (imagesToDisplay ? imagesToDisplay.length : 0) + " images.");
             
             // Disconnect observer from old elements
             if (intersectionObserver) {
@@ -2554,59 +875,64 @@
             currentlyDisplayedImages = imagesToDisplay || []; // Full list for this view
 
             // Filter out blanks for initial gallery display
-            const nonBlankImagesToDisplay = currentlyDisplayedImages.filter(img => !img.isBlank);
+            const nonBlankImagesToDisplay = currentlyDisplayedImages.filter(function(img) {
+                return !img.isBlank;
+            });
+            
             currentImageFiles = nonBlankImagesToDisplay; // Set lightbox sequence to non-blanks
 
             let hasContent = nonBlankImagesToDisplay.length > 0;
 
-            console.log(`[renderGalleryView] Displaying ${nonBlankImagesToDisplay.length} non-blank images.`);
+            console.log("[renderGalleryView] Displaying " + nonBlankImagesToDisplay.length + " non-blank images.");
 
-            nonBlankImagesToDisplay.forEach(image => {
+            for (let i = 0; i < nonBlankImagesToDisplay.length; i++) {
+                const image = nonBlankImagesToDisplay[i];
                 const thumbnailContainer = document.createElement('div');
                 thumbnailContainer.className = 'thumbnail';
                 thumbnailContainer.setAttribute('tabindex', '0'); 
                 thumbnailContainer.setAttribute('role', 'button');
                 thumbnailContainer.dataset.path = image.path;
                 thumbnailContainer.dataset.object = JSON.stringify(image);
-                thumbnailContainer.setAttribute('aria-label', `Image: ${image.name}`);
+                thumbnailContainer.setAttribute('aria-label', "Image: " + image.name);
+                thumbnailContainer.id = 'thumbnail-' + i; // Unique ID for hover timeouts
 
                 const img = document.createElement('img');
                 
                 // Lazy loading - store path in data-src
                 const encodedPath = encodeImagePath(image.path);
                 img.dataset.src = encodedPath;
-                img.alt = `Thumbnail ${image.name}`;
+                img.alt = "Thumbnail " + image.name;
                 img.className = 'w-full h-auto block pointer-events-none';
                 
                 // Image load handling
-                img.onload = () => {
+                img.onload = function() {
                     img.classList.add('loaded');
                     if (img.naturalWidth && img.naturalHeight) {
                         const aspectRatio = img.naturalWidth / img.naturalHeight;
                         const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
                         thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio);
-                        thumbnailContainer.style.borderRadius = `${5 * borderRadiusMultiplier}% / ${3.5 / borderRadiusMultiplier}%`;
+                        thumbnailContainer.style.borderRadius = (5 * borderRadiusMultiplier) + "% / " + (3.5 / borderRadiusMultiplier) + "%";
                     } else { 
-                        thumbnailContainer.style.borderRadius = `${5 * 0.75}% / ${3.5 / 0.75}%`; 
+                        thumbnailContainer.style.borderRadius = (5 * 0.75) + "% / " + (3.5 / 0.75) + "%"; 
                     }
                 };
                 
                 img.onerror = function() {
-                    console.error(`Failed to load image: ${image.path}, Encoded as: ${encodedPath}`);
+                    console.error("Failed to load image: " + image.path + ", Encoded as: " + encodedPath);
                     const container = this.closest('.thumbnail');
                     if (container) {
-                        container.innerHTML = `<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ${image.name}"></i></div>`;
+                        container.innerHTML = '<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ' + image.name + '"></i></div>';
                         container.style.cursor = 'not-allowed';
                         container.removeAttribute('tabindex'); 
                         container.removeAttribute('role');
                         container.removeAttribute('data-path'); 
                         container.style.pointerEvents = 'none';
-                        console.warn(`Thumbnail failed to load: ${image.path}`);
+                        console.warn("Thumbnail failed to load: " + image.path);
                         focusableElements = Array.from(itemGallery.querySelectorAll('.thumbnail[tabindex="0"]'));
                     }
                 };
 
-                const activateThumbnail = (eventSourceElement) => {
+                const activateThumbnail = function(eventSourceElement) {
                     const internalImg = eventSourceElement.querySelector('img');
                     const imgDataStr = eventSourceElement.dataset.object;
                     if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') && 
@@ -2615,15 +941,18 @@
                         eventSourceElement.classList.add('holo-click-active');
                         resetHoloEffect(eventSourceElement, false);
                         
-                        setTimeout(() => {
+                        setTimeout(function() {
                             eventSourceElement.classList.remove('holo-click-active');
                             openFancyLightbox(JSON.parse(imgDataStr));
                         }, CLICK_EFFECT_DURATION_MS);
                     }
                 };
                 
-                thumbnailContainer.addEventListener('click', () => activateThumbnail(thumbnailContainer));
-                thumbnailContainer.addEventListener('keydown', (e) => { 
+                thumbnailContainer.addEventListener('click', function() { 
+                    activateThumbnail(thumbnailContainer); 
+                });
+                
+                thumbnailContainer.addEventListener('keydown', function(e) { 
                     if (e.key === 'Enter' || e.key === ' ') { 
                         e.preventDefault(); 
                         activateThumbnail(thumbnailContainer); 
@@ -2634,22 +963,23 @@
                 const likeData = window.getLikeData ? window.getLikeData(image.path) : { count: 0, liked: false };
                 const likeContainer = document.createElement('div');
                 likeContainer.className = 'thumbnail-like-container';
-                likeContainer.innerHTML = `
-                    <span class="thumbnail-like-count">${likeData.count}</span>
-                    <button class="thumbnail-like-button" aria-label="Like this card">
-                        <i class="${likeData.liked ? 'fas' : 'far'} fa-heart"></i>
-                    </button>
-                `;
+                likeContainer.innerHTML = 
+                    '<span class="thumbnail-like-count">' + likeData.count + '</span>' +
+                    '<button class="thumbnail-like-button" aria-label="Like this card">' +
+                    '<i class="' + (likeData.liked ? 'fas' : 'far') + ' fa-heart"></i>' +
+                    '</button>';
                 
                 // Like button click handler
                 const likeButton = likeContainer.querySelector('.thumbnail-like-button');
-                likeButton.addEventListener('click', (e) => {
+                likeButton.addEventListener('click', function(e) {
                     e.stopPropagation(); // Prevent opening the lightbox
                     if (window.toggleLike) {
                         window.toggleLike(image.path);
                         updateAllThumbnailLikes();
                         // If the lightbox is open and showing this card, update it too
-                        if (fancyLightbox.classList.contains('visible') && currentFancyCardImage && currentFancyCardImage.path === image.path) {
+                        if (fancyLightbox.classList.contains('visible') && 
+                            currentFancyCardImage && 
+                            currentFancyCardImage.path === image.path) {
                             updateLightboxLikeStatus(image.path);
                         }
                     }
@@ -2664,7 +994,7 @@
                 if (intersectionObserver) {
                     intersectionObserver.observe(thumbnailContainer);
                 }
-            });
+            }
 
             emptyFolderMessage.classList.toggle('hidden', hasContent);
             currentFocusIndex = 0;
@@ -2672,25 +1002,29 @@
             // Initial load for visible thumbnails
             if (!intersectionObserver) {
                 // No IntersectionObserver support, load all visible images immediately
-                itemGallery.querySelectorAll('.thumbnail').forEach(thumbnail => {
+                const thumbnails = itemGallery.querySelectorAll('.thumbnail');
+                for (let i = 0; i < thumbnails.length; i++) {
+                    const thumbnail = thumbnails[i];
                     thumbnail.classList.add('in-view');
                     const img = thumbnail.querySelector('img');
                     if (img && img.dataset.src) {
                         img.src = img.dataset.src;
                         delete img.dataset.src;
                     }
-                });
+                }
             }
         }
 
         /** Update all thumbnail like counters and icons */
         function updateAllThumbnailLikes() {
-            itemGallery.querySelectorAll('.thumbnail').forEach(thumbnail => {
+            const thumbnails = itemGallery.querySelectorAll('.thumbnail');
+            for (let i = 0; i < thumbnails.length; i++) {
+                const thumbnail = thumbnails[i];
                 const path = thumbnail.dataset.path;
-                if (!path) return;
+                if (!path) continue;
                 
                 const likeContainer = thumbnail.querySelector('.thumbnail-like-container');
-                if (!likeContainer) return;
+                if (!likeContainer) continue;
                 
                 const likeCount = likeContainer.querySelector('.thumbnail-like-count');
                 const likeButton = likeContainer.querySelector('.thumbnail-like-button i');
@@ -2707,35 +1041,49 @@
                         likeButton.classList.add('far');
                     }
                 }
-            });
+            }
         }
 
         /** Applies current filters and triggers rendering */
         function applyFiltersAndRender() {
-            console.log(`[applyFiltersAndRender] Applying filters: Type='${currentTypeFilter}', Forte='${currentForteFilter}', Trainer='${currentTrainerTypeFilter}', Creator='${currentCreatorFilter}'`);
-            console.log(`[applyFiltersAndRender] Base image set size (for current tab): ${baseImageSet.length}`);
-            let filteredImages = [...baseImageSet];
+            console.log("[applyFiltersAndRender] Applying filters: Type='" + currentTypeFilter + 
+                        "', Forte='" + currentForteFilter + 
+                        "', Trainer='" + currentTrainerTypeFilter + 
+                        "', Creator='" + currentCreatorFilter + "'");
+            console.log("[applyFiltersAndRender] Base image set size (for current tab): " + baseImageSet.length);
+            
+            let filteredImages = [].concat(baseImageSet); // Create a copy
 
             if (currentTypeFilter !== 'all') { 
-                filteredImages = filteredImages.filter(img => img.cardType === currentTypeFilter); 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.cardType === currentTypeFilter; 
+                }); 
             }
             
             if (currentForteFilter === 'yes') { 
-                filteredImages = filteredImages.filter(img => img.isForte === true); 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.isForte === true; 
+                }); 
             } else if (currentForteFilter === 'no') { 
-                filteredImages = filteredImages.filter(img => img.isForte === false); 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.isForte === false; 
+                }); 
             }
             
             if (currentTrainerTypeFilter !== 'all' && (currentTypeFilter === 'Trainer' || currentTypeFilter === 'all')) { 
-                filteredImages = filteredImages.filter(img => img.trainerType === currentTrainerTypeFilter); 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.trainerType === currentTrainerTypeFilter; 
+                }); 
             }
             
             if (currentCreatorFilter !== 'all') { 
-                filteredImages = filteredImages.filter(img => img.creator === currentCreatorFilter); 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.creator === currentCreatorFilter; 
+                }); 
             }
 
             currentlyDisplayedImages = filteredImages; // Store the FULL filtered list (includes blanks)
-            console.log(`[applyFiltersAndRender] Total filtered images (incl. blanks): ${currentlyDisplayedImages.length}`);
+            console.log("[applyFiltersAndRender] Total filtered images (incl. blanks): " + currentlyDisplayedImages.length);
 
             renderGalleryView(currentlyDisplayedImages); // Render ALL filtered images
         }
@@ -2751,34 +1099,41 @@
 
             // Type Filter
             while (typeFilterSelect.options.length > 1) { typeFilterSelect.remove(1); }
-            (filterConfig.typeOrder || []).forEach(type => { 
-                const option = document.createElement('option'); 
-                option.value = type; 
-                option.textContent = type; 
-                typeFilterSelect.appendChild(option); 
-            });
+            if (filterConfig.typeOrder) {
+                for (let i = 0; i < filterConfig.typeOrder.length; i++) {
+                    const type = filterConfig.typeOrder[i];
+                    const option = document.createElement('option'); 
+                    option.value = type; 
+                    option.textContent = type; 
+                    typeFilterSelect.appendChild(option); 
+                }
+            }
 
             // Trainer Type Filter
             while (trainerTypeFilterSelect.options.length > 1) { trainerTypeFilterSelect.remove(1); }
-            (filterConfig.trainerTypeOrder || []).forEach(type => { 
-                const option = document.createElement('option'); 
-                option.value = type; 
-                option.textContent = type; 
-                trainerTypeFilterSelect.appendChild(option); 
-            });
+            if (filterConfig.trainerTypeOrder) {
+                for (let i = 0; i < filterConfig.trainerTypeOrder.length; i++) {
+                    const type = filterConfig.trainerTypeOrder[i];
+                    const option = document.createElement('option'); 
+                    option.value = type; 
+                    option.textContent = type; 
+                    trainerTypeFilterSelect.appendChild(option); 
+                }
+            }
 
             // Creator Filter
             while (creatorFilterSelect.options.length > 1) { creatorFilterSelect.remove(1); }
-            const sortedCreators = Array.from(allCreators).sort((a, b) => a.localeCompare(b));
+            const sortedCreators = Array.from(allCreators).sort();
             console.log("[populateFilters] Found creators:", sortedCreators);
-            sortedCreators.forEach(creator => { 
+            for (let i = 0; i < sortedCreators.length; i++) {
+                const creator = sortedCreators[i];
                 if (creator) { 
                     const option = document.createElement('option'); 
                     option.value = creator; 
                     option.textContent = creator; 
                     creatorFilterSelect.appendChild(option); 
-                } 
-            });
+                }
+            }
         }
 
         /** Renders the navigation tabs based on Sets */
@@ -2796,8 +1151,15 @@
             if (label) tabContainer.appendChild(label);
 
             const allImagesForSets = getAllImageFilesRecursive(rootImageStructure);
-            const availableSetNames = new Set(allImagesForSets.map(img => img.setName).filter(name => name));
-            console.log("[renderTabs] Available set names:", availableSetNames);
+            
+            // Get unique set names
+            const availableSetNames = new Set();
+            for (let i = 0; i < allImagesForSets.length; i++) {
+                const setName = allImagesForSets[i].setName;
+                if (setName) availableSetNames.add(setName);
+            }
+            
+            console.log("[renderTabs] Available set names:", Array.from(availableSetNames));
 
             // --- Create "All" tab ---
             const allTab = document.createElement('button');
@@ -2813,7 +1175,8 @@
             tabContainer.appendChild(allTab);
 
             // --- Create Tabs based on setOrder ---
-            filterConfig.setOrder.forEach(setName => {
+            for (let i = 0; i < filterConfig.setOrder.length; i++) {
+                const setName = filterConfig.setOrder[i];
                 if (availableSetNames.has(setName) || setName === "Other") {
                     const setTab = document.createElement('button');
                     setTab.className = 'tab'; 
@@ -2827,27 +1190,34 @@
                     setTab.appendChild(textSpan);
                     tabContainer.appendChild(setTab);
                 } else { 
-                    console.log(`[renderTabs] Skipping tab for set "${setName}" as no images found.`); 
+                    console.log("[renderTabs] Skipping tab for set \"" + setName + "\" as no images found."); 
                 }
-            });
+            }
 
             // --- Add event listener ---
             if (!tabContainer.dataset.listenerAttached) {
-                tabContainer.addEventListener('click', (e) => {
+                tabContainer.addEventListener('click', function(e) {
                     const clickedTab = e.target.closest('.tab');
                     if (clickedTab && !clickedTab.classList.contains('active')) {
                         const setName = clickedTab.dataset.setName;
-                        tabContainer.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                        const tabs = tabContainer.querySelectorAll('.tab');
+                        for (let i = 0; i < tabs.length; i++) {
+                            tabs[i].classList.remove('active');
+                        }
                         clickedTab.classList.add('active');
                         currentSetTab = setName;
 
                         const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
                         if (setName === 'all') {
-                            baseImageSet = allImagesFull.filter(img => img.setName !== "Misc"); // Exclude MISC
+                            baseImageSet = allImagesFull.filter(function(img) { 
+                                return img.setName !== "Misc"; 
+                            }); // Exclude MISC
                         } else {
-                            baseImageSet = allImagesFull.filter(img => img.setName === setName);
+                            baseImageSet = allImagesFull.filter(function(img) { 
+                                return img.setName === setName; 
+                            });
                         }
-                        console.log(`[Tab Click] Set base set to '${setName}':`, baseImageSet.length);
+                        console.log("[Tab Click] Set base set to '" + setName + "':", baseImageSet.length);
                         applyFiltersAndRender();
                     }
                 });
@@ -2857,7 +1227,7 @@
 
         /** Displays an error message */
         function displayError(message) {
-            itemGallery.innerHTML = `<p class="text-red-500 col-span-full p-4 bg-red-100 border border-red-400 rounded">${message}</p>`;
+            itemGallery.innerHTML = '<p class="text-red-500 col-span-full p-4 bg-red-100 border border-red-400 rounded">' + message + '</p>';
             emptyFolderMessage.classList.add('hidden');
         }
         
@@ -2866,7 +1236,9 @@
             if (focusableElements.length === 0 || fancyLightbox.classList.contains('visible')) return;
             const gridElement = document.getElementById('item-gallery');
             const gridStyle = window.getComputedStyle(gridElement);
-            const gridCols = gridStyle.getPropertyValue('grid-template-columns').split(' ').length;
+            const gridColsText = gridStyle.getPropertyValue('grid-template-columns');
+            const gridCols = gridColsText.split(' ').length;
+            
             let nextFocusIndex = currentFocusIndex;
             switch (e.key) {
                 case 'ArrowRight': nextFocusIndex = (currentFocusIndex + 1) % focusableElements.length; break;
@@ -2880,7 +1252,9 @@
             if (nextFocusIndex !== currentFocusIndex && nextFocusIndex < focusableElements.length) {
                 e.preventDefault();
                 currentFocusIndex = nextFocusIndex;
-                if(focusableElements[currentFocusIndex]) { focusableElements[currentFocusIndex].focus(); }
+                if(focusableElements[currentFocusIndex]) { 
+                    focusableElements[currentFocusIndex].focus(); 
+                }
             }
         }
         
@@ -2960,13 +1334,31 @@
             const p_opc = Math.min(Math.max(20 + (Math.abs(pa) * 1.5), 20), 90);
             
             target.classList.add('holo-active');
-            target.style.setProperty('--thumb-gradient-pos-x', `${lp}%`); 
-            target.style.setProperty('--thumb-gradient-pos-y', `${tp}%`);
-            target.style.setProperty('--thumb-sparkle-pos-x', `${px_spark}%`); 
-            target.style.setProperty('--thumb-sparkle-pos-y', `${py_spark}%`);
+            target.style.setProperty('--thumb-gradient-pos-x', lp + "%"); 
+            target.style.setProperty('--thumb-gradient-pos-y', tp + "%");
+            target.style.setProperty('--thumb-sparkle-pos-x', px_spark + "%"); 
+            target.style.setProperty('--thumb-sparkle-pos-y', py_spark + "%");
             target.style.setProperty('--thumb-sparkle-opacity', p_opc / 100);
             
-            clearTimeout(activeHoloTimeout);
+            // Clear any existing timeout for this element
+            clearHoverEffectTimeout(target.id);
+            
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+            setHoverEffectTimeout(target.id, function() {
+                resetHoloEffect(target);
+            }, HOVER_EFFECT_TIMEOUT_MS);
+        }
+        
+        function clearHoverEffectTimeout(elementId) {
+            if (hoverEffectTimeouts.has(elementId)) {
+                clearTimeout(hoverEffectTimeouts.get(elementId));
+                hoverEffectTimeouts.delete(elementId);
+            }
+        }
+        
+        function setHoverEffectTimeout(elementId, callback, timeout) {
+            const timeoutId = setTimeout(callback, timeout);
+            hoverEffectTimeouts.set(elementId, timeoutId);
         }
         
         function handleHoloEnd(e) {
@@ -2975,9 +1367,7 @@
                 target.classList.contains('holo-active') && 
                 !target.classList.contains('holo-click-active')) {
                 
-                activeHoloTimeout = setTimeout(() => { 
-                    resetHoloEffect(target); 
-                }, 50);
+                resetHoloEffect(target);
             }
         }
         
@@ -2993,6 +1383,11 @@
             element.style.removeProperty('--thumb-sparkle-pos-x'); 
             element.style.removeProperty('--thumb-sparkle-pos-y');
             element.style.removeProperty('--thumb-sparkle-opacity');
+            
+            // Clear any pending timeouts
+            if (element.id) {
+                clearHoverEffectTimeout(element.id);
+            }
         }
         
         // --- Fancy Lightbox Holo Effect Logic ---
@@ -3045,16 +1440,21 @@
             
             // Apply the effects
             target.classList.add('holo-active');
-            target.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            target.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
             
             // Set CSS variables for gradient and sparkle effect positions
-            target.style.setProperty('--lb-gradient-pos-x', `${gradientX}%`);
-            target.style.setProperty('--lb-gradient-pos-y', `${gradientY}%`);
-            target.style.setProperty('--lb-sparkle-pos-x', `${sparkleX}%`);
-            target.style.setProperty('--lb-sparkle-pos-y', `${sparkleY}%`);
+            target.style.setProperty('--lb-gradient-pos-x', gradientX + "%");
+            target.style.setProperty('--lb-gradient-pos-y', gradientY + "%");
+            target.style.setProperty('--lb-sparkle-pos-x', sparkleX + "%");
+            target.style.setProperty('--lb-sparkle-pos-y', sparkleY + "%");
             target.style.setProperty('--lb-sparkle-opacity', sparkleOpacity);
             
             clearTimeout(fancyActiveHoloTimeout);
+            
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+            fancyActiveHoloTimeout = setTimeout(function() {
+                resetFancyHoloEffect();
+            }, HOVER_EFFECT_TIMEOUT_MS);
         }
         
         function handleFancyHoloEnd(e) {
@@ -3068,7 +1468,7 @@
                 return; // Still within container, don't reset
             }
             
-            fancyActiveHoloTimeout = setTimeout(() => resetFancyHoloEffect(), 50);
+            resetFancyHoloEffect();
         }
         
         function resetFancyHoloEffect() {
@@ -3088,18 +1488,23 @@
             target.style.removeProperty('--lb-sparkle-pos-x');
             target.style.removeProperty('--lb-sparkle-pos-y');
             target.style.removeProperty('--lb-sparkle-opacity');
+            
+            // Clear any pending timeouts
+            clearTimeout(fancyActiveHoloTimeout);
         }
 
         // --- Helper Functions for Color Manipulation ---
-        function hexToRgba(hex, alpha = 1) {
+        function hexToRgba(hex, alpha) {
+            if (alpha === undefined) alpha = 1;
+            
             hex = hex.replace('#', '');
             if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
             const bigint = parseInt(hex, 16);
-            if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
+            if (isNaN(bigint)) return "rgba(107, 114, 128, " + alpha + ")";
             const r = (bigint >> 16) & 255; 
             const g = (bigint >> 8) & 255; 
             const b = bigint & 255;
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
         }
         
         function lightenHexColor(hex, percent) {
@@ -3121,17 +1526,26 @@
                 g=Math.max(g,minLightness); 
                 b=Math.max(b,minLightness);
             }
-            return `#${(r << 16 | g << 8 | b).toString(16).padStart(6, '0')}`;
+            return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
         }
 
         /** Applies the selected gallery size class */
         function applyGallerySize(sizeIndex) {
             if (!itemGallery || sizeIndex === undefined || sizeIndex === null) return;
             const validIndex = Math.max(0, Math.min(sizeIndex, Object.keys(GALLERY_SIZE_CLASSES).length - 1));
-            Object.values(GALLERY_SIZE_CLASSES).forEach(cls => itemGallery.classList.remove(cls));
+            
+            // Remove all size classes
+            for (let i = 0; i < Object.values(GALLERY_SIZE_CLASSES).length; i++) {
+                itemGallery.classList.remove(Object.values(GALLERY_SIZE_CLASSES)[i]);
+            }
+            
+            // Add the active size class
             itemGallery.classList.add(GALLERY_SIZE_CLASSES[validIndex]);
-            console.log(`[applyGallerySize] Applied class: ${GALLERY_SIZE_CLASSES[validIndex]}`);
-            if (gallerySizeDisplay) gallerySizeDisplay.textContent = SIZE_MAP[validIndex] || SIZE_MAP[DEFAULT_GALLERY_SIZE_INDEX];
+            
+            console.log("[applyGallerySize] Applied class: " + GALLERY_SIZE_CLASSES[validIndex]);
+            if (gallerySizeDisplay) {
+                gallerySizeDisplay.textContent = SIZE_MAP[validIndex] || SIZE_MAP[DEFAULT_GALLERY_SIZE_INDEX];
+            }
         }
 
         /** Check if element is in viewport */
@@ -3144,192 +1558,222 @@
                 rect.right <= (window.innerWidth + 100)
             );
         }
+        
+        /** Ensure the loading overlay is hidden even if there's an error */
+        function ensurePageLoaded() {
+            if (pageLoadingOverlay) {
+                pageLoadingOverlay.classList.add('loaded');
+            }
+            console.log("Forced page loading complete");
+        }
 
         // --- Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
+        function initApp() {
             console.log("[Init] DOM Loaded. Checking for imageData...");
+            
+            // Set a fallback timeout to ensure the page loads even if there's an error
+            setTimeout(ensurePageLoaded, 5000);
             
             // Set up intersection observer for lazy loading
             setupIntersectionObserver();
             
-            // First check for data loaded from image_data.js
-            if (typeof imageData === 'undefined' || typeof imageData.imageStructure !== 'object' || typeof imageData.filterConfig !== 'object') {
-                console.error("[Init] ERROR: 'imageData' object (with .imageStructure and .filterConfig) is missing or invalid in image_data.js.");
-                displayError(`Configuration Error! Please ensure 'image_data.js' is generated correctly with the variable name 'imageData' containing 'imageStructure' and 'filterConfig' keys.`);
-                [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider].forEach(el => el && (el.disabled = true));
-                
-                // Hide loading overlay even on error
-                if (pageLoadingOverlay) {
-                    pageLoadingOverlay.classList.add('loaded');
-                }
-                
-                return;
-            }
-            
-            console.log("[Init] imageData found:", imageData);
-            rootImageStructure = imageData.imageStructure;
-            filterConfig = imageData.filterConfig;
-
-            // Validate further
-            if (!rootImageStructure || !rootImageStructure.path || !filterConfig.setOrder) {
-                console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
-                displayError(`Configuration Error! Data loaded from image_data.js is incomplete.`);
-                [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider].forEach(el => el && (el.disabled = true));
-                
-                // Hide loading overlay even on error
-                if (pageLoadingOverlay) {
-                    pageLoadingOverlay.classList.add('loaded');
-                }
-                
-                return;
-            }
-
-            baseImageSet = getAllImageFilesRecursive(rootImageStructure);
-            populateFilters();
-            renderTabs();
-
-            // --- Size Slider Initialization ---
-            const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
-            gallerySizeSlider.value = savedGallerySize; 
-            applyGallerySize(parseInt(savedGallerySize));
-
-            // --- Size Slider Event Listeners ---
-            gallerySizeSlider.addEventListener('input', (e) => { 
-                const v = parseInt(e.target.value); 
-                applyGallerySize(v); 
-                localStorage.setItem(GALLERY_SIZE_KEY, v.toString()); 
-            });
-
-            // Initial Render based on 'All' tab (excluding MISC)
-            baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(img => img.setName !== "Misc");
-            console.log("[Init] Initial base image set size (excluding MISC):", baseImageSet.length);
-            applyFiltersAndRender();
-
-            // --- Event Listeners ---
-            // Filter dropdowns
-            typeFilterSelect.addEventListener('change', (e) => { 
-                currentTypeFilter = e.target.value; 
-                applyFiltersAndRender(); 
-            });
-            
-            forteFilterSelect.addEventListener('change', (e) => { 
-                currentForteFilter = e.target.value; 
-                applyFiltersAndRender(); 
-            });
-            
-            trainerTypeFilterSelect.addEventListener('change', (e) => { 
-                currentTrainerTypeFilter = e.target.value; 
-                applyFiltersAndRender(); 
-            });
-            
-            creatorFilterSelect.addEventListener('change', (e) => { 
-                currentCreatorFilter = e.target.value; 
-                applyFiltersAndRender(); 
-            });
-            
-            // Fancy lightbox controls
-            fancyLightboxClose.addEventListener('click', closeFancyLightbox);
-            fancyPrevButton.addEventListener('click', showPreviousCard);
-            fancyNextButton.addEventListener('click', showNextCard);
-            fancyNormalView.addEventListener('click', () => switchCardView('normal'));
-            fancyTextlessView.addEventListener('click', () => switchCardView('textless'));
-            fancyZoomIn.addEventListener('click', zoomIn);
-            fancyZoomOut.addEventListener('click', zoomOut);
-            fancyZoomReset.addEventListener('click', resetZoom);
-            
-            // Dragging interactions for card
-            let isDragging = false;
-            let dragStartX = 0;
-            let dragStartY = 0;
-            let rotateX = 0;
-            let rotateY = 0;
-            
-            fancyHoloContainer.addEventListener('mousedown', (e) => {
-                if (isZoomed) return;
-                isDragging = true;
-                dragStartX = e.clientX;
-                dragStartY = e.clientY;
-                fancyHoloContainer.style.cursor = 'grabbing';
-                e.preventDefault();
-            });
-            
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                
-                const deltaX = e.clientX - dragStartX;
-                const deltaY = e.clientY - dragStartY;
-                
-                // Scale the rotation (smaller values for subtler effect)
-                rotateY = deltaX * 0.1;
-                rotateX = -deltaY * 0.1;
-                
-                // Apply rotation directly
-                fancyHoloInner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-            
-            document.addEventListener('mouseup', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    fancyHoloContainer.style.cursor = 'grab';
+            try {
+                // First check for data loaded from image_data.js
+                if (typeof imageData === 'undefined' || 
+                    !imageData.imageStructure || 
+                    !imageData.filterConfig) {
+                    console.error("[Init] ERROR: 'imageData' object is missing or invalid in image_data.js.");
+                    displayError("Configuration Error! Please ensure 'image_data.js' is generated correctly with the variable name 'imageData' containing 'imageStructure' and 'filterConfig' keys.");
                     
-                    // Smoothly reset to center if not zoomed
-                    if (!isZoomed) {
-                        fancyHoloInner.style.transition = 'transform 0.5s ease-out';
-                        fancyHoloInner.style.transform = '';
-                        setTimeout(() => {
-                            fancyHoloInner.style.transition = '';
-                        }, 500);
+                    const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i]) elements[i].disabled = true;
                     }
+                    
+                    ensurePageLoaded();
+                    return;
                 }
-            });
-            
-            // Double-click to zoom
-            fancyHoloContainer.addEventListener('dblclick', () => {
-                if (isZoomed) {
-                    resetZoom();
-                } else {
-                    zoomIn();
-                }
-            });
-            
-            // Keydown listeners for gallery and lightbox
-            document.addEventListener('keydown', (e) => {
-                if (fancyLightbox.classList.contains('visible')) {
-                    handleFancyLightboxKeyDown(e);
-                } else {
-                    // Only handle gallery keys if focus is in the gallery
-                    if (document.activeElement && (itemGallery.contains(document.activeElement) || 
-                                                 tabContainer.contains(document.activeElement))) {
-                        handleGalleryKeyDown(e);
+                
+                console.log("[Init] imageData found:", imageData);
+                rootImageStructure = imageData.imageStructure;
+                filterConfig = imageData.filterConfig;
+
+                // Validate further
+                if (!rootImageStructure.path || !filterConfig.setOrder) {
+                    console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
+                    displayError("Configuration Error! Data loaded from image_data.js is incomplete.");
+                    
+                    const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i]) elements[i].disabled = true;
                     }
+                    
+                    ensurePageLoaded();
+                    return;
                 }
-            });
-            
-            // Apply holo effects
-            applyHoloListeners('#item-gallery');
-            
-            // Hide loading overlay when everything is ready
-            if (pageLoadingOverlay) {
-                setTimeout(() => {
-                    pageLoadingOverlay.classList.add('loaded');
-                }, 500); // Short delay for smoother transition
-            }
-            
-            // Trigger lazy loading for initial viewport
-            if (intersectionObserver) {
-                const initialThumbnails = itemGallery.querySelectorAll('.thumbnail');
-                initialThumbnails.forEach(thumbnail => {
-                    if (isElementInViewport(thumbnail)) {
-                        thumbnail.classList.add('in-view');
-                        const img = thumbnail.querySelector('img');
-                        if (img && img.dataset.src) {
-                            img.src = img.dataset.src;
-                            delete img.dataset.src;
+
+                baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                populateFilters();
+                renderTabs();
+
+                // --- Size Slider Initialization ---
+                const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
+                gallerySizeSlider.value = savedGallerySize; 
+                applyGallerySize(parseInt(savedGallerySize, 10));
+
+                // --- Size Slider Event Listeners ---
+                gallerySizeSlider.addEventListener('input', function(e) { 
+                    const v = parseInt(e.target.value, 10); 
+                    applyGallerySize(v); 
+                    localStorage.setItem(GALLERY_SIZE_KEY, v.toString()); 
+                });
+
+                // Initial Render based on 'All' tab (excluding MISC)
+                baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(function(img) { 
+                    return img.setName !== "Misc"; 
+                });
+                
+                console.log("[Init] Initial base image set size (excluding MISC):", baseImageSet.length);
+                applyFiltersAndRender();
+
+                // --- Event Listeners ---
+                // Filter dropdowns
+                typeFilterSelect.addEventListener('change', function(e) { 
+                    currentTypeFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                forteFilterSelect.addEventListener('change', function(e) { 
+                    currentForteFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                trainerTypeFilterSelect.addEventListener('change', function(e) { 
+                    currentTrainerTypeFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                creatorFilterSelect.addEventListener('change', function(e) { 
+                    currentCreatorFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                // Fancy lightbox controls
+                fancyLightboxClose.addEventListener('click', closeFancyLightbox);
+                fancyPrevButton.addEventListener('click', showPreviousCard);
+                fancyNextButton.addEventListener('click', showNextCard);
+                fancyNormalView.addEventListener('click', function() { switchCardView('normal'); });
+                fancyTextlessView.addEventListener('click', function() { switchCardView('textless'); });
+                fancyZoomIn.addEventListener('click', zoomIn);
+                fancyZoomOut.addEventListener('click', zoomOut);
+                fancyZoomReset.addEventListener('click', resetZoom);
+                
+                // Dragging interactions for card
+                let isDragging = false;
+                let dragStartX = 0;
+                let dragStartY = 0;
+                let rotateX = 0;
+                let rotateY = 0;
+                
+                fancyHoloContainer.addEventListener('mousedown', function(e) {
+                    if (isZoomed) return;
+                    isDragging = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+                    fancyHoloContainer.style.cursor = 'grabbing';
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (!isDragging) return;
+                    
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+                    
+                    // Scale the rotation (smaller values for subtler effect)
+                    rotateY = deltaX * 0.1;
+                    rotateX = -deltaY * 0.1;
+                    
+                    // Apply rotation directly
+                    fancyHoloInner.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    if (isDragging) {
+                        isDragging = false;
+                        fancyHoloContainer.style.cursor = 'grab';
+                        
+                        // Smoothly reset to center if not zoomed
+                        if (!isZoomed) {
+                            fancyHoloInner.style.transition = 'transform 0.5s ease-out';
+                            fancyHoloInner.style.transform = '';
+                            setTimeout(function() {
+                                fancyHoloInner.style.transition = '';
+                            }, 500);
                         }
                     }
                 });
+                
+                // Double-click to zoom
+                fancyHoloContainer.addEventListener('dblclick', function() {
+                    if (isZoomed) {
+                        resetZoom();
+                    } else {
+                        zoomIn();
+                    }
+                });
+                
+                // Keydown listeners for gallery and lightbox
+                document.addEventListener('keydown', function(e) {
+                    if (fancyLightbox.classList.contains('visible')) {
+                        handleFancyLightboxKeyDown(e);
+                    } else {
+                        // Only handle gallery keys if focus is in the gallery
+                        const activeElement = document.activeElement;
+                        if (activeElement && (
+                            itemGallery.contains(activeElement) || 
+                            tabContainer.contains(activeElement)
+                        )) {
+                            handleGalleryKeyDown(e);
+                        }
+                    }
+                });
+                
+                // Apply holo effects
+                applyHoloListeners('#item-gallery');
+                
+                // Trigger lazy loading for initial viewport
+                if (intersectionObserver) {
+                    const initialThumbnails = itemGallery.querySelectorAll('.thumbnail');
+                    for (let i = 0; i < initialThumbnails.length; i++) {
+                        const thumbnail = initialThumbnails[i];
+                        if (isElementInViewport(thumbnail)) {
+                            thumbnail.classList.add('in-view');
+                            const img = thumbnail.querySelector('img');
+                            if (img && img.dataset.src) {
+                                img.src = img.dataset.src;
+                                delete img.dataset.src;
+                            }
+                        }
+                    }
+                }
+                
+                // Hide loading overlay when everything is ready
+                ensurePageLoaded();
+                
+            } catch (error) {
+                console.error("[Init] Critical error during initialization:", error);
+                displayError("An error occurred during initialization. Please reload the page.");
+                ensurePageLoaded();
             }
-        });
+        }
+
+        // Start the application when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
     </script>
 </body>
 </html>
