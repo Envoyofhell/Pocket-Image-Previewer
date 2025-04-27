@@ -832,56 +832,6 @@ h2 {
         }
     }
 
-   /* --- Logo and Header --- */
-   .brand-container {
-        display: flex;
-        flex-direction: column; /* Stack logo and title */
-        align-items: center; /* Center items */
-        margin-bottom: 1rem; /* Space below brand */
-    }
-    .logo-container {
-         margin-bottom: 0rem; /* No space between logo and title */
-         width: auto; /* Allow natural width */
-         max-width: 200px; /* Limit max logo width */
-         height: auto; /* Maintain aspect ratio */
-    }
-    .forte-logo {
-         max-width: 100%; /* Ensure logo fits container */
-         height: auto; /* Maintain aspect ratio */
-         object-fit: contain; /* Ensure logo isn't distorted */
-         filter: drop-shadow(0 0 8px rgba(248, 113, 113, 0.6)); /* Softer shadow */
-    }
-    h1.title-glow {
-        font-family: 'Pirata One', cursive; /* Apply Pirata One font */
-        font-size: 2.25rem; /* Slightly smaller title */
-        line-height: 1.1;
-        text-shadow: 0 0 5px rgba(255, 100, 100, 0.8),
-                     0 0 10px rgba(255, 0, 0, 0.7),
-                     0 0 18px rgba(138, 43, 226, 0.6),
-                     0 0 25px rgba(75, 0, 130, 0.5);
-        z-index: 1;
-        animation: text-flicker 3s linear infinite alternate;
-        color: var(--color-error); /* Use error color for base */
-        text-align: center;
-        white-space: nowrap;
-        margin-bottom: 0.5rem;
-    }
-    @keyframes text-flicker { /* Keep existing flicker */
-         0%, 10%, 12%, 20%, 22%, 30%, 32%, 40%, 42%, 50%, 52%, 60%, 62%, 70%, 72%, 80%, 82%, 90%, 92%, 100% {
-             text-shadow: 0 0 5px rgba(255, 100, 100, 0.8), 0 0 10px rgba(255, 0, 0, 0.7), 0 0 18px rgba(138, 43, 226, 0.6), 0 0 25px rgba(75, 0, 130, 0.5);
-             opacity: 1;
-         }
-         11%, 21%, 31%, 41%, 51%, 61%, 71%, 81%, 91% {
-             text-shadow: 0 0 4px rgba(255, 100, 100, 0.6), 0 0 8px rgba(255, 0, 0, 0.5), 0 0 15px rgba(138, 43, 226, 0.4), 0 0 20px rgba(75, 0, 130, 0.3);
-             opacity: 0.95;
-         }
-    }
-     @media (max-width: 768px) { /* Mobile title size */
-         h1.title-glow { font-size: 1.75rem; }
-         .logo-container { max-width: 150px; }
-     }
-
-
     /* Like button styles */
     .like-button {
         display: inline-flex;
@@ -1859,12 +1809,12 @@ h2 {
 
 /* --- Audio Prompt Style --- */
 #audio-prompt {
-   position: fixed; top: 10px; left: 10px; background-color: rgba(148, 30, 30, 0.7);
-   color: #ccc; padding: 8px 12px; font-size: 0.9rem; border-radius: 5px;
-   z-index: 1001; cursor: pointer; border: 1px solid rgba(255, 100, 100, 0.5);
-   box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-}
-
+    position: fixed; top: 10px; left: 10px; background-color: rgba(148, 30, 30, 0.7);
+    color: #ccc; padding: 8px 12px; font-size: 0.9rem; border-radius: 5px;
+    z-index: 1001; cursor: pointer; border: 1px solid rgba(255, 100, 100, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+ }
+ 
 
 #audio-prompt:hover {
     background-color: rgba(90, 8, 102, 0.9);
