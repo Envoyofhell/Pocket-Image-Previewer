@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forte Card Previewer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="dist/tailwind.css"></script>
+  <link rel="stylesheet" href="/assets/index-9f88c34a.css">
+</head>
+<body class="font-sans p-4 md:p-8">
+    <!-- Page Loading Overlay -->
+    <div id="page-loading-overlay" class="page-loading-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <div class="loader-text">Loading Forte Card Previewer</div>
+        </div>
+    </div>
+
+    <div id="threejs-bg"></div>
+
+    <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-6">
+        <!-- Brand Container with Logo and Title -->
+        <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+            <div class="brand-container flex flex-col items-center md:items-start mb-4 md:mb-0">
+                <div class="logo-container mb-2">
+                    <img src="/assets/forte-arrivals-5fdcf42b.png" alt="Forte Logo" class="forte-logo w-48 md:w-64" 
+                         onerror="this.src='https://placehold.co/200x120/f87171/ffffff.png?text=F'; this.onerror=null;">
+                </div>
+                <h1 class="title-glow text-2xl md:text-3xl">Card Previewer</h1>
+            </div>
+
+            <div class="controls-container w-full md:w-auto">
+                <div id="filter-controls" class="flex flex-wrap items-center gap-y-2">
+                    <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Filters:</h2>
+                    <div>
+                        <label for="type-filter" class="filter-label">Type:</label>
+                        <select id="type-filter" name="type-filter" class="filter-select">
+                            <option value="all">All Types</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="forte-filter" class="filter-label">Forte:</label>
+                        <select id="forte-filter" name="forte-filter" class="filter-select">
+                            <option value="all">All</option>
+                            <option value="yes">Forte Only</option>
+                            <option value="no">Non-Forte</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="trainer-type-filter" class="filter-label">Trainer Type:</label>
+                        <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
+                            <option value="all">All Trainers</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="creator-filter" class="filter-label">Creator:</label>
+                        <select id="creator-filter" name="creator-filter" class="filter-select">
+                            <option value="all">All Creators</option>
+                        </select>
+                    </div>
+               </div>
+               <div id="size-controls" class="flex flex-wrap items-center gap-y-2 mt-2">
+                   <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Sizes:</h2>
+                    <div class="size-control-group">
+                        <label for="gallery-size-slider" class="size-label">Gallery:</label>
+                        <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider w-20 align-middle">
+                        <span id="gallery-size-display" class="size-display">M</span>
+                   </div>
+              </div>
+            </div>
+        </div>
+
+        <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center mb-4">
+            <h2 class="text-base font-semibold mr-2 text-gray-300 controls-label">Set:</h2>
+            <!-- Tabs generated here -->
+        </div>
+
+        <div class="border-t pt-4 border-black">
+            <div id="item-gallery" class="mt-6 grid gap-4 items-start" role="grid">
+                <!-- Cards rendered here -->
+            </div>
+            <p id="empty-folder-message" class="text-center mt-4 hidden">No images match the current filters.</p>
+        </div>
+
+         <footer class="footer">
+             <img src="/assets/tcg-pocket-logo-a5234147.png" alt="" onerror="this.style.display='none'">
+             This is a fan site for testing elements (image loading and previewing).
+             <img src="/assets/tcg-pocket-logo-a5234147.png" alt="" onerror="this.style.display='none'">
+        </footer>
+    </div>
+
+    <!-- Fancy Popup Lightbox -->
+    <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="fancy-lightbox-content">
+            <!-- Header -->
+            <div class="fancy-lightbox-header">
+                <h2 class="fancy-lightbox-title">
+                    <i class="fas fa-crown mr-2"></i>
+                    <span id="card-title">Forte Card Viewer</span>
+                </h2>
+                <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Body (Left: Info, Right: Card) -->
+            <div class="fancy-lightbox-body">
+                <!-- Left: Card Info -->
+                <div class="fancy-card-info">
+                    <!-- Basic Info Section -->
+                    <div class="info-section">
+                        <div class="info-section-title">
+                            <i class="fas fa-id-card"></i>
+                            <span>Card Details</span>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Card Name</div>
+                            <div id="info-card-name" class="info-value">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Set</div>
+                            <div id="info-set-name" class="info-value">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Number</div>
+                            <div id="info-card-number" class="info-value">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dex Number</div>
+                            <div id="info-dex-number" class="info-value">-</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Type & Classification -->
+                    <div class="info-section">
+                        <div class="info-section-title">
+                            <i class="fas fa-tag"></i>
+                            <span>Classification</span>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Card Type</div>
+                            <div id="info-card-type" class="info-value">-</div>
+                            <!-- Dynamically add type badges here -->
+                            <div id="info-type-badges" class="card-types">
+                                <!-- Type badges go here -->
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Forte Status</div>
+                            <div id="info-forte-status" class="info-value">-</div>
+                        </div>
+                        <div id="info-trainer-type-container" class="info-item" style="display: none;">
+                            <div class="info-label">Trainer Type</div>
+                            <div id="info-trainer-type" class="info-value">-</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Creation Info -->
+                    <div class="info-section">
+                        <div class="info-section-title">
+                            <i class="fas fa-user-edit"></i>
+                            <span>Creation Info</span>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Creator</div>
+                            <div id="info-creator" class="info-value">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">File Name</div>
+                            <div id="info-file-name" class="info-value text-xs break-all opacity-50">-</div>
+                        </div>
+                        <!-- Like controls in lightbox -->
+                        <div class="info-item">
+                            <div class="info-label">Likes</div>
+                            <div class="info-value flex items-center">
+                                <span id="lb-like-count" class="mr-2">0</span>
+                                <button id="lb-like-button" class="like-button" aria-label="Like this card">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Card Display -->
+                <div class="fancy-card-display">
+                    <div id="fancy-spinner" class="spinner"></div>
+                    
+                    <!-- Card container with holo effect -->
+                    <div id="fancy-holo-container" class="fancy-holo-container">
+                        <div id="fancy-holo-inner" class="fancy-holo-inner">
+                            <img id="fancy-card-image" class="fancy-card-image hidden" src="" alt="Card preview">
+                        </div>
+                    </div>
+                    
+                    <!-- Card view controls -->
+                    <div id="fancy-card-controls" class="fancy-card-controls">
+                        <button id="fancy-normal-view" class="fancy-control-button active" data-view="normal">
+                            <i class="fas fa-image"></i>
+                            <span>Normal</span>
+                        </button>
+                        <button id="fancy-textless-view" class="fancy-control-button" data-view="textless" disabled>
+                            <i class="fas fa-square"></i>
+                            <span>Textless</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Navigation buttons -->
+                    <div class="fancy-nav-controls">
+                        <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Zoom controls -->
+                    <div class="fancy-zoom-controls">
+                        <button id="fancy-zoom-in" class="fancy-zoom-button" aria-label="Zoom in">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button id="fancy-zoom-reset" class="fancy-zoom-button" aria-label="Reset zoom">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button id="fancy-zoom-out" class="fancy-zoom-button" aria-label="Zoom out">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Keyboard controls hint -->
+                    <div class="keyboard-hint">
+                        <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
+                        <span><kbd>+</kbd> <kbd>-</kbd> Zoom</span>
+                        <span><kbd>Esc</kbd> Close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="audio-prompt" style="display: block;">Click anywhere to enable audio</div>
+
+    <div id="audio-control-container" style="display: none;">
+         <span id="song-name"></span>
+         <button id="play-pause-button" class="audio-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
+         <button id="next-song-button" class="audio-button" aria-label="Next Song"><i class="fas fa-forward-step"></i></button>
+         <div id="mute-button" class="audio-button" aria-label="Mute/Unmute">
+              <i class="fas fa-volume-high"></i>
+              <div id="volume-container">
+                   <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.6">
+              </div>
+         </div>
+    </div>
+
+    <!-- Script loading in correct order -->
+    <script src="image_data.js"></script>
+    <script src="background.js"></script>
+    <script src="db-likes.js"></script>
+    <script src="audio.js"></script>
+
+    <!-- Main Application Script -->
+    <script>
+        // --- Configuration ---
+        const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error";
+        const mainPlaceholderUrl = "https://placehold.co/600x400/cccccc/ffffff.png?text=Loading...";
+        const CLICK_EFFECT_DURATION_MS = 400;
+        const HOVER_EFFECT_TIMEOUT_MS = 1000; // 1 second timeout for hover effects
+        const RESOURCE_FOLDER = 'resources';
+        const BLANK_SUFFIX = '-BL-';
+        const SIZE_MAP = ['S', 'M', 'L'];
+        const GALLERY_SIZE_CLASSES = { 0: 'gallery-size-s', 1: 'gallery-size-m', 2: 'gallery-size-l' };
+        const DEFAULT_GALLERY_SIZE_INDEX = 1; // Medium
+        const GALLERY_SIZE_KEY = 'galleryImageSizePref'; // localStorage key
+        const PRELOAD_NEXT_PREV = true; // Preload next and previous images
+
+        // --- Elements ---
+        const pageLoadingOverlay = document.getElementById('page-loading-overlay');
+        const itemGallery = document.getElementById('item-gallery');
+        const tabContainer = document.getElementById('tab-container');
+        const typeFilterSelect = document.getElementById('type-filter');
+        const forteFilterSelect = document.getElementById('forte-filter');
+        const trainerTypeFilterSelect = document.getElementById('trainer-type-filter');
+        const creatorFilterSelect = document.getElementById('creator-filter');
+        const emptyFolderMessage = document.getElementById('empty-folder-message');
+        const gallerySizeSlider = document.getElementById('gallery-size-slider');
+        const gallerySizeDisplay = document.getElementById('gallery-size-display');
+        
+        // --- Fancy Lightbox Elements ---
+        const fancyLightbox = document.getElementById('fancy-lightbox');
+        const fancyLightboxContent = fancyLightbox.querySelector('.fancy-lightbox-content');
+        const fancyLightboxClose = document.getElementById('fancy-lightbox-close');
+        const fancyCardTitle = document.getElementById('card-title');
+        const fancySpinner = document.getElementById('fancy-spinner');
+        const fancyHoloContainer = document.getElementById('fancy-holo-container');
+        const fancyHoloInner = document.getElementById('fancy-holo-inner');
+        const fancyCardImage = document.getElementById('fancy-card-image');
+        const fancyPrevButton = document.getElementById('fancy-prev-button');
+        const fancyNextButton = document.getElementById('fancy-next-button');
+        const fancyNormalView = document.getElementById('fancy-normal-view');
+        const fancyTextlessView = document.getElementById('fancy-textless-view');
+        const fancyZoomIn = document.getElementById('fancy-zoom-in');
+        const fancyZoomOut = document.getElementById('fancy-zoom-out');
+        const fancyZoomReset = document.getElementById('fancy-zoom-reset');
+        
+        // --- Card Info Elements ---
+        const infoCardName = document.getElementById('info-card-name');
+        const infoSetName = document.getElementById('info-set-name');
+        const infoCardNumber = document.getElementById('info-card-number');
+        const infoDexNumber = document.getElementById('info-dex-number');
+        const infoCardType = document.getElementById('info-card-type');
+        const infoTypeBadges = document.getElementById('info-type-badges');
+        const infoForteStatus = document.getElementById('info-forte-status');
+        const infoTrainerTypeContainer = document.getElementById('info-trainer-type-container');
+        const infoTrainerType = document.getElementById('info-trainer-type');
+        const infoCreator = document.getElementById('info-creator');
+        const infoFileName = document.getElementById('info-file-name');
+        const lbLikeButton = document.getElementById('lb-like-button');
+        const lbLikeCount = document.getElementById('lb-like-count');
+
+        // --- State ---
+        let currentSetTab = 'all';
+        let currentImageFiles = []; // Images for lightbox sequence (filtered, non-blank)
+        let currentImageIndex = -1;
+        let focusableElements = [];
+        let currentFocusIndex = 0;
+        let activeHoloTimeout = null;
+        let currentlyDisplayedImages = []; // FULL filtered list (incl. blanks)
+        let currentTypeFilter = 'all';
+        let currentForteFilter = 'all';
+        let currentTrainerTypeFilter = 'all';
+        let currentCreatorFilter = 'all';
+        let baseImageSet = []; // All images for the current SET tab
+        let currentGallerySizeIndex = DEFAULT_GALLERY_SIZE_INDEX;
+        let lastScrollY = 0;
+        let allCreators = new Set();
+        let currentFancyCardImage = null;
+        let fancyHasBlankVersion = false;
+        let fancyBlankVersionPath = '';
+        let fancyNormalVersionPath = '';
+        let fancyActiveHoloTimeout = null;
+        let isZoomed = false;
+        let imageCache = new Map(); // Cache for preloaded images
+        let intersectionObserver; // For lazy loading and in-view effects
+        let backgroundAnimationPaused = false; // Track background animation state
+        let hoverEffectTimeouts = new Map(); // Store timeouts for hover effects by element ID
+
+        // --- Data loaded from image_data.js ---
+        let rootImageStructure = null;
+        let filterConfig = null;
+
+        // --- Cache and Preload Utilities ---
+        /** Preload an image and store in cache */
+        function preloadImage(src) {
+            if (!src || imageCache.has(src)) return Promise.resolve();
+            
+            return new Promise(function(resolve, reject) {
+                const img = new Image();
+                img.onload = function() {
+                    imageCache.set(src, img);
+                    resolve(img);
+                };
+                img.onerror = function() {
+                    console.warn("Failed to preload: " + src);
+                    reject(new Error("Failed to preload: " + src));
+                };
+                img.src = src;
+            });
+        }
+        
+        /** Preload next and previous images */
+        function preloadAdjacentImages() {
+            if (!PRELOAD_NEXT_PREV || !currentImageFiles || currentImageIndex < 0) return;
+            
+            // Preload next image if available
+            if (currentImageIndex < currentImageFiles.length - 1) {
+                const nextImage = currentImageFiles[currentImageIndex + 1];
+                preloadImage(encodeImagePath(nextImage.path))
+                    .catch(function(err) { console.log('Non-critical preload error:', err); });
+            }
+            
+            // Preload previous image if available
+            if (currentImageIndex > 0) {
+                const prevImage = currentImageFiles[currentImageIndex - 1];
+                preloadImage(encodeImagePath(prevImage.path))
+                    .catch(function(err) { console.log('Non-critical preload error:', err); });
+            }
+        }
+
+        // --- Utility Functions ---
+        /** Gets the extension from a filename */
+        function getExtension(filename) {
+            const lastDot = filename.lastIndexOf('.');
+            if (lastDot === -1 || lastDot === 0 || lastDot === filename.length - 1) return ''; // Handle cases like ".bashrc" or "file."
+            return filename.substring(lastDot);
+        }
+
+        /** Recursively collects all image file objects from a node */
+        function getAllImageFilesRecursive(node) {
+            let files = [];
+            if (!node || !node.children) return files;
+            for (let i = 0; i < node.children.length; i++) {
+                const child = node.children[i];
+                if (child.type === 'file') {
+                    if(child.creator && !allCreators.has(child.creator)) {
+                        allCreators.add(child.creator);
+                    }
+                    files.push(child);
+                } else if (child.type === 'folder') {
+                    files = files.concat(getAllImageFilesRecursive(child));
+                }
+            }
+            return files;
+        }
+
+        /** Opens the Fancy Lightbox */
+        function openFancyLightbox(imageObject) {
+            if (!imageObject) { 
+                console.error("Invalid image object passed to openFancyLightbox"); 
+                return; 
+            }
+            
+            // Store current scroll position and current card
+            lastScrollY = window.scrollY;
+            currentFancyCardImage = imageObject;
+            
+            // Set up the navigation sequence (filtered, non-blank images)
+            currentImageFiles = currentlyDisplayedImages.filter(function(img) { 
+                return !img.isBlank; 
+            });
+            
+            currentImageIndex = -1;
+            for (let i = 0; i < currentImageFiles.length; i++) {
+                if (currentImageFiles[i].path === imageObject.path) {
+                    currentImageIndex = i;
+                    break;
+                }
+            }
+            
+            if (currentImageIndex === -1) {
+                console.warn("Fallback: Clicked image not in displayed non-blanks. Using base set for nav.");
+                currentImageFiles = baseImageSet.filter(function(img) { 
+                    return !img.isBlank; 
+                });
+                
+                for (let i = 0; i < currentImageFiles.length; i++) {
+                    if (currentImageFiles[i].path === imageObject.path) {
+                        currentImageIndex = i;
+                        break;
+                    }
+                }
+                
+                if (currentImageIndex === -1) { 
+                    currentImageFiles = [imageObject]; 
+                    currentImageIndex = 0; 
+                }
+            }
+            
+            // Update the card title
+            fancyCardTitle.textContent = imageObject.cardName || "Card Preview";
+            
+            // Update card info panel
+            updateCardInfo(imageObject);
+            
+            // Check for blank version
+            checkBlankVersion(imageObject);
+            
+            // Reset zoom state
+            resetZoom();
+            
+            // Load the image
+            loadFancyCardImage(imageObject.path);
+            
+            // Preload adjacent images
+            preloadAdjacentImages();
+            
+            // Update navigation controls
+            updateFancyNavigation();
+            
+            // Show the lightbox
+            fancyLightbox.classList.add('visible');
+            fancyLightbox.setAttribute('aria-hidden', 'false');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Focus the close button (for accessibility)
+            setTimeout(function() { 
+                fancyLightboxClose.focus(); 
+            }, 100);
+            
+            // Highlight the selected thumbnail in the gallery
+            highlightThumbnail(imageObject.path);
+            
+            // Initialize holo effect
+            applyFancyHoloListeners('#fancy-holo-container');
+            
+            // Pause background animation
+            pauseBackgroundAnimation(true);
+            
+            // Update like button and count in lightbox
+            updateLightboxLikeStatus(imageObject.path);
+        }
+        
+        /** Pause or resume the background animation */
+        function pauseBackgroundAnimation(pause) {
+            backgroundAnimationPaused = pause;
+            // The background.js script will check this variable
+            if (typeof window.setBackgroundPaused === 'function') {
+                window.setBackgroundPaused(pause);
+            }
+        }
+        
+        /** Load an image into the fancy lightbox */
+        function loadFancyCardImage(path) {
+            fancySpinner.classList.remove('hidden');
+            fancyCardImage.classList.add('hidden');
+            fancyHoloInner.classList.remove('holo-active');
+            
+            // Properly encode the image path
+            const encodedPath = encodeImagePath(path);
+            console.log("Loading image: " + encodedPath);
+            
+            // Check if in cache first
+            if (imageCache.has(encodedPath)) {
+                console.log("Loading from cache: " + encodedPath);
+                fancyCardImage.src = encodedPath;
+                fancyCardImage.alt = "Card preview: " + path.split('/').pop();
+                fancySpinner.classList.add('hidden');
+                fancyCardImage.classList.remove('hidden');
+                fancyCardImage.classList.add('loaded');
+                return;
+            }
+            
+            // Set up image load handler
+            fancyCardImage.onload = function() {
+                fancySpinner.classList.add('hidden');
+                fancyCardImage.classList.remove('hidden');
+                fancyCardImage.classList.add('loaded');
+                console.log("Fancy image loaded: " + path);
+                
+                // Store in cache
+                imageCache.set(encodedPath, fancyCardImage.cloneNode(false));
+            };
+            
+            // Set up error handler
+            fancyCardImage.onerror = function() {
+                console.error("Failed to load fancy image: " + path);
+                fancySpinner.classList.add('hidden');
+                fancyCardImage.classList.remove('hidden');
+                fancyCardImage.src = mainPlaceholderUrl;
+                fancyCardImage.alt = "Error loading image";
+            };
+            
+            // Load the image
+            fancyCardImage.src = encodedPath;
+            fancyCardImage.alt = "Card preview: " + path.split('/').pop();
+        }
+        
+        /** Update the card info panel with card details */
+        function updateCardInfo(card) {
+            if (!card) return;
+            
+            // Update basic card info
+            infoCardName.textContent = card.cardName || 'Unknown';
+            infoSetName.textContent = card.setName || 'Unknown Set';
+            infoCardNumber.textContent = card.setNumber || 'N/A';
+            infoDexNumber.textContent = card.dexNumber || 'N/A';
+            infoCardType.textContent = card.cardType || 'Unknown';
+            infoFileName.textContent = card.name || 'Unknown';
+            
+            // Update Forte status with badge if it's a Forte card
+            if (card.isForte) {
+                infoForteStatus.innerHTML = '<div class="forte-badge"><i class="fas fa-crown"></i> Forte</div>';
+            } else {
+                infoForteStatus.textContent = 'No';
+            }
+            
+            // Update creator info
+            infoCreator.textContent = card.creator || 'Unknown';
+            
+            // Show/hide trainer type info based on card type
+            if (card.cardType === 'Trainer' && card.trainerType) {
+                infoTrainerTypeContainer.style.display = 'block';
+                infoTrainerType.textContent = card.trainerType;
+            } else {
+                infoTrainerTypeContainer.style.display = 'none';
+            }
+            
+            // Clear and update type badges
+            infoTypeBadges.innerHTML = '';
+            if (card.types && card.types.length > 0) {
+                for (let i = 0; i < card.types.length; i++) {
+                    const type = card.types[i];
+                    const badge = document.createElement('span');
+                    badge.className = "card-type-badge type-" + type;
+                    badge.innerHTML = '<i class="fas fa-fire-alt"></i> ' + type;
+                    infoTypeBadges.appendChild(badge);
+                }
+            } else if (card.cardType === 'Trainer') {
+                const badge = document.createElement('span');
+                badge.className = 'card-type-badge';
+                badge.innerHTML = '<i class="fas fa-user"></i> Trainer';
+                infoTypeBadges.appendChild(badge);
+            }
+        }
+        
+        /** Check if a blank version of the card exists */
+        function checkBlankVersion(card) {
+            if (!card) return;
+            
+            const ext = getExtension(card.name);
+            const baseFilename = card.name.replace(BLANK_SUFFIX + ext, '').replace(ext, '');
+            const potentialBlankPath = card.path.replace(card.name, baseFilename + BLANK_SUFFIX + ext);
+            const potentialNormalPath = card.path.replace(card.name, baseFilename + ext);
+            
+            // Check if this is a blank version by looking for -BL- in the name
+            const isBlank = card.name.indexOf(BLANK_SUFFIX) !== -1;
+            
+            if (isBlank) {
+                fancyNormalVersionPath = potentialNormalPath;
+                fancyBlankVersionPath = card.path;
+            } else {
+                fancyNormalVersionPath = card.path;
+                fancyBlankVersionPath = potentialBlankPath;
+            }
+            
+            // Look for a matching card with the same name but blank/normal version
+            const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
+            
+            let matchingCard = null;
+            for (let i = 0; i < allImagesFull.length; i++) {
+                const img = allImagesFull[i];
+                if ((isBlank && img.path === potentialNormalPath) || 
+                    (!isBlank && img.path === potentialBlankPath)) {
+                    matchingCard = img;
+                    break;
+                }
+            }
+            
+            fancyHasBlankVersion = !!matchingCard;
+            
+            // Enable/disable textless button
+            fancyTextlessView.disabled = !fancyHasBlankVersion;
+            
+            // Set active button based on current view
+            fancyNormalView.classList.toggle('active', !isBlank);
+            fancyTextlessView.classList.toggle('active', isBlank);
+        }
+        
+        /** Update fancy lightbox navigation controls */
+        function updateFancyNavigation() {
+            fancyPrevButton.disabled = currentImageIndex <= 0;
+            fancyNextButton.disabled = currentImageIndex >= currentImageFiles.length - 1;
+        }
+        
+        /** Navigate to the previous image */
+        function showPreviousCard() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                const prevImage = currentImageFiles[currentImageIndex];
+                loadFancyCardImage(prevImage.path);
+                updateCardInfo(prevImage);
+                checkBlankVersion(prevImage);
+                updateFancyNavigation();
+                highlightThumbnail(prevImage.path);
+                resetZoom();
+                
+                // Update like button and count in lightbox
+                updateLightboxLikeStatus(prevImage.path);
+                
+                // Preload adjacent images
+                preloadAdjacentImages();
+            }
+        }
+        
+        /** Navigate to the next image */
+        function showNextCard() {
+            if (currentImageIndex < currentImageFiles.length - 1) {
+                currentImageIndex++;
+                const nextImage = currentImageFiles[currentImageIndex];
+                loadFancyCardImage(nextImage.path);
+                updateCardInfo(nextImage);
+                checkBlankVersion(nextImage);
+                updateFancyNavigation();
+                highlightThumbnail(nextImage.path);
+                resetZoom();
+                
+                // Update like button and count in lightbox
+                updateLightboxLikeStatus(nextImage.path);
+                
+                // Preload adjacent images
+                preloadAdjacentImages();
+            }
+        }
+        
+        /** Switch between normal and textless views */
+        function switchCardView(view) {
+            if (!fancyHasBlankVersion) return;
+            
+            if (view === 'normal' && fancyNormalVersionPath) {
+                loadFancyCardImage(fancyNormalVersionPath);
+                fancyNormalView.classList.add('active');
+                fancyTextlessView.classList.remove('active');
+            } else if (view === 'textless' && fancyBlankVersionPath) {
+                loadFancyCardImage(fancyBlankVersionPath);
+                fancyTextlessView.classList.add('active');
+                fancyNormalView.classList.remove('active');
+            }
+        }
+        
+        /** Close the fancy lightbox */
+        function closeFancyLightbox() {
+            fancyLightbox.classList.remove('visible');
+            fancyLightbox.setAttribute('aria-hidden', 'true');
+            
+            // Reset state
+            resetFancyHoloEffect();
+            resetZoom();
+            document.body.style.overflow = '';
+            
+            // Resume background animation
+            pauseBackgroundAnimation(false);
+            
+            // Restore scroll position
+            window.scrollTo({ top: lastScrollY, behavior: 'instant' });
+            
+            // Find and focus the thumbnail that was clicked
+            const focusedImageObject = currentImageFiles[currentImageIndex];
+            const opener = focusedImageObject ? 
+                itemGallery.querySelector(".thumbnail[data-path='" + focusedImageObject.path + "']") : 
+                null;
+                
+            unhighlightAllThumbnails();
+            
+            // Focus back on the thumbnail
+            setTimeout(function() {
+                if (opener) { 
+                    opener.focus({ preventScroll: true }); 
+                } else if (focusableElements.length > 0) { 
+                    focusableElements[0].focus({ preventScroll: true }); 
+                }
+            }, 10);
+        }
+        
+        /** Zoom operations */
+        function zoomIn() {
+            fancyHoloInner.classList.remove('zoom-out');
+            fancyHoloInner.classList.add('zoom-in');
+            fancyHoloContainer.classList.add('zoomed');
+            isZoomed = true;
+        }
+        
+        function zoomOut() {
+            fancyHoloInner.classList.remove('zoom-in');
+            fancyHoloInner.classList.add('zoom-out');
+            isZoomed = true;
+        }
+        
+        function resetZoom() {
+            fancyHoloInner.classList.remove('zoom-in', 'zoom-out');
+            fancyHoloContainer.classList.remove('zoomed');
+            isZoomed = false;
+        }
+
+        /** Highlights the thumbnail */
+        function highlightThumbnail(imagePath) {
+            unhighlightAllThumbnails();
+            const thumbContainer = itemGallery.querySelector(".thumbnail[data-path='" + imagePath + "']");
+            if (thumbContainer) { 
+                thumbContainer.classList.add('selected-inline'); 
+            }
+        }
+        
+        /** Removes highlight from all thumbnails */
+        function unhighlightAllThumbnails() { 
+            const selectedThumbnails = itemGallery.querySelectorAll('.thumbnail.selected-inline');
+            for (let i = 0; i < selectedThumbnails.length; i++) {
+                selectedThumbnails[i].classList.remove('selected-inline');
+            }
+        }
+        
+        /** Properly encode image paths to handle special characters */
+        function encodeImagePath(path) {
+            if (!path) return '';
+            
+            // Split the path by segments and encode each part separately
+            // Keep the directory separators intact
+            const segments = path.split('/');
+            const encodedSegments = [];
+            for (let i = 0; i < segments.length; i++) {
+                encodedSegments.push(encodeURIComponent(segments[i]));
+            }
+            return encodedSegments.join('/');
+        }
+
+        /** Set up intersection observer for lazy loading and in-view effects */
+        function setupIntersectionObserver() {
+            if ('IntersectionObserver' in window) {
+                intersectionObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        const thumbnail = entry.target;
+                        
+                        // Apply or remove the 'in-view' class
+                        if (entry.isIntersecting) {
+                            thumbnail.classList.add('in-view');
+                            
+                            // Force load image if it's in view
+                            const img = thumbnail.querySelector('img');
+                            if (img && !img.classList.contains('loaded') && img.dataset.src) {
+                                img.src = img.dataset.src;
+                                delete img.dataset.src;
+                            }
+                        } else {
+                            thumbnail.classList.remove('in-view');
+                            resetHoloEffect(thumbnail, true);
+                        }
+                    });
+                }, {
+                    root: null, // viewport
+                    rootMargin: '100px', // load a bit before they come into view
+                    threshold: 0.1 // trigger when 10% visible
+                });
+            }
+        }
+
+        /** Update like status in the lightbox */
+        function updateLightboxLikeStatus(imagePath) {
+            if (!lbLikeButton || !lbLikeCount) return;
+            
+            // Get the like count and status for this card
+            const likeData = window.getLikeData ? window.getLikeData(imagePath) : { count: 0, liked: false };
+            lbLikeCount.textContent = likeData.count;
+            
+            // Update button style
+            if (likeData.liked) {
+                lbLikeButton.classList.add('liked');
+                const iconElement = lbLikeButton.querySelector('i');
+                if (iconElement) {
+                    iconElement.classList.remove('far');
+                    iconElement.classList.add('fas');
+                }
+            } else {
+                lbLikeButton.classList.remove('liked');
+                const iconElement = lbLikeButton.querySelector('i');
+                if (iconElement) {
+                    iconElement.classList.remove('fas');
+                    iconElement.classList.add('far');
+                }
+            }
+            
+            // Add click handler
+            lbLikeButton.onclick = function() {
+                if (window.toggleLike) {
+                    window.toggleLike(imagePath);
+                    updateLightboxLikeStatus(imagePath);
+                    updateAllThumbnailLikes();
+                }
+            };
+        }
+
+        /** Renders the gallery based on a list of image file objects */
+        function renderGalleryView(imagesToDisplay) {
+            console.log("[renderGalleryView] Rendering gallery with " + (imagesToDisplay ? imagesToDisplay.length : 0) + " images.");
+            
+            // Disconnect observer from old elements
+            if (intersectionObserver) {
+                intersectionObserver.disconnect();
+            }
+            
+            itemGallery.innerHTML = '';
+            focusableElements = [];
+            currentlyDisplayedImages = imagesToDisplay || []; // Full list for this view
+
+            // Filter out blanks for initial gallery display
+            const nonBlankImagesToDisplay = currentlyDisplayedImages.filter(function(img) {
+                return !img.isBlank;
+            });
+            
+            currentImageFiles = nonBlankImagesToDisplay; // Set lightbox sequence to non-blanks
+
+            let hasContent = nonBlankImagesToDisplay.length > 0;
+
+            console.log("[renderGalleryView] Displaying " + nonBlankImagesToDisplay.length + " non-blank images.");
+
+            for (let i = 0; i < nonBlankImagesToDisplay.length; i++) {
+                const image = nonBlankImagesToDisplay[i];
+                const thumbnailContainer = document.createElement('div');
+                thumbnailContainer.className = 'thumbnail';
+                thumbnailContainer.setAttribute('tabindex', '0'); 
+                thumbnailContainer.setAttribute('role', 'button');
+                thumbnailContainer.dataset.path = image.path;
+                thumbnailContainer.dataset.object = JSON.stringify(image);
+                thumbnailContainer.setAttribute('aria-label', "Image: " + image.name);
+                thumbnailContainer.id = 'thumbnail-' + i; // Unique ID for hover timeouts
+
+                const img = document.createElement('img');
+                
+                // Lazy loading - store path in data-src
+                const encodedPath = encodeImagePath(image.path);
+                img.dataset.src = encodedPath;
+                img.alt = "Thumbnail " + image.name;
+                img.className = 'w-full h-auto block pointer-events-none';
+                
+                // Image load handling
+                img.onload = function() {
+                    img.classList.add('loaded');
+                    if (img.naturalWidth && img.naturalHeight) {
+                        const aspectRatio = img.naturalWidth / img.naturalHeight;
+                        const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
+                        thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio);
+                        thumbnailContainer.style.borderRadius = (5 * borderRadiusMultiplier) + "% / " + (3.5 / borderRadiusMultiplier) + "%";
+                    } else { 
+                        thumbnailContainer.style.borderRadius = (5 * 0.75) + "% / " + (3.5 / 0.75) + "%"; 
+                    }
+                };
+                
+                img.onerror = function() {
+                    console.error("Failed to load image: " + image.path + ", Encoded as: " + encodedPath);
+                    const container = this.closest('.thumbnail');
+                    if (container) {
+                        container.innerHTML = '<div class="flex items-center justify-center bg-gray-600 aspect-video text-gray-400 rounded-md"><i class="fas fa-image fa-lg" title="Error loading ' + image.name + '"></i></div>';
+                        container.style.cursor = 'not-allowed';
+                        container.removeAttribute('tabindex'); 
+                        container.removeAttribute('role');
+                        container.removeAttribute('data-path'); 
+                        container.style.pointerEvents = 'none';
+                        console.warn("Thumbnail failed to load: " + image.path);
+                        focusableElements = Array.from(itemGallery.querySelectorAll('.thumbnail[tabindex="0"]'));
+                    }
+                };
+
+                const activateThumbnail = function(eventSourceElement) {
+                    const internalImg = eventSourceElement.querySelector('img');
+                    const imgDataStr = eventSourceElement.dataset.object;
+                    if (internalImg && !eventSourceElement.querySelector('.bg-gray-600') && 
+                        !eventSourceElement.classList.contains('holo-click-active') && imgDataStr) {
+                        
+                        eventSourceElement.classList.add('holo-click-active');
+                        resetHoloEffect(eventSourceElement, false);
+                        
+                        setTimeout(function() {
+                            eventSourceElement.classList.remove('holo-click-active');
+                            openFancyLightbox(JSON.parse(imgDataStr));
+                        }, CLICK_EFFECT_DURATION_MS);
+                    }
+                };
+                
+                thumbnailContainer.addEventListener('click', function() { 
+                    activateThumbnail(thumbnailContainer); 
+                });
+                
+                thumbnailContainer.addEventListener('keydown', function(e) { 
+                    if (e.key === 'Enter' || e.key === ' ') { 
+                        e.preventDefault(); 
+                        activateThumbnail(thumbnailContainer); 
+                    } 
+                });
+
+                // Add like container to thumbnail
+                const likeData = window.getLikeData ? window.getLikeData(image.path) : { count: 0, liked: false };
+                const likeContainer = document.createElement('div');
+                likeContainer.className = 'thumbnail-like-container';
+                likeContainer.innerHTML = 
+                    '<span class="thumbnail-like-count">' + likeData.count + '</span>' +
+                    '<button class="thumbnail-like-button" aria-label="Like this card">' +
+                    '<i class="' + (likeData.liked ? 'fas' : 'far') + ' fa-heart"></i>' +
+                    '</button>';
+                
+                // Like button click handler
+                const likeButton = likeContainer.querySelector('.thumbnail-like-button');
+                likeButton.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent opening the lightbox
+                    if (window.toggleLike) {
+                        window.toggleLike(image.path);
+                        updateAllThumbnailLikes();
+                        // If the lightbox is open and showing this card, update it too
+                        if (fancyLightbox.classList.contains('visible') && 
+                            currentFancyCardImage && 
+                            currentFancyCardImage.path === image.path) {
+                            updateLightboxLikeStatus(image.path);
+                        }
+                    }
+                });
+
+                thumbnailContainer.appendChild(img);
+                thumbnailContainer.appendChild(likeContainer);
+                itemGallery.appendChild(thumbnailContainer);
+                focusableElements.push(thumbnailContainer);
+                
+                // Observe this thumbnail for intersection
+                if (intersectionObserver) {
+                    intersectionObserver.observe(thumbnailContainer);
+                }
+            }
+
+            emptyFolderMessage.classList.toggle('hidden', hasContent);
+            currentFocusIndex = 0;
+            
+            // Initial load for visible thumbnails
+            if (!intersectionObserver) {
+                // No IntersectionObserver support, load all visible images immediately
+                const thumbnails = itemGallery.querySelectorAll('.thumbnail');
+                for (let i = 0; i < thumbnails.length; i++) {
+                    const thumbnail = thumbnails[i];
+                    thumbnail.classList.add('in-view');
+                    const img = thumbnail.querySelector('img');
+                    if (img && img.dataset.src) {
+                        img.src = img.dataset.src;
+                        delete img.dataset.src;
+                    }
+                }
+            }
+        }
+
+        /** Update all thumbnail like counters and icons */
+        function updateAllThumbnailLikes() {
+            const thumbnails = itemGallery.querySelectorAll('.thumbnail');
+            for (let i = 0; i < thumbnails.length; i++) {
+                const thumbnail = thumbnails[i];
+                const path = thumbnail.dataset.path;
+                if (!path) continue;
+                
+                const likeContainer = thumbnail.querySelector('.thumbnail-like-container');
+                if (!likeContainer) continue;
+                
+                const likeCount = likeContainer.querySelector('.thumbnail-like-count');
+                const likeButton = likeContainer.querySelector('.thumbnail-like-button i');
+                
+                const likeData = window.getLikeData ? window.getLikeData(path) : { count: 0, liked: false };
+                if (likeCount) likeCount.textContent = likeData.count;
+                
+                if (likeButton) {
+                    if (likeData.liked) {
+                        likeButton.classList.remove('far');
+                        likeButton.classList.add('fas');
+                    } else {
+                        likeButton.classList.remove('fas');
+                        likeButton.classList.add('far');
+                    }
+                }
+            }
+        }
+
+        /** Applies current filters and triggers rendering */
+        function applyFiltersAndRender() {
+            console.log("[applyFiltersAndRender] Applying filters: Type='" + currentTypeFilter + 
+                        "', Forte='" + currentForteFilter + 
+                        "', Trainer='" + currentTrainerTypeFilter + 
+                        "', Creator='" + currentCreatorFilter + "'");
+            console.log("[applyFiltersAndRender] Base image set size (for current tab): " + baseImageSet.length);
+            
+            let filteredImages = [].concat(baseImageSet); // Create a copy
+
+            if (currentTypeFilter !== 'all') { 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.cardType === currentTypeFilter; 
+                }); 
+            }
+            
+            if (currentForteFilter === 'yes') { 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.isForte === true; 
+                }); 
+            } else if (currentForteFilter === 'no') { 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.isForte === false; 
+                }); 
+            }
+            
+            if (currentTrainerTypeFilter !== 'all' && (currentTypeFilter === 'Trainer' || currentTypeFilter === 'all')) { 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.trainerType === currentTrainerTypeFilter; 
+                }); 
+            }
+            
+            if (currentCreatorFilter !== 'all') { 
+                filteredImages = filteredImages.filter(function(img) { 
+                    return img.creator === currentCreatorFilter; 
+                }); 
+            }
+
+            currentlyDisplayedImages = filteredImages; // Store the FULL filtered list (includes blanks)
+            console.log("[applyFiltersAndRender] Total filtered images (incl. blanks): " + currentlyDisplayedImages.length);
+
+            renderGalleryView(currentlyDisplayedImages); // Render ALL filtered images
+        }
+
+        /** Populates filter dropdowns */
+        function populateFilters() {
+            if (!filterConfig || !typeFilterSelect || !trainerTypeFilterSelect || !creatorFilterSelect || !forteFilterSelect) {
+                console.error("[populateFilters] Cannot populate: Missing config or select elements."); 
+                return;
+            }
+            
+            console.log("[populateFilters] Config:", filterConfig);
+
+            // Type Filter
+            while (typeFilterSelect.options.length > 1) { typeFilterSelect.remove(1); }
+            if (filterConfig.typeOrder) {
+                for (let i = 0; i < filterConfig.typeOrder.length; i++) {
+                    const type = filterConfig.typeOrder[i];
+                    const option = document.createElement('option'); 
+                    option.value = type; 
+                    option.textContent = type; 
+                    typeFilterSelect.appendChild(option); 
+                }
+            }
+
+            // Trainer Type Filter
+            while (trainerTypeFilterSelect.options.length > 1) { trainerTypeFilterSelect.remove(1); }
+            if (filterConfig.trainerTypeOrder) {
+                for (let i = 0; i < filterConfig.trainerTypeOrder.length; i++) {
+                    const type = filterConfig.trainerTypeOrder[i];
+                    const option = document.createElement('option'); 
+                    option.value = type; 
+                    option.textContent = type; 
+                    trainerTypeFilterSelect.appendChild(option); 
+                }
+            }
+
+            // Creator Filter
+            while (creatorFilterSelect.options.length > 1) { creatorFilterSelect.remove(1); }
+            const sortedCreators = Array.from(allCreators).sort();
+            console.log("[populateFilters] Found creators:", sortedCreators);
+            for (let i = 0; i < sortedCreators.length; i++) {
+                const creator = sortedCreators[i];
+                if (creator) { 
+                    const option = document.createElement('option'); 
+                    option.value = creator; 
+                    option.textContent = creator; 
+                    creatorFilterSelect.appendChild(option); 
+                }
+            }
+        }
+
+        /** Renders the navigation tabs based on Sets */
+        function renderTabs() {
+            if (!tabContainer || !rootImageStructure || !filterConfig || !filterConfig.setOrder || !filterConfig.setColors) {
+                console.error("[renderTabs] Missing elements or config.");
+                const label = tabContainer.querySelector('h2'); 
+                tabContainer.innerHTML = ''; 
+                if (label) tabContainer.appendChild(label); 
+                return;
+            }
+            
+            const label = tabContainer.querySelector('h2'); 
+            tabContainer.innerHTML = ''; 
+            if (label) tabContainer.appendChild(label);
+
+            const allImagesForSets = getAllImageFilesRecursive(rootImageStructure);
+            
+            // Get unique set names
+            const availableSetNames = new Set();
+            for (let i = 0; i < allImagesForSets.length; i++) {
+                const setName = allImagesForSets[i].setName;
+                if (setName) availableSetNames.add(setName);
+            }
+            
+            console.log("[renderTabs] Available set names:", Array.from(availableSetNames));
+
+            // --- Create "All" tab ---
+            const allTab = document.createElement('button');
+            allTab.className = 'tab active'; 
+            allTab.dataset.setName = 'all';
+            const allColor = filterConfig.setColors['all'] || filterConfig.setColors['default'] || '#6B7280';
+            allTab.style.setProperty('--tab-active-border-color', allColor);
+            allTab.style.setProperty('--tab-active-bg-color', hexToRgba(allColor, 0.3));
+            allTab.style.setProperty('--tab-active-text-color', lightenHexColor(allColor, 0.8));
+            const allTextSpan = document.createElement('span'); 
+            allTextSpan.textContent = 'All'; 
+            allTab.appendChild(allTextSpan);
+            tabContainer.appendChild(allTab);
+
+            // --- Create Tabs based on setOrder ---
+            for (let i = 0; i < filterConfig.setOrder.length; i++) {
+                const setName = filterConfig.setOrder[i];
+                if (availableSetNames.has(setName) || setName === "Other") {
+                    const setTab = document.createElement('button');
+                    setTab.className = 'tab'; 
+                    setTab.dataset.setName = setName;
+                    const tabColor = filterConfig.setColors[setName] || filterConfig.setColors['default'] || '#6B7280';
+                    setTab.style.setProperty('--tab-active-border-color', tabColor);
+                    setTab.style.setProperty('--tab-active-bg-color', hexToRgba(tabColor, 0.3));
+                    setTab.style.setProperty('--tab-active-text-color', lightenHexColor(tabColor, 0.8));
+                    const textSpan = document.createElement('span'); 
+                    textSpan.textContent = setName; 
+                    setTab.appendChild(textSpan);
+                    tabContainer.appendChild(setTab);
+                } else { 
+                    console.log("[renderTabs] Skipping tab for set \"" + setName + "\" as no images found."); 
+                }
+            }
+
+            // --- Add event listener ---
+            if (!tabContainer.dataset.listenerAttached) {
+                tabContainer.addEventListener('click', function(e) {
+                    const clickedTab = e.target.closest('.tab');
+                    if (clickedTab && !clickedTab.classList.contains('active')) {
+                        const setName = clickedTab.dataset.setName;
+                        const tabs = tabContainer.querySelectorAll('.tab');
+                        for (let i = 0; i < tabs.length; i++) {
+                            tabs[i].classList.remove('active');
+                        }
+                        clickedTab.classList.add('active');
+                        currentSetTab = setName;
+
+                        const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
+                        if (setName === 'all') {
+                            baseImageSet = allImagesFull.filter(function(img) { 
+                                return img.setName !== "Misc"; 
+                            }); // Exclude MISC
+                        } else {
+                            baseImageSet = allImagesFull.filter(function(img) { 
+                                return img.setName === setName; 
+                            });
+                        }
+                        console.log("[Tab Click] Set base set to '" + setName + "':", baseImageSet.length);
+                        applyFiltersAndRender();
+                    }
+                });
+                tabContainer.dataset.listenerAttached = 'true';
+            }
+        }
+
+        /** Displays an error message */
+        function displayError(message) {
+            itemGallery.innerHTML = '<p class="text-red-500 col-span-full p-4 bg-red-100 border border-red-400 rounded">' + message + '</p>';
+            emptyFolderMessage.classList.add('hidden');
+        }
+        
+        /** Handles keyboard navigation within the gallery */
+        function handleGalleryKeyDown(e) {
+            if (focusableElements.length === 0 || fancyLightbox.classList.contains('visible')) return;
+            const gridElement = document.getElementById('item-gallery');
+            const gridStyle = window.getComputedStyle(gridElement);
+            const gridColsText = gridStyle.getPropertyValue('grid-template-columns');
+            const gridCols = gridColsText.split(' ').length;
+            
+            let nextFocusIndex = currentFocusIndex;
+            switch (e.key) {
+                case 'ArrowRight': nextFocusIndex = (currentFocusIndex + 1) % focusableElements.length; break;
+                case 'ArrowLeft': nextFocusIndex = (currentFocusIndex - 1 + focusableElements.length) % focusableElements.length; break;
+                case 'ArrowDown': nextFocusIndex = Math.min(currentFocusIndex + gridCols, focusableElements.length - 1); break;
+                case 'ArrowUp': nextFocusIndex = Math.max(currentFocusIndex - gridCols, 0); break;
+                case 'Home': nextFocusIndex = 0; break;
+                case 'End': nextFocusIndex = focusableElements.length - 1; break;
+                default: return;
+            }
+            if (nextFocusIndex !== currentFocusIndex && nextFocusIndex < focusableElements.length) {
+                e.preventDefault();
+                currentFocusIndex = nextFocusIndex;
+                if(focusableElements[currentFocusIndex]) { 
+                    focusableElements[currentFocusIndex].focus(); 
+                }
+            }
+        }
+        
+        /** Handles keyboard events when the lightbox is open */
+        function handleFancyLightboxKeyDown(e) {
+            if (!fancyLightbox.classList.contains('visible')) return;
+            
+            switch (e.key) {
+                case 'Escape':
+                    closeFancyLightbox();
+                    break;
+                case 'ArrowLeft':
+                    if (!fancyPrevButton.disabled) showPreviousCard();
+                    break;
+                case 'ArrowRight':
+                    if (!fancyNextButton.disabled) showNextCard();
+                    break;
+                case '+':
+                case '=':
+                    zoomIn();
+                    break;
+                case '-':
+                case '_':
+                    zoomOut();
+                    break;
+                case '0':
+                    resetZoom();
+                    break;
+                case ' ':
+                    // Toggle textless if available
+                    if (!fancyTextlessView.disabled) {
+                        if (fancyNormalView.classList.contains('active')) {
+                            switchCardView('textless');
+                        } else {
+                            switchCardView('normal');
+                        }
+                    }
+                    break;
+            }
+        }
+
+        // --- Thumbnail Holo Effect Logic ---
+        function applyHoloListeners(containerSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
+            container.addEventListener('pointermove', handleHoloMove);
+            container.addEventListener('pointerleave', handleHoloEnd);
+        }
+        
+        function handleHoloMove(e) {
+            if (e.pointerType === 'touch') return;
+            const target = e.target.closest('.thumbnail');
+            if (!target || !target.classList.contains('in-view') || 
+                target.classList.contains('holo-click-active') || 
+                target.querySelector('.bg-gray-600')) {
+                return;
+            }
+            
+            const rect = target.getBoundingClientRect(); 
+            const clientX = e.clientX;
+            const clientY = e.clientY;
+            
+            const offsetX = clientX - rect.left; 
+            const offsetY = clientY - rect.top;
+            const w = target.offsetWidth; 
+            const h = target.offsetHeight;
+            
+            if (w === 0 || h === 0) return;
+            
+            const px = Math.abs(Math.floor(100 / w * offsetX) - 100); 
+            const py = Math.abs(Math.floor(100 / h * offsetY) - 100);
+            const pa = (50 - px) + (50 - py);
+            const lp = (50 + (px - 50) / 1.5); 
+            const tp = (50 + (py - 50) / 1.5);
+            const px_spark = (50 + (px - 50) / 7); 
+            const py_spark = (50 + (py - 50) / 7);
+            const p_opc = Math.min(Math.max(20 + (Math.abs(pa) * 1.5), 20), 90);
+            
+            target.classList.add('holo-active');
+            target.style.setProperty('--thumb-gradient-pos-x', lp + "%"); 
+            target.style.setProperty('--thumb-gradient-pos-y', tp + "%");
+            target.style.setProperty('--thumb-sparkle-pos-x', px_spark + "%"); 
+            target.style.setProperty('--thumb-sparkle-pos-y', py_spark + "%");
+            target.style.setProperty('--thumb-sparkle-opacity', p_opc / 100);
+            
+            // Clear any existing timeout for this element
+            clearHoverEffectTimeout(target.id);
+            
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+            setHoverEffectTimeout(target.id, function() {
+                resetHoloEffect(target);
+            }, HOVER_EFFECT_TIMEOUT_MS);
+        }
+        
+        function clearHoverEffectTimeout(elementId) {
+            if (hoverEffectTimeouts.has(elementId)) {
+                clearTimeout(hoverEffectTimeouts.get(elementId));
+                hoverEffectTimeouts.delete(elementId);
+            }
+        }
+        
+        function setHoverEffectTimeout(elementId, callback, timeout) {
+            const timeoutId = setTimeout(callback, timeout);
+            hoverEffectTimeouts.set(elementId, timeoutId);
+        }
+        
+        function handleHoloEnd(e) {
+            const target = e.target.closest('.thumbnail');
+            if (target && target.classList.contains('in-view') && 
+                target.classList.contains('holo-active') && 
+                !target.classList.contains('holo-click-active')) {
+                
+                resetHoloEffect(target);
+            }
+        }
+        
+        function resetHoloEffect(element, resetTransform = true) {
+            if (!element) return;
+            
+            element.classList.remove('holo-active');
+            if (resetTransform && !element.classList.contains('holo-click-active')) { 
+                element.style.transform = 'scale(1)'; 
+            }
+            element.style.removeProperty('--thumb-gradient-pos-x'); 
+            element.style.removeProperty('--thumb-gradient-pos-y');
+            element.style.removeProperty('--thumb-sparkle-pos-x'); 
+            element.style.removeProperty('--thumb-sparkle-pos-y');
+            element.style.removeProperty('--thumb-sparkle-opacity');
+            
+            // Clear any pending timeouts
+            if (element.id) {
+                clearHoverEffectTimeout(element.id);
+            }
+        }
+        
+        // --- Fancy Lightbox Holo Effect Logic ---
+        function applyFancyHoloListeners(containerSelector) {
+            const container = document.querySelector(containerSelector);
+            if (!container) return;
+            container.addEventListener('pointermove', handleFancyHoloMove);
+            container.addEventListener('pointerleave', handleFancyHoloEnd);
+        }
+        
+        function handleFancyHoloMove(e) {
+            if (e.pointerType === 'touch' || isZoomed) return;
+            
+            const container = fancyHoloContainer;
+            const target = fancyHoloInner;
+            if (!container || !target) return;
+            
+            const rect = container.getBoundingClientRect();
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+            
+            // Calculate relative position within container
+            const relativeX = clientX - rect.left;
+            const relativeY = clientY - rect.top;
+            
+            // Calculate percentage position (0-100) for both axes
+            const percentX = (relativeX / rect.width) * 100;
+            const percentY = (relativeY / rect.height) * 100;
+            
+            // Calculate rotation degrees based on mouse position
+            // Map from 0-100% to -20 to 20 degrees for subtle effect
+            const rotateY = ((percentX / 100) - 0.5) * 20;
+            const rotateX = (((percentY / 100) - 0.5) * -20);
+            
+            // Calculate normalized values for effects
+            const normX = percentX / 100;
+            const normY = percentY / 100;
+            
+            // Calculate gradient positions (shift slightly from mouse)
+            const gradientX = 50 + ((percentX - 50) / 1.5);
+            const gradientY = 50 + ((percentY - 50) / 1.5);
+            
+            // Calculate sparkle effect positions (subtler movement)
+            const sparkleX = 50 + ((percentX - 50) / 5);
+            const sparkleY = 50 + ((percentY - 50) / 5);
+            
+            // Calculate opacity based on distance from center (more intense at edges)
+            const distFromCenter = Math.sqrt(Math.pow((normX - 0.5) * 2, 2) + Math.pow((normY - 0.5) * 2, 2));
+            const sparkleOpacity = Math.min(0.3 + distFromCenter * 0.7, 0.9);
+            
+            // Apply the effects
+            target.classList.add('holo-active');
+            target.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+            
+            // Set CSS variables for gradient and sparkle effect positions
+            target.style.setProperty('--lb-gradient-pos-x', gradientX + "%");
+            target.style.setProperty('--lb-gradient-pos-y', gradientY + "%");
+            target.style.setProperty('--lb-sparkle-pos-x', sparkleX + "%");
+            target.style.setProperty('--lb-sparkle-pos-y', sparkleY + "%");
+            target.style.setProperty('--lb-sparkle-opacity', sparkleOpacity);
+            
+            clearTimeout(fancyActiveHoloTimeout);
+            
+            // Set timeout to fade effect after HOVER_EFFECT_TIMEOUT_MS
+            fancyActiveHoloTimeout = setTimeout(function() {
+                resetFancyHoloEffect();
+            }, HOVER_EFFECT_TIMEOUT_MS);
+        }
+        
+        function handleFancyHoloEnd(e) {
+            if (isZoomed) return;
+            
+            const target = fancyHoloInner;
+            if (!target) return;
+            
+            const relatedTarget = e.relatedTarget;
+            if (relatedTarget && fancyHoloContainer.contains(relatedTarget)) {
+                return; // Still within container, don't reset
+            }
+            
+            resetFancyHoloEffect();
+        }
+        
+        function resetFancyHoloEffect() {
+            const target = fancyHoloInner;
+            if (!target) return;
+            
+            target.classList.remove('holo-active');
+            
+            // Only reset transform if not zoomed
+            if (!isZoomed) {
+                target.style.transform = '';
+            }
+            
+            // Remove CSS variables
+            target.style.removeProperty('--lb-gradient-pos-x');
+            target.style.removeProperty('--lb-gradient-pos-y');
+            target.style.removeProperty('--lb-sparkle-pos-x');
+            target.style.removeProperty('--lb-sparkle-pos-y');
+            target.style.removeProperty('--lb-sparkle-opacity');
+            
+            // Clear any pending timeouts
+            clearTimeout(fancyActiveHoloTimeout);
+        }
+
+        // --- Helper Functions for Color Manipulation ---
+        function hexToRgba(hex, alpha) {
+            if (alpha === undefined) alpha = 1;
+            
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            const bigint = parseInt(hex, 16);
+            if (isNaN(bigint)) return "rgba(107, 114, 128, " + alpha + ")";
+            const r = (bigint >> 16) & 255; 
+            const g = (bigint >> 8) & 255; 
+            const b = bigint & 255;
+            return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+        }
+        
+        function lightenHexColor(hex, percent) {
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            const num = parseInt(hex, 16); 
+            if (isNaN(num)) return '#FFFFFF';
+            const amt = Math.max(-255, Math.min(255, Math.round(2.55 * percent * 100)));
+            let r = (num >> 16) + amt; 
+            let g = ((num >> 8) & 0x00FF) + amt; 
+            let b = (num & 0x0000FF) + amt;
+            r = Math.max(0, Math.min(255, r)); 
+            g = Math.max(0, Math.min(255, g)); 
+            b = Math.max(0, Math.min(255, b));
+            const originalLuminance = (0.2126*((num>>16)/255) + 0.7152*(((num>>8)&0x00FF)/255) + 0.0722*((num&0x0000FF)/255));
+            if (originalLuminance < 0.4 && percent > 0) { 
+                const minLightness = 180; 
+                r=Math.max(r,minLightness); 
+                g=Math.max(g,minLightness); 
+                b=Math.max(b,minLightness);
+            }
+            return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+        }
+
+        /** Applies the selected gallery size class */
+        function applyGallerySize(sizeIndex) {
+            if (!itemGallery || sizeIndex === undefined || sizeIndex === null) return;
+            const validIndex = Math.max(0, Math.min(sizeIndex, Object.keys(GALLERY_SIZE_CLASSES).length - 1));
+            
+            // Remove all size classes
+            for (let i = 0; i < Object.values(GALLERY_SIZE_CLASSES).length; i++) {
+                itemGallery.classList.remove(Object.values(GALLERY_SIZE_CLASSES)[i]);
+            }
+            
+            // Add the active size class
+            itemGallery.classList.add(GALLERY_SIZE_CLASSES[validIndex]);
+            
+            console.log("[applyGallerySize] Applied class: " + GALLERY_SIZE_CLASSES[validIndex]);
+            if (gallerySizeDisplay) {
+                gallerySizeDisplay.textContent = SIZE_MAP[validIndex] || SIZE_MAP[DEFAULT_GALLERY_SIZE_INDEX];
+            }
+        }
+
+        /** Check if element is in viewport */
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= -100 &&
+                rect.left >= -100 &&
+                rect.bottom <= (window.innerHeight + 100) &&
+                rect.right <= (window.innerWidth + 100)
+            );
+        }
+        
+        /** Ensure the loading overlay is hidden even if there's an error */
+        function ensurePageLoaded() {
+            if (pageLoadingOverlay) {
+                pageLoadingOverlay.classList.add('loaded');
+            }
+            console.log("Forced page loading complete");
+        }
+
+        // --- Initialization ---
+        function initApp() {
+            console.log("[Init] DOM Loaded. Checking for imageData...");
+            
+            // Set a fallback timeout to ensure the page loads even if there's an error
+            setTimeout(ensurePageLoaded, 5000);
+            
+            // Set up intersection observer for lazy loading
+            setupIntersectionObserver();
+            
+            try {
+                // First check for data loaded from image_data.js
+                if (typeof imageData === 'undefined' || 
+                    !imageData.imageStructure || 
+                    !imageData.filterConfig) {
+                    console.error("[Init] ERROR: 'imageData' object is missing or invalid in image_data.js.");
+                    displayError("Configuration Error! Please ensure 'image_data.js' is generated correctly with the variable name 'imageData' containing 'imageStructure' and 'filterConfig' keys.");
+                    
+                    const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i]) elements[i].disabled = true;
+                    }
+                    
+                    ensurePageLoaded();
+                    return;
+                }
+                
+                console.log("[Init] imageData found:", imageData);
+                rootImageStructure = imageData.imageStructure;
+                filterConfig = imageData.filterConfig;
+
+                // Validate further
+                if (!rootImageStructure.path || !filterConfig.setOrder) {
+                    console.error("[Init] ERROR: Loaded data structure or config is incomplete.");
+                    displayError("Configuration Error! Data loaded from image_data.js is incomplete.");
+                    
+                    const elements = [typeFilterSelect, forteFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, gallerySizeSlider];
+                    for (let i = 0; i < elements.length; i++) {
+                        if (elements[i]) elements[i].disabled = true;
+                    }
+                    
+                    ensurePageLoaded();
+                    return;
+                }
+
+                baseImageSet = getAllImageFilesRecursive(rootImageStructure);
+                populateFilters();
+                renderTabs();
+
+                // --- Size Slider Initialization ---
+                const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
+                gallerySizeSlider.value = savedGallerySize; 
+                applyGallerySize(parseInt(savedGallerySize, 10));
+
+                // --- Size Slider Event Listeners ---
+                gallerySizeSlider.addEventListener('input', function(e) { 
+                    const v = parseInt(e.target.value, 10); 
+                    applyGallerySize(v); 
+                    localStorage.setItem(GALLERY_SIZE_KEY, v.toString()); 
+                });
+
+                // Initial Render based on 'All' tab (excluding MISC)
+                baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(function(img) { 
+                    return img.setName !== "Misc"; 
+                });
+                
+                console.log("[Init] Initial base image set size (excluding MISC):", baseImageSet.length);
+                applyFiltersAndRender();
+
+                // --- Event Listeners ---
+                // Filter dropdowns
+                typeFilterSelect.addEventListener('change', function(e) { 
+                    currentTypeFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                forteFilterSelect.addEventListener('change', function(e) { 
+                    currentForteFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                trainerTypeFilterSelect.addEventListener('change', function(e) { 
+                    currentTrainerTypeFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                creatorFilterSelect.addEventListener('change', function(e) { 
+                    currentCreatorFilter = e.target.value; 
+                    applyFiltersAndRender(); 
+                });
+                
+                // Fancy lightbox controls
+                fancyLightboxClose.addEventListener('click', closeFancyLightbox);
+                fancyPrevButton.addEventListener('click', showPreviousCard);
+                fancyNextButton.addEventListener('click', showNextCard);
+                fancyNormalView.addEventListener('click', function() { switchCardView('normal'); });
+                fancyTextlessView.addEventListener('click', function() { switchCardView('textless'); });
+                fancyZoomIn.addEventListener('click', zoomIn);
+                fancyZoomOut.addEventListener('click', zoomOut);
+                fancyZoomReset.addEventListener('click', resetZoom);
+                
+                // Dragging interactions for card
+                let isDragging = false;
+                let dragStartX = 0;
+                let dragStartY = 0;
+                let rotateX = 0;
+                let rotateY = 0;
+                
+                fancyHoloContainer.addEventListener('mousedown', function(e) {
+                    if (isZoomed) return;
+                    isDragging = true;
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+                    fancyHoloContainer.style.cursor = 'grabbing';
+                    e.preventDefault();
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (!isDragging) return;
+                    
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+                    
+                    // Scale the rotation (smaller values for subtler effect)
+                    rotateY = deltaX * 0.1;
+                    rotateX = -deltaY * 0.1;
+                    
+                    // Apply rotation directly
+                    fancyHoloInner.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    if (isDragging) {
+                        isDragging = false;
+                        fancyHoloContainer.style.cursor = 'grab';
+                        
+                        // Smoothly reset to center if not zoomed
+                        if (!isZoomed) {
+                            fancyHoloInner.style.transition = 'transform 0.5s ease-out';
+                            fancyHoloInner.style.transform = '';
+                            setTimeout(function() {
+                                fancyHoloInner.style.transition = '';
+                            }, 500);
+                        }
+                    }
+                });
+                
+                // Double-click to zoom
+                fancyHoloContainer.addEventListener('dblclick', function() {
+                    if (isZoomed) {
+                        resetZoom();
+                    } else {
+                        zoomIn();
+                    }
+                });
+                
+                // Keydown listeners for gallery and lightbox
+                document.addEventListener('keydown', function(e) {
+                    if (fancyLightbox.classList.contains('visible')) {
+                        handleFancyLightboxKeyDown(e);
+                    } else {
+                        // Only handle gallery keys if focus is in the gallery
+                        const activeElement = document.activeElement;
+                        if (activeElement && (
+                            itemGallery.contains(activeElement) || 
+                            tabContainer.contains(activeElement)
+                        )) {
+                            handleGalleryKeyDown(e);
+                        }
+                    }
+                });
+                
+                // Apply holo effects
+                applyHoloListeners('#item-gallery');
+                
+                // Trigger lazy loading for initial viewport
+                if (intersectionObserver) {
+                    const initialThumbnails = itemGallery.querySelectorAll('.thumbnail');
+                    for (let i = 0; i < initialThumbnails.length; i++) {
+                        const thumbnail = initialThumbnails[i];
+                        if (isElementInViewport(thumbnail)) {
+                            thumbnail.classList.add('in-view');
+                            const img = thumbnail.querySelector('img');
+                            if (img && img.dataset.src) {
+                                img.src = img.dataset.src;
+                                delete img.dataset.src;
+                            }
+                        }
+                    }
+                }
+                
+                // Hide loading overlay when everything is ready
+                ensurePageLoaded();
+                
+            } catch (error) {
+                console.error("[Init] Critical error during initialization:", error);
+                displayError("An error occurred during initialization. Please reload the page.");
+                ensurePageLoaded();
+            }
+        }
+
+        // Start the application when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>

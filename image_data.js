@@ -249,15 +249,18 @@ const imageData = {
             "setCode": "_01b_",
             "setName": "Ancient Awakenings",
             "setNumber": "023",
-            "cardName": "#0101    Hisuian Electrode    E    01b",
+            "cardName": "#0101    Hisuian Electrode      01b",
             "isForte": true,
-            "types": [],
+            "types": [
+              "Lightning"
+            ],
             "isTrainer": false,
             "trainerType": null,
             "creator": "Avalan",
             "isBlank": false,
             "isNumbered": true,
-            "cardRarity": null
+            "cardRarity": null,
+            "cardType": "Pokemon"
           },
           {
             "name": "#0359 _01a_046_ -Absol -_F_ -D- #0359 _01a_ -BL- @Ultima.png",
@@ -795,7 +798,7 @@ const imageData = {
       "-G-": "Grass",
       "-F-": "Fire",
       "-W-": "Water",
-      "-L-": "Lightning",
+      "-E-": "Lightning",
       "-Ft-": "Fighting",
       "-P-": "Psychic",
       "-N-": "Colorless",

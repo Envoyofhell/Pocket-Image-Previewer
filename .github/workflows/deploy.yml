@@ -1,0 +1,52 @@
+name: Deploy Forte Card Previewer
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Build Image Data
+        run: npm run build:images
+      
+      - name: Build CSS
+        run: npm run build:css
+      
+      - name: Build for Production
+        run: npm run build
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
+
+  # Optional: Cloudflare Pages deployment
+  # Uncomment if using Cloudflare Pages
+  # deploy_to_cloudflare:
+  #   runs-on: ubuntu-latest
+  #   needs: build_and_deploy
+  #   steps:
+  #     - name: Deploy to Cloudflare Pages
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #         command: pages publish ./dist --project-name=forte-card-previewer
