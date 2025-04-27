@@ -12,10 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pirata+One&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/mobile.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="assets/css/mobile.css"> <link rel="stylesheet" href="assets/css/custom.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     </head>
 <body class="font-sans"> <div id="page-loading-overlay" class="page-loading-overlay">
@@ -33,9 +30,7 @@
                     <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo" onerror="this.style.display='none';" loading="lazy">
                 </div>
                 <h1 class="title-glow font-pirata">Card Previewer</h1> </div>
-            <div class="controls-area">
-                <div class="filter-size-row">
-                    <div id="filter-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4">
+            <div class="controls-area"> <div class="filter-size-row"> <div id="filter-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4">
                         <h2 class="controls-label hidden md:block">Filters:</h2>
                         <div>
                             <label for="type-filter" class="filter-label">Type:</label>
@@ -63,23 +58,19 @@
                                 <option value="all">All Creators</option>
                             </select>
                         </div>
-                   </div>
-                   <div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4" style="display: none;">
-                       <h2 class="controls-label hidden md:block">Sizes:</h2>
-                       <div class="size-control-group">
-                           <label for="gallery-size-slider" class="size-label">Gallery:</label>
-                           <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider">
-                           <span id="gallery-size-display" class="size-display">M</span>
-                       </div>
-                   </div>
-                </div>
-                <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-end w-full">
+                    </div><div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4" style="display: none;"> <h2 class="controls-label hidden md:block">Sizes:</h2>
+                        <div class="size-control-group">
+                            <label for="gallery-size-slider" class="size-label">Gallery:</label>
+                            <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider">
+                            <span id="gallery-size-display" class="size-display">M</span>
+                        </div>
+                    </div><div id="access-controls" class="flex items-center gap-x-3 ml-auto pl-4"> <button id="submission-button" class="access-button" title="Submit a Card">
+                            <i class="fas fa-upload"></i> </button>
+                        </div>
+                    </div> <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-end w-full">
                     <h2 class="controls-label hidden md:block">Set:</h2>
                     </div>
-            </div>
-        </div>
-
-        <div class="gallery-section border-t border-[var(--color-border)] pt-4 mt-4"> <div id="item-gallery" class="grid gap-4 items-start" role="grid"> </div>
+            </div> </div> <div class="gallery-section border-t border-[var(--color-border)] pt-4 mt-4"> <div id="item-gallery" class="grid gap-4 items-start" role="grid"> </div>
             <p id="empty-folder-message" class="text-center mt-4 hidden">More Cards for the set In progress. Check Back Soon!</p>
         </div>
 
@@ -99,7 +90,7 @@
                 <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer">
                     <i class="fas fa-times"></i>
                 </button>
-            </div>
+                </div>
             <div class="fancy-lightbox-body">
                 <div class="fancy-card-info">
                     <div class="info-section">
@@ -164,7 +155,6 @@
              </div>
          </div>
     </div>
-
     <script src="js/preview.js" defer></script>   
     <script src="image_data.js"></script>
      <script src="js/background.js"></script> 
@@ -184,7 +174,7 @@
         const GALLERY_SIZE_KEY = 'galleryImageSizePref'; // localStorage key for size preference
         const PRELOAD_NEXT_PREV = true; // Preload next/prev images in lightbox viewer?
         const INITIAL_PRELOAD_COUNT = 24; // <<< OPTIMIZATION: Number of initial gallery images to preload on page load
-
+        const submissionButton = document.getElementById('submission-button');
         // --- Elements ---
         const pageLoadingOverlay = document.getElementById('page-loading-overlay');
         const loadingTextElement = document.getElementById('loading-text'); // Element to show loading progress text
@@ -1656,6 +1646,7 @@ document.addEventListener('forteSettingChanged', (event) => {
     </script>
     <script src="js/legendpopup.js" defer></script>     
     <script src="js/settings.js" defer></script>
+    <script src="js/submissions.js" defer></script>
     <script src="js/effects.js" defer></script>   
     <script src="js/card-view.js" defer></script>   
 
