@@ -1,0 +1,119 @@
+/* custom.css - Additional styles for preview mode and enhanced card view */
+
+/* --- Preview Mode Styles --- */
+/* Unlock Button */
+.access-button {
+    background-color: rgba(107, 114, 128, 0.3);
+    color: var(--color-text-secondary, #ccc);
+    border: 1px solid var(--color-border, #555);
+    border-radius: 50%;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-left: 0.5rem;
+}
+
+.access-button:hover {
+    background-color: rgba(107, 114, 128, 0.5);
+    color: var(--color-text-primary, #fff);
+    border-color: var(--color-accent, #facc15);
+}
+
+.access-button.unlocked {
+    background-color: rgba(22, 163, 74, 0.3); /* Green background when unlocked */
+    color: var(--color-accent, #4ade80);
+    border-color: var(--color-accent, #4ade80);
+}
+
+.access-button.unlocked:hover {
+    background-color: rgba(22, 163, 74, 0.5);
+}
+
+/* Coming Soon Tabs */
+.tab-coming-soon {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: rgba(55, 65, 81, 0.2) !important;
+    border-color: rgba(75, 85, 99, 0.5) !important;
+}
+
+.tab-coming-soon:hover {
+    background-color: rgba(55, 65, 81, 0.3) !important;
+    transform: none !important;
+}
+
+/* --- Enhanced Card View Styles --- */
+/* Action Buttons */
+.fancy-card-actions {
+    position: absolute;
+    right: 1rem;
+    bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.fancy-action-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fancy-action-button:hover {
+    background-color: rgba(90, 8, 102, 0.8);
+    transform: scale(1.1);
+}
+
+.fancy-action-button:active {
+    transform: scale(0.95);
+}
+
+.fancy-action-button.success {
+    background-color: rgba(22, 163, 74, 0.8);
+}
+
+.fancy-action-button.error {
+    background-color: rgba(220, 38, 38, 0.8);
+}
+
+/* Adjust card controls spacing to accommodate new buttons */
+.fancy-card-controls {
+    margin-top: 1rem;
+}
+
+/* Make font-awesome icons more consistent */
+.fancy-action-button i,
+.access-button i {
+    line-height: 1;
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .fancy-card-actions {
+        bottom: 3.5rem;
+        right: 0.5rem;
+    }
+    
+    .fancy-action-button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.85rem;
+    }
+}
