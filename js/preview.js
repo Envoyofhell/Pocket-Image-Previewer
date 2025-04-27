@@ -7,7 +7,7 @@
     console.log("[DebugPreview] Starting debug mode for preview filtering...");
     
     // --- Configuration ---
-    const PREVIEW_PASSWORD = "forte";
+    const PREVIEW_PASSWORD = "ForteArrivals";
     const PREVIEW_STORAGE_KEY = 'fortePreviewUnlocked';
     const ALLOWED_PROMOS_PREVIEW = ["001", "002"];
     const UNBOUND_SET_NAME = "Other";  // Internal setName for Unbound cards
