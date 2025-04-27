@@ -39,7 +39,18 @@
     --click-effect-duration: 0.4s;
     --holo-fade-out-duration: 0.8s;
 }
+/* --- Hide Like System (Temporary) --- */
+.thumbnail-like-container,
+#lb-like-count,
+#lb-like-button {
+    display: none !important; /* Hide the like container on thumbnails and the like elements in the lightbox */
+}
 
+/* Optional: Adjust spacing in lightbox info if needed */
+.info-item:has(#lb-like-button) {
+     margin-bottom: 0; /* Remove bottom margin if the like item was the last one */
+     /* Or adjust padding if needed */
+}
 /* --- Base Styles & Font Imports --- */
 @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 
