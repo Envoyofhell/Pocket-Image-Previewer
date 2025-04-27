@@ -100,16 +100,75 @@ function parseFilenameAdvanced(filename) {
     }
 
     // 6. Set Code (_xx_) and Set Number (_xxx_ or ....)
-    const setMatch = remainingFilename.match(/(_[A-Za-z0-9]{1,3}b?_)(?:(\d{3})|(\.{3,}))_/);
-    if (setMatch) {
-        parsed.setCode = setMatch[1];
-        parsed.setName = SET_MAP[parsed.setCode] || "Other"; // Default to "Other" if code not in map
-        if (setMatch[2]) { parsed.setNumber = setMatch[2]; parsed.isNumbered = true; }
-        else if (setMatch[3]) { parsed.setNumber = '...'; parsed.isNumbered = false; }
+    // --- REVISED LOGIC (Removed .toUpperCase) ---
+    let setCodeFound = false; // Flag to track if we found any set code
+
+    if (parsed.isTrainer) {
+        // --- Trainer Logic ---
+        // Use a simpler regex looking just for the set code pattern (_XXX_)
+        const trainerSetRegex = /(_[A-Za-z0-9]{1,3}b?_)/; // Matches _CODE_ (e.g., _01a_, _Pr_)
+        const trainerSetMatch = remainingFilename.match(trainerSetRegex);
+
+        if (trainerSetMatch && trainerSetMatch[1]) {
+            parsed.setCode = trainerSetMatch[1]; // Capture the code exactly as it is (e.g., _01a_)
+
+            // *** Perform lookup using the exact captured code ***
+            // Assumes the case in the filename (_01a_) matches the key in setMap ("_01a_")
+            parsed.setName = SET_MAP[parsed.setCode] || "Other";
+
+            // For trainers parsed this way, assume not numbered according to the strict format
+            parsed.setNumber = null;
+            parsed.isNumbered = false;
+            setCodeFound = true;
+        }
+
     } else {
-        parsed.setName = "Other"; // Assign to "Other" if no set code pattern found
-        parsed.isNumbered = false; // Assume not numbered if no set code found
+        // --- Non-Trainer (e.g., Pokemon) Logic ---
+        // Use the original, stricter regex that requires the number/dots part
+        const pokemonSetRegex = /(_[A-Za-z0-9]{1,3}b?_)(?:(\d{3})|(\.{3,}))_/;
+        const pokemonSetMatch = remainingFilename.match(pokemonSetRegex);
+
+        if (pokemonSetMatch) {
+            parsed.setCode = pokemonSetMatch[1]; // Capture the code exactly as it is (e.g., _01b_)
+
+            // *** Perform lookup using the exact captured code ***
+            // Assumes the case in the filename (_01b_) matches the key in setMap ("_01b_")
+            parsed.setName = SET_MAP[parsed.setCode] || "Other";
+
+            // --- Number Parsing Logic (remains the same) ---
+            if (pokemonSetMatch[2]) { // Matched digits (\d{3})
+                parsed.setNumber = pokemonSetMatch[2];
+                parsed.isNumbered = true;
+            } else if (pokemonSetMatch[3]) { // Matched dots (\.{3,})
+                parsed.setNumber = '...';
+                parsed.isNumbered = false;
+            } else {
+                 // This case shouldn't be hit if pokemonSetMatch is truthy, but safety first
+                parsed.setNumber = null;
+                parsed.isNumbered = false;
+            }
+            // --- End Number Parsing ---
+            setCodeFound = true;
+        }
     }
+
+    // --- Fallback if NO set code pattern was matched by either method ---
+    if (!setCodeFound) {
+        parsed.setCode = null; // Good practice to nullify if not found
+        parsed.setName = "Other";
+        parsed.setNumber = null;
+        parsed.isNumbered = false;
+    }
+    // --- END REVISED LOGIC ---
+
+    // --- Fallback if NO set code pattern was matched by either method ---
+    if (!setCodeFound) {
+        parsed.setCode = null; // Good practice to nullify if not found
+        parsed.setName = "Other";
+        parsed.setNumber = null;
+        parsed.isNumbered = false;
+    }
+    // --- END MODIFIED LOGIC ---
 
     // 7. Pokemon Types (-T-)
     if (!parsed.isTrainer) {

@@ -33,9 +33,9 @@
     --image-aspect-ratio: 0.75; /* Default aspect ratio */
 
     /* Animation Timings */
-    --animation-speed-slow: 0.5s;
-    --animation-speed-normal: 0.3s;
-    --animation-speed-fast: 0.2s;
+    --animation-speed-slow: 0.8s;
+    --animation-speed-normal: 0.5s;
+    --animation-speed-fast: 0.3s;
     --click-effect-duration: 0.4s;
     --holo-fade-out-duration: 0.8s;
 }
@@ -293,23 +293,50 @@ h1.title-glow {
 /* --- REMOVED Mobile Grid @media queries from here --- */
 /* --- They are now in mobile.css --- */
 
+/* Gallery Size classes */
+.gallery-size-s { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+.gallery-size-m { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.gallery-size-l { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+
 .thumbnail {
-    position: relative; overflow: hidden; cursor: pointer; outline: none;
-    background-color: rgba(15, 23, 42, 0.7); border: 1px solid var(--color-secondary);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--color-secondary);
     border-radius: calc(var(--image-aspect-ratio, 0.75) * 5% / 3.5%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
-    transform-style: preserve-3d; will-change: transform, filter, box-shadow;
-    isolation: isolate; touch-action: manipulation; min-height: 50px;
+    transform-style: preserve-3d;
+    isolation: isolate;
+    touch-action: manipulation;
+    min-height: 50px;
     transition: transform var(--animation-speed-fast) ease, box-shadow var(--animation-speed-fast) ease;
+
+    /* *** Optimization: Hint browser about expected changes *** */
+    will-change: transform, box-shadow, opacity;
+
+    /* *** Optimization: CSS Containment (Experimental) *** */
+    /* Helps browser isolate rendering. Use 'strict' or 'content' if layout/style issues arise */
+    contain: layout style;
 }
 .thumbnail img {
-    width: 100%; height: auto; display: block; border-radius: inherit;
-    position: relative; z-index: 2; opacity: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: inherit;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
     transition: opacity var(--animation-speed-normal) ease-in-out;
+    /* *** Optimization: Add will-change to image opacity *** */
+    will-change: opacity;
 }
-.thumbnail img.loaded { opacity: 1; }
+.thumbnail img.loaded {
+    opacity: 1;
+}
 
-/* Focus and selection styles */
+/* Focus and selection styles (Keep as is) */
 .thumbnail:focus {
     box-shadow: 0 0 0 3px var(--color-focus), 0 5px 10px rgba(0, 0, 0, 0.1);
     border-color: var(--color-focus-border);
@@ -319,72 +346,72 @@ h1.title-glow {
     border-color: var(--color-error);
 }
 
-/* --- Thumbnail Holo/Glitter Effect --- */
+/* --- Thumbnail Holo/Glitter Effect (Optimized) --- */
 .thumbnail::before, .thumbnail::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; top: 0;
-    background-repeat: no-repeat; mix-blend-mode: color-dodge;
-    pointer-events: none; border-radius: inherit; z-index: 3; opacity: 0;
-    transition: opacity var(--holo-fade-out-duration) ease-out, background-position 0.05s linear, filter var(--animation-speed-fast) ease-out;
+    content: "";
+    position: absolute;
+    inset: 0; /* Replaces left/right/bottom/top: 0 */
+    background-repeat: no-repeat;
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 3;
+    opacity: 0;
+    /* Optimize transitions: only transition properties that change */
+    transition: opacity var(--holo-fade-out-duration) ease-out, background-position 0.05s linear;
+    /* *** Optimization: Hint browser about opacity change *** */
+    will-change: opacity;
 }
 .thumbnail::before { /* Gradient */
     background-position: var(--thumb-gradient-pos-x, 50%) var(--thumb-gradient-pos-y, 50%);
     background-size: 250% 250%;
     background-image: linear-gradient(115deg, transparent 20%, var(--holo-color1) 45%, var(--holo-color2) 55%, transparent 80%);
-    filter: brightness(.9) contrast(1.1);
+    /* Removed filter for potential performance gain, adjust if visual difference is too large */
+    /* filter: brightness(.9) contrast(1.1); */
 }
 .thumbnail::after { /* Sparkle */
     opacity: var(--thumb-sparkle-opacity, 0);
     background-image: url("https://assets.codepen.io/13471/sparkles.gif"), linear-gradient(125deg, #ff008415 15%, #fca40015 30%, #ffff0010 40%, #00ff8a08 60%, #00cfff15 70%, #cc4cfa20 85%);
     background-position: var(--thumb-sparkle-pos-x, 50%) var(--thumb-sparkle-pos-y, 50%);
-    background-size: 180%; background-blend-mode: overlay;
-    filter: brightness(1.1) contrast(1.1);
+    background-size: 180%;
+    background-blend-mode: overlay;
+    /* Removed filter for potential performance gain */
+    /* filter: brightness(1.1) contrast(1.1); */
 }
-/* Active Holo State */
+
+/* Active Holo State (Optimized) */
 .thumbnail.in-view.holo-active {
-    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    /* Use faster transition duration variable */
+    transition: transform var(--holo-fade-in-duration) ease-out, box-shadow var(--holo-fade-in-duration) ease-out;
     transform: perspective(900px) rotateX(calc( (var(--thumb-gradient-pos-y, 50) - 50) * -0.1deg )) rotateY(calc( (var(--thumb-gradient-pos-x, 50) - 50) * 0.1deg )) scale(1.03);
-    box-shadow: -10px -10px 15px -10px var(--holo-color1), 10px 10px 15px -10px var(--holo-color2), 0 0 8px 2px rgba(255,255,255,0.2), 0 35px 25px -15px rgba(0, 0, 0, 0.6);
+    /* *** Optimization: Slightly simplified box-shadow *** */
+    box-shadow:
+        -8px -8px 12px -8px var(--holo-color1), /* Reduced offsets/spread */
+        8px 8px 12px -8px var(--holo-color2),
+        0 0 6px 1px rgba(255,255,255,0.15), /* Reduced alpha/size */
+        0 25px 20px -15px rgba(0, 0, 0, 0.5); /* Reduced spread */
 }
 .thumbnail.in-view.holo-active::before,
 .thumbnail.in-view.holo-active::after {
-    transition-duration: 0.1s; /* Faster fade IN */
-    transition-property: opacity, background-position, filter;
+    /* Transition only opacity and background-position on hover */
+    transition: opacity var(--holo-fade-in-duration) ease-out, background-position 0.05s linear;
 }
-.thumbnail.in-view.holo-active::before { opacity: 0.6; }
-.thumbnail.in-view.holo-active::after { opacity: var(--thumb-sparkle-opacity, 0.75); }
+.thumbnail.in-view.holo-active::before { opacity: 0.6; } /* Keep opacity */
+.thumbnail.in-view.holo-active::after { opacity: var(--thumb-sparkle-opacity, 0.75); } /* Keep opacity */
 
-/* Click Effect State */
+/* Click Effect State (Keep as is, less frequent than hover) */
 .thumbnail.holo-click-active {
     transition: transform var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow var(--click-effect-duration) cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: scale(1.05) !important;
     box-shadow: -15px -15px 25px -15px var(--holo-color1), 15px 15px 25px -15px var(--holo-color2), 0 0 15px 5px rgba(255,255,255,0.4), 0 45px 30px -20px rgba(0, 0, 0, 0.7);
 }
 .thumbnail.holo-click-active::before {
-    opacity: 0.9 !important; background-position: 50% 50% !important; filter: brightness(1) contrast(1.5);
-    transition: opacity calc(var(--click-effect-duration) * 0.8) ease-out, filter calc(var(--click-effect-duration) * 0.8) ease-out;
+    opacity: 0.9 !important; background-position: 50% 50% !important; /* Removed filter */
+    transition: opacity calc(var(--click-effect-duration) * 0.8) ease-out;
 }
 .thumbnail.holo-click-active::after {
-    opacity: 1 !important; background-position: 50% 50% !important; filter: brightness(1.3) contrast(1.3);
-    transition: opacity calc(var(--click-effect-duration) * 0.8) ease-out, filter calc(var(--click-effect-duration) * 0.8) ease-out;
-}
-
-/* --- Thumbnail Like Button --- */
-.thumbnail-like-container {
-    position: absolute; bottom: 8px; right: 8px; display: flex; align-items: center;
-    background: rgba(0, 0, 0, 0.6); padding: 2px 8px; border-radius: 12px;
-    color: white; z-index: 5;
-}
-.thumbnail-like-count { font-size: 0.8rem; margin-right: 4px; }
-.thumbnail-like-button {
-    background: none; border: none; color: var(--color-error);
-    cursor: pointer; padding: 2px; transition: transform var(--animation-speed-fast) ease;
-    line-height: 1; font-size: 0.9rem;
-}
-.thumbnail-like-button:hover { transform: scale(1.2); }
-.thumbnail-like-button.liked i { font-weight: 900; animation: heartBeat 0.5s; }
-@keyframes heartBeat {
-    0% { transform: scale(1); } 14% { transform: scale(1.3); } 28% { transform: scale(1); }
-    42% { transform: scale(1.3); } 70% { transform: scale(1); }
+    opacity: 1 !important; background-position: 50% 50% !important; /* Removed filter */
+    transition: opacity calc(var(--click-effect-duration) * 0.8) ease-out;
 }
 
 /* --- Page Loading Overlay --- */
