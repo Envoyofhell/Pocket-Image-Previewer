@@ -23,7 +23,7 @@
         const html = `
             <div class="header-content">
                 <div class="brand-area">
-                    <h1 class="title-glow">Forte Card Viewer</h1>
+                    <h1 class="title-glow">Forte Card Catalog</h1>
                     ${versionBadgeHTML}
                 </div>
                 <div class="search-container">
