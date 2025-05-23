@@ -1,46 +1,58 @@
-/* mobile.css - Specific grid layouts for mobile devices */
+/* mobile.css - Specific grid layouts for gallery on mobile devices */
 
 /* --- Mobile Portrait (Default Mobile View) --- */
 /* Targets devices primarily in portrait mode (height > width) */
 /* and typically smaller screens (max-width: 767px is common for phones) */
 @media screen and (max-width: 767px) and (orientation: portrait) {
-    #item-gallery {
-        /* 3 columns for portrait mobile */
+    #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) {
+        /* Default to 3 columns for portrait mobile if slider not used */
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0.75rem; /* Slightly smaller gap for smaller screens */
     }
+    /* If slider IS used, these will apply based on the class */
+    #item-gallery.gallery-size-s { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+    #item-gallery.gallery-size-m { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+    #item-gallery.gallery-size-l { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 }
 
 /* --- Mobile Landscape --- */
 /* Targets devices primarily in landscape mode (width > height) */
-/* and typically smaller screens (max-height: 767px is a common way to target phones/small tablets in landscape) */
+/* and typically smaller screens (max-height: 767px is common for phones/small tablets in landscape) */
 @media screen and (max-height: 767px) and (orientation: landscape) {
-    #item-gallery {
-        /* 5 columns for landscape mobile */
+     #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) {
+        /* Default to 5 columns for landscape mobile if slider not used */
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 0.75rem; /* Slightly smaller gap */
+        gap: 0.75rem;
     }
+    /* If slider IS used */
+    #item-gallery.gallery-size-s { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.5rem;}
+    #item-gallery.gallery-size-m { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.75rem;}
+    #item-gallery.gallery-size-l { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem;}
 }
 
 /* --- Tablet Portrait (Optional - Example) --- */
-/* You might want slightly different columns for tablets */
 @media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-     #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) { /* Only apply if slider hasn't been used */
-        /* Example: 4 columns for tablet portrait */
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+     #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* Default for tablet portrait */
     }
+    /* Slider overrides for tablet portrait */
+    #item-gallery.gallery-size-s { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    #item-gallery.gallery-size-m { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    #item-gallery.gallery-size-l { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* --- Tablet Landscape (Optional - Example) --- */
 @media screen and (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
-     #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) { /* Only apply if slider hasn't been used */
-        /* Example: 6 columns for tablet landscape */
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+     #item-gallery:not(.gallery-size-s):not(.gallery-size-m):not(.gallery-size-l) {
+        grid-template-columns: repeat(6, minmax(0, 1fr)); /* Default for tablet landscape */
     }
+    /* Slider overrides for tablet landscape */
+    #item-gallery.gallery-size-s { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    #item-gallery.gallery-size-m { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    #item-gallery.gallery-size-l { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* IMPORTANT: The gallery size slider classes (.gallery-size-s/m/l) in theme.css */
-/* will override these mobile defaults when the slider is used, which is intended. */
-/* If you want these mobile styles to ALWAYS override the slider on mobile, */
-/* you would need to add !important or increase specificity, but that's usually not desired. */
-
+/* Note: The .gallery-size-s/m/l classes are applied by JS from theme.css or index.html.
+    The :not() selectors above ensure these mobile defaults apply when the slider hasn't been touched yet.
+    Once a slider class is applied, it will take precedence for the gallery grid.
+*/

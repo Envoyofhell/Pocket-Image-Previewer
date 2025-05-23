@@ -1,28 +1,31 @@
 // js/submissions.js
-// Handles card submission button functionality independently.
+// Handles the "Submit Card" button functionality.
 
 (function() {
     'use strict';
 
     // --- Configuration ---
-    // --- IMPORTANT: Replace this URL with your actual Google Script link ---
-    const SUBMISSION_URL = "https://script.google.com/macros/s/AKfycbwpbkeExZf3fOPRJjnOG6ynC4E77ZS_45PkdHnk4Xgn2SECjv3rggZyFlFtOf4poqJB/exec";
+    // IMPORTANT: Replace this URL with your *actual deployed Google Apps Script web app URL*
+    // This URL is for the Forte Card Submission Portal (Index.html served by your Apps Script).
+    const SUBMISSION_PORTAL_URL = "YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE"; 
+    // Example: "[https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec](https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec)";
     // --------------------------------------------------------------------
-    const SUBMISSION_BUTTON_ID = 'submission-button';
+    
+    const SUBMISSION_BUTTON_ID = 'submission-button'; // ID of the button in index.html
 
     /**
-     * Opens the configured card submission link in a new browser tab.
+     * Opens the configured card submission portal link in a new browser tab.
      */
-    function openSubmissionLink() {
-        if (!SUBMISSION_URL || SUBMISSION_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-            console.warn("[Submissions] Submission URL is not configured in js/submissions.js.");
-            alert("Card submission link is not configured yet."); // User feedback
+    function openSubmissionPortal() {
+        if (!SUBMISSION_PORTAL_URL || SUBMISSION_PORTAL_URL === "YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE") {
+            console.warn("[Submissions] Submission Portal URL is not configured in js/submissions.js. Please update it with your deployed Apps Script web app URL.");
+            alert("The Card Submission Portal link is not configured yet. Please contact the site administrator.");
             return;
         }
 
-        console.log("[Submissions] Opening submission link:", SUBMISSION_URL);
+        console.log("[Submissions] Opening submission portal link:", SUBMISSION_PORTAL_URL);
         // Open the URL in a new tab securely
-        window.open(SUBMISSION_URL, '_blank', 'noopener,noreferrer');
+        window.open(SUBMISSION_PORTAL_URL, '_blank', 'noopener,noreferrer');
     }
 
     /**
@@ -33,9 +36,9 @@
 
         if (submissionButton) {
             console.log("[Submissions] Submission button found. Attaching listener.");
-            submissionButton.addEventListener('click', openSubmissionLink);
+            submissionButton.addEventListener('click', openSubmissionPortal);
         } else {
-            console.warn(`[Submissions] Button with ID "${SUBMISSION_BUTTON_ID}" not found. Submission feature inactive.`);
+            console.warn(`[Submissions] Button with ID "${SUBMISSION_BUTTON_ID}" not found in the HTML. Submission feature will be inactive.`);
         }
     }
 
@@ -48,4 +51,4 @@
         initializeSubmissionButton();
     }
 
-})(); // End of IIFE scope
+})();

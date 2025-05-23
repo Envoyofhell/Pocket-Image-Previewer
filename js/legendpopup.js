@@ -1,34 +1,33 @@
-// legend_popup.js
 
-(function() { // Use an IIFE (Immediately Invoked Function Expression) to avoid polluting the global scope
+// legend_popup.js
+// Provides a popup explaining controls and data sources for the Forte Card Previewer.
+
+(function() {
     'use strict';
 
-    // --- Hoopa Theme Colors ---
+    // --- Theme Colors (Hoopa Theme) ---
     const hoopaColors = {
-        background: '#3E325A', // Dark Purple/Grey base
-        contentBg: '#4C3D6E', // Slightly lighter purple for content
-        border: '#E85E9A', // Pink accent for borders
-        title: '#FDD835', // Yellow for title/highlights
-        textPrimary: '#F0F0F0', // Light grey/white text
+        background: '#3E325A',    // Dark Purple/Grey base
+        contentBg: '#4C3D6E',    // Slightly lighter purple for content
+        border: '#E85E9A',      // Pink accent for borders
+        title: '#FDD835',       // Yellow for title/highlights
+        textPrimary: '#F0F0F0',   // Light grey/white text
         textSecondary: '#A090C0', // Lighter purple/grey text
-        kbdBg: '#31264A', // Darker purple for kbd
+        kbdBg: '#31264A',        // Darker purple for kbd
         kbdBorder: '#5C4A7E',
-        overlayBg: 'rgba(40, 30, 60, 0.75)', // Semi-transparent purple overlay
+        overlayBg: 'rgba(40, 30, 60, 0.85)', // Semi-transparent purple overlay
         closeHover: '#FFFFFF'
     };
 
-    /** --- CSS Injection ---
-     * Dynamically creates and injects CSS rules for the popup into the <head>.
-     */
     function injectLegendCSS() {
         const css = `
             .key-info-button {
-                background-color: rgba(107, 114, 128, 0.3);
-                color: var(--color-text-secondary, #A090C0); /* Use CSS var fallback */
+                background-color: rgba(107, 114, 128, 0.2); /* More subtle */
+                color: var(--color-text-secondary, ${hoopaColors.textSecondary});
                 border: 1px solid var(--color-border, ${hoopaColors.textSecondary});
-                border-radius: 50%;
-                padding: 0.3rem 0.5rem;
-                font-size: 0.9rem;
+                border-radius: 0.375rem; /* Rounded-md */
+                padding: 0.4rem 0.6rem; /* Adjusted padding */
+                font-size: 0.8rem;
                 line-height: 1;
                 cursor: pointer;
                 transition: all 0.2s ease-in-out;
@@ -36,196 +35,150 @@
                 align-self: center;
             }
             .key-info-button:hover {
-                background-color: rgba(107, 114, 128, 0.5);
-                color: var(--color-text-primary, #F0F0F0);
-                border-color: ${hoopaColors.border}; /* Hoopa pink */
+                background-color: rgba(107, 114, 128, 0.4);
+                color: var(--color-text-primary, ${hoopaColors.textPrimary});
+                border-color: var(--color-accent, ${hoopaColors.border});
             }
             .key-popup-overlay {
-                position: fixed;
-                inset: 0;
+                position: fixed; inset: 0;
                 background-color: ${hoopaColors.overlayBg};
-                display: none; /* Initially hidden */
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                opacity: 0;
-                transition: opacity 0.3s ease-in-out;
+                display: none; align-items: center; justify-content: center;
+                z-index: 10001; /* Above lightbox */
+                opacity: 0; transition: opacity 0.25s ease-in-out;
             }
-            .key-popup-overlay.visible {
-                display: flex; /* Use flex to enable centering */
-                opacity: 1;
-            }
+            .key-popup-overlay.visible { display: flex; opacity: 1; }
             .key-popup-content {
                 background-color: ${hoopaColors.contentBg};
                 color: ${hoopaColors.textPrimary};
-                border-radius: 8px;
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
-                width: 90%;
-                max-width: 550px;
+                border-radius: 0.5rem; /* md */
+                box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.3);
+                width: 90%; max-width: 500px; /* Slightly narrower */
                 max-height: 85vh;
                 overflow-y: auto;
-                border: 2px solid ${hoopaColors.border}; /* Hoopa pink border */
-                font-family: 'Inter', sans-serif; /* Ensure consistent font */
+                border: 1px solid ${hoopaColors.border};
+                font-family: 'Inter', sans-serif;
+                display: flex; flex-direction: column;
             }
             .key-popup-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0.75rem 1.25rem;
-                border-bottom: 1px solid ${hoopaColors.border}; /* Hoopa pink */
-                background-color: ${hoopaColors.background}; /* Darker header */
-                border-top-left-radius: 6px; /* Match content radius */
-                 border-top-right-radius: 6px;
+                display: flex; justify-content: space-between; align-items: center;
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid ${hoopaColors.border};
+                background-color: ${hoopaColors.background};
             }
             .key-popup-title {
-                font-size: 1.25rem;
-                font-weight: bold;
-                color: ${hoopaColors.title}; /* Hoopa yellow */
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+                font-size: 1.125rem; font-weight: 600;
+                color: ${hoopaColors.title};
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             }
             .key-popup-close {
-                background: none;
-                border: none;
-                font-size: 1.3rem;
-                color: ${hoopaColors.textSecondary};
-                cursor: pointer;
-                padding: 0.25rem;
-                line-height: 1;
-                transition: color 0.2s ease;
+                background: none; border: none; font-size: 1.25rem;
+                color: ${hoopaColors.textSecondary}; cursor: pointer;
+                padding: 0.25rem; line-height: 1; transition: color 0.2s ease;
             }
-            .key-popup-close:hover {
-                color: ${hoopaColors.closeHover};
-            }
-            .key-popup-body {
-                padding: 1rem 1.25rem;
-            }
+            .key-popup-close:hover { color: ${hoopaColors.closeHover}; }
+            .key-popup-body { padding: 1rem; font-size: 0.875rem; }
             .key-popup-body h4 {
-                font-weight: bold;
-                margin-top: 0.75rem;
-                margin-bottom: 0.35rem;
-                color: ${hoopaColors.title}; /* Hoopa yellow */
-                border-bottom: 1px solid ${hoopaColors.border}; /* Hoopa pink */
-                padding-bottom: 0.3rem;
-                font-size: 1.05em;
+                font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem;
+                color: ${hoopaColors.title};
+                border-bottom: 1px solid ${hoopaColors.border};
+                padding-bottom: 0.25rem; font-size: 1rem;
             }
-             .key-popup-body h4:first-child {
-                margin-top: 0;
-            }
-            .key-popup-body ul {
-                list-style: none;
-                padding-left: 0;
-                margin-bottom: 0.85rem;
-            }
-            .key-popup-body li {
-                margin-bottom: 0.4rem;
-                color: ${hoopaColors.textSecondary};
-                font-size: 0.95rem;
-                line-height: 1.4;
-            }
+            .key-popup-body h4:first-child { margin-top: 0; }
+            .key-popup-body ul { list-style: none; padding-left: 0; margin-bottom: 1rem; }
+            .key-popup-body li { margin-bottom: 0.3rem; color: ${hoopaColors.textSecondary}; line-height: 1.5; }
             .key-popup-body kbd {
-                background-color: ${hoopaColors.kbdBg};
-                border: 1px solid ${hoopaColors.kbdBorder};
-                border-radius: 4px;
-                padding: 0.15em 0.5em;
-                font-family: 'Inter', sans-serif;
-                font-size: 0.85em;
-                box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-                margin: 0 0.15em;
-                color: ${hoopaColors.textPrimary};
-                white-space: nowrap;
+                background-color: ${hoopaColors.kbdBg}; border: 1px solid ${hoopaColors.kbdBorder};
+                border-radius: 3px; padding: 0.1em 0.4em; font-family: 'Inter', sans-serif;
+                font-size: 0.8em; box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+                margin: 0 0.1em; color: ${hoopaColors.textPrimary}; white-space: nowrap;
             }
             .key-popup-body i {
-                display: inline-block;
-                width: 1.3em;
-                text-align: center;
-                color: ${hoopaColors.title}; /* Hoopa yellow */
-                margin-right: 0.2em;
+                display: inline-block; width: 1.2em; text-align: center;
+                color: ${hoopaColors.title}; margin-right: 0.3em;
             }
-            .key-popup-body .fa-heart { color: ${hoopaColors.border}; } /* Like color */
+            .key-popup-body .note {
+                font-size: 0.8rem; color: ${hoopaColors.textSecondary};
+                margin-top: 1rem; padding-top: 0.75rem;
+                border-top: 1px dashed ${hoopaColors.border};
+            }
         `;
         const styleElement = document.createElement('style');
         styleElement.type = 'text/css';
-        styleElement.id = 'legend-popup-styles'; // Add an ID for potential removal/check
-        styleElement.appendChild(document.createTextNode(css));
-        document.head.appendChild(styleElement);
-        console.log("[Legend Popup] Hoopa CSS injected.");
+        styleElement.id = 'legend-popup-styles';
+        if (!document.getElementById(styleElement.id)) { // Prevent duplicate injection
+            styleElement.appendChild(document.createTextNode(css));
+            document.head.appendChild(styleElement);
+            console.log("[Legend Popup] CSS injected.");
+        }
     }
 
-    /** --- HTML Creation ---
-     * Creates and appends the Button and Modal elements to the DOM.
-     */
     function createLegendHTML() {
-        // Create Button
-        const button = document.createElement('button');
-        button.id = 'key-info-button'; // Use the same ID as before for consistency
-        button.className = 'key-info-button';
-        button.title = 'Show Controls Key';
-        button.setAttribute('aria-label', 'Show Controls Key');
-        button.innerHTML = '<i class="fas fa-question-circle"></i>';
+        if (document.getElementById('key-info-button')) return; // Prevent duplicate creation
 
-        // Find target container for the button (adjust selector if needed)
-        const controlsContainer = document.querySelector('#filter-controls');
-        if (controlsContainer) {
-            controlsContainer.appendChild(button);
+        const button = document.createElement('button');
+        button.id = 'key-info-button';
+        button.className = 'key-info-button';
+        button.title = 'Show Info & Controls Key';
+        button.setAttribute('aria-label', 'Show Info & Controls Key');
+        button.innerHTML = '<i class="fas fa-info-circle"></i>'; // Changed icon
+
+        const accessControls = document.getElementById('access-controls');
+        if (accessControls) {
+            accessControls.insertBefore(button, accessControls.firstChild); // Add before submission button
         } else {
-            console.warn("[Legend Popup] Could not find #filter-controls to append button.");
-            // Fallback: Append to body if controls not found
-             document.body.appendChild(button);
-             button.style.position = 'fixed'; // Make it easily visible if fallback
-             button.style.top = '10px';
-             button.style.right = '10px';
-             button.style.zIndex = '900';
+            console.warn("[Legend Popup] #access-controls not found. Appending button to body as fallback.");
+            document.body.appendChild(button);
+            button.style.cssText = 'position:fixed; top:15px; right:60px; z-index:1001;'; // Adjust fallback position
         }
 
-        // Create Modal Structure
         const modal = document.createElement('div');
         modal.id = 'key-popup-modal';
         modal.className = 'key-popup-overlay';
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
         modal.setAttribute('aria-hidden', 'true');
-        modal.style.display = 'none'; // Start hidden
+        modal.style.display = 'none';
 
         modal.innerHTML = `
             <div class="key-popup-content">
                 <div class="key-popup-header">
-                    <h3 class="key-popup-title"><i class="fas fa-ring mr-2"></i>Controls Key</h3>
+                    <h3 class="key-popup-title"><i class="fas fa-info-circle mr-2"></i>Info & Controls</h3>
                     <button id="key-popup-close" class="key-popup-close" aria-label="Close key">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="key-popup-body">
-                    <h4>Gallery</h4>
+                    <h4>Data Source</h4>
                     <ul>
-                        <li><kbd>Click Thumbnail</kbd> / <kbd>Enter</kbd> / <kbd>Space</kbd> : Open card viewer</li>
-                        <li><kbd>Arrow Keys</kbd> : Navigate gallery grid</li>
-                        <li><kbd>Home</kbd> / <kbd>End</kbd> : Go to first/last card</li>
-                        <li><i class="far fa-heart"></i> / <i class="fas fa-heart"></i> : Like/Unlike card</li>
+                        <li>Card information is loaded from a central <code>cards.json</code> file.</li>
+                        <li>This file is automatically updated from a Google Sheet when new cards are approved.</li>
                     </ul>
-                    <h4>Card Viewer</h4>
+                    <h4>Gallery Navigation</h4>
                     <ul>
-                        <li><kbd>←</kbd> / <kbd>→</kbd> : Previous/Next card</li>
-                        <li><kbd>+</kbd> / <kbd>-</kbd> / <kbd>0</kbd> : Zoom In / Out / Reset</li>
-                        <li><kbd>Double Click</kbd> : Zoom In / Reset Zoom</li>
-                         <li><kbd>Drag</kbd> : Rotate card (when not zoomed)</li>
-                        <li><kbd>Space</kbd> : Toggle Normal / Textless view</li>
-                        <li><kbd>Esc</kbd> : Close viewer</li>
+                        <li><kbd>Click Thumbnail</kbd> or <kbd>Enter</kbd>/<kbd>Space</kbd> on a focused thumbnail: Open card viewer.</li>
                     </ul>
-                     <h4>Audio Player</h4>
+                    <h4>Card Viewer (Lightbox)</h4>
                     <ul>
-                         <li><i class="fas fa-play"></i> / <i class="fas fa-pause"></i> : Play/Pause music</li>
-                         <li><i class="fas fa-forward-step"></i> : Next Song</li>
-                         <li><i class="fas fa-volume-high"></i> / <i class="fas fa-volume-mute"></i> : Mute/Unmute (Hover for Slider)</li>
+                        <li><kbd>←</kbd> / <kbd>→</kbd> : Navigate to Previous/Next card in the current filtered view.</li>
+                        <li><kbd>Esc</kbd> : Close the card viewer.</li>
+                        <li>The displayed image is the primary card image. Textless versions are no longer a separate view in the lightbox.</li>
                     </ul>
+                     <h4>Filtering & Sorting</h4>
+                    <ul>
+                        <li>Use the dropdowns in the sidebar to filter cards by Category, Type/Subtype, Rarity, Creator, and Forte Status.</li>
+                        <li>Use the "Sort By" dropdown to change the order of cards in the gallery.</li>
+                        <li>Click on Set tabs at the top to view cards from specific sets or all sets.</li>
+                    </ul>
+                    <p class="note">This previewer is a fan project. Pokémon and its trademarks are ©1995-2024 Nintendo, Creatures Inc., GAME FREAK inc.</p>
                 </div>
             </div>`;
-
         document.body.appendChild(modal);
         console.log("[Legend Popup] HTML elements created.");
     }
 
-    /** --- Event Handling & Initialization --- */
     function initializeLegendPopup() {
+        if (document.getElementById('key-info-button-initialized')) return; // Already initialized
+
         console.log("[Legend Popup] Initializing...");
         createLegendHTML();
         injectLegendCSS();
@@ -238,71 +191,51 @@
             console.error("[Legend Popup] Failed to find necessary elements after creation.");
             return;
         }
+        keyInfoButton.id = 'key-info-button-initialized'; // Mark as initialized
 
         const openKeyPopup = () => {
             keyPopupModal.style.display = 'flex';
-            void keyPopupModal.offsetWidth; // Trigger reflow
-            keyPopupModal.classList.add('visible');
+            requestAnimationFrame(() => { // Ensure display:flex is applied before opacity transition
+                 keyPopupModal.classList.add('visible');
+            });
             keyPopupModal.setAttribute('aria-hidden', 'false');
             keyPopupCloseButton.focus();
-            // Add ESC listener only when popup is open
             document.addEventListener('keydown', handleLegendEscKey);
-            console.log("[Legend Popup] Opened.");
         };
 
         const closeKeyPopup = () => {
             keyPopupModal.classList.remove('visible');
             keyPopupModal.setAttribute('aria-hidden', 'true');
-            // Remove ESC listener when popup is closed
             document.removeEventListener('keydown', handleLegendEscKey);
-
-            // Wait for transition before setting display: none
-            const handleTransitionEnd = () => {
+            keyPopupModal.addEventListener('transitionend', () => {
                 if (!keyPopupModal.classList.contains('visible')) {
                     keyPopupModal.style.display = 'none';
                 }
-            };
-            keyPopupModal.removeEventListener('transitionend', handleTransitionEnd); // Prevent multiple listeners
-            keyPopupModal.addEventListener('transitionend', handleTransitionEnd, { once: true });
-
-            // Fallback timeout in case transitionend doesn't fire
-            setTimeout(() => {
-                 if (!keyPopupModal.classList.contains('visible')) {
-                    keyPopupModal.style.display = 'none';
-                }
-            }, 400); // Slightly longer than transition duration
-
-            console.log("[Legend Popup] Closed.");
-            // Optional: Refocus the button that opened it
-             keyInfoButton.focus();
+            }, { once: true });
+             setTimeout(() => { // Fallback
+                if (!keyPopupModal.classList.contains('visible')) keyPopupModal.style.display = 'none';
+            }, 300);
+            keyInfoButton.focus();
         };
 
-        // ESC key handler specific to this popup
         const handleLegendEscKey = (event) => {
-            if (event.key === 'Escape') {
-                event.stopPropagation(); // Prevent other ESC handlers (like lightbox close) if popup is open
+            if (event.key === 'Escape' && keyPopupModal.classList.contains('visible')) {
+                event.stopPropagation(); 
                 closeKeyPopup();
             }
         };
 
-        // Attach listeners
         keyInfoButton.addEventListener('click', openKeyPopup);
         keyPopupCloseButton.addEventListener('click', closeKeyPopup);
-        keyPopupModal.addEventListener('click', (event) => { // Close on overlay click
-            if (event.target === keyPopupModal) {
-                closeKeyPopup();
-            }
+        keyPopupModal.addEventListener('click', (event) => {
+            if (event.target === keyPopupModal) closeKeyPopup();
         });
-
-         console.log("[Legend Popup] Initialization complete.");
+        console.log("[Legend Popup] Initialization complete.");
     }
 
-    // --- Run Initialization ---
-    // Use DOMContentLoaded to ensure the target elements (like #filter-controls) exist
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeLegendPopup);
     } else {
-        initializeLegendPopup(); // DOM already loaded
+        initializeLegendPopup();
     }
-
-})(); // End of IIFE
+})();

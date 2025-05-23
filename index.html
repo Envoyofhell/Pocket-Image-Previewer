@@ -3,1688 +3,749 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forte Card Previewer</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>Forte Card Previewer - v2.5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pirata+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
+    
+    <script src="filter_config.js"></script> 
+    <style>
+        :root {
+            --color-primary: #f87171; --color-secondary: #5a0866; --color-bg-dark: #0f172a;
+            --color-bg-panel: rgba(23, 37, 59, 0.97); --color-bg-input: rgba(30, 41, 59, 0.9);
+            --color-text-primary: #e5e7eb; --color-text-secondary: #9ca3af;
+            --color-text-placeholder: #6b7280; --color-border: rgba(55, 65, 81, 0.7);
+            --color-border-light: rgba(71, 85, 105, 0.5); --color-accent: #fbbf24;
+            --color-error: #ef4444; --color-success: #22c55e; --color-info: #3b82f6;
+            --color-focus-ring: rgba(99, 102, 241, 0.5);
+        }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+        body {
+            background-color: var(--color-bg-dark); color: var(--color-text-primary);
+            font-family: 'Inter', sans-serif; display: flex; flex-direction: column;
+        }
+        .font-pirata { font-family: 'Pirata One', cursive; }
 
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/mobile.css"> <link rel="stylesheet" href="assets/css/custom.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(17,24,39,0.3); border-radius:4px; }
+        ::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7e2c92; }
 
-    </head>
-<body class="font-sans"> <div id="page-loading-overlay" class="page-loading-overlay">
-        <div class="loader-container">
-            <div class="loader"></div>
-            <div id="loading-text" class="loader-text">Loading Forte Card Previewer...</div>
-        </div>
+        .app-header { flex-shrink: 0; background-color: var(--color-bg-panel); box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 100;}
+        .app-set-navigation { flex-shrink: 0; background-color: rgba(17, 24, 39, 0.85); padding: 0.5rem 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 90;}
+        .app-main-content { flex-grow: 1; display: flex; overflow: hidden; }
+        .app-sidebar { width: 280px; flex-shrink: 0; background-color: var(--color-bg-panel); padding: 1rem; overflow-y: auto; border-right: 1px solid var(--color-border); }
+        .app-gallery-area { flex-grow: 1; padding: 1rem; overflow-y: auto; }
+        
+        @media (max-width: 1023px) { 
+            .app-main-content { flex-direction: column; }
+            .app-sidebar { width: 100%; max-height: 45vh; border-right: none; border-bottom: 1px solid var(--color-border); }
+        }
+
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; max-width: 1400px; margin: 0 auto; }
+        .brand-area { display: flex; align-items: center; gap: 0.75rem; }
+        .logo { max-height: 40px; width: auto; filter: drop-shadow(0 0 5px rgba(248,113,113,0.5)); }
+        .title-glow { font-family: 'Pirata One', cursive; font-size: 1.75rem; color: var(--color-primary); text-shadow: 0 0 4px #f87171, 0 0 8px #f87171; }
+        
+        .filter-group { margin-bottom: 1.25rem; }
+        .filter-label { display: block; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 0.5rem; font-size: 0.875rem; }
+        .filter-select {
+            width: 100%; background-color: var(--color-bg-input); color: var(--color-text-primary);
+            border: 1px solid var(--color-border); border-radius: 0.375rem; padding: 0.5rem 0.75rem;
+            font-size: 0.875rem; appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em;
+        }
+        .filter-select:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 2px var(--color-focus-ring); }
+
+        #tab-container { 
+            display: flex; flex-direction: row; flex-wrap: wrap; 
+            justify-content: center; gap: 0.5rem; 
+        }
+        .tab {
+            background-color: transparent; color: var(--color-text-secondary);
+            border: 1px solid transparent; border-bottom: 3px solid transparent; 
+            border-radius: 0.375rem 0.375rem 0 0; padding: 0.6rem 1rem; 
+            font-size: 0.875rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
+        }
+        .tab:hover { 
+            background-color: rgba(255,255,255,0.03); /* Lighter hover */
+            color: var(--color-text-primary);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        .tab.active {
+            background-color: var(--tab-active-bg-color, var(--color-bg-panel)); 
+            color: var(--tab-active-text-color, var(--color-primary));
+            border-color: var(--color-border-light); /* Lighter border for active tab */
+            border-bottom-color: var(--tab-active-border-color, var(--color-primary)); 
+            font-weight: 600;
+        }
+
+        #item-gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); } 
+        .thumbnail {
+            position: relative; background-color: rgba(42,48,71,0.7); 
+            border-radius: 0.375rem; overflow: hidden;
+            cursor: pointer; aspect-ratio: 2.5 / 3.5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .thumbnail:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .forte-indicator {
+             position: absolute; top: 0.25rem; right: 0.25rem; background: rgba(220, 38, 38, 0.85); color: white;
+             border-radius: 50%; width: 1.25rem; height: 1.25rem; display: flex; align-items: center;
+             justify-content: center; font-size: 0.65rem; box-shadow: 0 0 4px black;
+        }
+        #empty-folder-message { text-align: center; padding: 2rem; color: var(--color-text-secondary); }
+        .loader { 
+             border: 4px solid rgba(229,231,235,0.2); border-top: 4px solid var(--color-primary);
+             border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
+        }
+        #page-loading-overlay { position: fixed; inset:0; background:var(--color-bg-dark); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; transition: opacity 0.5s ease; }
+        #page-loading-overlay.loaded { opacity: 0; pointer-events: none; }
+        #loading-text { margin-top: 1rem; color: var(--color-primary); font-weight: 500; }
+
+        #fancy-lightbox {
+            position: fixed; inset: 0; background-color: rgba(0,0,0,0.92); 
+            z-index: 10000; display: none; /* Initially hidden */
+            align-items: center; justify-content: center; padding: 1rem;
+            opacity: 0; transition: opacity 0.25s ease-in-out;
+        }
+        #fancy-lightbox.visible { display: flex; opacity: 1; }
+        .fancy-lightbox-content {
+            background-color: var(--color-bg-dark); 
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border); 
+            border-radius: 0.5rem; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7); 
+            width: 90vw; max-width: 1000px; height: 90vh; max-height: 750px;
+            display: flex; flex-direction: column; position: relative;
+            overflow: hidden; 
+        }
+        .fancy-lightbox-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 1rem; border-bottom: 1px solid var(--color-border);
+            flex-shrink: 0; background-color: var(--color-bg-panel); 
+        }
+        .fancy-lightbox-title { font-size: 1.1rem; font-weight: 600; color: var(--color-primary); }
+        .fancy-lightbox-close {
+            background: none; border: none; color: var(--color-text-secondary); font-size: 1.4rem; 
+            cursor: pointer; padding: 0.4rem; line-height: 1;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .fancy-lightbox-close:hover { color: var(--color-primary); transform: rotate(90deg) scale(1.1); }
+
+        .fancy-lightbox-body { flex-grow: 1; display: flex; overflow: hidden; }
+        .fancy-card-image-container { 
+            flex-grow: 1; display: flex; align-items: center; justify-content: center;
+            padding: 0.5rem; overflow: hidden; position: relative; 
+            background-color: rgba(0,0,0,0.2); 
+        }
+        #fancy-card-image {
+            display: block; max-width: 100%; max-height: 100%; 
+            object-fit: contain; border-radius: 0.375rem; 
+            opacity: 0; transition: opacity 0.3s ease; 
+        }
+        #fancy-card-image.loaded { opacity: 1; }
+        #fancy-spinner { 
+            border-width: 3px; width: 30px; height: 30px;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+
+        .fancy-card-info {
+            width: 300px; 
+            flex-shrink: 0; padding: 1rem; overflow-y: auto;
+            border-left: 1px solid var(--color-border);
+            background-color: var(--color-bg-panel); 
+        }
+        .card-detail-section { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border-light); }
+        .card-detail-section:last-child { border-bottom: none; margin-bottom: 0;}
+        .info-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); margin-bottom: 0.4rem; display:flex; align-items:center; }
+        .info-section-title i { margin-right: 0.4rem; color: var(--color-accent); font-size: 0.8rem; }
+        .info-item { margin-bottom: 0.4rem; }
+        .info-label { font-size: 0.7rem; color: var(--color-text-secondary); }
+        .info-value { font-size: 0.8rem; color: var(--color-text-primary); word-break: break-word; }
+        .card-types { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top:0.1rem;}
+        .card-type-badge { padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.7rem; }
+        
+        .attack-cost, #retreat-cost { display: flex; flex-wrap: wrap; gap: 0.2rem; }
+        .energy-symbol {
+            width: 16px; height: 16px; border-radius: 50%; display: inline-flex;
+            align-items: center; justify-content: center; font-size: 0.65rem;
+            font-weight: bold; color: white; border: 1px solid rgba(0,0,0,0.1);
+        }
+        .energy-grass { background-color: #78C850; } .energy-fire { background-color: #F08030; }
+        .energy-water { background-color: #6890F0; } .energy-lightning { background-color: #F8D030; color: #333; }
+        .energy-fighting { background-color: #C03028; } .energy-psychic { background-color: #F85888; }
+        .energy-colorless { background-color: #A8A878; } .energy-darkness { background-color: #705848; }
+        .energy-metal { background-color: #B8B8D0; color: #333;} .energy-dragon { background-color: #7038F8; }
+        .energy-fairy { background-color: #EE99AC; color: #333;}
+        .ability-container, .attack-container { background: rgba(0,0,0,0.1); padding: 0.4rem; border-radius: 0.25rem; margin-bottom: 0.4rem; }
+        .ability-name, .attack-name { font-weight: 600; color: var(--color-accent); font-size:0.85rem; }
+        .ability-text, .attack-text { font-size: 0.75rem; margin-top: 0.2rem; line-height: 1.3; }
+
+        .fancy-nav-controls { position: absolute; top: 50%; left: 0.25rem; right: 0.25rem; transform: translateY(-50%); display: flex; justify-content: space-between; pointer-events: none; z-index:10; }
+        .fancy-nav-button { background: rgba(0,0,0,0.3); color: white; border:none; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; pointer-events:auto; transition: background-color 0.2s; }
+        .fancy-nav-button:hover:not(:disabled) { background: rgba(0,0,0,0.6); }
+        .fancy-nav-button:disabled { opacity:0.3; cursor:not-allowed; }
+        #fancy-normal-view { display: none; } 
+
+        @media (max-width: 768px) {
+            .app-sidebar { max-height: 50vh; } 
+            .fancy-lightbox-content { flex-direction: column; width: 95vw; height: 95vh; max-height: 95vh; }
+            .fancy-card-info { width: 100%; max-height: 45%; border-left: none; border-bottom: 1px solid var(--color-border); order: 2; }
+            .fancy-card-image-container { order: 1; padding: 0.5rem; }
+            .fancy-nav-controls { left:0.1rem; right:0.1rem; }
+            .fancy-nav-button { width:30px; height:30px; font-size:0.8rem; }
+        }
+   </style>
+</head>
+<body>
+    <div id="page-loading-overlay">
+        <div class="loader"></div>
+        <div id="loading-text">Loading Card Data...</div>
     </div>
 
-    <div id="threejs-bg"></div>
-
-    <div class="container mx-auto max-w-7xl rounded-lg shadow-lg p-4 md:p-6"> <div class="header-container">
+    <header class="app-header">
+        <div class="header-content">
             <div class="brand-area">
-                <div class="logo-container">
-                    <img src="resources/forte-arrivals.png" alt="Forte Logo" class="forte-logo" onerror="this.style.display='none';" loading="lazy">
-                </div>
-                <h1 class="title-glow font-pirata">Card Previewer</h1> </div>
-            <div class="controls-area"> <div class="filter-size-row"> <div id="filter-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4">
-                        <h2 class="controls-label hidden md:block">Filters:</h2>
-                        <div>
-                            <label for="type-filter" class="filter-label">Type:</label>
-                            <select id="type-filter" name="type-filter" class="filter-select">
-                                <option value="all">All Types</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="forte-filter" class="filter-label">Forte:</label>
-                            <select id="forte-filter" name="forte-filter" class="filter-select">
-                                <option value="all">All</option>
-                                <option value="yes">Forte Only</option>
-                                <option value="no">Non-Forte</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="trainer-type-filter" class="filter-label">Trainer:</label>
-                            <select id="trainer-type-filter" name="trainer-type-filter" class="filter-select">
-                                <option value="all">All Trainers</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="creator-filter" class="filter-label">Creator:</label>
-                            <select id="creator-filter" name="creator-filter" class="filter-select">
-                                <option value="all">All Creators</option>
-                            </select>
-                        </div>
-                    </div><div id="size-controls" class="flex flex-wrap items-center gap-y-2 gap-x-4" style="display: none;"> <h2 class="controls-label hidden md:block">Sizes:</h2>
-                        <div class="size-control-group">
-                            <label for="gallery-size-slider" class="size-label">Gallery:</label>
-                            <input type="range" id="gallery-size-slider" name="gallery-size" min="0" max="2" step="1" value="1" class="size-slider">
-                            <span id="gallery-size-display" class="size-display">M</span>
-                        </div>
-                    </div><div id="access-controls" class="flex items-center gap-x-3 ml-auto pl-4"> <button id="submission-button" class="access-button" title="Submit a Card">
-                            <i class="fas fa-upload"></i> </button>
-                        </div>
-                    </div> <div id="tab-container" class="flex flex-wrap gap-x-2 gap-y-2 items-center justify-end w-full">
-                    <h2 class="controls-label hidden md:block">Set:</h2>
-                    </div>
-            </div> </div> <div class="gallery-section border-t border-[var(--color-border)] pt-4 mt-4"> <div id="item-gallery" class="grid gap-4 items-start" role="grid"> </div>
-            <p id="empty-folder-message" class="text-center mt-4 hidden">More Cards for the set In progress. Check Back Soon!</p>
+                <img src="https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte/resources/forte-arrivals.png?raw=true" alt="Forte Logo" class="logo">
+                <h1 class="title-glow">Forte Card Viewer</h1>
+            </div>
+            <div id="access-controls" class="flex items-center gap-x-3">
+                 <button id="submission-button" title="Submit a Card" style="background: var(--color-secondary); color:white; border-radius: 0.375rem; padding: 0.5rem 0.75rem; font-size: 0.8rem; display:flex; align-items:center; gap: 0.5rem;">
+                    <i class="fas fa-upload"></i>Submit Card
+                </button>
+            </div>
         </div>
+    </header>
 
-        <footer class="footer">
-            <img src="resources/tcg-pocket-logo.png" alt="TCG Pocket Logo" onerror="this.style.display='none';" loading="lazy">
-            <span>Fan Project - Testing Previewer</span>
-            <img src="resources/tcg-pocket-logo.png" alt="TCG Pocket Logo" onerror="this.style.display='none';" loading="lazy">
-       </footer>
+    <nav id="set-tab-navigation" class="app-set-navigation w-full">
+        <div id="tab-container" class="max-w-7xl mx-auto">
+            </div>
+    </nav>
 
-    </div> <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="app-main-content">
+        <aside class="app-sidebar">
+            <h2 class="text-lg font-semibold mt-1 mb-3 text-white">Filters</h2>
+            <div class="filter-group">
+                <label for="supertype-filter" class="filter-label">Card Category</label>
+                <select id="supertype-filter" class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="Pokémon">Pokémon</option>
+                    <option value="Trainer">Trainer</option>
+                    <option value="Energy">Energy</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="type-filter" class="filter-label">Pokémon Type / Trainer Subtype</label>
+                <select id="type-filter" class="filter-select">
+                    <option value="all">All Types/Subtypes</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="rarity-filter" class="filter-label">Rarity</label>
+                <select id="rarity-filter" class="filter-select">
+                    <option value="all">All Rarities</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="creator-filter" class="filter-label">Creator/Artist</label>
+                <select id="creator-filter" class="filter-select">
+                    <option value="all">All Creators</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="forte-filter" class="filter-label">Forte Status</label>
+                <select id="forte-filter" class="filter-select">
+                </select>
+            </div>
+             <div class="filter-group">
+                <label for="sort-filter" class="filter-label">Sort By</label>
+                <select id="sort-filter" class="filter-select">
+                    <option value="setThenNumber">Set, then Number</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="hp">HP (High to Low)</option>
+                    <option value="artist">Artist (A-Z)</option>
+                    <option value="rarity">Rarity</option>
+                    <option value="recent">Recently Added</option>
+                </select>
+            </div>
+        </aside>
+
+        <main class="app-gallery-area">
+            <div id="item-gallery" role="grid"></div>
+            <p id="empty-folder-message" class="text-center mt-8 text-lg text-gray-500 hidden">
+                No cards match your current filters. Try adjusting them!
+            </p>
+        </main>
+    </div>
+
+    <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="fancy-lightbox-content">
             <div class="fancy-lightbox-header">
-                <h2 class="fancy-lightbox-title">
-                    <i class="fas fa-crown mr-2 text-[var(--color-accent)]"></i>
-                    <span id="card-title">Forte Card Viewer</span>
-                </h2>
-                <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer">
-                    <i class="fas fa-times"></i>
-                </button>
-                </div>
+                <h2 class="fancy-lightbox-title"><i class="fas fa-clone mr-2 text-[var(--color-accent)]"></i><span id="card-title-lightbox">Card Details</span></h2>
+                <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer"><i class="fas fa-times"></i></button>
+            </div>
             <div class="fancy-lightbox-body">
-                <div class="fancy-card-info">
-                    <div class="info-section">
-                         <div class="info-section-title"><i class="fas fa-id-card text-[var(--color-accent)]"></i><span>Card Details</span></div>
-                         <div class="info-item"><div class="info-label">Card Name</div><div id="info-card-name" class="info-value">-</div></div>
-                         <div class="info-item"><div class="info-label">Set</div><div id="info-set-name" class="info-value">-</div></div>
-                         <div class="info-item"><div class="info-label">Number</div><div id="info-card-number" class="info-value">-</div></div>
-                           <div class="info-item"><div class="info-label">Dex Number</div><div id="info-dex-number" class="info-value">-</div></div>
-                     </div>
-                     <div class="info-section">
-                         <div class="info-section-title"><i class="fas fa-tag text-[var(--color-accent)]"></i><span>Classification</span></div>
-                         <div class="info-item"><div class="info-label">Card Type</div><div id="info-card-type" class="info-value">-</div><div id="info-type-badges" class="card-types"></div></div>
-                         <div class="info-item"><div class="info-label">Forte Status</div><div id="info-forte-status" class="info-value">-</div></div>
-                         <div id="info-trainer-type-container" class="info-item" style="display: none;"><div class="info-label">Trainer Type</div><div id="info-trainer-type" class="info-value">-</div></div>
-                     </div>
-                     <div class="info-section">
-                         <div class="info-section-title"><i class="fas fa-user-edit text-[var(--color-accent)]"></i><span>Creation & Popularity</span></div>
-                         <div class="info-item"><div class="info-label">Creator</div><div id="info-creator" class="info-value">-</div></div>
-                         <div class="info-item"><div class="info-label">File Name</div><div id="info-file-name" class="info-value text-xs break-all opacity-50">-</div></div>
-                         <div class="info-item"><div class="info-label">Likes</div><div class="info-value flex items-center"><span id="lb-like-count" class="mr-2">0</span><button id="lb-like-button" class="like-button" aria-label="Like this card"><i class="far fa-heart"></i></button></div></div>
-                     </div>
+                <div class="fancy-card-image-container">
+                    <div id="fancy-spinner" class="loader"></div>
+                    <img id="fancy-card-image" src="#" alt="Card preview" class="hidden">
                 </div>
-                <div class="fancy-card-display">
-                    <div id="fancy-spinner" class="spinner hidden"></div>
-                    <div id="fancy-holo-container" class="fancy-holo-container">
-                        <div id="fancy-holo-inner" class="fancy-holo-inner">
-                            <img id="fancy-card-image" class="fancy-card-image hidden" src="" alt="Card preview" loading="lazy">
-                        </div>
+                <aside class="fancy-card-info">
+                    <div class="card-detail-section">
+                        <div class="info-section-title"><i class="fas fa-id-card"></i><span>Identity</span></div>
+                        <div class="info-item"><span class="info-label">Name:</span> <span id="lb-card-name" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Set:</span> <span id="lb-set-name" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Number:</span> <span id="lb-card-number" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Rarity:</span> <span id="lb-rarity" class="info-value">-</span></div>
                     </div>
-                    <div id="fancy-card-controls" class="fancy-card-controls">
-                        <button id="fancy-normal-view" class="fancy-control-button active" data-view="normal"><i class="fas fa-image"></i><span>Normal</span></button>
-                        <button id="fancy-textless-view" class="fancy-control-button" data-view="textless" disabled><i class="fas fa-square"></i><span>Textless</span></button>
+
+                    <div id="lb-pokemon-details" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-dna"></i><span>Pokémon Info</span></div>
+                        <div class="info-item"><span class="info-label">HP:</span> <span id="lb-hp" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Type(s):</span> <div id="lb-types" class="card-types info-value"></div></div>
+                        <div class="info-item" id="lb-stage-item" style="display:none;"><span class="info-label">Stage:</span> <span id="lb-stage" class="info-value">-</span></div>
+                        <div class="info-item" id="lb-evolves-from-item" style="display:none;"><span class="info-label">Evolves From:</span> <span id="lb-evolves-from" class="info-value">-</span></div>
+                         <div class="info-item" id="lb-pokedex-item" style="display:none;"><span class="info-label">Pokédex Data:</span> <span id="lb-pokedex-data" class="info-value">-</span></div>
                     </div>
-                    <div class="fancy-nav-controls">
-                        <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button>
-                        <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card"><i class="fas fa-chevron-right"></i></button>
+                    
+                    <div id="lb-trainer-details" class="card-detail-section" style="display:none;">
+                         <div class="info-section-title"><i class="fas fa-briefcase"></i><span>Trainer Info</span></div>
+                         <div class="info-item"><span class="info-label">Subtype(s):</span> <div id="lb-trainer-subtypes" class="card-types info-value"></div></div>
                     </div>
-                    <div class="fancy-zoom-controls">
-                        <button id="fancy-zoom-in" class="fancy-zoom-button" aria-label="Zoom in"><i class="fas fa-search-plus"></i></button>
-                        <button id="fancy-zoom-reset" class="fancy-zoom-button" aria-label="Reset zoom"><i class="fas fa-expand"></i></button>
-                        <button id="fancy-zoom-out" class="fancy-zoom-button" aria-label="Zoom out"><i class="fas fa-search-minus"></i></button>
+                     <div id="lb-energy-details" class="card-detail-section" style="display:none;">
+                         <div class="info-section-title"><i class="fas fa-bolt"></i><span>Energy Info</span></div>
+                         <div class="info-item"><span class="info-label">Type:</span> <div id="lb-energy-types" class="card-types info-value"></div></div>
                     </div>
-                    <div class="keyboard-hint">
-                        <span><kbd>←</kbd> <kbd>→</kbd> Navigate</span>
-                        <span><kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd> Zoom</span>
-                        <span><kbd>Esc</kbd> Close</span>
-                        <span><kbd>Space</kbd> Toggle View</span>
+
+                    <div id="lb-abilities-section" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-star"></i><span>Abilities</span></div>
+                        <div id="lb-abilities-container"></div>
                     </div>
-                </div>
+                    <div id="lb-attacks-section" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-fist-raised"></i><span>Attacks</span></div>
+                        <div id="lb-attacks-container"></div>
+                    </div>
+                     <div id="lb-rules-section" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-scroll"></i><span>Rules/Effect</span></div>
+                        <div id="lb-rules-text" class="info-value" style="white-space: pre-wrap;"></div>
+                    </div>
+
+                    <div id="lb-battle-stats-section" class="card-detail-section" style="display:none;">
+                         <div class="info-section-title"><i class="fas fa-shield-alt"></i><span>Battle Stats</span></div>
+                         <div id="lb-weakness-container" class="info-item" style="display:none;"><span class="info-label">Weakness:</span> <span id="lb-weakness" class="info-value"></span></div>
+                         <div id="lb-resistance-container" class="info-item" style="display:none;"><span class="info-label">Resistance:</span> <span id="lb-resistance" class="info-value"></span></div>
+                         <div id="lb-retreat-cost-item" class="info-item" style="display:none;"><span class="info-label">Retreat Cost:</span> <div id="lb-retreat-cost" class="attack-cost"></div></div>
+                    </div>
+
+                    <div id="lb-flavor-text-section" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-quote-left"></i><span>Flavor Text</span></div>
+                        <div id="lb-flavor-text" class="info-value" style="font-style: italic; opacity: 0.9;">-</div>
+                    </div>
+
+                    <div class="card-detail-section">
+                        <div class="info-section-title"><i class="fas fa-pencil-alt"></i><span>Credits & Meta</span></div>
+                        <div class="info-item"><span class="info-label">Artist:</span> <span id="lb-artist" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Creator (Discord):</span> <span id="lb-creator" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Forte Card:</span> <span id="lb-is-forte" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Regulation:</span> <span id="lb-regulation" class="info-value">-</span></div>
+                        <div class="info-item"><span class="info-label">Approved:</span> <span id="lb-approved-date" class="info-value">-</span></div>
+                    </div>
+                </aside>
+            </div>
+             <div class="fancy-nav-controls">
+                <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button>
+                <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
 
-    <div id="audio-prompt" style="display: block;">Click anywhere to enable audio</div>
-    <div id="audio-control-container" style="display: none;">
-         <span id="song-name"></span>
-         <button id="play-pause-button" class="audio-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
-         <button id="next-song-button" class="audio-button" aria-label="Next Song"><i class="fas fa-forward-step"></i></button>
-         <div id="mute-button" class="audio-button relative" aria-label="Mute/Unmute">
-             <i class="fas fa-volume-high"></i>
-             <div id="volume-container" class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 p-2 bg-[rgba(30,41,59,0.9)] rounded hidden"> <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2" class="volume-slider-style">
-             </div>
-         </div>
-    </div>
-    <script src="js/preview.js" defer></script>   
-    <script src="image_data.js"></script>
-     <script src="js/background.js"></script> 
-     <script src="db-likes.js"></script>   
-     <script src="js/audio.js"></script>
-     <script>
-        // --- Configuration ---
-        const placeholderUrl = "https://placehold.co/100x80/cccccc/ffffff.png?text=Error"; // Gallery placeholder
-        const mainPlaceholderUrl = "https://placehold.co/600x400/cccccc/ffffff.png?text=Loading..."; // Lightbox placeholder
-        const CLICK_EFFECT_DURATION_MS = 400;
-        const HOVER_EFFECT_TIMEOUT_MS = 1000; // Timeout for thumbnail hover effect reset
-        const RESOURCE_FOLDER = 'resources'; // Used? Verify if needed elsewhere
-        const BLANK_SUFFIX = '-BL-'; // Suffix for textless card filenames
-        const SIZE_MAP = ['S', 'M', 'L']; // For gallery size slider display
-        const GALLERY_SIZE_CLASSES = { 0: 'gallery-size-s', 1: 'gallery-size-m', 2: 'gallery-size-l' }; // CSS classes for gallery size
-        const DEFAULT_GALLERY_SIZE_INDEX = 1; // Default size index (Medium)
-        const GALLERY_SIZE_KEY = 'galleryImageSizePref'; // localStorage key for size preference
-        const PRELOAD_NEXT_PREV = true; // Preload next/prev images in lightbox viewer?
-        const INITIAL_PRELOAD_COUNT = 24; // <<< OPTIMIZATION: Number of initial gallery images to preload on page load
-        const submissionButton = document.getElementById('submission-button');
-        // --- Elements ---
-        const pageLoadingOverlay = document.getElementById('page-loading-overlay');
-        const loadingTextElement = document.getElementById('loading-text'); // Element to show loading progress text
-        const itemGallery = document.getElementById('item-gallery');
-        const tabContainer = document.getElementById('tab-container');
-        const typeFilterSelect = document.getElementById('type-filter');
-        const forteFilterSelect = document.getElementById('forte-filter');
-        const trainerTypeFilterSelect = document.getElementById('trainer-type-filter');
-        const creatorFilterSelect = document.getElementById('creator-filter');
-        const emptyFolderMessage = document.getElementById('empty-folder-message');
-        const gallerySizeSlider = document.getElementById('gallery-size-slider');
-        const gallerySizeDisplay = document.getElementById('gallery-size-display');
-
-        // --- Fancy Lightbox Elements ---
-        const fancyLightbox = document.getElementById('fancy-lightbox');
-        const fancyLightboxContent = fancyLightbox.querySelector('.fancy-lightbox-content');
-        const fancyLightboxClose = document.getElementById('fancy-lightbox-close');
-        const fancyCardTitle = document.getElementById('card-title');
-        const fancySpinner = document.getElementById('fancy-spinner');
-        const fancyHoloContainer = document.getElementById('fancy-holo-container');
-        const fancyHoloInner = document.getElementById('fancy-holo-inner');
-        const fancyCardImage = document.getElementById('fancy-card-image');
-        const fancyPrevButton = document.getElementById('fancy-prev-button');
-        const fancyNextButton = document.getElementById('fancy-next-button');
-        const fancyNormalView = document.getElementById('fancy-normal-view');
-        const fancyTextlessView = document.getElementById('fancy-textless-view');
-        const fancyZoomIn = document.getElementById('fancy-zoom-in');
-        const fancyZoomOut = document.getElementById('fancy-zoom-out');
-        const fancyZoomReset = document.getElementById('fancy-zoom-reset');
-
-        // --- Card Info Elements ---
-        const infoCardName = document.getElementById('info-card-name');
-        const infoSetName = document.getElementById('info-set-name');
-        const infoCardNumber = document.getElementById('info-card-number');
-        const infoDexNumber = document.getElementById('info-dex-number');
-        const infoCardType = document.getElementById('info-card-type');
-        const infoTypeBadges = document.getElementById('info-type-badges');
-        const infoForteStatus = document.getElementById('info-forte-status');
-        const infoTrainerTypeContainer = document.getElementById('info-trainer-type-container');
-        const infoTrainerType = document.getElementById('info-trainer-type');
-        const infoCreator = document.getElementById('info-creator');
-        const infoFileName = document.getElementById('info-file-name');
-        const lbLikeButton = document.getElementById('lb-like-button');
-        const lbLikeCount = document.getElementById('lb-like-count');
-
-        // --- State ---
-        let currentSetTab = 'all'; // Currently selected set tab ('all' or specific set name)
-        let currentImageFiles = []; // Filtered, non-blank image objects for lightbox navigation
-        let currentImageIndex = -1; // Index within currentImageFiles
-        let focusableElements = []; // Array of focusable gallery thumbnail elements
-        let currentFocusIndex = 0; // Index for gallery keyboard navigation
-        let currentlyDisplayedImages = []; // FULL list of image objects matching current filters (incl. blanks)
-        let currentTypeFilter = 'all';
-        let currentForteFilter = 'all';
-        let currentTrainerTypeFilter = 'all';
-        let currentCreatorFilter = 'all';
-        let baseImageSet = []; // All image objects for the currently selected SET tab
-        let currentGallerySizeIndex = DEFAULT_GALLERY_SIZE_INDEX;
-        let lastScrollY = 0; // Store scroll position before opening lightbox
-        let allCreators = new Set(); // Populated from image data
-        let currentFancyCardImage = null; // The image *object* currently shown in lightbox
-        let fancyHasBlankVersion = false; // Does the lightbox image have a textless version?
-        let fancyBlankVersionPath = ''; // Path to textless version
-        let fancyNormalVersionPath = ''; // Path to normal version
-        let fancyActiveHoloTimeout = null; // Timeout ID for lightbox holo effect reset
-        let isZoomed = false; // Is the lightbox image zoomed?
-        let imageCache = new Map(); // <<< OPTIMIZATION: Session Cache Map (Key: encodedPath, Value: Promise<Image> or Image)
-        let intersectionObserver; // <<< OPTIMIZATION: Instance for lazy loading gallery thumbnails
-        let backgroundAnimationPaused = false; // State for pausing Three.js background
-        let hoverEffectTimeouts = new Map(); // Track timeouts for gallery thumbnail holo hover effect resets
-
-        // --- Data loaded from image_data.js ---
-        let rootImageStructure = null; // Populated in initApp
-        let filterConfig = null; // Populated in initApp
-
-
-        // ===============================================
-        // === IMAGE PRELOADING & CACHING LOGIC ========
-        // ===============================================
-
-        /**
-         * Preloads an image source into the session cache (imageCache).
-         * Returns a Promise that resolves with the HTMLImageElement.
-         * Handles concurrent requests for the same image.
-         * @param {string} encodedSrc - The URI encoded path to the image.
-         * @returns {Promise<HTMLImageElement>} A promise that resolves with the loaded image element.
-         */
-        function preloadImage(encodedSrc) {
-            if (!encodedSrc) return Promise.reject(new Error("Invalid src"));
-
-            // Check cache first
-            if (imageCache.has(encodedSrc)) {
-                const cachedItem = imageCache.get(encodedSrc);
-                // If already loaded Image, return resolved promise
-                if (cachedItem instanceof HTMLImageElement) return Promise.resolve(cachedItem);
-                // If it's a Promise (already loading), return that promise
-                return cachedItem;
-            }
-
-            // Not in cache, create loading promise
-            const loadPromise = new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    imageCache.set(encodedSrc, img); // Replace promise with Image on success
-                    resolve(img);
-                };
-                img.onerror = () => {
-                    imageCache.delete(encodedSrc); // Remove failed promise
-                    console.warn(`[Cache] Failed to load image: ${encodedSrc}`);
-                    reject(new Error(`Failed load: ${encodedSrc}`));
-                };
-                img.src = encodedSrc;
-            });
-
-            imageCache.set(encodedSrc, loadPromise); // Store promise immediately
-            return loadPromise;
+    <script>
+        // Ensure SITE_CONFIG is loaded from filter-config.js
+        if (typeof SITE_CONFIG === 'undefined') {
+            console.error("CRITICAL: SITE_CONFIG not loaded. Make sure filter-config.js is included and loaded correctly before this script.");
+            document.body.innerHTML = '<div style="color:red; padding:20px; font-size:1.2em;">Error: Site configuration (filter-config.js) is missing or failed to load. Application cannot start.</div>';
         }
 
-        /**
-         * Preloads the first N non-blank images from the currently displayed set.
-         * Updates the loading text overlay during preload.
-         * @param {number} count - The number of images to attempt preloading.
-         */
-        async function preloadInitialImages(count) {
-            console.log(`[Preload] Starting initial preload for up to ${count} gallery images.`);
-            if (!currentlyDisplayedImages) return;
-
-            const nonBlankImages = currentlyDisplayedImages.filter(img => !img.isBlank);
-            const imagesToPreload = nonBlankImages.slice(0, count);
-            const preloadPromises = [];
-            const totalToLoad = imagesToPreload.length;
-
-            if (totalToLoad === 0) { console.log("[Preload] No initial images to preload."); return; }
-
-            loadingTextElement.textContent = `Preloading images... (0/${totalToLoad})`;
-
-            for (let i = 0; i < totalToLoad; i++) {
-                const image = imagesToPreload[i];
-                const encodedPath = encodeImagePath(image.path);
-                if (encodedPath) {
-                    if (loadingTextElement && i > 0) { // Update status text
-                        loadingTextElement.textContent = `Preloading images... (${i}/${totalToLoad})`;
-                    }
-                    preloadPromises.push(preloadImage(encodedPath).catch(err => { /* ignore non-critical errors */ }));
-                }
-            }
-
-            await Promise.allSettled(preloadPromises); // Wait for all to finish/fail
-            console.log(`[Preload] Finished initial batch of ${totalToLoad} images.`);
-            if (loadingTextElement) loadingTextElement.textContent = "Loading Forte Card Previewer..."; // Reset text
-        }
-
-        /** Preloads adjacent images (next/prev) for the lightbox viewer */
-        function preloadAdjacentLightboxImages() {
-            if (!PRELOAD_NEXT_PREV || !currentImageFiles || currentImageIndex < 0) return;
-            const pathsToPreload = [];
-            // Next image
-            if (currentImageIndex < currentImageFiles.length - 1) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex + 1].path));
-            // Previous image
-            if (currentImageIndex > 0) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex - 1].path));
-            // Optional: Next+1 image
-             if (currentImageIndex < currentImageFiles.length - 2) pathsToPreload.push(encodeImagePath(currentImageFiles[currentImageIndex + 2].path));
-
-            // Trigger preloads async
-            pathsToPreload.forEach(path => { if (path) preloadImage(path).catch(()=>{}); });
-        }
-
-        /** Preloads adjacent images (next/prev) in the gallery grid relative to a visible thumbnail */
-        function preloadAdjacentGalleryImages(visibleThumbnail) {
-            if (!visibleThumbnail) return;
-            const currentIndex = focusableElements.indexOf(visibleThumbnail);
-            if (currentIndex === -1) return; // Not found
-
-            const pathsToPreload = new Set(); // Use Set to avoid duplicates
-            // Check next 1, 2
-            for (let i = 1; i <= 2; i++) {
-                const nextThumb = focusableElements[currentIndex + i];
-                const nextImg = nextThumb?.querySelector('img[data-src]'); // Only preload if not loaded/loading
-                if (nextImg?.dataset?.src) pathsToPreload.add(nextImg.dataset.src);
-            }
-            // Check prev 1
-            const prevThumb = focusableElements[currentIndex - 1];
-            const prevImg = prevThumb?.querySelector('img[data-src]');
-            if (prevImg?.dataset?.src) pathsToPreload.add(prevImg.dataset.src);
-
-            // Trigger preloads async
-            pathsToPreload.forEach(path => { if (path) preloadImage(path).catch(()=>{}); });
-        }
-
-
-        // ===============================================
-        // === UTILITY FUNCTIONS =========================
-        // ===============================================
-
-        /** Gets the file extension from a filename string */
-        function getExtension(filename = '') {
-            const lastDot = filename.lastIndexOf('.');
-            // Basic validation: ensure dot exists, is not first char, and not last char
-            if (lastDot < 1 || lastDot === filename.length - 1) return '';
-            return filename.substring(lastDot);
-        }
-
-        /** Properly encode image paths for use in URLs/src attributes */
-         function encodeImagePath(path) {
-            if (!path) return '';
-            try {
-                // Split path by '/', encode each segment, rejoin. Handles most common cases.
-                return path.split('/').map((segment, index) => {
-                    // Avoid encoding Windows drive letters (e.g., C:)
-                    if (index === 0 && /^[a-zA-Z]:$/.test(segment)) {
-                        return segment;
-                    }
-                    // Encode characters unsafe in URLs (% $ & + , / : ; = ? @ # etc.)
-                    // Use encodeURIComponent for robust encoding.
-                    return encodeURIComponent(segment);
-                }).join('/');
-            } catch (e) {
-                console.error("Error encoding path:", path, e);
-                return path; // Fallback to original path on error
-            }
-        }
-
-        /** Pause or resume the background animation via external function */
-        function pauseBackgroundAnimation(pause) {
-            backgroundAnimationPaused = pause;
-            // Assumes background.js defines setBackgroundPaused globally
-            if (typeof window.setBackgroundPaused === 'function') {
-                try {
-                    window.setBackgroundPaused(pause);
-                } catch (e) {
-                    console.error("Error calling setBackgroundPaused:", e);
-                }
-            }
-        }
-
-        /** Helper to convert Hex color to RGBA string */
-        function hexToRgba(hex, alpha = 1) {
-             if (!hex || typeof hex !== 'string') return `rgba(107, 114, 128, ${alpha})`; // Default grey on invalid input
-             hex = hex.replace('#', '');
-             if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
-             const bigint = parseInt(hex, 16);
-             if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
-             const r = (bigint >> 16) & 255;
-             const g = (bigint >> 8) & 255;
-             const b = bigint & 255;
-             return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-         }
-
-        /** Helper to lighten a Hex color by a percentage */
-         function lightenHexColor(hex, percent) {
-            if (!hex || typeof hex !== 'string') return '#FFFFFF'; // Default white on invalid input
-            hex = hex.replace('#', '');
-             if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
-             const num = parseInt(hex, 16);
-             if (isNaN(num)) return '#FFFFFF';
-
-             const amt = Math.round(2.55 * percent * 100); // Scale percent
-             let r = (num >> 16) + amt;
-             let g = ((num >> 8) & 0x00FF) + amt;
-             let b = (num & 0x0000FF) + amt;
-
-             // Clamp values
-             r = Math.max(0, Math.min(255, r));
-             g = Math.max(0, Math.min(255, g));
-             b = Math.max(0, Math.min(255, b));
-
-            // Ensure sufficient contrast if lightening a dark color
-            const lumR = r / 255, lumG = g / 255, lumB = b / 255;
-            const luminance = 0.2126 * lumR + 0.7152 * lumG + 0.0722 * lumB;
-            if (luminance < 0.4 && amt > 0) { // Original color was dark, and we are lightening
-               const minLightness = 180; // Ensure resulting components are reasonably light
-               r = Math.max(r, minLightness); g = Math.max(g, minLightness); b = Math.max(b, minLightness);
-            }
-
-             return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
-         }
-
-        /** Check if element is approximately in viewport */
-        function isElementInViewport(el) {
-            if (!el) return false;
-            const rect = el.getBoundingClientRect();
-            // Check if element is within the vertical bounds of the viewport
-            return rect.top < window.innerHeight && rect.bottom > 0;
-        }
-
-        /** Force hide loading overlay */
-         function ensurePageLoaded() {
-             if (pageLoadingOverlay && !pageLoadingOverlay.classList.contains('loaded')) {
-                 pageLoadingOverlay.classList.add('loaded');
-                 console.log("[Load State] Page loading visually complete (overlay hidden).");
-                 // Optional: Remove overlay from DOM after transition
-                 /*
-                 pageLoadingOverlay.addEventListener('transitionend', () => {
-                     if (pageLoadingOverlay) pageLoadingOverlay.remove();
-                 }, { once: true });
-                 */
-             }
-         }
-
-        /** Display error message in the gallery area */
-         function displayError(message) {
-             itemGallery.innerHTML = `<p class="error-message" style="color: red; text-align: center; padding: 2em;">${message}</p>`; // Basic inline style
-             emptyFolderMessage.classList.add('hidden');
-             ensurePageLoaded(); // Ensure loading overlay is hidden on error
-         }
-
-
-        // ===============================================
-        // === DATA HANDLING & STATE MANAGEMENT ========
-        // ===============================================
-
-        /** Recursively finds all file objects and populates creators set */
-        function getAllImageFilesRecursive(node) {
-            let files = [];
-            if (!node?.children) return files; // Guard against null/undefined node or children
-            for (const child of node.children) {
-                if (child.type === 'file') {
-                    if (child.creator && !allCreators.has(child.creator)) {
-                        allCreators.add(child.creator);
-                    }
-                    // Add isBlank property directly to the object for easier access later
-                    child.isBlank = child.name?.includes(BLANK_SUFFIX) ?? false;
-                    files.push(child);
-                } else if (child.type === 'folder') {
-                    files = files.concat(getAllImageFilesRecursive(child));
-                }
-            }
-            return files;
-        }
-
-        // ===============================================
-        // === LIGHTBOX LOGIC ============================
-        // ===============================================
-
-        /** Opens the Fancy Lightbox with the selected image object */
-        function openFancyLightbox(imageObject) {
-            if (!imageObject || typeof imageObject !== 'object') {
-                console.error("Invalid image object passed to openFancyLightbox:", imageObject);
-                return;
-            }
-            console.log(`[Lightbox] Opening for: ${imageObject.path}`);
-
-            lastScrollY = window.scrollY;
-            currentFancyCardImage = imageObject; // Store the object being viewed
-
-            // Determine navigation sequence based on currently *displayed* non-blank images
-            currentImageFiles = currentlyDisplayedImages.filter(img => !img.isBlank);
-            currentImageIndex = currentImageFiles.findIndex(img => img.path === imageObject.path);
-
-            // Fallback logic if the clicked image isn't in the current filtered list
-            if (currentImageIndex === -1) {
-                console.warn("[Lightbox] Clicked image not found in current display list. Falling back to base set for navigation.");
-                currentImageFiles = baseImageSet.filter(img => !img.isBlank); // Use base set for the tab
-                currentImageIndex = currentImageFiles.findIndex(img => img.path === imageObject.path);
-                // Final fallback: just the single image if still not found
-                if (currentImageIndex === -1) {
-                    console.warn("[Lightbox] Fallback failed. Showing only clicked image.");
-                    currentImageFiles = [imageObject];
-                    currentImageIndex = 0;
-                }
-            }
-
-            // Update UI elements
-            fancyCardTitle.textContent = imageObject.cardName || "Card Preview";
-            updateCardInfo(imageObject); // Populate info panel
-            checkBlankVersion(imageObject); // Determine if textless version exists, set paths/button state
-            resetZoom(); // Ensure zoom is reset
-
-            // Load the correct image version (normal or blank) based on the object property
-            const imagePathToLoad = imageObject.isBlank ? fancyBlankVersionPath : fancyNormalVersionPath;
-            loadFancyCardImage(imagePathToLoad); // Load the image (uses cache)
-
-            preloadAdjacentLightboxImages(); // Start preloading next/prev for lightbox
-            updateFancyNavigation(); // Update prev/next button states
-
-            // Show lightbox & manage body scroll/focus
-            fancyLightbox.classList.add('visible');
-            fancyLightbox.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-
-            setTimeout(() => fancyLightboxClose.focus(), 100); // Focus close button for accessibility
-            highlightThumbnail(imageObject.path); // Highlight corresponding gallery thumb
-            applyFancyHoloListeners('#fancy-holo-container'); // Ensure holo effect listeners active
-            pauseBackgroundAnimation(true); // Pause background if active
-            updateLightboxLikeStatus(imageObject.path); // Update like button/count
-        }
-
-        /** Asynchronously loads the main image into the lightbox viewer, using the cache */
-        async function loadFancyCardImage(path) {
-            if (!path) { console.error("[Lightbox] No path provided to load."); return; }
-            fancySpinner.classList.remove('hidden');
-            fancyCardImage.classList.add('hidden'); // Hide while loading
-            fancyHoloInner.classList.remove('holo-active'); // Reset holo state
-
-            const encodedPath = encodeImagePath(path);
-            console.log(`[Lightbox] Loading image: ${encodedPath}`);
-
-            try {
-                // Use preloadImage - checks cache, fetches if needed, returns Promise<Image>
-                const imgElement = await preloadImage(encodedPath);
-                // Success! Set the src from the resolved Image object
-                fancyCardImage.src = imgElement.src;
-                fancyCardImage.alt = `Card preview: ${path?.split('/')?.pop() ?? 'image'}`;
-                console.log(`[Lightbox] Image loaded/retrieved from cache: ${encodedPath}`);
-            } catch (error) {
-                // Failure loading image
-                console.error(`[Lightbox] Failed to load image: ${path}`, error);
-                fancyCardImage.src = mainPlaceholderUrl; // Show placeholder on error
-                fancyCardImage.alt = "Error loading image";
-            } finally {
-                // Always hide spinner and show the img element (even if src is placeholder)
-                fancySpinner.classList.add('hidden');
-                fancyCardImage.classList.remove('hidden');
-                fancyCardImage.classList.add('loaded'); // Mark loading attempt as complete
-            }
-        }
-
-        /** Updates the information panel in the lightbox */
-        function updateCardInfo(card) {
-            if (!card) return; // Safety check
-
-            // Helper function to safely set text content or default
-            const setText = (element, value, defaultValue = '-') => {
-                if (element) element.textContent = value || defaultValue;
-            };
-
-            setText(infoCardName, card.cardName, 'Unknown Name');
-            setText(infoSetName, card.setName, 'Unknown Set');
-            setText(infoCardNumber, card.setNumber);
-            setText(infoDexNumber, card.dexNumber);
-            setText(infoCardType, card.cardType, 'Unknown Type');
-            setText(infoFileName, card.name, 'Unknown Filename'); // Original filename
-            setText(infoCreator, card.creator, 'Unknown Creator');
-
-            // Forte Status
-            if (infoForteStatus) {
-                infoForteStatus.innerHTML = card.isForte
-                    ? '<div class="forte-badge"><i class="fas fa-crown"></i> Forte</div>' // Assumes forte-badge style exists
-                    : 'No';
-            }
-
-            // Trainer Type Info (Show/Hide)
-            const isTrainer = card.cardType === 'Trainer';
-            if (infoTrainerTypeContainer) infoTrainerTypeContainer.style.display = (isTrainer && card.trainerType) ? '' : 'none';
-            if (isTrainer) setText(infoTrainerType, card.trainerType);
-
-            // Type Badges (Clear and Rebuild)
-            if (infoTypeBadges) {
-                infoTypeBadges.innerHTML = ''; // Clear previous badges
-                if (card.types?.length > 0) {
-                    card.types.forEach(type => {
-                        const badge = document.createElement('span');
-                        badge.className = `card-type-badge type-${type?.toLowerCase() ?? 'unknown'}`; // Ensure lowercase for class
-                        badge.innerHTML = `<i class="fas fa-tag"></i> ${type || 'Unknown'}`; // Assumes card-type-badge style exists
-                        infoTypeBadges.appendChild(badge);
-                    });
-                } else if (isTrainer) {
-                    const badge = document.createElement('span'); badge.className = 'card-type-badge type-trainer'; badge.innerHTML = '<i class="fas fa-user"></i> Trainer'; infoTypeBadges.appendChild(badge);
-                } else if (card.cardType === 'Energy') {
-                    const badge = document.createElement('span'); badge.className = 'card-type-badge type-energy'; badge.innerHTML = '<i class="fas fa-bolt"></i> Energy'; infoTypeBadges.appendChild(badge);
-                }
-            }
-        }
-
-    /**
-     * Checks if a blank/normal counterpart exists using pre-calculated data from image_data.js.
-     * Updates lightbox button states and stores paths.
-     */
-    function checkBlankVersion(card) {
-        fancyHasBlankVersion = false; // Assume no counterpart initially
-        fancyNormalVersionPath = null;
-        fancyBlankVersionPath = null;
-
-        if (card) {
-            // --- Use the flags generated by the script ---
-            // A counterpart exists *if and only if* BOTH flags are true for the pair.
-            // We check the specific flags based on whether the current card is blank or normal.
-            if (card.isBlank) {
-                // Current card is BLANK. Check if its NORMAL counterpart exists.
-                fancyHasBlankVersion = card.hasNormalCounterpart ?? false;
-                fancyNormalVersionPath = card.normalCounterpartPath; // Path to normal (might be null)
-                fancyBlankVersionPath = card.path; // Path to current blank
-            } else {
-                // Current card is NORMAL. Check if its BLANK counterpart exists.
-                fancyHasBlankVersion = card.hasBlankCounterpart ?? false;
-                fancyNormalVersionPath = card.path; // Path to current normal
-                fancyBlankVersionPath = card.blankCounterpartPath; // Path to blank (might be null)
-            }
-            console.log(`[CheckBlank] For ${card.path}: isBlank=${card.isBlank}, hasNormalCounterpart=${card.hasNormalCounterpart}, hasBlankCounterpart=${card.hasBlankCounterpart}`);
-        } else {
-             console.warn("[CheckBlank] Called with null/undefined card.");
-        }
-
-        // Enable/disable textless button based *only* on the flag determined above
-        fancyTextlessView.disabled = !fancyHasBlankVersion;
-        console.log("[CheckBlank] Textless button disabled:", fancyTextlessView.disabled);
-
-        // Set active button state based on the card currently being viewed
-        fancyNormalView.classList.toggle('active', !card?.isBlank);
-        fancyTextlessView.classList.toggle('active', !!card?.isBlank);
-    }
-
-        /** Updates the enabled/disabled state of lightbox navigation buttons */
-        function updateFancyNavigation() {
-            fancyPrevButton.disabled = currentImageIndex <= 0;
-            fancyNextButton.disabled = currentImageIndex >= currentImageFiles.length - 1;
-        }
-
-        /** Navigates to the previous image in the lightbox sequence */
-        function showPreviousCard() {
-            if (currentImageIndex > 0) {
-                currentImageIndex--;
-                const prevImage = currentImageFiles[currentImageIndex];
-                currentFancyCardImage = prevImage; // Update the context object
-                loadFancyCardImage(prevImage.path); // Load the image (async)
-                updateCardInfo(prevImage);
-                checkBlankVersion(prevImage);
-                updateFancyNavigation();
-                highlightThumbnail(prevImage.path);
-                resetZoom();
-                updateLightboxLikeStatus(prevImage.path);
-                preloadAdjacentLightboxImages(); // Preload based on new index
-            }
-        }
-
-        /** Navigates to the next image in the lightbox sequence */
-        function showNextCard() {
-            if (currentImageIndex < currentImageFiles.length - 1) {
-                currentImageIndex++;
-                const nextImage = currentImageFiles[currentImageIndex];
-                currentFancyCardImage = nextImage; // Update the context object
-                loadFancyCardImage(nextImage.path); // Load the image (async)
-                updateCardInfo(nextImage);
-                checkBlankVersion(nextImage);
-                updateFancyNavigation();
-                highlightThumbnail(nextImage.path);
-                resetZoom();
-                updateLightboxLikeStatus(nextImage.path);
-                preloadAdjacentLightboxImages(); // Preload based on new index
-            }
-        }
-
-        /** Switches between Normal and Textless views in the lightbox */
-        function switchCardView(view) {
-            if (!fancyHasBlankVersion || !currentFancyCardImage) return;
-            // Determine current view state based on button class (more reliable than object state if object wasn't updated)
-            const currentlyViewingBlank = fancyTextlessView.classList.contains('active');
-            let targetPath = '';
-            let targetObject = null; // Attempt to find the matching object for info panel update
-
-            if (view === 'normal' && currentlyViewingBlank) {
-                targetPath = fancyNormalVersionPath;
-                targetObject = baseImageSet.find(img => img.path === targetPath);
-            } else if (view === 'textless' && !currentlyViewingBlank) {
-                targetPath = fancyBlankVersionPath;
-                targetObject = baseImageSet.find(img => img.path === targetPath);
-            } else {
-                return; // No change needed or invalid request
-            }
-
-            if (targetPath) {
-                loadFancyCardImage(targetPath); // Load the target image view
-                // Update button active states
-                fancyNormalView.classList.toggle('active', view === 'normal');
-                fancyTextlessView.classList.toggle('active', view === 'textless');
-                // If we found the corresponding object, update the info panel and context
-                if (targetObject) {
-                    updateCardInfo(targetObject);
-                    currentFancyCardImage = targetObject;
-                } else {
-                    console.warn(`[Switch View] Could not find matching object for path: ${targetPath}. Info panel might not reflect view.`);
-                    // Decide: Keep old info? Clear info? Update partially?
-                    // updateCardInfo(currentFancyCardImage); // Keep old info for now
-                }
-            }
-            resetZoom(); // Reset zoom state when view changes
-        }
-
-        /** Closes the Fancy Lightbox */
-        function closeFancyLightbox() {
-            fancyLightbox.classList.remove('visible');
-            fancyLightbox.setAttribute('aria-hidden', 'true');
-            resetFancyHoloEffect(); // Reset lightbox holo
-            resetZoom(); // Reset zoom
-            document.body.style.overflow = ''; // Restore body scroll
-            pauseBackgroundAnimation(false); // Resume background animation
-            window.scrollTo({ top: lastScrollY, behavior: 'instant' }); // Restore scroll position
-
-            // Find the thumbnail that was opened to refocus it
-            const focusedImageObject = currentImageFiles?.[currentImageIndex];
-            const opener = focusedImageObject
-                ? itemGallery.querySelector(`.thumbnail[data-path="${CSS.escape(focusedImageObject.path)}"]`) // Use CSS.escape for safety
-                : null;
-
-            unhighlightAllThumbnails(); // Remove highlight from gallery
-
-            // Refocus the opener thumbnail after a short delay
-            setTimeout(() => {
-                if (opener) {
-                    opener.focus({ preventScroll: true }); // Prevent page jump on focus
-                } else if (focusableElements.length > 0) {
-                    focusableElements[0].focus({ preventScroll: true }); // Fallback focus
-                }
-            }, 10);
-        }
-
-        /** Lightbox Zoom In */
-        function zoomIn() {
-            resetFancyHoloEffect(); // Disable holo effect when zoomed
-            fancyHoloInner.classList.remove('zoom-out');
-            fancyHoloInner.classList.add('zoom-in');
-            fancyHoloContainer.classList.add('zoomed');
-            isZoomed = true;
-        }
-
-        /** Lightbox Zoom Out */
-        function zoomOut() {
-            resetFancyHoloEffect(); // Disable holo effect when zoomed
-            fancyHoloInner.classList.remove('zoom-in');
-            fancyHoloInner.classList.add('zoom-out');
-            fancyHoloContainer.classList.add('zoomed'); // Still visually zoomed container
-            isZoomed = true; // Still considered zoomed out (not default state)
-        }
-
-        /** Lightbox Reset Zoom */
-        function resetZoom() {
-            fancyHoloInner.classList.remove('zoom-in', 'zoom-out');
-            fancyHoloContainer.classList.remove('zoomed');
-            isZoomed = false;
-            // Holo effect will re-enable on next pointer move if applicable
-        }
-
-        /** Highlights the corresponding thumbnail in the gallery */
-        function highlightThumbnail(imagePath) {
-            unhighlightAllThumbnails(); // Clear previous highlight
-            if (!imagePath) return;
-            try {
-                // Use CSS.escape for robustness with special characters in paths
-                const thumb = itemGallery.querySelector(`.thumbnail[data-path="${CSS.escape(imagePath)}"]`);
-                if (thumb) {
-                    thumb.classList.add('selected-inline'); // Add highlight class
-                }
-            } catch (e) {
-                console.error("Error finding thumbnail to highlight:", imagePath, e);
-            }
-        }
-
-        /** Removes highlight from all gallery thumbnails */
-        function unhighlightAllThumbnails() {
-            const selected = itemGallery.querySelectorAll('.thumbnail.selected-inline');
-            selected.forEach(thumb => thumb.classList.remove('selected-inline'));
-        }
-
-      // ===============================================
-        // === GALLERY RENDERING & LAZY LOADING (Updated) ===
-        // ===============================================
-
-        /** Sets up the IntersectionObserver for lazy loading gallery images */
-        function setupIntersectionObserver() {
-            // Check if IntersectionObserver is supported
-            if (!('IntersectionObserver' in window)) {
-                console.warn("IntersectionObserver not supported. Lazy loading disabled.");
-                // As a fallback, you might consider manually triggering the load
-                // for all images here if needed, though it defeats lazy loading.
-                // Example fallback: document.querySelectorAll('#item-gallery img[data-src]').forEach(img => { if(img.dataset.src) img.src = img.dataset.src; });
-                return; // Exit if not supported
-            }
-
-            const observerOptions = {
-                root: null, // Observe intersections relative to the viewport
-                rootMargin: '250px 0px 250px 0px', // Load images when they are 250px below/above viewport edge vertically
-                threshold: 0.01 // Trigger as soon as even a tiny part is visible
-            };
-
-            intersectionObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    const thumbnail = entry.target; // The .thumbnail div being observed
-                    const img = thumbnail.querySelector('img'); // The img element inside
-                    if (!img) return; // Skip if somehow no image tag found
-
-                    if (entry.isIntersecting) {
-                        // Element is intersecting the viewport (or margin)
-                        thumbnail.classList.add('in-view');
-
-                        // Load the actual image if it hasn't been loaded yet (has data-src)
-                        if (img.dataset.src) {
-                            const imagePath = img.dataset.src;
-                            // console.log(`[Lazy Load] Loading image in view: ${imagePath}`); // Optional debug log
-                            img.src = imagePath; // Setting src triggers the browser load
-                            // It's crucial to remove data-src *after* setting src,
-                            // otherwise this logic might run again if observer triggers rapidly.
-                            delete img.dataset.src;
-
-                            // Optimization: Preload adjacent gallery items for smoother scrolling feel
-                            preloadAdjacentGalleryImages(thumbnail); // Assumes this function exists
-                        }
-                        // Note: We don't unobserve here, element can transition in/out multiple times
-                    } else {
-                        // Element is *not* intersecting
-                        thumbnail.classList.remove('in-view');
-                        // Reset holo effect if it scrolls completely out of view
-                        // Assumes resetHoloEffect function exists
-                        resetHoloEffect(thumbnail, true);
-                    }
-                });
-            }, observerOptions);
-        }
-
-        /**
-         * Renders the gallery thumbnails based on the provided image objects.
-         * IMPORTANT: This function now renders *exactly* the list it receives,
-         * expecting `applyFiltersAndRender` to have already handled blank/normal prioritization.
-         */
-        function renderGalleryView(imagesToDisplayInGrid) { // Parameter name clarifies input
-            console.log(`[Render] Rendering gallery grid with ${imagesToDisplayInGrid?.length ?? 0} images.`);
-
-            // Clean up observer from previous items before clearing HTML
-            if (intersectionObserver) {
-                itemGallery.querySelectorAll('.thumbnail').forEach(thumb => intersectionObserver.unobserve(thumb));
-            }
-
-            itemGallery.innerHTML = ''; // Clear previous gallery content
-            focusableElements = []; // Reset focusable elements array
-            // Note: currentlyDisplayedImages (the *full* filtered list) is still stored globally if needed elsewhere
-
-            const imagesToRender = imagesToDisplayInGrid || []; // Use the processed list passed in
-            const hasContent = imagesToRender.length > 0;
-
-            // *** The internal filter for !img.isBlank has been REMOVED ***
-            console.log(`[Render] Displaying ${imagesToRender.length} images in grid (now includes blank-only cards).`);
-
-            const fragment = document.createDocumentFragment(); // Use fragment for performance
-
-            imagesToRender.forEach((image) => { // Iterate over the exact list provided
-                const thumbnailContainer = document.createElement('div');
-                thumbnailContainer.className = 'thumbnail'; // Base class for styling from theme.css
-                thumbnailContainer.setAttribute('tabindex', '0');
-                thumbnailContainer.setAttribute('role', 'button');
-                thumbnailContainer.dataset.path = image.path; // Store path for identification
-
-                // Store the full object, ensures consistency when opening lightbox
-                try {
-                    thumbnailContainer.dataset.object = JSON.stringify(image);
-                } catch (e) {
-                    console.error("Failed to stringify image object for data attribute:", image, e);
-                    // Skip this thumbnail if data can't be stored? Or add error state?
-                    return; // Skip this iteration
-                }
-
-                thumbnailContainer.setAttribute('aria-label', `Image: ${image.cardName || image.name}`);
-                // Create a safer ID from path for hover timeout tracking etc.
-                thumbnailContainer.id = `thumbnail-${image.path.replace(/[^a-zA-Z0-9_-]/g, '-')}`;
-
-                const img = document.createElement('img');
-                const encodedPath = encodeImagePath(image.path); // Assumes encodeImagePath exists
-
-                // --- Setup for Lazy Loading ---
-                img.src = placeholderUrl; // Show placeholder initially
-                img.dataset.src = encodedPath; // Store real path in data-src for the observer
-                img.alt = `Thumbnail ${image.cardName || image.name}`;
-                // Add necessary classes - ensure 'gallery-image' is defined in your CSS
-                img.className = 'gallery-image w-full h-auto block pointer-events-none';
-                img.loading = 'lazy'; // Native browser lazy loading hint
-
-                // --- Image Load/Error Handlers ---
-                img.onload = function() {
-                    img.classList.add('loaded');
-                    // Aspect ratio / border radius logic (keep your original implementation)
-                    if (img.naturalWidth && img.naturalHeight) {
-                        const aspectRatio = img.naturalWidth / img.naturalHeight;
-                        const borderRadiusMultiplier = Math.min(Math.max(aspectRatio, 0.5), 1.5);
-                        thumbnailContainer.style.setProperty('--image-aspect-ratio', aspectRatio);
-                        thumbnailContainer.style.borderRadius = `${5 * borderRadiusMultiplier}% / ${3.5 / borderRadiusMultiplier}%`;
-                    } else {
-                        thumbnailContainer.style.borderRadius = `${5 * 0.75}% / ${3.5 / 0.75}%`; // Fallback
-                    }
-                };
-                img.onerror = function() {
-                    console.error(`Failed to load gallery image: ${image.path}`);
-                    img.src = placeholderUrl; // Ensure placeholder is shown
-                    img.classList.add('load-error'); // Add class for styling error state
-                    thumbnailContainer.style.cursor = 'not-allowed';
-                    thumbnailContainer.onclick = null; // Disable click
-                    thumbnailContainer.onkeydown = null; // Disable keyboard interaction
-                    thumbnailContainer.removeAttribute('role');
-                    thumbnailContainer.removeAttribute('tabindex');
-                };
-
-                // --- Click/Keydown Activation ---
-                const activateThumbnail = (eventSourceElement) => {
-                    // Retrieve data, check for error class, check for active animation
-                    const imgDataStr = eventSourceElement.dataset.object;
-                    if (!eventSourceElement.classList.contains('load-error') &&
-                        !eventSourceElement.classList.contains('holo-click-active') && imgDataStr) {
-
-                        eventSourceElement.classList.add('holo-click-active');
-                        resetHoloEffect(eventSourceElement, false); // Assumes resetHoloEffect exists
-
-                        // Use try-catch for JSON parsing robustness
-                        let imageObject = null;
-                        try { imageObject = JSON.parse(imgDataStr); }
-                        catch (e) { console.error("Error parsing image data on click:", e); }
-
-                        setTimeout(() => {
-                            eventSourceElement.classList.remove('holo-click-active');
-                            if (imageObject) {
-                                openFancyLightbox(imageObject); // Assumes openFancyLightbox exists
-                            }
-                        }, CLICK_EFFECT_DURATION_MS);
-                    }
-                };
-                thumbnailContainer.addEventListener('click', () => activateThumbnail(thumbnailContainer));
-                thumbnailContainer.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateThumbnail(thumbnailContainer); }
-                });
-
-                // --- Add Like Button/Counter ---
-                // Assumes createLikeContainer function exists and works
-                const likeContainer = createLikeContainer(image.path);
-
-                // --- Append and Observe ---
-                thumbnailContainer.appendChild(img);
-                thumbnailContainer.appendChild(likeContainer);
-                fragment.appendChild(thumbnailContainer); // Add to fragment
-
-                focusableElements.push(thumbnailContainer); // Add to list for keyboard nav
-
-                // Observe thumbnail for lazy loading if observer exists
-                if (intersectionObserver) {
-                    intersectionObserver.observe(thumbnailContainer);
-                } else {
-                    // Fallback if no observer: Load image immediately
-                    if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
-                    thumbnailContainer.classList.add('in-view'); // Assume it's in view
-                }
-            });
-
-            itemGallery.appendChild(fragment); // Append all generated thumbnails at once
-            emptyFolderMessage.classList.toggle('hidden', !hasContent); // Update empty message visibility
-            currentFocusIndex = 0; // Reset focus index
-            updateAllThumbnailLikes(); // Update like states after rendering // Assumes exists
-        }
-
-    // --- End of Updated Gallery Rendering & Lazy Loading Section ---
-
-
-        // ===============================================
-        // === LIKE BUTTON LOGIC =========================
-        // ===============================================
-
-        /** Helper to create the like button/counter structure for a thumbnail */
-        function createLikeContainer(imagePath) {
-             // Assumes getLikeData is available globally from db-likes.js
-             const likeData = window.getLikeData ? window.getLikeData(imagePath) : { count: 0, liked: false };
-             const likeContainer = document.createElement('div');
-             likeContainer.className = 'thumbnail-like-container'; // Style via CSS
-             likeContainer.innerHTML = `
-                <span class="thumbnail-like-count">${likeData.count}</span>
-                <button class="thumbnail-like-button" aria-label="Like this card">
-                    <i class="fa-heart ${likeData.liked ? 'fas' : 'far'}"></i> </button>`;
-
-             // Attach click listener to the button within this container
-             const likeButton = likeContainer.querySelector('.thumbnail-like-button');
-             likeButton.addEventListener('click', (e) => {
-                 e.stopPropagation(); // Prevent triggering thumbnail click (opening lightbox)
-                 if (window.toggleLike) { // Assumes toggleLike is global
-                     window.toggleLike(imagePath);
-                     updateAllThumbnailLikes(); // Update counts/icons on all visible thumbnails
-                     // If the lightbox is open and showing this specific card, update its like button too
-                     if (fancyLightbox.classList.contains('visible') && currentFancyCardImage?.path === imagePath) {
-                         updateLightboxLikeStatus(imagePath);
-                     }
-                 } else {
-                     console.warn("toggleLike function not found.");
-                 }
-             });
-             return likeContainer;
-        }
-
-        /** Updates the like count and icon state for ALL visible thumbnails */
-        function updateAllThumbnailLikes() {
-            if (!window.getLikeData) return; // Exit if function is missing
-            // Iterate over thumbnails currently in the DOM
-            itemGallery.querySelectorAll('.thumbnail[data-path]').forEach(thumbnail => {
-                const path = thumbnail.dataset.path;
-                const likeContainer = thumbnail.querySelector('.thumbnail-like-container');
-                if (!likeContainer || !path) return; // Skip if no container or path
-
-                const countEl = likeContainer.querySelector('.thumbnail-like-count');
-                const iconEl = likeContainer.querySelector('.thumbnail-like-button i');
-                const likeData = window.getLikeData(path) || { count: 0, liked: false }; // Get current data
-
-                if (countEl) countEl.textContent = likeData.count; // Update count display
-                if (iconEl) { // Update icon style (solid/regular heart)
-                    iconEl.classList.toggle('fas', likeData.liked);
-                    iconEl.classList.toggle('far', !likeData.liked);
-                }
-            });
-        }
-
-        /** Updates the like count and icon state specifically for the lightbox */
-        function updateLightboxLikeStatus(imagePath) {
-            if (!lbLikeButton || !lbLikeCount || !window.getLikeData || !imagePath) return;
-
-            const likeData = window.getLikeData(imagePath) || { count: 0, liked: false };
-            lbLikeCount.textContent = likeData.count; // Update count display
-            const iconElement = lbLikeButton.querySelector('i');
-
-            lbLikeButton.classList.toggle('liked', likeData.liked); // Add/remove 'liked' class for potential styling
-            if (iconElement) { // Update icon style
-                iconElement.classList.toggle('fas', likeData.liked);
-                iconElement.classList.toggle('far', !likeData.liked);
-            }
-
-            // Ensure the click handler is always set correctly for the *current* image path
-            // Use direct assignment to overwrite any previous listener
-            lbLikeButton.onclick = () => {
-                if (window.toggleLike) {
-                    window.toggleLike(imagePath);
-                    updateLightboxLikeStatus(imagePath); // Update lightbox UI immediately
-                    updateAllThumbnailLikes(); // Update gallery UI in background
-                }
-            };
-        }
-
+        let allCardsData = [];
+        let currentFilteredCardsForLightbox = [];
+        let currentLightboxIndex = -1;
+
+        // DOM Elements (ensure all are correctly identified)
+        const itemGalleryEl = document.getElementById('item-gallery');
+        const tabContainerEl = document.getElementById('tab-container'); 
+        const typeFilterEl = document.getElementById('type-filter');
+        const supertypeFilterEl = document.getElementById('supertype-filter');
+        const rarityFilterEl = document.getElementById('rarity-filter');
+        const creatorFilterEl = document.getElementById('creator-filter');
+        const forteFilterEl = document.getElementById('forte-filter');
+        const sortFilterEl = document.getElementById('sort-filter');
+        const emptyMessageEl = document.getElementById('empty-folder-message');
+        const loadingOverlayEl = document.getElementById('page-loading-overlay');
+        const lightboxEl = document.getElementById('fancy-lightbox');
+        const lightboxCloseBtn = document.getElementById('fancy-lightbox-close');
+        const lightboxCardTitleEl = document.getElementById('card-title-lightbox');
+        const lightboxCardImageEl = document.getElementById('fancy-card-image');
+        const lightboxSpinnerEl = document.getElementById('fancy-spinner');
+        const lightboxPrevBtn = document.getElementById('fancy-prev-button');
+        const lightboxNextBtn = document.getElementById('fancy-next-button');
         
-
-    // ======================================================================
-    // === START: PASTE THIS BLOCK where lines 1057-1222 used to be ========
-    // ======================================================================
-
-    // === FILTERING AND TABS (Restored & Updated Logic) ===
-
-    /**
-     * Applies current filter state, determines which card versions to display in the gallery
-     * (prioritizing normal), and triggers rendering.
-     */
-     function applyFiltersAndRender() {
-        console.log(`[Filter] Applying: Type='${currentTypeFilter}', Forte='${currentForteFilter}', Trainer='${currentTrainerTypeFilter}', Creator='${currentCreatorFilter}' on Set: ${currentSetTab}`);
-        console.log(`[Filter] Base set size for tab '${currentSetTab}': ${baseImageSet.length}`);
-
-        // --- Step 1: Filter baseImageSet based on current filter controls ---
-        let filteredImages = baseImageSet.filter(img => {
-            const typeMatch = currentTypeFilter === 'all' || img.cardType === currentTypeFilter;
-            const forteMatch = currentForteFilter === 'all' ||
-                               (currentForteFilter === 'yes' && img.isForte === true) ||
-                               (currentForteFilter === 'no' && img.isForte === false);
-            const trainerMatch = currentTrainerTypeFilter === 'all' ||
-                               ((currentTypeFilter === 'all' || img.cardType === 'Trainer') && img.trainerType === currentTrainerTypeFilter);
-            const creatorMatch = currentCreatorFilter === 'all' || img.creator === currentCreatorFilter;
-            return typeMatch && forteMatch && trainerMatch && creatorMatch;
-        });
-        console.log(`[Filter] Found ${filteredImages.length} images matching controls (incl. blanks).`);
-
-        // Store this full filtered list
-        currentlyDisplayedImages = filteredImages;
-
-        // --- Step 2: Determine the final list to RENDER in the gallery grid ---
-        // Use Map to ensure only one version per card (prioritizing normal)
-        const imagesToRenderMap = new Map();
-        const BLANK_SUFFIX_INTERNAL = '-BL-'; // Local constant
-
-        for (const image of filteredImages) {
-            // Ensure isBlank property is available (should be from generator)
-            const isBlank = image.isBlank ?? (image.name?.includes(BLANK_SUFFIX_INTERNAL) ?? false);
-            const ext = getExtension(image.name); // Assumes getExtension exists
-            const baseName = isBlank ? image.name.replace(BLANK_SUFFIX_INTERNAL + ext, '') : image.name.replace(ext, '');
-            const cardKey = `${image.setName || 'UnknownSet'}_${baseName}`; // Unique key per card/set
-
-            const existingEntry = imagesToRenderMap.get(cardKey);
-
-            if (!existingEntry || (existingEntry.isBlank && !isBlank)) {
-                // Add if no entry exists, OR if existing is blank and current is normal (overwrite)
-                imagesToRenderMap.set(cardKey, { ...image, isBlank }); // Ensure isBlank is correctly set on the object added
-            }
-            // If existing is normal and current is blank, do nothing (keep the normal version)
-        }
-        const imagesToRenderInGallery = Array.from(imagesToRenderMap.values());
-        console.log(`[Filter] Determined ${imagesToRenderInGallery.length} unique cards to render in gallery.`);
-
-        // --- Step 3: Render the gallery with the processed list ---
-        // Assumes renderGalleryView exists and renders the list it's given without internal filtering
-        renderGalleryView(imagesToRenderInGallery);
-    }
-
-    /** Populates filter dropdowns based on available data */
-    function populateFilters() {
-        // Assumes filterConfig, typeFilterSelect, trainerTypeFilterSelect, creatorFilterSelect, allCreators are available in the script's scope
-        if (!filterConfig || !typeFilterSelect || !trainerTypeFilterSelect || !creatorFilterSelect) {
-            console.error("[Populate Filters] Missing config or select elements."); return;
-        }
-        console.log("[Populate Filters] Using Config:", filterConfig);
-
-        const clearOptions = (selectElement) => { while (selectElement.options.length > 1) selectElement.remove(1); };
-
-        clearOptions(typeFilterSelect);
-        filterConfig.typeOrder?.forEach(type => { if (type) typeFilterSelect.add(new Option(type, type)); });
-
-        clearOptions(trainerTypeFilterSelect);
-        filterConfig.trainerTypeOrder?.forEach(type => { if (type) trainerTypeFilterSelect.add(new Option(type, type)); });
-
-        clearOptions(creatorFilterSelect);
-        const sortedCreators = Array.from(allCreators).filter(Boolean).sort(); // Uses global allCreators
-        console.log("[Populate Filters] Populating creators:", sortedCreators);
-        sortedCreators.forEach(creator => { creatorFilterSelect.add(new Option(creator, creator)); });
-    }
-
-    /** Renders the set navigation tabs based on filterConfig and available data */
-    function renderTabs() {
-        // Assumes tabContainer, rootImageStructure, filterConfig, getAllImageFilesRecursive, hexToRgba, lightenHexColor are available in the script's scope
-        if (!tabContainer || !rootImageStructure || !filterConfig?.setOrder || !filterConfig?.setColors) {
-            console.error("[Render Tabs] Missing elements or required config."); return;
-        }
-        const label = tabContainer.querySelector('h2'); tabContainer.innerHTML = ''; if (label) tabContainer.appendChild(label);
-
-        // Assumes getAllImageFilesRecursive is defined elsewhere and populates allCreators if needed again
-        const allImagesForSets = getAllImageFilesRecursive(rootImageStructure);
-        const availableSetNames = new Set(allImagesForSets.map(img => img.setName).filter(name => name && name !== "Misc"));
-        console.log("[Render Tabs] Available sets:", Array.from(availableSetNames));
-
-        // Helper to create a tab button (defined locally within renderTabs)
-        const createTabButton = (setName, text) => {
-            const button = document.createElement('button');
-            button.className = 'tab';
-            button.dataset.setName = setName;
-            const tabColor = filterConfig.setColors[setName] || filterConfig.setColors['default'] || '#6B7280';
-            button.style.setProperty('--tab-active-border-color', tabColor);
-            button.style.setProperty('--tab-active-bg-color', hexToRgba(tabColor, 0.3)); // Assumes hexToRgba is defined
-            const textSpan = document.createElement('span');
-            const displayText = (setName === "Other") ? "Unbound" : text;
-            textSpan.textContent = displayText;
-            if (setName === "Other") {
-                button.style.setProperty('--tab-active-text-color', '#A020F0'); // Example specific color
-            } else {
-                button.style.setProperty('--tab-active-text-color', lightenHexColor(tabColor, 0.8)); // Assumes lightenHexColor is defined
-            }
-            button.appendChild(textSpan);
-            return button;
+        const lbElements = { 
+            cardName: document.getElementById('lb-card-name'), setName: document.getElementById('lb-set-name'),
+            cardNumber: document.getElementById('lb-card-number'), rarity: document.getElementById('lb-rarity'),
+            artist: document.getElementById('lb-artist'), pokemonDetails: document.getElementById('lb-pokemon-details'),
+            hp: document.getElementById('lb-hp'), types: document.getElementById('lb-types'),
+            stageItem: document.getElementById('lb-stage-item'), stage: document.getElementById('lb-stage'),
+            evolvesFromItem: document.getElementById('lb-evolves-from-item'), evolvesFrom: document.getElementById('lb-evolves-from'),
+            pokedexItem: document.getElementById('lb-pokedex-item'), pokedexData: document.getElementById('lb-pokedex-data'),
+            trainerDetails: document.getElementById('lb-trainer-details'), trainerSubtypes: document.getElementById('lb-trainer-subtypes'),
+            energyDetails: document.getElementById('lb-energy-details'), energyTypes: document.getElementById('lb-energy-types'),
+            abilitiesSection: document.getElementById('lb-abilities-section'), abilitiesContainer: document.getElementById('lb-abilities-container'),
+            attacksSection: document.getElementById('lb-attacks-section'), attacksContainer: document.getElementById('lb-attacks-container'),
+            rulesSection: document.getElementById('lb-rules-section'), rulesText: document.getElementById('lb-rules-text'),
+            battleStatsSection: document.getElementById('lb-battle-stats-section'),
+            weaknessContainer: document.getElementById('lb-weakness-container'), weakness: document.getElementById('lb-weakness'),
+            resistanceContainer: document.getElementById('lb-resistance-container'), resistance: document.getElementById('lb-resistance'),
+            retreatCostItem: document.getElementById('lb-retreat-cost-item'), retreatCost: document.getElementById('lb-retreat-cost'),
+            flavorTextSection: document.getElementById('lb-flavor-text-section'), flavorText: document.getElementById('lb-flavor-text'),
+            creator: document.getElementById('lb-creator'), isForte: document.getElementById('lb-is-forte'),
+            regulation: document.getElementById('lb-regulation'), approvedDate: document.getElementById('lb-approved-date')
         };
 
-        const allTab = createTabButton('all', 'All'); allTab.classList.add('active'); tabContainer.appendChild(allTab);
-        filterConfig.setOrder.forEach(setName => { if (availableSetNames.has(setName)) tabContainer.appendChild(createTabButton(setName, setName)); });
+        let currentFilters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
+        let currentSort = 'setThenNumber';
+        let currentSetTab = SITE_CONFIG.defaultActiveSetTab === 'all' ? 'all' : (SITE_CONFIG.setDisplayNameToCodeMap[SITE_CONFIG.defaultActiveSetTab] || 'all');
 
-        // Attach event listener (ensure it's only attached once)
-        if (!tabContainer.dataset.listenerAttached) {
-            tabContainer.addEventListener('click', (e) => {
-                const clickedTab = e.target.closest('.tab');
-                if (clickedTab && !clickedTab.classList.contains('active')) {
-                    const newSetName = clickedTab.dataset.setName;
-                    tabContainer.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                    clickedTab.classList.add('active');
-                    currentSetTab = newSetName; // Update global state
-
-                    // Update global baseImageSet
-                    // Assumes getAllImageFilesRecursive is safe to call again or structure is static
-                    const allImagesFull = getAllImageFilesRecursive(rootImageStructure);
-                    if (newSetName === 'all') {
-                        baseImageSet = allImagesFull.filter(img => img.setName !== "Misc");
-                    } else {
-                        baseImageSet = allImagesFull.filter(img => img.setName === newSetName);
-                    }
-                    console.log(`[Tab Click] Set base set to '${newSetName}': ${baseImageSet.length} images.`);
-                    applyFiltersAndRender(); // Call global applyFiltersAndRender
-                }
-            });
-            tabContainer.dataset.listenerAttached = 'true';
-        }
-    }
-
-        // ===============================================
-        // === KEYBOARD NAV & HOLO EFFECTS =============
-        // ===============================================
-        // --- (These functions are restored verbatim from your initial script) ---
-
-        /** Handles keyboard navigation within the gallery grid */
-        function handleGalleryKeyDown(e) {
-             if (focusableElements.length === 0 || fancyLightbox.classList.contains('visible')) return;
-
-             // Calculate number of columns based on computed style
-             const gridElement = document.getElementById('item-gallery');
-             const gridStyle = window.getComputedStyle(gridElement);
-             const gridColsText = gridStyle.getPropertyValue('grid-template-columns');
-             // Simple count of space-separated values - adjust if grid definition is complex
-             const gridCols = gridColsText.split(' ').filter(s => s && s !== '0px').length || 1; // Fallback to 1 column
-
-             let nextFocusIndex = currentFocusIndex;
-             let shouldPreventDefault = true;
-
-             switch (e.key) {
-                 case 'ArrowRight': nextFocusIndex = (currentFocusIndex + 1); break;
-                 case 'ArrowLeft': nextFocusIndex = (currentFocusIndex - 1); break;
-                 case 'ArrowDown': nextFocusIndex = Math.min(currentFocusIndex + gridCols, focusableElements.length - 1); break;
-                 case 'ArrowUp': nextFocusIndex = Math.max(currentFocusIndex - gridCols, 0); break;
-                 case 'Home': nextFocusIndex = 0; break;
-                 case 'End': nextFocusIndex = focusableElements.length - 1; break;
-                 default: shouldPreventDefault = false; return; // Exit if not a navigation key
-             }
-
-             // Clamp index within bounds
-             nextFocusIndex = Math.max(0, Math.min(nextFocusIndex, focusableElements.length - 1));
-
-             if (nextFocusIndex !== currentFocusIndex) {
-                 if (shouldPreventDefault) e.preventDefault(); // Prevent default scroll behavior for arrows/home/end
-                 currentFocusIndex = nextFocusIndex;
-                 if(focusableElements[currentFocusIndex]) {
-                     focusableElements[currentFocusIndex].focus(); // Move focus to the new element
-                 }
-             }
-         }
-
-        /** Handles keyboard events when the lightbox is open */
-         function handleFancyLightboxKeyDown(e) {
-             if (!fancyLightbox.classList.contains('visible')) return;
-             let shouldPreventDefault = true; // Assume prevent default unless key isn't handled
-
-             switch (e.key) {
-                 case 'Escape': closeFancyLightbox(); break;
-                 case 'ArrowLeft': if (!fancyPrevButton.disabled) showPreviousCard(); break;
-                 case 'ArrowRight': if (!fancyNextButton.disabled) showNextCard(); break;
-                 case '+': case '=': zoomIn(); break; // Include '=' key
-                 case '-': case '_': zoomOut(); break; // Include '_' key
-                 case '0': resetZoom(); break;
-                 case ' ': // Space bar - Toggle textless view if available
-                      if (!fancyTextlessView.disabled) {
-                         if (fancyNormalView.classList.contains('active')) switchCardView('textless');
-                         else switchCardView('normal');
-                      }
-                     break; // Space already prevents scroll on buttons
-                 default: shouldPreventDefault = false; return; // Exit if key is not handled
-             }
-             if (shouldPreventDefault) e.preventDefault(); // Prevent default actions (like page scroll for arrows/space)
-         }
-
-        /** Applies holo effect listeners to gallery thumbnails */
-         function applyHoloListeners(containerSelector) {
-             const galleryContainer = document.querySelector(containerSelector);
-             if (!galleryContainer) return;
-             // Use pointer events for broader compatibility (mouse, pen, maybe touch on some devices)
-             galleryContainer.addEventListener('pointermove', handleHoloMove);
-             galleryContainer.addEventListener('pointerleave', handleHoloEnd); // Reset when pointer leaves gallery
-             galleryContainer.addEventListener('pointerup', handleHoloEnd); // Reset on pointer up (e.g., after drag)
-         }
-
-        /** Handles pointer movement for thumbnail holo effect */
-         function handleHoloMove(e) {
-             if (e.pointerType === 'touch') return; // Typically ignore touch for hover effects
-
-             const target = e.target.closest('.thumbnail');
-             // Check if target is valid, in view, not click-animating, and not an error placeholder
-              if (!target || !target.classList.contains('in-view') || target.classList.contains('holo-click-active') || target.querySelector('.load-error')) {
-                 // Reset any *other* active holo if moving over a non-holo element
-                  const activeHolo = itemGallery.querySelector('.thumbnail.holo-active:not(.holo-click-active)');
-                  if(activeHolo && activeHolo !== target) resetHoloEffect(activeHolo);
-                 return;
-             }
-
-             // Reset other active elements first
-              const otherActiveHolo = itemGallery.querySelector('.thumbnail.holo-active:not(.holo-click-active)');
-              if(otherActiveHolo && otherActiveHolo !== target) resetHoloEffect(otherActiveHolo);
-
-             // --- Holo Calculation Logic (from original script) ---
-             const rect = target.getBoundingClientRect();
-             const clientX = e.clientX; const clientY = e.clientY;
-             const offsetX = clientX - rect.left; const offsetY = clientY - rect.top;
-             const w = target.offsetWidth; const h = target.offsetHeight;
-             if (w === 0 || h === 0) return; // Avoid division by zero
-             const px = (offsetX / w) * 100; const py = (offsetY / h) * 100;
-             const dist_x = Math.abs(px - 50); const dist_y = Math.abs(py - 50);
-             const max_angle = 10; // Max rotation
-             const rotate_y = ((px - 50) / 50) * max_angle;
-             const rotate_x = ((py - 50) / 50) * -max_angle; // Invert X
-             const lp = 50 + rotate_y * -0.6; // Gradient position X
-             const tp = 50 + rotate_x * 0.6; // Gradient position Y
-             const px_spark = 50 + (px - 50) / 7; // Sparkle position X
-             const py_spark = 50 + (py - 50) / 7; // Sparkle position Y
-             const p_opc = Math.min(Math.max(0.3 + (dist_x + dist_y) / 100 * 0.8, 0.3), 0.9); // Sparkle opacity
-             // --- End Holo Calculation ---
-
-             // Apply styles
-             target.classList.add('holo-active');
-             target.style.setProperty('--thumb-gradient-pos-x', `${lp}%`);
-             target.style.setProperty('--thumb-gradient-pos-y', `${tp}%`);
-             target.style.setProperty('--thumb-sparkle-pos-x', `${px_spark}%`);
-             target.style.setProperty('--thumb-sparkle-pos-y', `${py_spark}%`);
-             target.style.setProperty('--thumb-sparkle-opacity', p_opc);
-             target.style.transform = `perspective(900px) rotateX(${rotate_x}deg) rotateY(${rotate_y}deg) scale(1.03)`; // 3D Tilt
-
-             // Timeout to reset effect if pointer stops moving over the element
-             clearHoverEffectTimeout(target.id);
-             setHoverEffectTimeout(target.id, () => {
-                 const currentHoverTarget = document.elementFromPoint(clientX, clientY)?.closest('.thumbnail');
-                 if (currentHoverTarget === target) resetHoloEffect(target); // Only reset if still hovering this one
-             }, HOVER_EFFECT_TIMEOUT_MS);
-         }
-
-        /** Clears the hover effect reset timeout for a specific element */
-         function clearHoverEffectTimeout(elementId) {
-             if (hoverEffectTimeouts.has(elementId)) {
-                 clearTimeout(hoverEffectTimeouts.get(elementId));
-                 hoverEffectTimeouts.delete(elementId);
-             }
-         }
-
-        /** Sets the hover effect reset timeout for a specific element */
-         function setHoverEffectTimeout(elementId, callback, timeout) {
-             clearHoverEffectTimeout(elementId); // Ensure no previous timeout exists
-             const timeoutId = setTimeout(callback, timeout);
-             hoverEffectTimeouts.set(elementId, timeoutId);
-         }
-
-        /** Handles pointer leaving a thumbnail or the gallery container */
-         function handleHoloEnd(e) {
-             const target = e.target.closest('.thumbnail');
-             // Check if the pointer is leaving the thumbnail itself (relatedTarget is where it's going)
-             const relatedTarget = e.relatedTarget ? e.relatedTarget.closest('.thumbnail') : null;
-             // Reset if leaving the target thumbnail and it was active (and not click-animating)
-             if (target && target !== relatedTarget && target.classList.contains('holo-active') && !target.classList.contains('holo-click-active')) {
-                 resetHoloEffect(target);
-             }
-         }
-
-        /** Resets the holo effect styles on a thumbnail */
-         function resetHoloEffect(element, resetTransform = true) {
-             if (!element) return;
-             element.classList.remove('holo-active');
-             // Only reset transform if requested and not in click animation
-             if (resetTransform && !element.classList.contains('holo-click-active')) {
-                 element.style.transform = ''; // Reset transform
-             }
-             // Remove CSS variables
-             element.style.removeProperty('--thumb-gradient-pos-x');
-             element.style.removeProperty('--thumb-gradient-pos-y');
-             element.style.removeProperty('--thumb-sparkle-pos-x');
-             element.style.removeProperty('--thumb-sparkle-pos-y');
-             element.style.removeProperty('--thumb-sparkle-opacity');
-             // Clear any pending reset timeout for this element
-             if (element.id) clearHoverEffectTimeout(element.id);
-         }
-
-        /** Applies holo effect listeners to the lightbox image container */
-         function applyFancyHoloListeners(containerSelector) {
-             const container = document.querySelector(containerSelector);
-             if (!container) return;
-             container.addEventListener('pointermove', handleFancyHoloMove);
-             container.addEventListener('pointerleave', handleFancyHoloEnd);
-             container.addEventListener('pointerup', handleFancyHoloEnd); // Also reset on pointer up
-         }
-
-        /** Handles pointer movement for lightbox holo effect */
-         function handleFancyHoloMove(e) {
-             if (e.pointerType === 'touch' || isZoomed) { resetFancyHoloEffect(); return; } // Disable if touch or zoomed
-             const container = fancyHoloContainer; const target = fancyHoloInner;
-             if (!container || !target) return;
-             // --- Holo Calculation Logic (from original script) ---
-             const rect = container.getBoundingClientRect();
-             let clientX = e.clientX; let clientY = e.clientY;
-             const relativeX = clientX - rect.left; const relativeY = clientY - rect.top;
-             const percentX = (relativeX / rect.width) * 100; const percentY = (relativeY / rect.height) * 100;
-             const max_angle = 15; // Adjust intensity
-             const rotateY = ((percentX / 100) - 0.5) * max_angle * 2;
-             const rotateX = (((percentY / 100) - 0.5) * -max_angle * 2);
-             const normX = percentX / 100; const normY = percentY / 100;
-             const gradientX = 50 + ((percentX - 50) / -1.5); // Opposite direction
-             const gradientY = 50 + ((percentY - 50) / -1.5);
-             const sparkleX = 50 + ((percentX - 50) / 5); // Subtler movement
-             const sparkleY = 50 + ((percentY - 50) / 5);
-             const distFromCenter = Math.sqrt(Math.pow((normX - 0.5) * 2, 2) + Math.pow((normY - 0.5) * 2, 2));
-             const sparkleOpacity = Math.min(0.4 + distFromCenter * 0.6, 0.9);
-             // --- End Holo Calculation ---
-
-             // Apply styles
-             target.classList.add('holo-active');
-             target.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-             target.style.setProperty('--lb-gradient-pos-x', `${gradientX}%`);
-             target.style.setProperty('--lb-gradient-pos-y', `${gradientY}%`);
-             target.style.setProperty('--lb-sparkle-pos-x', `${sparkleX}%`);
-             target.style.setProperty('--lb-sparkle-pos-y', `${sparkleY}%`);
-             target.style.setProperty('--lb-sparkle-opacity', sparkleOpacity);
-
-             // Timeout to reset effect if pointer stops
-             clearTimeout(fancyActiveHoloTimeout);
-             fancyActiveHoloTimeout = setTimeout(() => {
-                 const currentElement = document.elementFromPoint(clientX, clientY);
-                 if (container.contains(currentElement)) resetFancyHoloEffect(); // Only reset if still inside
-             }, HOVER_EFFECT_TIMEOUT_MS);
-         }
-
-        /** Handles pointer leaving the lightbox container */
-         function handleFancyHoloEnd(e) {
-             if (isZoomed) return; // Don't reset if zoomed
-             const target = fancyHoloInner; if (!target) return;
-             // Reset if leaving the main container
-             const relatedTarget = e.relatedTarget;
-             if (!relatedTarget || !fancyHoloContainer.contains(relatedTarget)) {
-                 resetFancyHoloEffect();
-             }
-         }
-
-        /** Resets the holo effect styles on the lightbox image */
-         function resetFancyHoloEffect() {
-             const target = fancyHoloInner; if (!target) return;
-             target.classList.remove('holo-active');
-             if (!isZoomed) target.style.transform = ''; // Reset transform only if not zoomed
-             // Remove CSS variables
-             target.style.removeProperty('--lb-gradient-pos-x');
-             target.style.removeProperty('--lb-gradient-pos-y');
-             target.style.removeProperty('--lb-sparkle-pos-x');
-             target.style.removeProperty('--lb-sparkle-pos-y');
-             target.style.removeProperty('--lb-sparkle-opacity');
-             clearTimeout(fancyActiveHoloTimeout); // Clear pending reset timeout
-         }
-
-        /** Applies the selected gallery size class */
-        function applyGallerySize(sizeIndex) {
-             if (!itemGallery || sizeIndex === undefined || sizeIndex === null) return;
-             const validIndex = Math.max(0, Math.min(sizeIndex, Object.keys(GALLERY_SIZE_CLASSES).length - 1));
-             // Remove all existing size classes first
-             Object.values(GALLERY_SIZE_CLASSES).forEach(cls => itemGallery.classList.remove(cls));
-             // Add the active size class
-             itemGallery.classList.add(GALLERY_SIZE_CLASSES[validIndex]);
-             console.log(`[Size] Applied class: ${GALLERY_SIZE_CLASSES[validIndex]}`);
-             if (gallerySizeDisplay) gallerySizeDisplay.textContent = SIZE_MAP[validIndex] || SIZE_MAP[DEFAULT_GALLERY_SIZE_INDEX];
-         }
-
-        // ===============================================
-        // === APP INITIALIZATION ========================
-        // ===============================================
-
-        /** Initializes the application */
-        async function initApp() { // Make async to allow await for initial preload
-            console.log("[Init] DOM Loaded. Initializing Application...");
-            const startTime = performance.now();
-// Example listener in your main script (e.g., in initApp)
-document.addEventListener('forteSettingChanged', (event) => {
-    if (event.detail.setting === 'likesCleared') {
-        console.log("[Main] Received likes cleared event. Updating UI.");
-        if (typeof updateAllThumbnailLikes === 'function') {
-            updateAllThumbnailLikes(); // Update gallery like icons/counts
-        }
-         // If lightbox is open, update its like status too
-         if (fancyLightbox.classList.contains('visible') && currentFancyCardImage) {
-             if (typeof updateLightboxLikeStatus === 'function') {
-                updateLightboxLikeStatus(currentFancyCardImage.path);
-             }
-         }
-    }
-});
-            // Fallback timeout to ensure loading overlay is hidden
-            const loadTimeout = setTimeout(ensurePageLoaded, 10000); // Extended timeout
-
-            setupIntersectionObserver(); // Setup lazy loading first
-
+        async function initializeApp() {
             try {
-                // --- Step 1: Check for essential dependencies ---
-                if (typeof imageData === 'undefined' || !imageData.imageStructure || !imageData.filterConfig) {
-                    throw new Error("Global 'imageData' object not found or invalid (check image_data.js).");
-                }
-                 if (typeof window.getLikeData !== 'function' || typeof window.toggleLike !== 'function') {
-                    console.warn("[Init] Like functions (getLikeData, toggleLike) not found (check db-likes.js). Like functionality disabled.");
-                    // Optionally disable like buttons here if needed
-                }
-                console.log("[Init] Dependencies checked.");
-                rootImageStructure = imageData.imageStructure;
-                filterConfig = imageData.filterConfig;
+                const response = await fetch('data/cards.json?timestamp=' + new Date().getTime()); 
+                if (!response.ok) throw new Error(`HTTP error ${response.status} fetching cards.json. Make sure 'data/cards.json' exists and is accessible.`);
+                allCardsData = await response.json();
+                if (!Array.isArray(allCardsData)) throw new Error("Fetched card data is not an array.");
 
-                // --- Step 2: Initial Data Processing ---
-                baseImageSet = getAllImageFilesRecursive(rootImageStructure); // Populate creators, get all image objects
-                if (baseImageSet.length === 0) {
-                    console.warn("[Init] No image files found in imageStructure.");
-                    // Potentially display a specific message if no images at all
-                }
-                populateFilters(); // Populate filter dropdowns based on data
-                renderTabs(); // Render set navigation tabs
-
-                // --- Step 3: Initialize UI Controls (Size Slider) ---
-                const savedGallerySize = localStorage.getItem(GALLERY_SIZE_KEY) || DEFAULT_GALLERY_SIZE_INDEX.toString();
-                gallerySizeSlider.value = savedGallerySize;
-                currentGallerySizeIndex = parseInt(savedGallerySize, 10);
-                applyGallerySize(currentGallerySizeIndex); // Apply initial size class
-                gallerySizeSlider.addEventListener('input', (e) => {
-                    const v = parseInt(e.target.value, 10);
-                    applyGallerySize(v);
-                    currentGallerySizeIndex = v; // Update state
-                    localStorage.setItem(GALLERY_SIZE_KEY, v.toString()); // Save preference
-                });
-
-                // --- Step 4: Initial Render ---
-                // Set the initial baseImageSet for the 'All' tab (excluding 'Misc' set)
-                baseImageSet = getAllImageFilesRecursive(rootImageStructure).filter(img => img.setName !== "Misc");
-                console.log(`[Init] Initial base image set ('All' tab, excl Misc): ${baseImageSet.length} items.`);
-                applyFiltersAndRender(); // Apply default filters and render the initial gallery view
-
-                // --- Step 5: Preload Initial Images (Optimization) ---
-                // This happens after the initial structure is rendered but before overlay hides fully
-                await preloadInitialImages(INITIAL_PRELOAD_COUNT);
-
-                // --- Step 6: Attach Event Listeners ---
-                // Filter changes
-                typeFilterSelect.addEventListener('change', (e) => { currentTypeFilter = e.target.value; applyFiltersAndRender(); });
-                forteFilterSelect.addEventListener('change', (e) => { currentForteFilter = e.target.value; applyFiltersAndRender(); });
-                trainerTypeFilterSelect.addEventListener('change', (e) => { currentTrainerTypeFilter = e.target.value; applyFiltersAndRender(); });
-                creatorFilterSelect.addEventListener('change', (e) => { currentCreatorFilter = e.target.value; applyFiltersAndRender(); });
-
-                // Lightbox controls
-                fancyLightboxClose.addEventListener('click', closeFancyLightbox);
-                fancyPrevButton.addEventListener('click', showPreviousCard);
-                fancyNextButton.addEventListener('click', showNextCard);
-                fancyNormalView.addEventListener('click', () => switchCardView('normal'));
-                fancyTextlessView.addEventListener('click', () => switchCardView('textless'));
-                fancyZoomIn.addEventListener('click', zoomIn);
-                fancyZoomOut.addEventListener('click', zoomOut);
-                fancyZoomReset.addEventListener('click', resetZoom);
-
-                // Lightbox Dragging Interaction (Restored from original logic)
-                let isDragging = false; let dragStartX = 0; let dragStartY = 0; let currentRotateX = 0; let currentRotateY = 0;
-                fancyHoloContainer.addEventListener('pointerdown', (e) => {
-                     if (isZoomed || e.pointerType === 'touch') return; isDragging = true; fancyHoloContainer.setPointerCapture(e.pointerId); dragStartX = e.clientX; dragStartY = e.clientY;
-                     const ts = window.getComputedStyle(fancyHoloInner).transform; if (ts && ts !== 'none') { try { const m = new DOMMatrixReadOnly(ts); currentRotateX = Math.asin(-m.m23)*(180/Math.PI); currentRotateY = Math.atan2(m.m13, m.m33)*(180/Math.PI); } catch(err){ currentRotateX=0; currentRotateY=0; } } else { currentRotateX=0; currentRotateY=0; }
-                     fancyHoloContainer.style.cursor = 'grabbing'; fancyHoloInner.style.transition = 'none'; e.preventDefault();
-                 });
-                 document.addEventListener('pointermove', (e) => {
-                     if (!isDragging) return; const dX = e.clientX - dragStartX; const dY = e.clientY - dragStartY; const nRY = currentRotateY + (dX*0.15); const nRX = currentRotateX - (dY*0.15); fancyHoloInner.style.transform = `perspective(1000px) rotateX(${nRX}deg) rotateY(${nRY}deg)`;
-                 });
-                 document.addEventListener('pointerup', (e) => {
-                     if (isDragging) { fancyHoloContainer.releasePointerCapture(e.pointerId); isDragging = false; fancyHoloContainer.style.cursor = 'grab'; if (!isZoomed) { fancyHoloInner.style.transition = 'transform 0.4s ease-out'; fancyHoloInner.style.transform = ''; setTimeout(() => { if (!isDragging) fancyHoloInner.style.transition = ''; }, 400); } else { const ft = window.getComputedStyle(fancyHoloInner).transform; if (ft && ft !== 'none') { try { const m=new DOMMatrixReadOnly(ft); currentRotateX=Math.asin(-m.m23)*(180/Math.PI); currentRotateY=Math.atan2(m.m13,m.m33)*(180/Math.PI); } catch(err){} } } }
-                 });
-                 fancyHoloContainer.addEventListener('dblclick', () => { if (isZoomed) resetZoom(); else zoomIn(); });
-
-
-                // Global Keydown Listener
-                document.addEventListener('keydown', (e) => {
-                    if (fancyLightbox.classList.contains('visible')) {
-                        handleFancyLightboxKeyDown(e); // Handle lightbox keys
-                    } else {
-                        // Handle gallery keys only if focus is likely within gallery/controls
-                        const activeElement = document.activeElement;
-                        if (activeElement && (itemGallery.contains(activeElement) || tabContainer.contains(activeElement) || activeElement.closest('.controls-area'))) {
-                            handleGalleryKeyDown(e);
-                        }
-                    }
-                });
-
-                // Apply Holo effects to gallery thumbnails
-                applyHoloListeners('#item-gallery');
-
-                // --- Step 7: Initialization Complete ---
-                clearTimeout(loadTimeout); // Clear the fallback timeout
-                ensurePageLoaded(); // Hide loading overlay
-                const endTime = performance.now();
-                console.log(`[Init] Initialization complete in ${(endTime - startTime).toFixed(0)}ms.`);
+                console.log(`Loaded ${allCardsData.length} cards.`);
+                populateFilterDropdowns();
+                renderSetTabs();
+                setupEventListeners();
+                
+                const defaultTabEl = document.querySelector(`.tab[data-set-id="${currentSetTab}"]`);
+                if(defaultTabEl) defaultTabEl.click(); else applyFiltersAndRender();
 
             } catch (error) {
-                // Catch critical errors during initialization
-                console.error("[Init] CRITICAL ERROR DURING INITIALIZATION:", error);
-                displayError(`Initialization Failed: ${error.message}. Please check the browser console for details and verify external scripts/data (image_data.js, db-likes.js) are loaded correctly.`);
-                clearTimeout(loadTimeout); // Ensure timeout is cleared on error
-                // ensurePageLoaded(); // Already called in displayError
+                console.error("Initialization failed:", error);
+                itemGalleryEl.innerHTML = `<p class="text-red-500 text-center col-span-full">Error loading card data: ${error.message}.</p>`;
+            } finally {
+                if (loadingOverlayEl) loadingOverlayEl.classList.add('loaded');
             }
         }
 
-        // --- Start Application ---
-        // Use DOMContentLoaded to ensure HTML is parsed, then run initApp
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp(); // DOM is already ready
+        function populateFilterDropdowns() { 
+            const types = new Set(); const trainerSubtypes = new Set();
+            const rarities = new Set(); const creators = new Set();
+            allCardsData.forEach(card => {
+                if (card.supertype === "Pokémon" && card.types) card.types.forEach(t => types.add(t));
+                if (card.supertype === "Trainer" && card.subtypes) card.subtypes.forEach(st => trainerSubtypes.add(st));
+                if (card.rarity) rarities.add(card.rarity);
+                if (card.artist) creators.add(card.artist);
+                if (card.forteData?.discordUsername) creators.add(card.forteData.discordUsername);
+            });
+            const sortAndPopulate = (el, itemsSet, orderConfig, allText) => {
+                const ordered = orderConfig.filter(item => itemsSet.has(item));
+                const unordered = Array.from(itemsSet).filter(item => !orderConfig.includes(item)).sort();
+                populateSelectWithOptions(el, [...ordered, ...unordered], allText);
+            };
+            const combinedTypesAndSubtypes = new Set([...types, ...trainerSubtypes]);
+            const combinedOrder = [...SITE_CONFIG.pokemonTypeOrder, ...SITE_CONFIG.trainerSubtypeOrder];
+            sortAndPopulate(typeFilterEl, combinedTypesAndSubtypes, combinedOrder, "All Types/Subtypes");
+            sortAndPopulate(rarityFilterEl, rarities, SITE_CONFIG.rarityOrder, "All Rarities");
+            populateSelectWithOptions(creatorFilterEl, Array.from(creators).sort(), "All Creators");
+            forteFilterEl.innerHTML = '';
+            for (const [value, text] of Object.entries(SITE_CONFIG.forteStatusOptions)) {
+                const option = document.createElement('option'); option.value = value; option.textContent = text;
+                forteFilterEl.appendChild(option);
+            }
+        }
+        function populateSelectWithOptions(selectElement, optionsArray, allText) { 
+            selectElement.innerHTML = `<option value="all">${allText}</option>`;
+            optionsArray.forEach(opt => {
+                const option = document.createElement('option'); option.value = opt; option.textContent = opt;
+                selectElement.appendChild(option);
+            });
         }
 
-    </script>
-    <script src="js/legendpopup.js" defer></script>     
-    <script src="js/settings.js" defer></script>
-    <script src="js/submissions.js" defer></script>
-    <script src="js/effects.js" defer></script>   
-    <script src="js/card-view.js" defer></script>   
-
-     <script>
-        // Your main application script, now with effect functions removed
-        // and calls updated to use ForteEffects.*
-        // ... (initApp, renderGalleryView, openFancyLightbox, etc.) ...
-
-        /** Initializes the application */
-        async function initApp() {
-             console.log("[Init] DOM Loaded. Initializing Application...");
-             // ... other init code ...
-
-             // Ensure settings are applied (settings.js handles initial load)
-             // window.effectsEnabled is now globally available via settings.js
-
-             // ... populate filters, render tabs ...
-
-             // Apply Holo effects to gallery thumbnails via the new module
-             if (window.ForteEffects) {
-                 ForteEffects.initGalleryHolo('#item-gallery');
-             } else {
-                 console.error("ForteEffects module not loaded!");
-             }
-
-             // ... rest of initApp ...
+        function renderSetTabs() { 
+            const setCounts = {};
+            allCardsData.forEach(card => {
+                if (card.set?.id && card.set?.name) { 
+                    if (!setCounts[card.set.id]) {
+                        setCounts[card.set.id] = { name: card.set.name, count: 0, id: card.set.id };
+                    }
+                    setCounts[card.set.id].count++;
+                } else {
+                    const defaultMiscId = "misc_unknown"; 
+                     if (!setCounts[defaultMiscId]) {
+                        setCounts[defaultMiscId] = { name: "Unknown Set", count: 0, id: defaultMiscId };
+                    }
+                    setCounts[defaultMiscId].count++;
+                }
+            });
+            const orderedSetsForTabs = SITE_CONFIG.setOrder
+                .map(setName => {
+                    const setCode = SITE_CONFIG.setDisplayNameToCodeMap[setName];
+                    return setCode && setCounts[setCode] ? setCounts[setCode] : null;
+                })
+                .filter(Boolean);
+            Object.values(setCounts).forEach(setInfo => {
+                if (!orderedSetsForTabs.find(s => s.id === setInfo.id)) {
+                    orderedSetsForTabs.push(setInfo); 
+                }
+            });
+            tabContainerEl.innerHTML = ''; 
+            const allTab = createTabElement('all', `All Sets (${allCardsData.length})`, SITE_CONFIG.setColors['All'] || SITE_CONFIG.setColors['default']);
+            tabContainerEl.appendChild(allTab);
+            orderedSetsForTabs.forEach(setInfo => {
+                const tab = createTabElement(setInfo.id, `${setInfo.name} (${setInfo.count})`, SITE_CONFIG.setColors[setInfo.name] || SITE_CONFIG.setColors['default']);
+                tabContainerEl.appendChild(tab);
+            });
         }
-         // Make sure other functions like openFancyLightbox, closeFancyLightbox,
-         // zoomIn, zoomOut, resetZoom, switchCardView, activateThumbnail, etc.
-         // now call ForteEffects.resetLightboxHolo() or ForteEffects.resetGalleryHolo()
-         // where they previously called the local versions.
-
-        // --- Start Application ---
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp(); // DOM is already ready
+        function createTabElement(setId, text, color) { 
+            const button = document.createElement('button');
+            button.className = 'tab'; button.dataset.setId = setId; button.textContent = text;
+            if (color) {
+                button.style.setProperty('--tab-active-border-color', color);
+                button.style.setProperty('--tab-active-bg-color', hexToRgba(color, 0.1)); 
+                button.style.setProperty('--tab-active-text-color', color);
+            }
+            return button;
         }
-    </script>  
+        function hexToRgba(hex, alpha = 1) { 
+            if (!hex || typeof hex !== 'string') return `rgba(107, 114, 128, ${alpha})`;
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+            const bigint = parseInt(hex, 16);
+            if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
+            const r = (bigint >> 16) & 255; const g = (bigint >> 8) & 255; const b = bigint & 255;
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        function lightenHexColor(hex, percent) { 
+            if (!hex || typeof hex !== 'string') return '#FFFFFF'; hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+            const num = parseInt(hex, 16); if (isNaN(num)) return '#FFFFFF';
+            const amt = Math.round(2.55 * percent * 100);
+            let r = (num >> 16) + amt; let g = ((num >> 8) & 0x00FF) + amt; let b = (num & 0x0000FF) + amt;
+            r = Math.max(0, Math.min(255, r)); g = Math.max(0, Math.min(255, g)); b = Math.max(0, Math.min(255, b));
+            return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
+        }
+
+        function setupEventListeners() { 
+            [typeFilterEl, supertypeFilterEl, rarityFilterEl, creatorFilterEl, forteFilterEl, sortFilterEl].forEach(filter => {
+                if(filter) filter.addEventListener('change', () => {
+                    currentFilters.type = typeFilterEl.value;
+                    currentFilters.supertype = supertypeFilterEl.value;
+                    currentFilters.rarity = rarityFilterEl.value;
+                    currentFilters.creator = creatorFilterEl.value;
+                    currentFilters.forte = forteFilterEl.value;
+                    currentSort = sortFilterEl.value;
+                    applyFiltersAndRender();
+                });
+            });
+            tabContainerEl.addEventListener('click', (e) => {
+                const tab = e.target.closest('.tab');
+                if (tab && !tab.classList.contains('active')) {
+                    tabContainerEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active'); currentSetTab = tab.dataset.setId;
+                    applyFiltersAndRender();
+                }
+            });
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+            lightboxPrevBtn.addEventListener('click', showPreviousCardInLightbox);
+            lightboxNextBtn.addEventListener('click', showNextCardInLightbox);
+            document.addEventListener('keydown', (e) => {
+                if (lightboxEl.classList.contains('visible')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowLeft') showPreviousCardInLightbox();
+                    if (e.key === 'ArrowRight') showNextCardInLightbox();
+                }
+            });
+            const submissionBtnEl = document.getElementById('submission-button');
+            if (submissionBtnEl) {
+                submissionBtnEl.addEventListener('click', () => {
+                    window.open('YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE', '_blank');
+                });
+            }
+        }
+
+        function applyFiltersAndRender() { 
+            let tempFilteredCards = allCardsData;
+            if (currentSetTab !== 'all') {
+                tempFilteredCards = tempFilteredCards.filter(card => card.set && card.set.id === currentSetTab);
+            }
+            if (currentFilters.supertype !== 'all') {
+                tempFilteredCards = tempFilteredCards.filter(card => card.supertype === currentFilters.supertype);
+            }
+            if (currentFilters.type !== 'all') {
+                const selectedType = currentFilters.type;
+                if (currentFilters.supertype === 'Trainer') {
+                    tempFilteredCards = tempFilteredCards.filter(card => card.subtypes && card.subtypes.includes(selectedType));
+                } else if (currentFilters.supertype === 'Pokémon' || currentFilters.supertype === 'Energy') {
+                    tempFilteredCards = tempFilteredCards.filter(card => card.types && card.types.includes(selectedType));
+                } else { 
+                     tempFilteredCards = tempFilteredCards.filter(card => 
+                        (card.supertype === 'Pokémon' && card.types && card.types.includes(selectedType)) ||
+                        (card.supertype === 'Trainer' && card.subtypes && card.subtypes.includes(selectedType)) ||
+                        (card.supertype === 'Energy' && card.types && card.types.includes(selectedType))
+                     );
+                }
+            }
+            if (currentFilters.rarity !== 'all') {
+                tempFilteredCards = tempFilteredCards.filter(card => card.rarity === currentFilters.rarity);
+            }
+            if (currentFilters.creator !== 'all') {
+                tempFilteredCards = tempFilteredCards.filter(card => card.artist === currentFilters.creator || (card.forteData && card.forteData.discordUsername === currentFilters.creator));
+            }
+            if (currentFilters.forte !== 'all') {
+                const isForteTarget = currentFilters.forte === 'isForte';
+                tempFilteredCards = tempFilteredCards.filter(card => card.forteData && card.forteData.isForte === isForteTarget);
+            }
+            tempFilteredCards.sort((a,b) => { 
+                switch(currentSort) {
+                    case 'name': return (a.name || '').localeCompare(b.name || '');
+                    case 'hp': return (parseInt(b.hp) || 0) - (parseInt(a.hp) || 0);
+                    case 'artist': return (a.artist || a.forteData?.discordUsername || '').localeCompare(b.artist || b.forteData?.discordUsername || '');
+                    case 'rarity': 
+                        const rarityA = SITE_CONFIG.rarityOrder.indexOf(a.rarity); const rarityB = SITE_CONFIG.rarityOrder.indexOf(b.rarity);
+                        return (rarityA === -1 ? 999 : rarityA) - (rarityB === -1 ? 999 : rarityB);
+                    case 'recent':
+                        const dateA = new Date(a.forteData?.approvedDate || a.set?.releaseDate || '1900-01-01');
+                        const dateB = new Date(b.forteData?.approvedDate || b.set?.releaseDate || '1900-01-01');
+                        return dateB - dateA;
+                    case 'setThenNumber': default:
+                        const setIdA = a.set?.id || 'zzz'; const setIdB = b.set?.id || 'zzz';
+                        if (setIdA < setIdB) return -1; if (setIdA > setIdB) return 1;
+                        return (parseInt(a.number) || 99999) - (parseInt(b.number) || 99999);
+                }
+            });
+            currentFilteredCardsForLightbox = tempFilteredCards;
+            renderGalleryThumbs();
+        }
+
+        function renderGalleryThumbs() { 
+            itemGalleryEl.innerHTML = '';
+            if (currentFilteredCardsForLightbox.length === 0) { emptyMessageEl.classList.remove('hidden'); return; }
+            emptyMessageEl.classList.add('hidden');
+            currentFilteredCardsForLightbox.forEach((card, index) => {
+                const div = document.createElement('div');
+                div.className = 'thumbnail'; div.tabIndex = 0;
+                div.setAttribute('aria-label', card.name); div.dataset.cardIndex = index;
+                const img = document.createElement('img');
+                img.src = card.images?.small || card.images?.large || placeholderUrl;
+                img.alt = card.name; img.className = 'gallery-image'; img.loading = 'lazy';
+                img.onerror = () => img.src = placeholderUrl;
+                img.onload = () => img.classList.add('loaded');
+                div.appendChild(img);
+                if (card.forteData?.isForte) {
+                    const forteIndicator = document.createElement('div');
+                    forteIndicator.className = 'forte-indicator';
+                    forteIndicator.innerHTML = '<i class="fas fa-crown"></i>';
+                    div.appendChild(forteIndicator);
+                }
+                div.addEventListener('click', () => openLightboxWithCard(card));
+                div.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openLightboxWithCard(card); });
+                itemGalleryEl.appendChild(div);
+            });
+        }
+
+        function openLightboxWithCard(cardObject) { 
+            currentLightboxIndex = currentFilteredCardsForLightbox.findIndex(c => c.id === cardObject.id);
+            updateLightboxDetails(cardObject);
+            updateLightboxNav();
+            lightboxEl.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() { 
+            lightboxEl.classList.remove('visible'); document.body.style.overflow = ''; 
+        }
+        
+        function updateLightboxDetails(card) { 
+            if (!card) { closeLightbox(); return; }
+            lightboxCardTitleEl.textContent = card.name || 'Card Details';
+            lightboxSpinnerEl.classList.remove('hidden'); lightboxCardImageEl.classList.add('hidden');
+            lightboxCardImageEl.onload = () => { lightboxSpinnerEl.classList.add('hidden'); lightboxCardImageEl.classList.remove('hidden'); lightboxCardImageEl.classList.add('loaded'); };
+            lightboxCardImageEl.onerror = () => { lightboxCardImageEl.src = placeholderUrl; lightboxSpinnerEl.classList.add('hidden'); lightboxCardImageEl.classList.remove('hidden');};
+            const imageUrl = card.images?.large || card.images?.small || placeholderUrl;
+            console.log("Setting lightbox image to:", imageUrl); 
+            lightboxCardImageEl.src = imageUrl; 
+            lightboxCardImageEl.alt = card.name;
+
+            lbElements.cardName.textContent = card.name || '-';
+            lbElements.setName.textContent = card.set?.name || '-';
+            lbElements.cardNumber.textContent = `${card.number || '-'}${card.set?.printedTotal ? ` / ${card.set.printedTotal}` : ''}`;
+            lbElements.rarity.textContent = card.rarity || '-';
+            lbElements.artist.textContent = card.artist || '-';
+            
+            const isPoke = card.supertype === 'Pokémon'; const isTrainer = card.supertype === 'Trainer'; const isEnergy = card.supertype === 'Energy';
+            lbElements.pokemonDetails.style.display = isPoke ? 'block' : 'none';
+            lbElements.trainerDetails.style.display = isTrainer ? 'block' : 'none';
+            lbElements.energyDetails.style.display = isEnergy ? 'block' : 'none';
+            lbElements.abilitiesSection.style.display = isPoke && card.abilities?.length ? 'block' : 'none';
+            lbElements.attacksSection.style.display = isPoke && card.attacks?.length ? 'block' : 'none';
+            lbElements.rulesSection.style.display = (isTrainer || isEnergy) && card.rules?.length ? 'block' : 'none';
+            lbElements.battleStatsSection.style.display = isPoke && (card.weaknesses?.length || card.resistances?.length || card.retreatCost?.length) ? 'block' : 'none';
+            lbElements.flavorTextSection.style.display = card.flavorText ? 'block' : 'none';
+
+            if (isPoke) {
+                lbElements.hp.textContent = card.hp || '-';
+                lbElements.types.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
+                lbElements.stage.textContent = card.subtypes?.join(', ') || '-';
+                lbElements.stageItem.style.display = card.subtypes?.length ? 'block' : 'none';
+                if (card.evolvesFrom) { lbElements.evolvesFromItem.style.display = 'block'; lbElements.evolvesFrom.textContent = card.evolvesFrom; } 
+                else { lbElements.evolvesFromItem.style.display = 'none'; }
+                if(card.nationalPokedexNumbers?.length) { lbElements.pokedexItem.style.display = 'block'; lbElements.pokedexData.textContent = card.nationalPokedexNumbers.join(', ');}
+                else { lbElements.pokedexItem.style.display = 'none'; }
+                lbElements.abilitiesContainer.innerHTML = card.abilities?.map(a => `<div class="ability-container"><div class="ability-name">${a.name} (${a.type})</div><div class="ability-text">${a.text}</div></div>`).join('') || '';
+                lbElements.attacksContainer.innerHTML = card.attacks?.map(atk => `
+                    <div class="attack-container">
+                        <div class="attack-cost">${atk.cost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || ''}</div>
+                        <div class="attack-name">${atk.name} ${atk.damage ? `- ${atk.damage}` : ''}</div>
+                        ${atk.text ? `<div class="attack-text">${atk.text}</div>` : ''}
+                    </div>`).join('') || '';
+                lbElements.weaknessContainer.style.display = card.weaknesses?.length ? 'flex' : 'none';
+                lbElements.weakness.innerHTML = card.weaknesses?.map(w => `<span class="card-type-badge type-${w.type.toLowerCase()}">${w.type} ${w.value}</span>`).join(', ') || '';
+                lbElements.resistanceContainer.style.display = card.resistances?.length ? 'block' : 'none'; 
+                lbElements.resistance.innerHTML = card.resistances?.map(r => `<span class="card-type-badge type-${r.type.toLowerCase()}">${r.type} ${r.value}</span>`).join(', ') || '';
+                lbElements.retreatCostItem.style.display = card.retreatCost?.length ? 'block' : 'none';
+                lbElements.retreatCost.innerHTML = card.retreatCost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || '';
+            }
+            if(isTrainer){
+                lbElements.trainerSubtypes.innerHTML = card.subtypes?.map(st => `<span class="card-type-badge type-trainer">${st}</span>`).join(' ') || '-';
+                lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
+            }
+            if(isEnergy){
+                lbElements.energyTypes.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
+                 lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
+            }
+            lbElements.flavorText.textContent = card.flavorText || '-';
+            lbElements.creator.textContent = card.forteData?.discordUsername || card.artist || 'Unknown';
+            lbElements.isForte.innerHTML = card.forteData?.isForte ? '<span class="forte-badge" style="display:inline-flex; align-items:center; gap:0.25rem; background:var(--color-error); padding:0.2rem 0.4rem; border-radius:0.25rem; font-size:0.8rem;"><i class="fas fa-crown" style="font-size:0.7rem;"></i> Forte</span>' : 'No';
+            lbElements.regulation.textContent = card.forteData?.regulationMark || '-';
+            lbElements.approvedDate.textContent = card.forteData?.approvedDate || '-';
+        }
+
+        function updateLightboxNav() { 
+            lightboxPrevBtn.disabled = currentLightboxIndex <= 0;
+            lightboxNextBtn.disabled = currentLightboxIndex >= currentFilteredCardsForLightbox.length - 1;
+        }
+        function showPreviousCardInLightbox() { 
+            if (currentLightboxIndex > 0) { currentLightboxIndex--; updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); updateLightboxNav(); }
+        }
+        function showNextCardInLightbox() { 
+            if (currentLightboxIndex < currentFilteredCardsForLightbox.length - 1) { currentLightboxIndex++; updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); updateLightboxNav(); }
+        }
+        
+        document.addEventListener('DOMContentLoaded', initializeApp);
+   </script>
 </body>
 </html>
