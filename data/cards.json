@@ -92,10 +92,13 @@
     "name": "Ivysaur",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Stage 1"
     ],
-    "hp": "0",
-    "types": [],
+    "hp": 110,
+    "types": [
+      "Grass"
+    ],
+    "evolvesFrom": "Bulbasaur",
     "attacks": [
       {
         "name": "Spread Pollen",
@@ -140,8 +143,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-05-23T17:20:05.766Z",
+      "releaseDate": "2025/05/23",
+      "updatedAt": "2025-05-23T17:23:00.138Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -168,7 +171,7 @@
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/05/23",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
