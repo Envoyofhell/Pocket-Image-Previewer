@@ -11,91 +11,151 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/mobile.css">
     <link rel="stylesheet" href="assets/css/enhanced-styles.css"> 
     
     <script src="filter_config.js"></script>
 
     <style>
-        /* Fallback for CSS variables if theme.css is not loaded or they are missing */
+        /* Critical layout fixes */
         :root {
-            --color-background-body: #111827; /* bg-gray-900 */
-            --color-text-primary: #f3f4f6;    /* text-gray-100 */
-            --color-text-secondary: #9ca3af; /* text-gray-400 */
-            --color-border: #374151;         /* border-gray-700 */
-            --color-background-panel: #1f2937; /* bg-gray-800 */
-            --color-background-alt: #374151;   /* bg-gray-700 */
-            --color-background-input: #4b5563; /* bg-gray-600 */
-            --color-text-placeholder: #9ca3af; /* text-gray-400 */
-            --color-primary: #f87171;          /* Example: red-400 */
-            --color-accent: #f87171;           /* Example: red-400 */
-            --color-accent-light: #fca5a5;     /* Example: red-300 */
-            --color-secondary: #60a5fa;        /* Example: blue-400 */
-            --color-success: #34d399;          /* Example: green-400 */
-            --color-error: #f87171;            /* Example: red-400 */
-
-            /* Spacing variables used in enhanced-styles.css */
-            --space-1: 0.25rem; /* p-1 */
-            --space-2: 0.5rem;  /* p-2 */
-            --space-4: 1rem;    /* p-4 */
-
-            /* Radius variables */
-            --radius-full: 9999px; /* rounded-full */
-            
-            /* Z-index variables */
-            --z-popover: 1000;
-            --z-toast: 2000;
-            --z-modal: 1500; 
-            
-            /* Transition variables */
-            --transition-fast: 0.2s;
-
-            /* Shadow variables */
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --header-height: 80px;
+            --nav-height: 60px;
+            --footer-height: 60px;
         }
-        /* Basic body styling */
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-background-body);
-            color: var(--color-text-primary);
-        }
-        .title-glow {
-            font-family: 'Pirata One', cursive;
-            text-shadow: 0 0 5px var(--color-accent), 0 0 10px var(--color-accent), 0 0 15px var(--color-accent-light);
-        }
-        .logo {
-            height: 40px; 
-            width: auto;
-        }
-        /* Styles for the loader in page-loading-overlay */
-        .loader {
-            border: 4px solid var(--color-background-alt); /* Light grey */
-            border-top: 4px solid var(--color-accent); /* Blue */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+            background-color: var(--color-background, #0a101e);
+            color: var(--color-text-primary, #f3f4f6);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Fixed header layout */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            z-index: 1000;
+        }
+
+        .app-set-navigation {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 999;
+        }
+
+        .app-main-content {
+            position: fixed;
+            top: calc(var(--header-height) + var(--nav-height));
+            left: 0;
+            right: 0;
+            bottom: var(--footer-height);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .app-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--footer-height);
+            z-index: 1000;
+        }
+
+        /* Ensure scrollable content */
+        .app-gallery-area {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .app-sidebar {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        /* Header content layout fixes */
+        .header-content {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            gap: 1rem;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-left: auto;
+        }
+
+        .search-container {
+            flex: 0 0 300px;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex: 1 1 100%;
+                order: 3;
+            }
+            
+            .brand-area {
+                flex: 1 1 100%;
+                order: 1;
+                justify-content: center;
+            }
+            
+            .header-actions {
+                flex: 1 1 100%;
+                order: 2;
+                justify-content: center;
+                margin-left: 0;
+            }
+
+            :root {
+                --header-height: 120px; /* Taller for wrapped content */
+            }
+
+            .app-set-navigation {
+                top: var(--header-height);
+            }
+
+            .app-main-content {
+                top: calc(var(--header-height) + var(--nav-height));
+            }
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <div id="page-loading-overlay">
-        <div class="loader"></div>
-        <div id="loading-text">Loading Card Data...</div>
+<body>
+    <div id="page-loading-overlay" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+        <div class="flex flex-col items-center">
+            <div class="loader mb-4"></div>
+            <div id="loading-text" class="text-red-400 font-medium">Loading Card Data...</div>
+        </div>
     </div>
 
     <header class="app-header">
         <div class="header-content">
             <div class="brand-area">
-                <img src="https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte/resources/forte-arrivals.png?raw=true" alt="Forte Logo" class="logo">
-                <h1 class="title-glow text-2xl md:text-3xl">Forte Card Viewer</h1>
+                <h1 class="title-glow">Forte Card Viewer</h1>
             </div>
             
             <div class="search-container">
@@ -122,15 +182,11 @@
 
     <nav id="set-tab-navigation" class="app-set-navigation">
         <div id="tab-container" class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-            </div>
+        </div>
     </nav>
 
-    <div class="app-main-content flex flex-grow">
+    <div class="app-main-content">
         <aside class="app-sidebar" id="filter-sidebar">
-            <div class="sidebar-toggle" id="sidebar-toggle">
-                <i class="fas fa-chevron-left"></i>
-            </div>
-            
             <div class="sidebar-content">
                 <h2 class="text-lg font-semibold mt-1 mb-3 text-[var(--color-text-primary)]">Filters</h2>
                 
@@ -168,7 +224,7 @@
                 <div class="filter-group">
                     <label for="forte-filter" class="filter-label">Forte Status</label>
                     <select id="forte-filter" class="filter-select">
-                        </select>
+                    </select>
                 </div>
                 
                 <div class="filter-group">
@@ -181,6 +237,19 @@
                         <option value="rarity">Rarity</option>
                         <option value="recent">Recently Added</option>
                     </select>
+                </div>
+                <div class="filter-separator"></div> 
+
+                <div class="filter-group">
+                    <h3 class="text-md font-medium mb-2 text-[var(--color-text-primary)]">Display Options</h3>
+                
+                    <label for="gallery-size-slider" class="filter-label">Card Size</label>
+                    <div class="slider-wrapper"> <input type="range" id="gallery-size-slider" class="size-control-slider" min="1" max="5" value="3" step="1">
+                        <div class="size-value-indicator">M</div> 
+                    </div>
+                
+                    <div class="stats-wrapper" style="margin-top: 1rem;"> <label class="filter-label"></label>
+                         <div id="search-stats" class="sidebar-search-stats"></div> </div>
                 </div>
             </div>
         </aside>
@@ -219,20 +288,17 @@
                         <i class="fas fa-info-circle"></i> Credits
                     </button>
                 </div>
-                <div class="copyright">
-                    <p>Designed by <a href="https://discordapp.com/users/your-discord-id-here" target="_blank">WebDesigner</a>. 
-                    Pokémon © Nintendo, Game Freak, Creatures.</p>
-                </div>
             </div>
             <div class="footer-section">
-                <div class="flex items-center gap-2">
-                    <span class="text-sm text-[var(--color-text-secondary)]">Version 2.5</span>
-                    <span class="text-xs px-2 py-1 bg-purple-900 text-purple-200 rounded-full">Beta</span>
+                <div class="copyright">
+                    <p>Designed by <a href="https://discordapp.com/users/your-discord-id-here" target="_blank">WebDesigner</a>. 
+                    Pokémon © Nintendo, Game Freak, Creatures. Version 2.5 <span class="text-xs px-2 py-1 bg-purple-900 text-purple-200 rounded-full">Beta</span></p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Lightbox HTML -->
     <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="fancy-lightbox-content">
             <div class="fancy-lightbox-header">
@@ -324,50 +390,45 @@
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-             <div class="fancy-card-actions">
-                </div>
+            <div class="fancy-card-actions">
+            </div>
         </div>
     </div>
     
     <div class="copy-tooltip" id="copy-tooltip">Copied to clipboard!</div>
 
-
-    <script src="js/app.js" type="module"></script>
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
     <script src="js/search.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/ui-controls.js"></script>
+    <script src="js/simple-effects.js"></script>
     
     <script src="js/settings.js"></script>
     <script src="js/legendpopup.js"></script>
-    <script src="js/submissions.js"></script> <script>
+    <script src="js/submissions.js"></script>
+    
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Submission button functionality (if not handled by submissions.js)
-            const submitBtn = document.getElementById('submission-button');
-            if (submitBtn) {
-                submitBtn.addEventListener('click', function() {
-                    const formUrl = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.submissionFormUrl) 
-                                    ? SITE_CONFIG.submissionFormUrl 
-                                    : 'https://forms.google.com/your-form-url-here'; // Fallback URL
-                    if (formUrl !== 'https://forms.google.com/your-form-url-here') {
-                         window.open(formUrl, '_blank');
-                    } else {
-                        console.warn('Submission form URL not configured in SITE_CONFIG.submissionFormUrl or submissions.js');
-                        // Optionally, display a message to the user that the feature is not configured.
-                        alert('Card submission form is not configured yet.');
-                    }
-                });
-            }
-            
-            // Sidebar visibility logic should ideally be fully handled by ui-controls.js
-            // including loading saved state.
-            // const sidebar = document.getElementById('filter-sidebar');
-            // if (sidebar && !localStorage.getItem('sidebarCollapsed') === 'true') { // Example check
-            //  sidebar.classList.remove('collapsed');
-            // } else if (sidebar) {
-            //  sidebar.classList.add('collapsed');
-            // }
+            // Initialize loading styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .loader {
+                    border: 4px solid rgba(229, 231, 235, 0.2);
+                    border-top-color: #dc2626;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    animation: spin 1s linear infinite;
+                }
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>

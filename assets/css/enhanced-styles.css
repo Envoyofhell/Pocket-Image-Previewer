@@ -1,4 +1,34 @@
-/* enhanced-styles.css - Additional styles for new features */
+/* enhanced-styles.css - Refactored for new sidebar toggle and layout fixes */
+
+/* === VARIABLE DEFINITIONS (Ensure these are defined in theme.css or here) === */
+:root {
+    --font-display: 'Pirata One', cursive;
+    --color-background-input: rgba(30, 41, 59, 0.9);
+    --color-text-primary: #f3f4f6;
+    --color-text-secondary: #9ca3af;
+    --color-text-placeholder: #6b7280;
+    --color-border: #374151;
+    --color-border-light: #4b5563;
+    --color-primary: #f87171; /* Example primary color (reddish) */
+    --color-accent: #f87171; /* Accent color, can be same as primary or different */
+    --color-accent-light: #fb923c;
+    --color-background-panel: #1e293b;
+    --color-background-alt: #0f172a;
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --radius-md: 0.375rem;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-4: 1rem;
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --text-sm: 0.875rem;
+    /* Variables from index.html for layout consistency */
+    --header-height: 80px;
+    --nav-height: 60px;
+    --footer-height: 60px;
+}
 
 /* === HEADER ENHANCEMENTS === */
 .header-content {
@@ -7,33 +37,71 @@
     align-items: center;
     padding: 0.75rem 1.5rem;
     gap: 1rem;
+    width: 100%;
+    max-width: none;
 }
 
 .brand-area {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    flex: 1; /* Allows this area to grow and push other elements */
 }
 
 .header-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    flex-shrink: 0; /* Prevents actions from shrinking too much */
+    margin-left: auto; 
 }
 
 #access-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* This will now control the gap, not Tailwind's gap-x-3 */
+    gap: 0.5rem;
+}
+
+/* === FLICKERING TITLE EFFECT === */
+.title-glow {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    color: #ff2600; 
+    text-shadow: 
+        0 0 2px #ff8800,
+        0 0 4px #ff0000,
+        0 0 6px #4a5568;
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+            0 0 2px #4a5568,
+            0 0 4px #4a5568,
+            0 0 6px #4a5568,
+            0 0 8px #ff2600, 
+            0 0 10px #ff8800;
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: 
+            0 0 1px #2d3748,
+            0 0 2px #2d3748,
+            0 0 3px #2d3748,
+            0 0 5px #ff2600; 
+        opacity: 0.7;
+    }
+}
+
+/* Hide the logo */
+.logo {
+    display: none;
 }
 
 /* === SEARCH FUNCTIONALITY === */
 .search-container {
     position: relative;
-    width: 280px;
-    max-width: 100%; /* Ensures it doesn't overflow on smaller header space */
+    width: 300px;
+    max-width: 100%;
 }
 
 .search-input {
@@ -50,7 +118,7 @@
 .search-input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2); /* Example focus color, adjust if needed */
+    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
 }
 
 .search-input::placeholder {
@@ -75,7 +143,7 @@
     transform: translateY(-50%);
     color: var(--color-text-secondary);
     cursor: pointer;
-    display: none; /* Should be controlled by JS to show when input has text */
+    display: none;
     font-size: 0.875rem;
     transition: color 0.2s ease;
     z-index: 2;
@@ -90,149 +158,290 @@
 
 /* === BUTTON STYLES === */
 .access-button, .discord-button {
-    background-color: rgba(107, 114, 128, 0.2); /* Example: gray-500 with 20% opacity */
+    background-color: rgba(107, 114, 128, 0.2);
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
-    border-radius: 0.375rem; /* Tailwind's rounded-md */
-    padding: 0.5rem 0.75rem; /* Tailwind's py-2 px-3 */
-    font-size: 0.875rem; /* Tailwind's text-sm */
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Tailwind's gap-2 */
+    gap: 0.5rem;
     text-decoration: none;
+    height: 36px; 
 }
 
 .access-button:hover, .discord-button:hover {
-    background-color: rgba(107, 114, 128, 0.4); /* Example: gray-500 with 40% opacity */
+    background-color: rgba(107, 114, 128, 0.4);
     color: var(--color-text-primary);
-    border-color: var(--color-accent); /* Ensure --color-accent is defined */
+    border-color: var(--color-accent);
+}
+
+#submission-button {
+    background-color: #dc2626; 
+    color: white;
+    border-color: #dc2626;
+    font-weight: 600;
+}
+
+#submission-button:hover {
+    background-color: #b91c1c;
+    border-color: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+}
+
+.key-info-button, .settings-button {
+    background-color: rgba(107, 114, 128, 0.2);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 36px; 
+}
+
+.key-info-button:hover, .settings-button:hover {
+    background-color: rgba(107, 114, 128, 0.4);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent);
 }
 
 .discord-button {
-    background-color: #5865f2; /* Discord blue */
+    background-color: #5865f2;
     color: white;
     border-color: #5865f2;
 }
 
 .discord-button:hover {
-    background-color: #4752c4; /* Darker Discord blue */
+    background-color: #4752c4;
     border-color: #4752c4;
     transform: translateY(-1px);
 }
 
-/* === COLLAPSIBLE SIDEBAR === */
-.sidebar-toggle {
-    position: absolute;
-    top: 50%;
-    right: -14px; /* Adjust to align properly with the sidebar edge */
-    transform: translateY(-50%);
-    width: 24px;
-    height: 40px;
-    background-color: var(--color-background-panel);
-    border-radius: 0 0.25rem 0.25rem 0; /* Tailwind's rounded-r-sm */
+/* === FIXED HEADER AND FOOTER LAYOUT === */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background, #0a101e);
+    color: var(--color-text-primary, #f3f4f6);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex; 
+    flex-direction: column; 
+}
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height); 
+    z-index: 1000;
+    background-color: var(--color-background-panel); 
+    box-shadow: var(--shadow-lg); 
+    border-bottom: 1px solid var(--color-border); 
+}
+
+.app-set-navigation {
+    position: fixed;
+    top: var(--header-height); 
+    left: 0;
+    right: 0;
+    height: var(--nav-height); 
+    z-index: 999;
+    background-color: rgba(17, 24, 39, 0.95); 
+    padding: var(--space-2) var(--space-4); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    scrollbar-width: thin; 
+}
+
+.app-main-content {
+    position: fixed; 
+    top: calc(var(--header-height) + var(--nav-height)); 
+    left: 0;
+    right: 0;
+    bottom: var(--footer-height); 
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 50;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--color-border);
-    border-left: none;
-    transition: all 0.2s ease;
+    overflow: hidden;
 }
 
-.sidebar-toggle:hover {
-    background-color: var(--color-background-alt);
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height); 
+    z-index: 1000;
+    background-color: var(--color-background-panel); 
+    border-top: 1px solid var(--color-border); 
+    padding: 1rem 1.5rem; 
 }
 
-.sidebar-toggle i {
-    font-size: 0.875rem; /* text-sm */
-    color: var(--color-text-secondary);
-    transition: color 0.2s ease;
+.app-gallery-area {
+    flex-grow: 1; 
+    padding: var(--space-4); 
+    overflow-y: auto;
+    height: 100%; 
 }
 
-.sidebar-toggle:hover i {
-    color: var(--color-text-primary);
-}
-
+/* === SIDEBAR AND NEW TOGGLE STYLES === */
 .app-sidebar {
-    position: relative; /* Needed for absolute positioning of the toggle */
-    transition: width 0.3s ease, padding 0.3s ease;
-    /* Base width and padding should be defined in styles.css or here if not overridden by Tailwind */
+    position: relative; 
+    width: 280px; 
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--color-background-panel);
+    padding: var(--space-4);
+    overflow-y: auto;
+    height: 100%; 
+    border-right: 1px solid var(--color-border);
+    transition: width 0.3s ease, padding-left 0.3s ease, padding-right 0.3s ease;
 }
 
 .app-sidebar.collapsed {
-    width: 0 !important; /* Use !important if Tailwind classes are overriding */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    overflow: hidden;
-    border-right: none !important; /* Example of overriding if needed */
+    width: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    border-right: none;
+    overflow: visible !important; 
+}
+
+.sidebar-content {
+    transition: opacity 0.2s ease 0.1s, visibility 0s ease 0.3s; 
+    opacity: 1;
+    visibility: visible;
 }
 
 .app-sidebar.collapsed .sidebar-content {
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0s ease 0.2s; 
 }
 
-.sidebar-content {
-    transition: opacity 0.2s ease;
-     /* Ensure sidebar content has some padding if not handled by Tailwind */
-    padding: 1rem; /* Example, adjust as needed from your original styles.css */
-}
-
-/* === GALLERY CONTROLS === */
-.gallery-controls {
+.sidebar-toggle {
+    position: absolute;
+    top: 50%; 
+    right: -10px; 
+    transform: translateY(-50%); 
+    width: 20px; 
+    height: 70px; 
+    background-color: rgba(75, 85, 99, 0.6); 
+    border-radius: 0 var(--radius-md) var(--radius-md) 0; 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem; /* Tailwind's gap-4 */
-    padding: 0.75rem 1rem; /* Tailwind's py-3 px-4 */
-    background-color: var(--color-background-alt);
-    border-bottom: 1px solid var(--color-border);
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-border-light);
+    border-left: none; 
+    transition: background-color 0.2s ease, right 0.3s ease; 
 }
 
-.size-control-label {
-    font-size: 0.875rem; /* text-sm */
-    color: var(--color-text-secondary);
-    white-space: nowrap;
+.app-sidebar.collapsed .sidebar-toggle {
+   right: -10px; 
 }
 
-.size-control-slider {
-    width: 100px;
+.sidebar-toggle:hover {
+    background-color: rgba(107, 114, 128, 0.8); 
+}
+
+.sidebar-toggle i {
+    font-size: 1.1rem; 
+    color: #ff2600; 
+    text-shadow: 
+        0 0 3px #ff8800,
+        0 0 5px #ff0000,
+        0 0 7px #ff0000,
+        0 0 10px #ff2600;
+    animation: subtle-glow 2s infinite alternate;
+    transition: transform 0.3s ease;
+}
+
+.app-sidebar.collapsed .sidebar-toggle i {
+    transform: rotate(180deg); 
+}
+
+@keyframes subtle-glow {
+    from {
+        text-shadow: 
+            0 0 2px #ff8800,
+            0 0 3px #ff0000,
+            0 0 5px #ff0000,
+            0 0 7px #ff2600;
+    }
+    to {
+        text-shadow: 
+            0 0 3px #ff8800,
+            0 0 5px #ff0000,
+            0 0 8px #ff0000,
+            0 0 12px #ff2600,
+            0 0 15px #ff8800;
+    }
+}
+
+/* === GALLERY CONTROLS (Original styles - now hidden) === */
+.gallery-controls {
+   display: none !important; /* Hide the original gallery controls bar */
+}
+
+
+/* === STYLES FOR MOVED CONTROLS WITHIN SIDEBAR === */
+.app-sidebar .filter-group .slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* var(--space-3) if defined, or 0.75rem */
+    width: 100%;
+    margin-top: 0.25rem; /* Small space below label */
+}
+
+.app-sidebar .size-control-slider {
+    flex-grow: 1; /* Slider takes available space */
+    width: auto; /* Override fixed width */
     height: 8px;
-    background: rgba(75, 85, 99, 0.3); /* gray-600 with 30% opacity */
-    border-radius: 4px; /* ~rounded-sm */
+    background: rgba(75, 85, 99, 0.3);
+    border-radius: 4px;
     outline: none;
     opacity: 0.8;
     transition: opacity 0.2s;
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
-    margin: 0 0.75rem; /* mx-3 */
+    margin: 0; /* Remove original margins */
 }
 
-.size-control-slider:hover {
+.app-sidebar .size-control-slider:hover {
     opacity: 1;
 }
 
-.size-control-slider::-webkit-slider-thumb {
+.app-sidebar .size-control-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 16px;
     height: 16px;
     background: var(--color-accent);
-    border-radius: 50%; /* rounded-full */
+    border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
-.size-control-slider::-webkit-slider-thumb:hover {
+.app-sidebar .size-control-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
 }
 
-.size-control-slider::-moz-range-thumb {
+.app-sidebar .size-control-slider::-moz-range-thumb {
     width: 16px;
     height: 16px;
     background: var(--color-accent);
@@ -242,71 +451,157 @@
     transition: transform 0.2s ease;
 }
 
-.size-control-slider::-moz-range-thumb:hover {
+.app-sidebar .size-control-slider::-moz-range-thumb:hover {
     transform: scale(1.1);
 }
 
-.size-value-indicator {
+.app-sidebar .size-value-indicator {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px; /* ~w-7 */
-    height: 28px; /* ~h-7 */
-    background-color: var(--color-background-panel);
+    width: 28px; /* Keep original size or adjust if needed */
+    height: 28px;
+    background-color: var(--color-background-input); /* Match other inputs in sidebar */
     border: 1px solid var(--color-border);
-    border-radius: 50%; /* rounded-full */
-    font-size: 0.75rem; /* text-xs */
-    font-weight: 600; /* font-semibold */
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 600;
     color: var(--color-text-primary);
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
-#search-stats {
-    font-size: 0.875rem; /* text-sm */
+.app-sidebar .stats-wrapper {
+    margin-top: var(--space-2); /* Space above stats if in same group */
+}
+.app-sidebar #search-stats {
+    font-size: var(--text-sm);
     color: var(--color-text-secondary);
+    padding: var(--space-1) 0;
+    text-align: left; /* Align with other filter content */
+}
+
+
+/* === TAB FIXES === */
+#tab-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: var(--space-1);
+    max-width: 100%;
+    padding-bottom: var(--space-1);
+}
+
+.tab {
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    border: 1px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease;
     white-space: nowrap;
+    position: relative;
+}
+
+.tab:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: var(--color-text-primary);
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.tab.active {
+    background-color: rgba(90, 8, 102, 0.15);
+    color: var(--color-primary);
+    border-color: var(--color-border-light);
+    border-bottom-color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* === CARD GLOW EFFECTS === */
+.thumbnail {
+    position: relative;
+    background-color: rgba(30, 41, 59, 0.8);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 2.5 / 3.5;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-fast) ease-out, 
+                box-shadow var(--transition-fast) ease-out;
+    will-change: transform, box-shadow;
+}
+
+.thumbnail:hover, 
+.thumbnail:focus-visible {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 
+        var(--shadow-xl),
+        0 0 20px rgba(248, 113, 113, 0.4),
+        0 0 40px rgba(248, 113, 113, 0.2);
+    outline: none;
+}
+
+.thumbnail:focus-visible {
+    border: 2px solid var(--color-accent);
+}
+
+.thumbnail.holo-active {
+    box-shadow: 
+        var(--shadow-xl),
+        0 0 25px rgba(248, 113, 113, 0.5),
+        0 0 50px rgba(248, 113, 113, 0.3);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity var(--transition-normal) ease-in-out;
+}
+
+.thumbnail img.loaded {
+    opacity: 1;
 }
 
 /* === FOOTER === */
-.app-footer {
-    background-color: var(--color-background-panel);
-    border-top: 1px solid var(--color-border);
-    padding: 1.5rem; /* p-6 */
-    margin-top: auto; /* Crucial for sticky footer with flex body */
-}
-
 .footer-content {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Align items to the top of the footer sections */
-    max-width: 1400px; /* Example max-width */
-    margin: 0 auto; /* Center content */
-    gap: 2rem; /* gap-8 */
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 2rem;
 }
 
 .footer-section {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem; /* gap-3 */
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .footer-links {
     display: flex;
-    flex-wrap: wrap; /* Allow links to wrap on smaller screens if needed */
-    gap: 1.5rem; /* gap-6 */
+    gap: 1.5rem;
 }
 
 .footer-link {
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: 0.875rem; /* text-sm */
+    font-size: 0.875rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* gap-2 */
+    gap: 0.5rem;
     transition: color 0.2s ease;
     cursor: pointer;
     background: none;
     border: none;
-    font-family: inherit; /* Ensure it uses the body font */
+    font-family: inherit;
 }
 
 .footer-link:hover {
@@ -314,7 +609,7 @@
 }
 
 .copyright {
-    font-size: 0.75rem; /* text-xs */
+    font-size: 0.75rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
 }
@@ -326,87 +621,143 @@
 }
 
 .copyright a:hover {
-    color: var(--color-accent-light); /* Ensure --color-accent-light is defined */
+    color: var(--color-accent-light);
 }
 
-/* === LIGHTBOX ACTION BUTTONS === */
-.fancy-card-actions {
-    position: absolute;
-    right: var(--space-4); /* Ensure --space-4 is defined, e.g., 1rem */
-    bottom: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2); /* Ensure --space-2 is defined, e.g., 0.5rem */
-    z-index: var(--z-popover); /* Ensure --z-popover is defined, e.g., 1000 */
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+    .app-main-content {
+        flex-direction: column;
+    }
+    
+    .app-sidebar { 
+        width: 100%;
+        max-height: 40vh; 
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        overflow: visible !important; 
+    }
+    
+    .app-sidebar.collapsed { 
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        overflow: hidden !important; 
+    }
+    
+    .sidebar-toggle {
+        top: auto; 
+        bottom: -22px; 
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%) rotate(0deg); 
+        width: 44px; 
+        height: 20px; 
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+        border: 1px solid var(--color-border);
+        border-top: none;
+    }
+
+    .app-sidebar.collapsed .sidebar-toggle {
+        bottom: -22px; 
+    }
+
+    .sidebar-toggle i {
+        transform: rotate(-90deg); 
+    }
+    .app-sidebar.collapsed .sidebar-toggle i {
+        transform: rotate(90deg); 
+    }
+
+    /* Adjustments for slider in responsive sidebar */
+    .app-sidebar .filter-group .slider-wrapper {
+        max-width: 300px; /* Prevent it from becoming too wide */
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
-.fancy-action-button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full); /* Ensure --radius-full is defined, e.g., 9999px */
-    width: 2.5rem; /* w-10 */
-    height: 2.5rem; /* h-10 */
-    font-size: var(--text-base); /* Ensure --text-base is defined, e.g., 1rem */
+@media (max-width: 768px) {
+    :root { /* Update header height for mobile if it wraps */
+        --header-height-mobile: 120px; /* Example, adjust based on actual wrapped height */
+    }
+    .app-header { /* Apply mobile header height */
+         /* height: var(--header-height-mobile); */ /* This might be better handled by content flow */
+    }
+    .app-set-navigation {
+        /* top: var(--header-height-mobile); */
+    }
+    .app-main-content {
+        /* top: calc(var(--header-height-mobile) + var(--nav-height)); */
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .brand-area {
+        flex: 1 1 100%;
+        order: 1;
+        justify-content: center;
+    }
+    
+    .search-container {
+        flex: 1 1 100%;
+        order: 3;
+        width: 100%;
+    }
+    
+    .header-actions {
+        order: 2;
+        gap: 0.5rem;
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+    
+    .discord-button span,
+    .access-button span {
+        display: none;
+    }
+    
+    .discord-button,
+    .access-button,
+    .key-info-button,
+    .settings-button {
+        padding: 0.5rem;
+        width: 36px;
+    }
+        
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .footer-section {
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
+/* Lightbox and other styles from previous enhanced-styles, assuming they are still needed */
+.fancy-card-image-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition-fast) ease; /* Ensure --transition-fast is defined, e.g., 0.2s */
-    box-shadow: var(--shadow-md); /* Ensure --shadow-md is defined */
+    padding: 1rem;
+    overflow: hidden;
 }
 
-.fancy-action-button:hover {
-    background-color: var(--color-secondary); /* Ensure --color-secondary is defined */
-    transform: scale(1.1);
-    border-color: var(--color-primary); /* Ensure --color-primary is defined */
-}
-
-.fancy-action-button:active {
-    transform: scale(0.95);
-}
-
-.fancy-action-button.success {
-    background-color: var(--color-success) !important; /* Ensure --color-success is defined */
-}
-
-.fancy-action-button.error {
-    background-color: var(--color-error) !important; /* Ensure --color-error is defined */
-}
-
-/* === COPY TOOLTIP === */
-.copy-tooltip {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 0.5rem 1rem; /* py-2 px-4 */
-    border-radius: 0.25rem; /* rounded-sm */
-    font-size: 0.875rem; /* text-sm */
-    z-index: var(--z-toast); /* Ensure --z-toast is defined, e.g., 2000 */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-/* === ACCESSIBILITY IMPROVEMENTS === */
-@media (prefers-reduced-motion: reduce) {
-    .sidebar-toggle,
-    .size-control-slider::-webkit-slider-thumb,
-    .size-control-slider::-moz-range-thumb,
-    .fancy-action-button,
-    .discord-button {
-        transition: none;
-    }
-    
-    .app-sidebar {
-        transition: none;
-    }
-}
-
-/* === LIGHTBOX FIXES === */
 #fancy-holo-inner {
     display: flex;
     align-items: center;
@@ -419,229 +770,49 @@
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); /* Example shadow */
-    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
 }
 
-.fancy-card-image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem; /* p-4 */
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.1); /* Slight dark tint for the background */
+#item-gallery.gallery-size-xs { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
+#item-gallery.gallery-size-s { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+#item-gallery.gallery-size-m { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+#item-gallery.gallery-size-l { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.25rem; }
+#item-gallery.gallery-size-xl { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; }
+
+/* Ensure filter labels are consistent */
+.filter-label {
+    display: block;
+    margin-bottom: 0.25rem; /* var(--space-1) */
+    font-size: var(--text-sm);
+    font-weight: 500; /* Medium weight */
+    color: var(--color-text-secondary);
 }
 
-/* === RESPONSIVE DESIGN === */
-@media (max-width: 1024px) {
-    .app-main-content {
-        flex-direction: column; /* Stack sidebar and gallery */
-    }
-    
-    .app-sidebar {
-        width: 100%; /* Full width for sidebar on smaller screens */
-        max-height: 50vh; /* Limit height if it becomes too long */
-        border-right: none;
-        border-bottom: 1px solid var(--color-border);
-    }
-    
-    .app-sidebar.collapsed {
-        max-height: 0;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        border-bottom: none !important;
-    }
-    
-    .sidebar-toggle {
-        top: -16px; /* Position above the sidebar */
-        right: 1rem; /* Align to the right */
-        transform: rotate(90deg); /* Rotate icon for horizontal toggle */
-        border-radius: 0.25rem 0.25rem 0 0; /* Adjust border radius */
-        border-top: none;
-        border-bottom: 1px solid var(--color-border);
-    }
+/* General styling for filter groups if not already present in theme.css */
+.filter-group {
+    margin-bottom: var(--space-4); /* 1rem */
 }
 
-@media (max-width: 768px) {
-    .header-content {
-        flex-wrap: wrap; /* Allow header items to wrap */
-        gap: 0.75rem; /* gap-3 */
-        padding: 0.5rem 1rem; /* py-2 px-4 */
-    }
-    
-    .brand-area {
-        flex: 1 1 100%; /* Full width for brand, allow wrapping */
-        order: 1; /* Ensure brand is first */
-        justify-content: center; /* Center brand if it wraps to its own line */
-    }
-    
-    .search-container {
-        flex: 1 1 100%; /* Full width for search */
-        order: 3; /* Search below brand and actions */
-        width: 100%;
-        max-width: none;
-    }
-    
-    .header-actions {
-        order: 2; /* Actions after brand, before search */
-        gap: 0.5rem; /* gap-2 */
-        flex: 1 1 100%; /* Allow actions to take full width if they wrap */
-        justify-content: center; /* Center actions if they wrap */
-    }
-    
-    .discord-button span,
-    .access-button span {
-        display: none; /* Hide text on small screens, show only icon */
-    }
-    
-    .discord-button,
-    .access-button {
-        padding: 0.5rem; /* p-2 for icon-only buttons */
-    }
-    
-    .gallery-controls {
-        flex-wrap: wrap;
-        gap: 0.5rem; /* gap-2 */
-        padding: 0.5rem; /* p-2 */
-    }
-    
-    .size-control-slider {
-        width: 80px;
-        margin: 0 0.5rem; /* mx-2 */
-    }
-    
-    .footer-content {
-        flex-direction: column; /* Stack footer sections */
-        gap: 1.5rem; /* Increased gap for stacked sections */
-        text-align: center; /* Center text in footer sections */
-        align-items: center; /* Center sections themselves */
-    }
-    
-    .footer-section {
-        align-items: center; /* Center content within each section */
-        width: 100%; /* Make sections take full width */
-    }
-    
-    .footer-links {
-        justify-content: center; /* Center links */
-        gap: 1rem; /* Adjust gap for links */
-    }
-    
-    .fancy-card-actions {
-        right: var(--space-2); /* e.g., 0.5rem */
-        bottom: var(--space-2);
-        gap: var(--space-1); /* e.g., 0.25rem */
-    }
-    
-    .fancy-action-button {
-        width: 2rem; /* w-8 */
-        height: 2rem; /* h-8 */
-        font-size: 0.875rem; /* text-sm */
-    }
-    
-    /* Adjustments for lightbox on mobile if .fancy-lightbox-content exists */
-    .fancy-lightbox-content {
-      /* If it's a flex container for image and info */
-      /* flex-direction: column; */ /* This was in your original, ensure it's intended */
-      width: 95vw;
-      height: auto; /* Allow height to adjust to content */
-      max-height: 95vh;
-    }
-    
-    .fancy-card-info {
-      /* width: 100%; */ /* This was in your original */
-      /* max-height: 45%; */ /* This was in your original, might constrain info too much */
-      /* border-left: none; */
-      /* border-top: 1px solid var(--color-border); */
-      /* order: 2; */ /* This was in your original */
-       overflow-y: auto; /* Allow info to scroll if it's too long */
-    }
-    
-    .fancy-card-image-container {
-      /* order: 1; */ /* This was in your original */
-      padding: var(--space-2); /* e.g., 0.5rem */
-      min-height: 200px; /* Ensure image container has some min height */
-    }
+.filter-select { /* Assuming a base style for select elements */
+    width: 100%;
+    padding: 0.5rem 0.75rem; /* var(--space-2) var(--space-3) */
+    background-color: var(--color-background-input);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-@media (max-width: 480px) {
-    .header-content {
-        padding: 0.5rem; /* p-2 */
-    }
-    
-    .title-glow { /* Assuming .title-glow is for the main title */
-        font-size: 1.25rem; /* text-xl */
-    }
-    
-    /* Search container already full width from 768px breakpoint */
-    
-    .footer-links {
-        flex-direction: column; /* Stack links vertically */
-        gap: 0.75rem; /* gap-3 */
-    }
-    
-    .gallery-controls {
-        padding: 0.5rem; /* p-2 */
-        /* Further simplify gallery controls if needed */
-    }
-    
-    #search-stats {
-        font-size: 0.75rem; /* text-xs */
-    }
-    
-    #access-controls {
-        gap: 0.25rem; /* gap-1, if buttons are icon-only */
-        /* If access-controls itself wraps, ensure it's centered or full width */
-        justify-content: center; 
-        width: 100%;
-    }
+.filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb, 248, 113, 113), 0.2); /* Define --color-primary-rgb if needed */
 }
 
-/* === PRINT STYLES === */
-@media print {
-    .app-header,
-    .app-set-navigation,
-    .app-sidebar,
-    .gallery-controls,
-    .app-footer,
-    #fancy-lightbox { /* Assuming #fancy-lightbox is the ID of your lightbox container */
-        display: none !important;
-    }
-    
-    .app-main-content {
-        flex-direction: column; /* Ensure content flows linearly */
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .app-gallery-area {
-        padding: 0;
-        width: 100%;
-    }
-    
-    .thumbnail { /* Assuming .thumbnail is your card container in the gallery */
-        break-inside: avoid; /* Try to prevent cards from splitting across pages */
-        page-break-inside: avoid; /* Older syntax */
-        box-shadow: none !important;
-        border: 1px solid #ccc; /* Simple border for print */
-        margin: 0.5cm;
-    }
-
-    /* Hide any interactive elements within cards if necessary */
-    .thumbnail button, .thumbnail a {
-        display: none !important;
-    }
-
-    body {
-        background-color: white !important;
-        color: black !important;
-        font-size: 10pt; /* Adjust base font size for print */
-    }
-
-    /* Ensure images are constrained */
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
+.filter-separator {
+    height: 5px;
+    background-color: var(--color-border);
+    margin: var(--space-6) 0; /* This is 1rem top/bottom, 0 left/right */
+    opacity: 0.6;
 }
