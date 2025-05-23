@@ -537,7 +537,7 @@
     "name": "Piplup",
     "supertype": "Pokémon",
     "subtypes": [
-      "ex (Stage 2)"
+      "Basic"
     ],
     "hp": 60,
     "types": [
@@ -586,8 +586,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-05-23T17:23:56.491Z",
+      "releaseDate": "2025/05/23",
+      "updatedAt": "2025-05-23T17:24:05.719Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -614,7 +614,7 @@
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/05/23",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
