@@ -10,12 +10,82 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     
-    <script src="filter_config.js"></script>
     <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/enhanced-styles.css"> 
+    
+    <script src="filter_config.js"></script>
+
+    <style>
+        /* Fallback for CSS variables if theme.css is not loaded or they are missing */
+        :root {
+            --color-background-body: #111827; /* bg-gray-900 */
+            --color-text-primary: #f3f4f6;    /* text-gray-100 */
+            --color-text-secondary: #9ca3af; /* text-gray-400 */
+            --color-border: #374151;         /* border-gray-700 */
+            --color-background-panel: #1f2937; /* bg-gray-800 */
+            --color-background-alt: #374151;   /* bg-gray-700 */
+            --color-background-input: #4b5563; /* bg-gray-600 */
+            --color-text-placeholder: #9ca3af; /* text-gray-400 */
+            --color-primary: #f87171;          /* Example: red-400 */
+            --color-accent: #f87171;           /* Example: red-400 */
+            --color-accent-light: #fca5a5;     /* Example: red-300 */
+            --color-secondary: #60a5fa;        /* Example: blue-400 */
+            --color-success: #34d399;          /* Example: green-400 */
+            --color-error: #f87171;            /* Example: red-400 */
+
+            /* Spacing variables used in enhanced-styles.css */
+            --space-1: 0.25rem; /* p-1 */
+            --space-2: 0.5rem;  /* p-2 */
+            --space-4: 1rem;    /* p-4 */
+
+            /* Radius variables */
+            --radius-full: 9999px; /* rounded-full */
+            
+            /* Z-index variables */
+            --z-popover: 1000;
+            --z-toast: 2000;
+            --z-modal: 1500; 
+            
+            /* Transition variables */
+            --transition-fast: 0.2s;
+
+            /* Shadow variables */
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        /* Basic body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-body);
+            color: var(--color-text-primary);
+        }
+        .title-glow {
+            font-family: 'Pirata One', cursive;
+            text-shadow: 0 0 5px var(--color-accent), 0 0 10px var(--color-accent), 0 0 15px var(--color-accent-light);
+        }
+        .logo {
+            height: 40px; 
+            width: auto;
+        }
+        /* Styles for the loader in page-loading-overlay */
+        .loader {
+            border: 4px solid var(--color-background-alt); /* Light grey */
+            border-top: 4px solid var(--color-accent); /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
     <div id="page-loading-overlay">
         <div class="loader"></div>
         <div id="loading-text">Loading Card Data...</div>
@@ -25,84 +95,154 @@
         <div class="header-content">
             <div class="brand-area">
                 <img src="https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte/resources/forte-arrivals.png?raw=true" alt="Forte Logo" class="logo">
-                <h1 class="title-glow">Forte Card Viewer</h1>
+                <h1 class="title-glow text-2xl md:text-3xl">Forte Card Viewer</h1>
             </div>
-            <div id="access-controls" class="flex items-center gap-x-3">
-                 <button id="submission-button" title="Submit a Card" class="access-button">
-                    <i class="fas fa-upload"></i>Submit Card
-                </button>
+            
+            <div class="search-container">
+                <input type="text" id="card-search" class="search-input" placeholder="Search cards..." autocomplete="off">
+                <i class="fas fa-search search-icon"></i>
+                <i class="fas fa-times clear-search" id="clear-search"></i>
+            </div>
+            
+            <div class="header-actions">
+                <a href="https://discord.gg/fortecommunity" target="_blank" class="discord-button">
+                    <i class="fab fa-discord"></i>
+                    <span>Join Discord</span>
+                </a>
+                
+                <div id="access-controls"> 
+                    <button id="submission-button" class="access-button">
+                        <i class="fas fa-upload"></i>
+                        <span>Submit Card</span>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <nav id="set-tab-navigation" class="app-set-navigation w-full">
-        <div id="tab-container" class="max-w-7xl mx-auto">
-            <!-- Tabs will be rendered here by JavaScript -->
-        </div>
+    <nav id="set-tab-navigation" class="app-set-navigation">
+        <div id="tab-container" class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+            </div>
     </nav>
 
-    <div class="app-main-content">
-        <aside class="app-sidebar">
-            <h2 class="text-lg font-semibold mt-1 mb-3 text-white">Filters</h2>
-            <div class="filter-group">
-                <label for="supertype-filter" class="filter-label">Card Category</label>
-                <select id="supertype-filter" class="filter-select">
-                    <option value="all">All Categories</option>
-                    <option value="Pokémon">Pokémon</option>
-                    <option value="Trainer">Trainer</option>
-                    <option value="Energy">Energy</option>
-                </select>
+    <div class="app-main-content flex flex-grow">
+        <aside class="app-sidebar" id="filter-sidebar">
+            <div class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-chevron-left"></i>
             </div>
-            <div class="filter-group">
-                <label for="type-filter" class="filter-label">Pokémon Type / Trainer Subtype</label>
-                <select id="type-filter" class="filter-select">
-                    <option value="all">All Types/Subtypes</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="rarity-filter" class="filter-label">Rarity</label>
-                <select id="rarity-filter" class="filter-select">
-                    <option value="all">All Rarities</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="creator-filter" class="filter-label">Creator/Artist</label>
-                <select id="creator-filter" class="filter-select">
-                    <option value="all">All Creators</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="forte-filter" class="filter-label">Forte Status</label>
-                <select id="forte-filter" class="filter-select">
-                    <!-- Will be populated via JS -->
-                </select>
-            </div>
-             <div class="filter-group">
-                <label for="sort-filter" class="filter-label">Sort By</label>
-                <select id="sort-filter" class="filter-select">
-                    <option value="setThenNumber">Set, then Number</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="hp">HP (High to Low)</option>
-                    <option value="artist">Artist (A-Z)</option>
-                    <option value="rarity">Rarity</option>
-                    <option value="recent">Recently Added</option>
-                </select>
+            
+            <div class="sidebar-content">
+                <h2 class="text-lg font-semibold mt-1 mb-3 text-[var(--color-text-primary)]">Filters</h2>
+                
+                <div class="filter-group">
+                    <label for="supertype-filter" class="filter-label">Card Category</label>
+                    <select id="supertype-filter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="Pokémon">Pokémon</option>
+                        <option value="Trainer">Trainer</option>
+                        <option value="Energy">Energy</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="type-filter" class="filter-label">Type / Subtype</label>
+                    <select id="type-filter" class="filter-select">
+                        <option value="all">All Types</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="rarity-filter" class="filter-label">Rarity</label>
+                    <select id="rarity-filter" class="filter-select">
+                        <option value="all">All Rarities</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="creator-filter" class="filter-label">Creator/Artist</label>
+                    <select id="creator-filter" class="filter-select">
+                        <option value="all">All Creators</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="forte-filter" class="filter-label">Forte Status</label>
+                    <select id="forte-filter" class="filter-select">
+                        </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="sort-filter" class="filter-label">Sort By</label>
+                    <select id="sort-filter" class="filter-select">
+                        <option value="setThenNumber">Set, then Number</option>
+                        <option value="name">Name (A-Z)</option>
+                        <option value="hp">HP (High to Low)</option>
+                        <option value="artist">Artist (A-Z)</option>
+                        <option value="rarity">Rarity</option>
+                        <option value="recent">Recently Added</option>
+                    </select>
+                </div>
             </div>
         </aside>
 
         <main class="app-gallery-area">
-            <div id="item-gallery" role="grid"></div>
-            <p id="empty-folder-message" class="text-center mt-8 text-lg text-gray-500 hidden">
+            <div class="gallery-controls">
+                <div class="flex items-center">
+                    <label for="gallery-size-slider" class="size-control-label">Card Size:</label>
+                    <input type="range" id="gallery-size-slider" class="size-control-slider" min="1" max="5" value="3" step="1">
+                    <div class="size-value-indicator">M</div>
+                </div>
+                <div id="search-stats" class="text-sm text-[var(--color-text-secondary)] ml-auto"></div>
+            </div>
+            
+            <div id="item-gallery" role="grid" class="p-2 md:p-4"></div>
+            <p id="empty-folder-message" class="text-center mt-8 text-lg text-[var(--color-text-secondary)] hidden">
                 No cards match your current filters. Try adjusting them!
             </p>
         </main>
     </div>
+    
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-links">
+                    <a href="https://discord.gg/fortecommunity" target="_blank" class="footer-link">
+                        <i class="fab fa-discord"></i> Community Discord
+                    </a>
+                    <a href="https://github.com/Envoyofhell/Pocket-Image-Previewer" target="_blank" class="footer-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://discord.gg/webdesigner" target="_blank" class="footer-link"> 
+                        <i class="fab fa-discord"></i> WebDesigner
+                    </a>
+                    <button id="footer-credits-link" class="footer-link">
+                        <i class="fas fa-info-circle"></i> Credits
+                    </button>
+                </div>
+                <div class="copyright">
+                    <p>Designed by <a href="https://discordapp.com/users/your-discord-id-here" target="_blank">WebDesigner</a>. 
+                    Pokémon © Nintendo, Game Freak, Creatures.</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-[var(--color-text-secondary)]">Version 2.5</span>
+                    <span class="text-xs px-2 py-1 bg-purple-900 text-purple-200 rounded-full">Beta</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="fancy-lightbox-content">
             <div class="fancy-lightbox-header">
-                <h2 class="fancy-lightbox-title"><i class="fas fa-clone mr-2 text-[var(--color-accent)]"></i><span id="card-title-lightbox">Card Details</span></h2>
-                <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer"><i class="fas fa-times"></i></button>
+                <h2 class="fancy-lightbox-title">
+                    <i class="fas fa-clone mr-2 text-[var(--color-accent)]"></i>
+                    <span id="card-title-lightbox">Card Details</span>
+                </h2>
+                <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="fancy-lightbox-body">
                 <div class="fancy-card-image-container" id="fancy-holo-container">
@@ -126,36 +266,39 @@
                         <div class="info-item"><span class="info-label">Type(s):</span> <div id="lb-types" class="card-types info-value"></div></div>
                         <div class="info-item" id="lb-stage-item" style="display:none;"><span class="info-label">Stage:</span> <span id="lb-stage" class="info-value">-</span></div>
                         <div class="info-item" id="lb-evolves-from-item" style="display:none;"><span class="info-label">Evolves From:</span> <span id="lb-evolves-from" class="info-value">-</span></div>
-                         <div class="info-item" id="lb-pokedex-item" style="display:none;"><span class="info-label">Pokédex Data:</span> <span id="lb-pokedex-data" class="info-value">-</span></div>
+                        <div class="info-item" id="lb-pokedex-item" style="display:none;"><span class="info-label">Pokédex Data:</span> <span id="lb-pokedex-data" class="info-value">-</span></div>
                     </div>
                     
                     <div id="lb-trainer-details" class="card-detail-section" style="display:none;">
-                         <div class="info-section-title"><i class="fas fa-briefcase"></i><span>Trainer Info</span></div>
-                         <div class="info-item"><span class="info-label">Subtype(s):</span> <div id="lb-trainer-subtypes" class="card-types info-value"></div></div>
+                        <div class="info-section-title"><i class="fas fa-briefcase"></i><span>Trainer Info</span></div>
+                        <div class="info-item"><span class="info-label">Subtype(s):</span> <div id="lb-trainer-subtypes" class="card-types info-value"></div></div>
                     </div>
-                     <div id="lb-energy-details" class="card-detail-section" style="display:none;">
-                         <div class="info-section-title"><i class="fas fa-bolt"></i><span>Energy Info</span></div>
-                         <div class="info-item"><span class="info-label">Type:</span> <div id="lb-energy-types" class="card-types info-value"></div></div>
+                    
+                    <div id="lb-energy-details" class="card-detail-section" style="display:none;">
+                        <div class="info-section-title"><i class="fas fa-bolt"></i><span>Energy Info</span></div>
+                        <div class="info-item"><span class="info-label">Type:</span> <div id="lb-energy-types" class="card-types info-value"></div></div>
                     </div>
 
                     <div id="lb-abilities-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-star"></i><span>Abilities</span></div>
                         <div id="lb-abilities-container"></div>
                     </div>
+                    
                     <div id="lb-attacks-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-fist-raised"></i><span>Attacks</span></div>
                         <div id="lb-attacks-container"></div>
                     </div>
-                     <div id="lb-rules-section" class="card-detail-section" style="display:none;">
+                    
+                    <div id="lb-rules-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-scroll"></i><span>Rules/Effect</span></div>
                         <div id="lb-rules-text" class="info-value" style="white-space: pre-wrap;"></div>
                     </div>
 
                     <div id="lb-battle-stats-section" class="card-detail-section" style="display:none;">
-                         <div class="info-section-title"><i class="fas fa-shield-alt"></i><span>Battle Stats</span></div>
-                         <div id="lb-weakness-container" class="info-item" style="display:none;"><span class="info-label">Weakness:</span> <span id="lb-weakness" class="info-value"></span></div>
-                         <div id="lb-resistance-container" class="info-item" style="display:none;"><span class="info-label">Resistance:</span> <span id="lb-resistance" class="info-value"></span></div>
-                         <div id="lb-retreat-cost-item" class="info-item" style="display:none;"><span class="info-label">Retreat Cost:</span> <div id="lb-retreat-cost" class="attack-cost"></div></div>
+                        <div class="info-section-title"><i class="fas fa-shield-alt"></i><span>Battle Stats</span></div>
+                        <div id="lb-weakness-container" class="info-item" style="display:none;"><span class="info-label">Weakness:</span> <span id="lb-weakness" class="info-value"></span></div>
+                        <div id="lb-resistance-container" class="info-item" style="display:none;"><span class="info-label">Resistance:</span> <span id="lb-resistance" class="info-value"></span></div>
+                        <div id="lb-retreat-cost-item" class="info-item" style="display:none;"><span class="info-label">Retreat Cost:</span> <div id="lb-retreat-cost" class="attack-cost"></div></div>
                     </div>
 
                     <div id="lb-flavor-text-section" class="card-detail-section" style="display:none;">
@@ -173,1241 +316,59 @@
                     </div>
                 </aside>
             </div>
-             <div class="fancy-nav-controls">
-                <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card"><i class="fas fa-chevron-left"></i></button>
-                <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Ensure SITE_CONFIG is loaded from filter-config.js
-        if (typeof SITE_CONFIG === 'undefined') {
-            console.error("CRITICAL: SITE_CONFIG not loaded. Make sure filter-config.js is included and loaded correctly before this script.");
-            document.body.innerHTML = '<div style="color:red; padding:20px; font-size:1.2em;">Error: Site configuration (filter-config.js) is missing or failed to load. Application cannot start.</div>';
-        }
-
-        // Global variables
-        let allCardsData = [];
-        let currentFilteredCardsForLightbox = [];
-        let currentLightboxIndex = -1;
-        const placeholderUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwOCIgdmlld0JveD0iMCAwIDIyMCAzMDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMDgiIGZpbGw9IiMxRTI5M0IiLz48cGF0aCBkPSJNMTEwIDE1NEMxMzYuNTEgMTU0IDE1OCAxMzIuNTEgMTU4IDEwNkMxNTggNzkuNDkwMyAxMzYuNTEgNTggMTEwIDU4QzgzLjQ5MDMgNTggNjIgNzkuNDkwMyA2MiAxMDZDNjIgMTMyLjUxIDgzLjQ5MDMgMTU0IDExMCAxNTRaIiBmaWxsPSIjNjQ3NDhCIi8+PHBhdGggZD0iTTYyLjUgMjEyLjVDODIuNSAxOTIuNSAxMzcuNSAxOTIuNSAxNTcuNSAyMTIuNSIgc3Ryb2tlPSIjNjQ3NDhCIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==';
-
-        // DOM Elements
-        const itemGalleryEl = document.getElementById('item-gallery');
-        const tabContainerEl = document.getElementById('tab-container'); 
-        const typeFilterEl = document.getElementById('type-filter');
-        const supertypeFilterEl = document.getElementById('supertype-filter');
-        const rarityFilterEl = document.getElementById('rarity-filter');
-        const creatorFilterEl = document.getElementById('creator-filter');
-        const forteFilterEl = document.getElementById('forte-filter');
-        const sortFilterEl = document.getElementById('sort-filter');
-        const emptyMessageEl = document.getElementById('empty-folder-message');
-        const loadingOverlayEl = document.getElementById('page-loading-overlay');
-        const lightboxEl = document.getElementById('fancy-lightbox');
-        const lightboxCloseBtn = document.getElementById('fancy-lightbox-close');
-        const lightboxCardTitleEl = document.getElementById('card-title-lightbox');
-        const lightboxCardImageEl = document.getElementById('fancy-card-image');
-        const lightboxSpinnerEl = document.getElementById('fancy-spinner');
-        const lightboxPrevBtn = document.getElementById('fancy-prev-button');
-        const lightboxNextBtn = document.getElementById('fancy-next-button');
-        
-        const lbElements = { 
-            cardName: document.getElementById('lb-card-name'), 
-            setName: document.getElementById('lb-set-name'),
-            cardNumber: document.getElementById('lb-card-number'), 
-            rarity: document.getElementById('lb-rarity'),
-            artist: document.getElementById('lb-artist'), 
-            pokemonDetails: document.getElementById('lb-pokemon-details'),
-            hp: document.getElementById('lb-hp'), 
-            types: document.getElementById('lb-types'),
-            stageItem: document.getElementById('lb-stage-item'), 
-            stage: document.getElementById('lb-stage'),
-            evolvesFromItem: document.getElementById('lb-evolves-from-item'), 
-            evolvesFrom: document.getElementById('lb-evolves-from'),
-            pokedexItem: document.getElementById('lb-pokedex-item'), 
-            pokedexData: document.getElementById('lb-pokedex-data'),
-            trainerDetails: document.getElementById('lb-trainer-details'), 
-            trainerSubtypes: document.getElementById('lb-trainer-subtypes'),
-            energyDetails: document.getElementById('lb-energy-details'), 
-            energyTypes: document.getElementById('lb-energy-types'),
-            abilitiesSection: document.getElementById('lb-abilities-section'), 
-            abilitiesContainer: document.getElementById('lb-abilities-container'),
-            attacksSection: document.getElementById('lb-attacks-section'), 
-            attacksContainer: document.getElementById('lb-attacks-container'),
-            rulesSection: document.getElementById('lb-rules-section'), 
-            rulesText: document.getElementById('lb-rules-text'),
-            battleStatsSection: document.getElementById('lb-battle-stats-section'),
-            weaknessContainer: document.getElementById('lb-weakness-container'), 
-            weakness: document.getElementById('lb-weakness'),
-            resistanceContainer: document.getElementById('lb-resistance-container'), 
-            resistance: document.getElementById('lb-resistance'),
-            retreatCostItem: document.getElementById('lb-retreat-cost-item'), 
-            retreatCost: document.getElementById('lb-retreat-cost'),
-            flavorTextSection: document.getElementById('lb-flavor-text-section'), 
-            flavorText: document.getElementById('lb-flavor-text'),
-            creator: document.getElementById('lb-creator'), 
-            isForte: document.getElementById('lb-is-forte'),
-            regulation: document.getElementById('lb-regulation'), 
-            approvedDate: document.getElementById('lb-approved-date')
-        };
-
-        // State variables
-        let currentFilters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
-        let currentSort = 'setThenNumber';
-        let currentSetTab = SITE_CONFIG.defaultActiveSetTab === 'all' ? 'all' : (SITE_CONFIG.setDisplayNameToCodeMap[SITE_CONFIG.defaultActiveSetTab] || 'all');
-
-        /**
-         * Initialize the application
-         */
-        async function initializeApp() {
-            try {
-                const response = await fetch('data/cards.json?timestamp=' + new Date().getTime()); 
-                if (!response.ok) throw new Error(`HTTP error ${response.status} fetching cards.json. Make sure 'data/cards.json' exists and is accessible.`);
-                allCardsData = await response.json();
-                if (!Array.isArray(allCardsData)) throw new Error("Fetched card data is not an array.");
-
-                console.log(`Loaded ${allCardsData.length} cards.`);
-                populateFilterDropdowns();
-                renderSetTabs();
-                setupEventListeners();
-                
-                const defaultTabEl = document.querySelector(`.tab[data-set-id="${currentSetTab}"]`);
-                if(defaultTabEl) defaultTabEl.click(); else applyFiltersAndRender();
-
-            } catch (error) {
-                console.error("Initialization failed:", error);
-                itemGalleryEl.innerHTML = `<p class="text-red-500 text-center col-span-full">Error loading card data: ${error.message}.</p>`;
-            } finally {
-                if (loadingOverlayEl) loadingOverlayEl.classList.add('loaded');
-            }
-        }
-
-        /**
-         * Populate filter dropdowns with options from the card data
-         */
-        function populateFilterDropdowns() { 
-            const types = new Set(); 
-            const trainerSubtypes = new Set();
-            const rarities = new Set(); 
-            const creators = new Set();
-            
-            allCardsData.forEach(card => {
-                if (card.supertype === "Pokémon" && card.types) card.types.forEach(t => types.add(t));
-                if (card.supertype === "Trainer" && card.subtypes) card.subtypes.forEach(st => trainerSubtypes.add(st));
-                if (card.rarity) rarities.add(card.rarity);
-                if (card.artist) creators.add(card.artist);
-                if (card.forteData?.discordUsername) creators.add(card.forteData.discordUsername);
-            });
-            
-            const sortAndPopulate = (el, itemsSet, orderConfig, allText) => {
-                const ordered = orderConfig.filter(item => itemsSet.has(item));
-                const unordered = Array.from(itemsSet).filter(item => !orderConfig.includes(item)).sort();
-                populateSelectWithOptions(el, [...ordered, ...unordered], allText);
-            };
-            
-            const combinedTypesAndSubtypes = new Set([...types, ...trainerSubtypes]);
-            const combinedOrder = [...SITE_CONFIG.pokemonTypeOrder, ...SITE_CONFIG.trainerSubtypeOrder];
-            sortAndPopulate(typeFilterEl, combinedTypesAndSubtypes, combinedOrder, "All Types/Subtypes");
-            sortAndPopulate(rarityFilterEl, rarities, SITE_CONFIG.rarityOrder, "All Rarities");
-            populateSelectWithOptions(creatorFilterEl, Array.from(creators).sort(), "All Creators");
-            
-            forteFilterEl.innerHTML = '';
-            for (const [value, text] of Object.entries(SITE_CONFIG.forteStatusOptions)) {
-                const option = document.createElement('option'); 
-                option.value = value; 
-                option.textContent = text;
-                forteFilterEl.appendChild(option);
-            }
-        }
-        
-        /**
-         * Helper to populate a select element with options
-         */
-        function populateSelectWithOptions(selectElement, optionsArray, allText) { 
-            selectElement.innerHTML = `<option value="all">${allText}</option>`;
-            optionsArray.forEach(opt => {
-                const option = document.createElement('option'); 
-                option.value = opt; 
-                option.textContent = opt;
-                selectElement.appendChild(option);
-            });
-        }
-
-        /**
-         * Render set tabs based on the card data and SITE_CONFIG
-         */
-        function renderSetTabs() { 
-            const setCounts = {};
-            // Count cards by set
-            allCardsData.forEach(card => {
-                if (card.set?.id) { 
-                    if (!setCounts[card.set.id]) {
-                        // Get proper display name from SITE_CONFIG
-                        // Find the display name based on set NAME (not ID)
-                        // This is because card.set.name = "PF1" needs to map to "Forte Arrivals"
-                        let displayName = "Unknown Set";
-                        
-                        // First look for a matching set name in SITE_CONFIG
-                        if (card.set.name) {
-                            const setCodeInConfig = Object.values(SITE_CONFIG.setDisplayNameToCodeMap)
-                                .find(code => code.toUpperCase() === card.set.name.toUpperCase());
-                            
-                            if (setCodeInConfig) {
-                                // If found, get the display name from the key
-                                displayName = Object.keys(SITE_CONFIG.setDisplayNameToCodeMap)
-                                    .find(key => SITE_CONFIG.setDisplayNameToCodeMap[key].toUpperCase() === card.set.name.toUpperCase());
-                            } else {
-                                // Use set name as fallback
-                                displayName = card.set.name;
-                            }
-                        }
-                        
-                        setCounts[card.set.id] = { 
-                            name: displayName, 
-                            count: 0, 
-                            id: card.set.id,
-                            originalName: card.set.name  // Store original name as backup
-                        };
-                    }
-                    setCounts[card.set.id].count++;
-                } else {
-                    const defaultMiscId = "misc_unknown"; 
-                    if (!setCounts[defaultMiscId]) {
-                        setCounts[defaultMiscId] = { name: "Unknown Set", count: 0, id: defaultMiscId };
-                    }
-                    setCounts[defaultMiscId].count++;
-                }
-            });
-            
-            // Order sets according to SITE_CONFIG
-            const orderedSetsForTabs = SITE_CONFIG.setOrder
-                .map(setName => {
-                    const setCode = SITE_CONFIG.setDisplayNameToCodeMap[setName];
-                    return setCode && setCounts[setCode] ? setCounts[setCode] : null;
-                })
-                .filter(Boolean);
-            
-            // Add any sets not in SITE_CONFIG.setOrder
-            Object.values(setCounts).forEach(setInfo => {
-                if (!orderedSetsForTabs.find(s => s.id === setInfo.id)) {
-                    orderedSetsForTabs.push(setInfo); 
-                }
-            });
-            
-            // Clear and rebuild tabs
-            tabContainerEl.innerHTML = ''; 
-            const allTab = createTabElement('all', `All Sets (${allCardsData.length})`, SITE_CONFIG.setColors['All'] || SITE_CONFIG.setColors['default']);
-            allTab.setAttribute('data-key-num', '0');
-            tabContainerEl.appendChild(allTab);
-            
-            // Create tabs for each set
-            orderedSetsForTabs.forEach((setInfo, index) => {
-                const tab = createTabElement(
-                    setInfo.id, 
-                    `${setInfo.name} (${setInfo.count})`, 
-                    SITE_CONFIG.setColors[setInfo.name] || SITE_CONFIG.setColors['default']
-                );
-                
-                // Add keyboard shortcut indicator (1-9)
-                if (index < 9) {
-                    tab.setAttribute('data-key-num', (index + 1).toString());
-                }
-                
-                tabContainerEl.appendChild(tab);
-            });
-        }
-        
-        /**
-         * Create a tab element
-         */
-        function createTabElement(setId, text, color) { 
-            const button = document.createElement('button');
-            button.className = 'tab'; 
-            button.dataset.setId = setId; 
-            button.textContent = text;
-            
-            if (color) {
-                button.style.setProperty('--tab-active-border-color', color);
-                button.style.setProperty('--tab-active-bg-color', hexToRgba(color, 0.1)); 
-                button.style.setProperty('--tab-active-text-color', color);
-            }
-            
-            return button;
-        }
-        
-        /**
-         * Convert hex color to rgba
-         */
-        function hexToRgba(hex, alpha = 1) { 
-            if (!hex || typeof hex !== 'string') return `rgba(107, 114, 128, ${alpha})`;
-            hex = hex.replace('#', '');
-            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
-            const bigint = parseInt(hex, 16);
-            if (isNaN(bigint)) return `rgba(107, 114, 128, ${alpha})`;
-            const r = (bigint >> 16) & 255; const g = (bigint >> 8) & 255; const b = bigint & 255;
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-        
-        /**
-         * Lighten a hex color by percent
-         */
-        function lightenHexColor(hex, percent) { 
-            if (!hex || typeof hex !== 'string') return '#FFFFFF'; 
-            hex = hex.replace('#', '');
-            if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
-            const num = parseInt(hex, 16); 
-            if (isNaN(num)) return '#FFFFFF';
-            const amt = Math.round(2.55 * percent * 100);
-            let r = (num >> 16) + amt; 
-            let g = ((num >> 8) & 0x00FF) + amt; 
-            let b = (num & 0x0000FF) + amt;
-            r = Math.max(0, Math.min(255, r)); 
-            g = Math.max(0, Math.min(255, g)); 
-            b = Math.max(0, Math.min(255, b));
-            return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
-        }
-
-        /**
-         * Set up event listeners
-         */
-        function setupEventListeners() { 
-            [typeFilterEl, supertypeFilterEl, rarityFilterEl, creatorFilterEl, forteFilterEl, sortFilterEl].forEach(filter => {
-                if(filter) filter.addEventListener('change', () => {
-                    currentFilters.type = typeFilterEl.value;
-                    currentFilters.supertype = supertypeFilterEl.value;
-                    currentFilters.rarity = rarityFilterEl.value;
-                    currentFilters.creator = creatorFilterEl.value;
-                    currentFilters.forte = forteFilterEl.value;
-                    currentSort = sortFilterEl.value;
-                    applyFiltersAndRender();
-                });
-            });
-            
-            tabContainerEl.addEventListener('click', (e) => {
-                const tab = e.target.closest('.tab');
-                if (tab && !tab.classList.contains('active')) {
-                    tabContainerEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active'); 
-                    currentSetTab = tab.dataset.setId;
-                    applyFiltersAndRender();
-                }
-            });
-            
-            lightboxCloseBtn.addEventListener('click', closeLightbox);
-            lightboxPrevBtn.addEventListener('click', showPreviousCardInLightbox);
-            lightboxNextBtn.addEventListener('click', showNextCardInLightbox);
-            
-            document.addEventListener('keydown', (e) => {
-                if (lightboxEl.classList.contains('visible')) {
-                    if (e.key === 'Escape') closeLightbox();
-                    if (e.key === 'ArrowLeft') showPreviousCardInLightbox();
-                    if (e.key === 'ArrowRight') showNextCardInLightbox();
-                    if (e.key === 'd' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
-                        const downloadButton = document.getElementById('fancy-download-button');
-                        if (downloadButton) downloadButton.click();
-                    }
-                    if (e.key === 'S' && e.shiftKey && !e.ctrlKey && !e.altKey) {
-                        const shareButton = document.getElementById('fancy-share-button');
-                        if (shareButton) shareButton.click();
-                    }
-                } else if (!isInputFocused()) {
-                    // Quick set selection with number keys
-                    const key = parseInt(e.key);
-                    if (!isNaN(key) && key >= 0 && key <= 9) {
-                        const tabs = tabContainerEl.querySelectorAll('.tab');
-                        if (key === 0) {
-                            // Select "All Sets" tab
-                            const allTab = tabs[0];
-                            if (allTab && !allTab.classList.contains('active')) {
-                                allTab.click();
-                                e.preventDefault();
-                            }
-                        } else if (key <= tabs.length - 1) {
-                            // Select specific set tab (1-indexed)
-                            const tab = tabs[key];
-                            if (tab && !tab.classList.contains('active')) {
-                                tab.click();
-                                e.preventDefault();
-                            }
-                        }
-                    }
-                    
-                    // Settings shortcut - 'S' key
-                    if (e.key === 's' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
-                        const settingsButton = document.getElementById('settings-button');
-                        if (settingsButton) {
-                            settingsButton.click();
-                            e.preventDefault();
-                        }
-                    }
-                }
-            });
-            
-            const submissionBtnEl = document.getElementById('submission-button');
-            if (submissionBtnEl) {
-                submissionBtnEl.addEventListener('click', () => {
-                    window.open('YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE', '_blank');
-                });
-            }
-        }
-        
-        /**
-         * Check if an input element is focused
-         */
-        function isInputFocused() {
-            const activeElement = document.activeElement;
-            return activeElement.tagName === 'INPUT' || 
-                activeElement.tagName === 'TEXTAREA' || 
-                activeElement.tagName === 'SELECT' ||
-                activeElement.isContentEditable;
-        }
-
-        /**
-         * Apply filters and render the gallery
-         */
-        function applyFiltersAndRender() { 
-            let tempFilteredCards = allCardsData;
-            if (currentSetTab !== 'all') {
-                tempFilteredCards = tempFilteredCards.filter(card => card.set && card.set.id === currentSetTab);
-            }
-            if (currentFilters.supertype !== 'all') {
-                tempFilteredCards = tempFilteredCards.filter(card => card.supertype === currentFilters.supertype);
-            }
-            if (currentFilters.type !== 'all') {
-                const selectedType = currentFilters.type;
-                if (currentFilters.supertype === 'Trainer') {
-                    tempFilteredCards = tempFilteredCards.filter(card => card.subtypes && card.subtypes.includes(selectedType));
-                } else if (currentFilters.supertype === 'Pokémon' || currentFilters.supertype === 'Energy') {
-                    tempFilteredCards = tempFilteredCards.filter(card => card.types && card.types.includes(selectedType));
-                } else { 
-                     tempFilteredCards = tempFilteredCards.filter(card => 
-                        (card.supertype === 'Pokémon' && card.types && card.types.includes(selectedType)) ||
-                        (card.supertype === 'Trainer' && card.subtypes && card.subtypes.includes(selectedType)) ||
-                        (card.supertype === 'Energy' && card.types && card.types.includes(selectedType))
-                     );
-                }
-            }
-            if (currentFilters.rarity !== 'all') {
-                tempFilteredCards = tempFilteredCards.filter(card => card.rarity === currentFilters.rarity);
-            }
-            if (currentFilters.creator !== 'all') {
-                tempFilteredCards = tempFilteredCards.filter(card => card.artist === currentFilters.creator || (card.forteData && card.forteData.discordUsername === currentFilters.creator));
-            }
-            if (currentFilters.forte !== 'all') {
-                const isForteTarget = currentFilters.forte === 'isForte';
-                tempFilteredCards = tempFilteredCards.filter(card => card.forteData && card.forteData.isForte === isForteTarget);
-            }
-            
-            tempFilteredCards.sort((a,b) => { 
-                switch(currentSort) {
-                    case 'name': return (a.name || '').localeCompare(b.name || '');
-                    case 'hp': return (parseInt(b.hp) || 0) - (parseInt(a.hp) || 0);
-                    case 'artist': return (a.artist || a.forteData?.discordUsername || '').localeCompare(b.artist || b.forteData?.discordUsername || '');
-                    case 'rarity': 
-                        const rarityA = SITE_CONFIG.rarityOrder.indexOf(a.rarity); const rarityB = SITE_CONFIG.rarityOrder.indexOf(b.rarity);
-                        return (rarityA === -1 ? 999 : rarityA) - (rarityB === -1 ? 999 : rarityB);
-                    case 'recent':
-                        const dateA = new Date(a.forteData?.approvedDate || a.set?.releaseDate || '1900-01-01');
-                        const dateB = new Date(b.forteData?.approvedDate || b.set?.releaseDate || '1900-01-01');
-                        return dateB - dateA;
-                    case 'setThenNumber': default:
-                        const setIdA = a.set?.id || 'zzz'; const setIdB = b.set?.id || 'zzz';
-                        if (setIdA < setIdB) return -1; if (setIdA > setIdB) return 1;
-                        return (parseInt(a.number) || 99999) - (parseInt(b.number) || 99999);
-                }
-            });
-            
-            currentFilteredCardsForLightbox = tempFilteredCards;
-            renderGalleryThumbs();
-        }
-
-        /**
-         * Render gallery thumbnails
-         */
-        function renderGalleryThumbs() { 
-            itemGalleryEl.innerHTML = '';
-            if (currentFilteredCardsForLightbox.length === 0) { 
-                emptyMessageEl.classList.remove('hidden'); 
-                return; 
-            }
-            
-            emptyMessageEl.classList.add('hidden');
-            
-            currentFilteredCardsForLightbox.forEach((card, index) => {
-                const div = document.createElement('div');
-                div.className = 'thumbnail'; 
-                div.tabIndex = 0;
-                div.setAttribute('aria-label', card.name); 
-                div.dataset.cardIndex = index;
-                
-                const img = document.createElement('img');
-                img.src = card.images?.small || card.images?.large || placeholderUrl;
-                img.alt = card.name; 
-                img.className = 'gallery-image'; 
-                img.loading = 'lazy';
-                img.onerror = () => img.src = placeholderUrl;
-                img.onload = () => img.classList.add('loaded');
-                
-                div.appendChild(img);
-                
-                if (card.forteData?.isForte) {
-                    const forteIndicator = document.createElement('div');
-                    forteIndicator.className = 'forte-indicator';
-                    forteIndicator.innerHTML = '<i class="fas fa-crown"></i>';
-                    div.appendChild(forteIndicator);
-                }
-                
-                div.addEventListener('click', () => openLightboxWithCard(card));
-                div.addEventListener('keydown', (e) => { 
-                    if (e.key === 'Enter' || e.key === ' ') openLightboxWithCard(card); 
-                });
-                
-                itemGalleryEl.appendChild(div);
-            });
-        }
-
-        /**
-         * Check for card ID in URL
-         */
-        function getCardIdFromUrl() {
-            const hash = window.location.hash;
-            if (hash && hash.startsWith('#card=')) {
-                return hash.substring(6); // Remove '#card=' prefix
-            }
-            return null;
-        }
-
-        /**
-         * Update URL when opening a card
-         */
-        function updateUrlForCard(cardId) {
-            if (cardId) {
-                window.history.pushState(null, null, `#card=${cardId}`);
-            } else {
-                window.history.pushState(null, null, window.location.pathname);
-            }
-        }
-
-        /**
-         * Open lightbox for a specific card ID
-         */
-        function openLightboxForCardId(cardId) {
-            const card = allCardsData.find(c => c.id === cardId);
-            if (card) {
-                // Make sure filters allow this card to be visible
-                // Reset filters to show all cards
-                currentFilters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
-                currentSetTab = 'all';
-                
-                // Update filter dropdown UI
-                if (typeFilterEl) typeFilterEl.value = 'all';
-                if (supertypeFilterEl) supertypeFilterEl.value = 'all';
-                if (rarityFilterEl) rarityFilterEl.value = 'all';
-                if (creatorFilterEl) creatorFilterEl.value = 'all';
-                if (forteFilterEl) forteFilterEl.value = 'all';
-                
-                // Update tab UI
-                tabContainerEl.querySelectorAll('.tab').forEach(t => {
-                    t.classList.toggle('active', t.dataset.setId === 'all');
-                });
-                
-                // Apply filters and render before opening the lightbox
-                applyFiltersAndRender();
-                
-                // Now open the lightbox
-                openLightboxWithCard(card);
-            }
-        }
-
-        /**
-         * Open the lightbox with a card
-         */
-        function openLightboxWithCard(cardObject) { 
-            if (!cardObject) return;
-            
-            currentLightboxIndex = currentFilteredCardsForLightbox.findIndex(c => c.id === cardObject.id);
-            updateLightboxDetails(cardObject);
-            updateLightboxNav();
-            lightboxEl.classList.add('visible');
-            document.body.style.overflow = 'hidden';
-            
-            // Update URL with card ID
-            updateUrlForCard(cardObject.id);
-        }
-        
-        /**
-         * Close the lightbox
-         */
-        function closeLightbox() { 
-            lightboxEl.classList.remove('visible'); 
-            document.body.style.overflow = ''; 
-            
-            // Clear card ID from URL
-            updateUrlForCard(null);
-        }
-        
-        /**
-         * Update lightbox details with card information
-         */
-        function updateLightboxDetails(card) { 
-            if (!card) { closeLightbox(); return; }
-            
-            lightboxCardTitleEl.textContent = card.name || 'Card Details';
-            lightboxSpinnerEl.classList.remove('hidden'); 
-            lightboxCardImageEl.classList.add('hidden');
-            
-            lightboxCardImageEl.onload = () => { 
-                lightboxSpinnerEl.classList.add('hidden'); 
-                lightboxCardImageEl.classList.remove('hidden'); 
-                lightboxCardImageEl.classList.add('loaded'); 
-            };
-            
-            lightboxCardImageEl.onerror = () => { 
-                lightboxCardImageEl.src = placeholderUrl; 
-                lightboxSpinnerEl.classList.add('hidden'); 
-                lightboxCardImageEl.classList.remove('hidden');
-            };
-            
-            const imageUrl = card.images?.large || card.images?.small || placeholderUrl;
-            console.log("Setting lightbox image to:", imageUrl); 
-            lightboxCardImageEl.src = imageUrl; 
-            lightboxCardImageEl.alt = card.name;
-
-            lbElements.cardName.textContent = card.name || '-';
-            lbElements.setName.textContent = card.set?.name || '-';
-            lbElements.cardNumber.textContent = `${card.number || '-'}${card.set?.printedTotal ? ` / ${card.set.printedTotal}` : ''}`;
-            lbElements.rarity.textContent = card.rarity || '-';
-            lbElements.artist.textContent = card.artist || '-';
-            
-            const isPoke = card.supertype === 'Pokémon'; 
-            const isTrainer = card.supertype === 'Trainer'; 
-            const isEnergy = card.supertype === 'Energy';
-            
-            lbElements.pokemonDetails.style.display = isPoke ? 'block' : 'none';
-            lbElements.trainerDetails.style.display = isTrainer ? 'block' : 'none';
-            lbElements.energyDetails.style.display = isEnergy ? 'block' : 'none';
-            lbElements.abilitiesSection.style.display = isPoke && card.abilities?.length ? 'block' : 'none';
-            lbElements.attacksSection.style.display = isPoke && card.attacks?.length ? 'block' : 'none';
-            lbElements.rulesSection.style.display = (isTrainer || isEnergy) && card.rules?.length ? 'block' : 'none';
-            lbElements.battleStatsSection.style.display = isPoke && (card.weaknesses?.length || card.resistances?.length || card.retreatCost?.length) ? 'block' : 'none';
-            lbElements.flavorTextSection.style.display = card.flavorText ? 'block' : 'none';
-
-            if (isPoke) {
-                lbElements.hp.textContent = card.hp || '-';
-                lbElements.types.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
-                lbElements.stage.textContent = card.subtypes?.join(', ') || '-';
-                lbElements.stageItem.style.display = card.subtypes?.length ? 'block' : 'none';
-                
-                if (card.evolvesFrom) { 
-                    lbElements.evolvesFromItem.style.display = 'block'; 
-                    lbElements.evolvesFrom.textContent = card.evolvesFrom; 
-                } else { 
-                    lbElements.evolvesFromItem.style.display = 'none'; 
-                }
-                
-                if(card.nationalPokedexNumbers?.length) { 
-                    lbElements.pokedexItem.style.display = 'block'; 
-                    lbElements.pokedexData.textContent = card.nationalPokedexNumbers.join(', ');
-                } else { 
-                    lbElements.pokedexItem.style.display = 'none'; 
-                }
-                
-                lbElements.abilitiesContainer.innerHTML = card.abilities?.map(a => `<div class="ability-container"><div class="ability-name">${a.name} (${a.type})</div><div class="ability-text">${a.text}</div></div>`).join('') || '';
-                
-                lbElements.attacksContainer.innerHTML = card.attacks?.map(atk => `
-                    <div class="attack-container">
-                        <div class="attack-cost">${atk.cost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || ''}</div>
-                        <div class="attack-name">${atk.name} ${atk.damage ? `- ${atk.damage}` : ''}</div>
-                        ${atk.text ? `<div class="attack-text">${atk.text}</div>` : ''}
-                    </div>`).join('') || '';
-                
-                lbElements.weaknessContainer.style.display = card.weaknesses?.length ? 'flex' : 'none';
-                lbElements.weakness.innerHTML = card.weaknesses?.map(w => `<span class="card-type-badge type-${w.type.toLowerCase()}">${w.type} ${w.value}</span>`).join(', ') || '';
-                
-                lbElements.resistanceContainer.style.display = card.resistances?.length ? 'block' : 'none'; 
-                lbElements.resistance.innerHTML = card.resistances?.map(r => `<span class="card-type-badge type-${r.type.toLowerCase()}">${r.type} ${r.value}</span>`).join(', ') || '';
-                
-                lbElements.retreatCostItem.style.display = card.retreatCost?.length ? 'block' : 'none';
-                lbElements.retreatCost.innerHTML = card.retreatCost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || '';
-            }
-            
-            if(isTrainer){
-                lbElements.trainerSubtypes.innerHTML = card.subtypes?.map(st => `<span class="card-type-badge type-trainer">${st}</span>`).join(' ') || '-';
-                lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
-            }
-            
-            if(isEnergy){
-                lbElements.energyTypes.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
-                lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
-            }
-            
-            lbElements.flavorText.textContent = card.flavorText || '-';
-            lbElements.creator.textContent = card.forteData?.discordUsername || card.artist || 'Unknown';
-            lbElements.isForte.innerHTML = card.forteData?.isForte ? '<span class="forte-badge" style="display:inline-flex; align-items:center; gap:0.25rem; background:var(--color-error); padding:0.2rem 0.4rem; border-radius:0.25rem; font-size:0.8rem;"><i class="fas fa-crown" style="font-size:0.7rem;"></i> Forte</span>' : 'No';
-            lbElements.regulation.textContent = card.forteData?.regulationMark || '-';
-            lbElements.approvedDate.textContent = card.forteData?.approvedDate || '-';
-        }
-
-        /**
-         * Update lightbox navigation buttons
-         */
-        function updateLightboxNav() { 
-            lightboxPrevBtn.disabled = currentLightboxIndex <= 0;
-            lightboxNextBtn.disabled = currentLightboxIndex >= currentFilteredCardsForLightbox.length - 1;
-        }
-        
-        /**
-         * Show the previous card in lightbox
-         */
-        function showPreviousCardInLightbox() { 
-            if (currentLightboxIndex > 0) { 
-                currentLightboxIndex--; 
-                updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); 
-                updateLightboxNav(); 
-                updateUrlForCard(currentFilteredCardsForLightbox[currentLightboxIndex].id);
-            }
-        }
-        
-        /**
-         * Show the next card in lightbox
-         */
-        function showNextCardInLightbox() { 
-            if (currentLightboxIndex < currentFilteredCardsForLightbox.length - 1) { 
-                currentLightboxIndex++; 
-                updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); 
-                updateLightboxNav(); 
-                updateUrlForCard(currentFilteredCardsForLightbox[currentLightboxIndex].id);
-            }
-        }
-        
-        /**
-         * Create share button for the lightbox
-         */
-        function createShareButton() {
-            // Check if the button already exists
-            if (document.getElementById('fancy-share-button')) return;
-            
-            // Find or create the action container
-            let actionContainer = document.querySelector('.fancy-card-actions');
-            if (!actionContainer) {
-                actionContainer = document.createElement('div');
-                actionContainer.className = 'fancy-card-actions';
-                
-                const lightboxBody = document.querySelector('.fancy-lightbox-body');
-                if (lightboxBody) {
-                    lightboxBody.appendChild(actionContainer);
-                } else {
-                    console.error("Could not find a place to insert share button");
-                    return;
-                }
-            }
-            
-            // Create Share Button
-            const shareButton = document.createElement('button');
-            shareButton.id = 'fancy-share-button';
-            shareButton.className = 'fancy-action-button';
-            shareButton.innerHTML = '<i class="fas fa-share-alt"></i>';
-            shareButton.title = 'Share Card Link';
-            shareButton.setAttribute('aria-label', 'Share Card Link');
-            
-            // Create Download Button
-            const downloadButton = document.createElement('button');
-            downloadButton.id = 'fancy-download-button';
-            downloadButton.className = 'fancy-action-button';
-            downloadButton.innerHTML = '<i class="fas fa-download"></i>';
-            downloadButton.title = 'Download Image';
-            downloadButton.setAttribute('aria-label', 'Download Image');
-            
-            // Add to container
-            actionContainer.appendChild(downloadButton);
-            actionContainer.appendChild(shareButton);
-            
-            // Add event listeners
-            shareButton.addEventListener('click', handleShareCard);
-            downloadButton.addEventListener('click', handleDownloadImage);
-        }
-        
-        /**
-         * Handle share button click
-         */
-        function handleShareCard() {
-            // Get current card ID
-            const currentCard = currentFilteredCardsForLightbox[currentLightboxIndex];
-            if (!currentCard || !currentCard.id) {
-                showButtonStatus('fancy-share-button', 'error');
-                return;
-            }
-            
-            // Create share URL
-            const shareUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
-            
-            // Try to use navigator.share if available (mobile devices)
-            if (navigator.share) {
-                navigator.share({
-                    title: `Forte Card: ${currentCard.name}`,
-                    text: `Check out this Pokémon card: ${currentCard.name}`,
-                    url: shareUrl
-                })
-                .then(() => showButtonStatus('fancy-share-button', 'success'))
-                .catch(err => {
-                    console.error("Error sharing:", err);
-                    copyToClipboard(shareUrl);
-                });
-            } else {
-                // Fallback to clipboard copy
-                copyToClipboard(shareUrl);
-            }
-        }
-        
-        /**
-         * Copy URL to clipboard
-         */
-        function copyToClipboard(text) {
-            try {
-                // Use the clipboard API
-                navigator.clipboard.writeText(text)
-                    .then(() => {
-                        console.log("URL copied to clipboard:", text);
-                        showButtonStatus('fancy-share-button', 'success');
-                        // Show a tooltip or message
-                        showCopyTooltip("Link copied to clipboard!");
-                    })
-                    .catch(err => {
-                        console.error("Error copying to clipboard:", err);
-                        showButtonStatus('fancy-share-button', 'error');
-                        
-                        // Fallback method with textarea
-                        fallbackCopyToClipboard(text);
-                    });
-            } catch (e) {
-                console.error("Error in copy function:", e);
-                showButtonStatus('fancy-share-button', 'error');
-                
-                // Try fallback
-                fallbackCopyToClipboard(text);
-            }
-        }
-        
-        /**
-         * Fallback clipboard copy method
-         */
-        function fallbackCopyToClipboard(text) {
-            try {
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed'; // Avoid scrolling to bottom
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                
-                const successful = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                if (successful) {
-                    console.log("Fallback copy succeeded");
-                    showButtonStatus('fancy-share-button', 'success');
-                    showCopyTooltip("Link copied to clipboard!");
-                } else {
-                    console.error("Fallback copy failed");
-                    showButtonStatus('fancy-share-button', 'error');
-                }
-            } catch (e) {
-                console.error("Fallback copy error:", e);
-                showButtonStatus('fancy-share-button', 'error');
-            }
-        }
-        
-        /**
-         * Handle download image button click
-         */
-        function handleDownloadImage() {
-            if (!lightboxCardImageEl || !lightboxCardImageEl.src) {
-                showButtonStatus('fancy-download-button', 'error');
-                return;
-            }
-            
-            try {
-                // Create a temporary anchor element
-                const link = document.createElement('a');
-                link.href = lightboxCardImageEl.src;
-                
-                // Get base filename from the path
-                const currentCard = currentFilteredCardsForLightbox[currentLightboxIndex];
-                const filename = currentCard?.id ? `${currentCard.id}.png` : 'card.png';
-                link.download = filename;
-                
-                // Append to document, click, and remove
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showButtonStatus('fancy-download-button', 'success');
-            } catch (e) {
-                console.error("Error downloading image:", e);
-                showButtonStatus('fancy-download-button', 'error');
-            }
-        }
-        
-        /**
-         * Show success/error status on a button
-         */
-        function showButtonStatus(buttonId, status) {
-            const button = document.getElementById(buttonId);
-            if (!button) return;
-            
-            button.classList.add(status);
-            
-            // Reset after animation
-            setTimeout(() => {
-                button.classList.remove(status);
-            }, 1500);
-        }
-        
-        /**
-         * Show a tooltip
-         */
-        function showCopyTooltip(message) {
-            // Check if tooltip already exists and remove it
-            const existingTooltip = document.getElementById('copy-tooltip');
-            if (existingTooltip) {
-                existingTooltip.remove();
-            }
-            
-            // Create tooltip
-            const tooltip = document.createElement('div');
-            tooltip.id = 'copy-tooltip';
-            tooltip.className = 'copy-tooltip';
-            tooltip.textContent = message;
-            
-            document.body.appendChild(tooltip);
-            
-            // Fade in
-            setTimeout(() => {
-                tooltip.style.opacity = '1';
-            }, 10);
-            
-            // Remove after 3 seconds
-            setTimeout(() => {
-                tooltip.style.opacity = '0';
-                setTimeout(() => {
-                    if (tooltip.parentNode) {
-                        tooltip.parentNode.removeChild(tooltip);
-                    }
-                }, 300);
-            }, 3000);
-        }
-        // Gallery Size Controls and Other Fixes for Forte Card Viewer
-
-/**
- * Add gallery size controls to the page
- */
-function addGalleryControls() {
-    // Create container for controls
-    const controlsContainer = document.createElement('div');
-    controlsContainer.className = 'gallery-controls';
-    
-    // Create size control elements
-    const sizeControlGroup = document.createElement('div');
-    sizeControlGroup.className = 'flex items-center';
-    
-    const sizeLabel = document.createElement('label');
-    sizeLabel.className = 'size-control-label';
-    sizeLabel.textContent = 'Card Size:';
-    sizeLabel.htmlFor = 'gallery-size-slider';
-    
-    const sizeSlider = document.createElement('input');
-    sizeSlider.type = 'range';
-    sizeSlider.id = 'gallery-size-slider';
-    sizeSlider.className = 'size-control-slider';
-    sizeSlider.min = '1';
-    sizeSlider.max = '5';
-    sizeSlider.value = '3'; // Default to medium
-    sizeSlider.step = '1';
-    
-    const sizeValue = document.createElement('div');
-    sizeValue.className = 'size-value-indicator';
-    sizeValue.textContent = 'M';
-    
-    // Assemble controls
-    sizeControlGroup.appendChild(sizeLabel);
-    sizeControlGroup.appendChild(sizeSlider);
-    sizeControlGroup.appendChild(sizeValue);
-    controlsContainer.appendChild(sizeControlGroup);
-    
-    // Insert controls after set-tab-navigation
-    const setTabNavigation = document.getElementById('set-tab-navigation');
-    if (setTabNavigation && setTabNavigation.nextElementSibling) {
-        setTabNavigation.parentNode.insertBefore(controlsContainer, setTabNavigation.nextElementSibling);
-    }
-    
-    // Add event listener
-    sizeSlider.addEventListener('input', updateGallerySize);
-    
-    // Initialize with default size
-    updateGallerySize({ target: sizeSlider });
-}
-
-/**
- * Update gallery size based on slider value
- */
-function updateGallerySize(event) {
-    const value = parseInt(event.target.value);
-    const gallery = document.getElementById('item-gallery');
-    const sizeValue = document.querySelector('.size-value-indicator');
-    
-    // Remove all existing size classes
-    gallery.classList.remove('gallery-size-xs', 'gallery-size-s', 'gallery-size-m', 'gallery-size-l', 'gallery-size-xl');
-    
-    // Add appropriate size class
-    switch(value) {
-        case 1:
-            gallery.classList.add('gallery-size-xs');
-            sizeValue.textContent = 'XS';
-            break;
-        case 2:
-            gallery.classList.add('gallery-size-s');
-            sizeValue.textContent = 'S';
-            break;
-        case 3:
-            gallery.classList.add('gallery-size-m');
-            sizeValue.textContent = 'M';
-            break;
-        case 4:
-            gallery.classList.add('gallery-size-l');
-            sizeValue.textContent = 'L';
-            break;
-        case 5:
-            gallery.classList.add('gallery-size-xl');
-            sizeValue.textContent = 'XL';
-            break;
-    }
-    
-    // Save preference to localStorage
-    try {
-        localStorage.setItem('forteGallerySize', value.toString());
-    } catch (e) {
-        console.warn('Could not save gallery size preference:', e);
-    }
-}
-
-/**
- * Load saved gallery size preference
- */
-function loadGallerySizePreference() {
-    try {
-        const savedSize = localStorage.getItem('forteGallerySize');
-        if (savedSize) {
-            const sizeSlider = document.getElementById('gallery-size-slider');
-            if (sizeSlider) {
-                sizeSlider.value = savedSize;
-                updateGallerySize({ target: sizeSlider });
-            }
-        }
-    } catch (e) {
-        console.warn('Could not load gallery size preference:', e);
-    }
-}
-
-/**
- * Initialize the legend popup
- */
-function initLegendPopup() {
-    if (document.getElementById('key-info-button')) return; // Already exists
-
-    const button = document.createElement('button');
-    button.id = 'key-info-button';
-    button.className = 'key-info-button';
-    button.title = 'Show Info & Controls';
-    button.setAttribute('aria-label', 'Show Info & Controls');
-    button.innerHTML = '<i class="fas fa-info-circle"></i><span>Info</span>';
-
-    const accessControls = document.getElementById('access-controls');
-    if (accessControls) {
-        // Add before submission button
-        const submissionButton = document.getElementById('submission-button');
-        if (submissionButton) {
-            accessControls.insertBefore(button, submissionButton);
-        } else {
-            accessControls.appendChild(button);
-        }
-    }
-
-    const modal = document.createElement('div');
-    modal.id = 'key-popup-modal';
-    modal.className = 'key-popup-overlay';
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-hidden', 'true');
-    modal.style.display = 'none';
-
-    modal.innerHTML = `
-        <div class="key-popup-content">
-            <div class="key-popup-header">
-                <h3 class="key-popup-title"><i class="fas fa-info-circle mr-2"></i>Info & Controls</h3>
-                <button id="key-popup-close" class="key-popup-close" aria-label="Close key">
-                    <i class="fas fa-times"></i>
+            <div class="fancy-nav-controls">
+                <button id="fancy-prev-button" class="fancy-nav-button" aria-label="Previous card">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="fancy-next-button" class="fancy-nav-button" aria-label="Next card">
+                    <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-            <div class="key-popup-body">
-                <h4>Data Source</h4>
-                <ul>
-                    <li>Card information is loaded from a central <code>cards.json</code> file.</li>
-                    <li>This file is automatically updated from a Google Sheet when new cards are approved.</li>
-                </ul>
-                <h4>Gallery Navigation</h4>
-                <ul>
-                    <li><kbd>Click Thumbnail</kbd> or <kbd>Enter</kbd>/<kbd>Space</kbd> on a focused thumbnail: Open card viewer.</li>
-                    <li><kbd>Tab</kbd>: Navigate between interactive elements.</li>
-                    <li><kbd>S</kbd>: Open settings panel.</li>
-                </ul>
-                <h4>Card Viewer (Lightbox)</h4>
-                <ul>
-                    <li><kbd>←</kbd> / <kbd>→</kbd>: Navigate to Previous/Next card in the current filtered view.</li>
-                    <li><kbd>Esc</kbd>: Close the card viewer.</li>
-                    <li><kbd>Shift</kbd> + <kbd>S</kbd>: Share current card (copies link to clipboard).</li>
-                    <li><kbd>D</kbd>: Download card image.</li>
-                </ul>
-                <h4>Filtering & Sorting</h4>
-                <ul>
-                    <li>Use the dropdowns in the sidebar to filter cards by Category, Type/Subtype, Rarity, Creator, and Forte Status.</li>
-                    <li>Use the "Sort By" dropdown to change the order of cards in the gallery.</li>
-                    <li>Click on Set tabs at the top to view cards from specific sets or all sets.</li>
-                    <li><kbd>1</kbd>-<kbd>9</kbd>: Quick select set tabs (if available).</li>
-                    <li><kbd>0</kbd>: Select "All Sets" tab.</li>
-                </ul>
-                <h4>Card Size Control</h4>
-                <ul>
-                    <li>Use the slider above the gallery to adjust card thumbnail size.</li>
-                    <li>Size preference is saved between visits.</li>
-                </ul>
-                <h4>Card Sharing</h4>
-                <ul>
-                    <li>Click the <i class="fas fa-share-alt"></i> button in the card viewer to copy a direct link to the card.</li>
-                    <li>Share the link to allow others to view the specific card.</li>
-                </ul>
-                <p class="note">This previewer is a fan project. Pokémon and its trademarks are ©1995-2025 Nintendo, Creatures Inc., GAME FREAK inc.</p>
-            </div>
-        </div>`;
-    document.body.appendChild(modal);
+             <div class="fancy-card-actions">
+                </div>
+        </div>
+    </div>
+    
+    <div class="copy-tooltip" id="copy-tooltip">Copied to clipboard!</div>
 
-    // Add event listeners
-    button.addEventListener('click', openLegendPopup);
-    document.getElementById('key-popup-close').addEventListener('click', closeLegendPopup);
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) closeLegendPopup();
-    });
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('visible')) {
-            closeLegendPopup();
-            event.stopPropagation();
-        }
-    });
-}
 
-/**
- * Open the legend popup
- */
-function openLegendPopup() {
-    const modal = document.getElementById('key-popup-modal');
-    if (!modal) return;
+    <script src="js/app.js" type="module"></script>
+    <script src="js/search.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/lightbox.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/ui-controls.js"></script>
     
-    modal.style.display = 'flex';
-    requestAnimationFrame(() => {
-        modal.classList.add('visible');
-    });
-    modal.setAttribute('aria-hidden', 'false');
-    document.getElementById('key-popup-close').focus();
-}
-
-/**
- * Close the legend popup
- */
-function closeLegendPopup() {
-    const modal = document.getElementById('key-popup-modal');
-    if (!modal) return;
-    
-    modal.classList.remove('visible');
-    modal.setAttribute('aria-hidden', 'true');
-    
-    const handleTransitionEnd = () => {
-        if (!modal.classList.contains('visible')) {
-            modal.style.display = 'none';
-        }
-    };
-    
-    modal.addEventListener('transitionend', handleTransitionEnd, { once: true });
-    
-    // Fallback
-    setTimeout(() => {
-        if (!modal.classList.contains('visible')) {
-            modal.style.display = 'none';
-        }
-    }, 300);
-    
-    document.getElementById('key-info-button').focus();
-}
-
-/**
- * Enhanced initialization function 
- */
-function enhancedInit() {
-    // Add gallery size controls
-    addGalleryControls();
-    
-    // Load saved size preference
-    loadGallerySizePreference();
-    
-    // Initialize legend popup
-    initLegendPopup();
-    
-    // The rest of the initialization from before
-    createShareButton();
-    
-    // Check for card ID in URL
-    const cardId = getCardIdFromUrl();
-    if (cardId) {
-        // Wait for cards to load first
-        const checkCardsLoaded = setInterval(() => {
-            if (allCardsData && allCardsData.length > 0) {
-                clearInterval(checkCardsLoaded);
-                openLightboxForCardId(cardId);
-            }
-        }, 100);
-    }
-}
-
-// Replace the original initializeEnhancements function with our enhanced version
-window.initializeEnhancements = enhancedInit;
-        /**
-         * Initialize enhancements
-         */
-        function initializeEnhancements() {
-            console.log("[Enhancements] Initializing Forte Card Viewer enhancements...");
-            
-            // Create share button for lightbox
-            createShareButton();
-            
-            // Check for card ID in URL
-            const cardId = getCardIdFromUrl();
-            if (cardId) {
-                // Wait for cards to load first
-                const checkCardsLoaded = setInterval(() => {
-                    if (allCardsData && allCardsData.length > 0) {
-                        clearInterval(checkCardsLoaded);
-                        openLightboxForCardId(cardId);
+    <script src="js/settings.js"></script>
+    <script src="js/legendpopup.js"></script>
+    <script src="js/submissions.js"></script> <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Submission button functionality (if not handled by submissions.js)
+            const submitBtn = document.getElementById('submission-button');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function() {
+                    const formUrl = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.submissionFormUrl) 
+                                    ? SITE_CONFIG.submissionFormUrl 
+                                    : 'https://forms.google.com/your-form-url-here'; // Fallback URL
+                    if (formUrl !== 'https://forms.google.com/your-form-url-here') {
+                         window.open(formUrl, '_blank');
+                    } else {
+                        console.warn('Submission form URL not configured in SITE_CONFIG.submissionFormUrl or submissions.js');
+                        // Optionally, display a message to the user that the feature is not configured.
+                        alert('Card submission form is not configured yet.');
                     }
-                }, 100);
+                });
             }
             
-            console.log("[Enhancements] Initialization complete!");
-        }
-        
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', initializeApp);
-        
-        // Initialize enhancements after the app loads
-        window.addEventListener('load', initializeEnhancements);
-   </script>
+            // Sidebar visibility logic should ideally be fully handled by ui-controls.js
+            // including loading saved state.
+            // const sidebar = document.getElementById('filter-sidebar');
+            // if (sidebar && !localStorage.getItem('sidebarCollapsed') === 'true') { // Example check
+            //  sidebar.classList.remove('collapsed');
+            // } else if (sidebar) {
+            //  sidebar.classList.add('collapsed');
+            // }
+        });
+    </script>
 </body>
 </html>

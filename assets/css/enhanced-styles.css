@@ -1,0 +1,647 @@
+/* enhanced-styles.css - Additional styles for new features */
+
+/* === HEADER ENHANCEMENTS === */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    gap: 1rem;
+}
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1; /* Allows this area to grow and push other elements */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0; /* Prevents actions from shrinking too much */
+}
+
+#access-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* This will now control the gap, not Tailwind's gap-x-3 */
+}
+
+/* === SEARCH FUNCTIONALITY === */
+.search-container {
+    position: relative;
+    width: 280px;
+    max-width: 100%; /* Ensures it doesn't overflow on smaller header space */
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    background-color: var(--color-background-input);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2); /* Example focus color, adjust if needed */
+}
+
+.search-input::placeholder {
+    color: var(--color-text-placeholder);
+}
+
+.search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+    pointer-events: none;
+    font-size: 0.875rem;
+    z-index: 1;
+}
+
+.clear-search {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: none; /* Should be controlled by JS to show when input has text */
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+    z-index: 2;
+    background: var(--color-background-input);
+    padding: 0.25rem;
+    border-radius: 50%;
+}
+
+.clear-search:hover {
+    color: var(--color-text-primary);
+}
+
+/* === BUTTON STYLES === */
+.access-button, .discord-button {
+    background-color: rgba(107, 114, 128, 0.2); /* Example: gray-500 with 20% opacity */
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem; /* Tailwind's rounded-md */
+    padding: 0.5rem 0.75rem; /* Tailwind's py-2 px-3 */
+    font-size: 0.875rem; /* Tailwind's text-sm */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Tailwind's gap-2 */
+    text-decoration: none;
+}
+
+.access-button:hover, .discord-button:hover {
+    background-color: rgba(107, 114, 128, 0.4); /* Example: gray-500 with 40% opacity */
+    color: var(--color-text-primary);
+    border-color: var(--color-accent); /* Ensure --color-accent is defined */
+}
+
+.discord-button {
+    background-color: #5865f2; /* Discord blue */
+    color: white;
+    border-color: #5865f2;
+}
+
+.discord-button:hover {
+    background-color: #4752c4; /* Darker Discord blue */
+    border-color: #4752c4;
+    transform: translateY(-1px);
+}
+
+/* === COLLAPSIBLE SIDEBAR === */
+.sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    right: -14px; /* Adjust to align properly with the sidebar edge */
+    transform: translateY(-50%);
+    width: 24px;
+    height: 40px;
+    background-color: var(--color-background-panel);
+    border-radius: 0 0.25rem 0.25rem 0; /* Tailwind's rounded-r-sm */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 50;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
+    border-left: none;
+    transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--color-background-alt);
+}
+
+.sidebar-toggle i {
+    font-size: 0.875rem; /* text-sm */
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease;
+}
+
+.sidebar-toggle:hover i {
+    color: var(--color-text-primary);
+}
+
+.app-sidebar {
+    position: relative; /* Needed for absolute positioning of the toggle */
+    transition: width 0.3s ease, padding 0.3s ease;
+    /* Base width and padding should be defined in styles.css or here if not overridden by Tailwind */
+}
+
+.app-sidebar.collapsed {
+    width: 0 !important; /* Use !important if Tailwind classes are overriding */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: hidden;
+    border-right: none !important; /* Example of overriding if needed */
+}
+
+.app-sidebar.collapsed .sidebar-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebar-content {
+    transition: opacity 0.2s ease;
+     /* Ensure sidebar content has some padding if not handled by Tailwind */
+    padding: 1rem; /* Example, adjust as needed from your original styles.css */
+}
+
+/* === GALLERY CONTROLS === */
+.gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem; /* Tailwind's gap-4 */
+    padding: 0.75rem 1rem; /* Tailwind's py-3 px-4 */
+    background-color: var(--color-background-alt);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.size-control-label {
+    font-size: 0.875rem; /* text-sm */
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.size-control-slider {
+    width: 100px;
+    height: 8px;
+    background: rgba(75, 85, 99, 0.3); /* gray-600 with 30% opacity */
+    border-radius: 4px; /* ~rounded-sm */
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0 0.75rem; /* mx-3 */
+}
+
+.size-control-slider:hover {
+    opacity: 1;
+}
+
+.size-control-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--color-accent);
+    border-radius: 50%; /* rounded-full */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.size-control-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.size-control-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.size-control-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+}
+
+.size-value-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; /* ~w-7 */
+    height: 28px; /* ~h-7 */
+    background-color: var(--color-background-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 50%; /* rounded-full */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 600; /* font-semibold */
+    color: var(--color-text-primary);
+}
+
+#search-stats {
+    font-size: 0.875rem; /* text-sm */
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+/* === FOOTER === */
+.app-footer {
+    background-color: var(--color-background-panel);
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem; /* p-6 */
+    margin-top: auto; /* Crucial for sticky footer with flex body */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top of the footer sections */
+    max-width: 1400px; /* Example max-width */
+    margin: 0 auto; /* Center content */
+    gap: 2rem; /* gap-8 */
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* gap-3 */
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap; /* Allow links to wrap on smaller screens if needed */
+    gap: 1.5rem; /* gap-6 */
+}
+
+.footer-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem; /* text-sm */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+    transition: color 0.2s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit; /* Ensure it uses the body font */
+}
+
+.footer-link:hover {
+    color: var(--color-text-primary);
+}
+
+.copyright {
+    font-size: 0.75rem; /* text-xs */
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.copyright a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.copyright a:hover {
+    color: var(--color-accent-light); /* Ensure --color-accent-light is defined */
+}
+
+/* === LIGHTBOX ACTION BUTTONS === */
+.fancy-card-actions {
+    position: absolute;
+    right: var(--space-4); /* Ensure --space-4 is defined, e.g., 1rem */
+    bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2); /* Ensure --space-2 is defined, e.g., 0.5rem */
+    z-index: var(--z-popover); /* Ensure --z-popover is defined, e.g., 1000 */
+}
+
+.fancy-action-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full); /* Ensure --radius-full is defined, e.g., 9999px */
+    width: 2.5rem; /* w-10 */
+    height: 2.5rem; /* h-10 */
+    font-size: var(--text-base); /* Ensure --text-base is defined, e.g., 1rem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease; /* Ensure --transition-fast is defined, e.g., 0.2s */
+    box-shadow: var(--shadow-md); /* Ensure --shadow-md is defined */
+}
+
+.fancy-action-button:hover {
+    background-color: var(--color-secondary); /* Ensure --color-secondary is defined */
+    transform: scale(1.1);
+    border-color: var(--color-primary); /* Ensure --color-primary is defined */
+}
+
+.fancy-action-button:active {
+    transform: scale(0.95);
+}
+
+.fancy-action-button.success {
+    background-color: var(--color-success) !important; /* Ensure --color-success is defined */
+}
+
+.fancy-action-button.error {
+    background-color: var(--color-error) !important; /* Ensure --color-error is defined */
+}
+
+/* === COPY TOOLTIP === */
+.copy-tooltip {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.25rem; /* rounded-sm */
+    font-size: 0.875rem; /* text-sm */
+    z-index: var(--z-toast); /* Ensure --z-toast is defined, e.g., 2000 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+@media (prefers-reduced-motion: reduce) {
+    .sidebar-toggle,
+    .size-control-slider::-webkit-slider-thumb,
+    .size-control-slider::-moz-range-thumb,
+    .fancy-action-button,
+    .discord-button {
+        transition: none;
+    }
+    
+    .app-sidebar {
+        transition: none;
+    }
+}
+
+/* === LIGHTBOX FIXES === */
+#fancy-holo-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+#fancy-card-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); /* Example shadow */
+    border-radius: 0.5rem; /* rounded-lg */
+}
+
+.fancy-card-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; /* p-4 */
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1); /* Slight dark tint for the background */
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+    .app-main-content {
+        flex-direction: column; /* Stack sidebar and gallery */
+    }
+    
+    .app-sidebar {
+        width: 100%; /* Full width for sidebar on smaller screens */
+        max-height: 50vh; /* Limit height if it becomes too long */
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .app-sidebar.collapsed {
+        max-height: 0;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+    
+    .sidebar-toggle {
+        top: -16px; /* Position above the sidebar */
+        right: 1rem; /* Align to the right */
+        transform: rotate(90deg); /* Rotate icon for horizontal toggle */
+        border-radius: 0.25rem 0.25rem 0 0; /* Adjust border radius */
+        border-top: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap; /* Allow header items to wrap */
+        gap: 0.75rem; /* gap-3 */
+        padding: 0.5rem 1rem; /* py-2 px-4 */
+    }
+    
+    .brand-area {
+        flex: 1 1 100%; /* Full width for brand, allow wrapping */
+        order: 1; /* Ensure brand is first */
+        justify-content: center; /* Center brand if it wraps to its own line */
+    }
+    
+    .search-container {
+        flex: 1 1 100%; /* Full width for search */
+        order: 3; /* Search below brand and actions */
+        width: 100%;
+        max-width: none;
+    }
+    
+    .header-actions {
+        order: 2; /* Actions after brand, before search */
+        gap: 0.5rem; /* gap-2 */
+        flex: 1 1 100%; /* Allow actions to take full width if they wrap */
+        justify-content: center; /* Center actions if they wrap */
+    }
+    
+    .discord-button span,
+    .access-button span {
+        display: none; /* Hide text on small screens, show only icon */
+    }
+    
+    .discord-button,
+    .access-button {
+        padding: 0.5rem; /* p-2 for icon-only buttons */
+    }
+    
+    .gallery-controls {
+        flex-wrap: wrap;
+        gap: 0.5rem; /* gap-2 */
+        padding: 0.5rem; /* p-2 */
+    }
+    
+    .size-control-slider {
+        width: 80px;
+        margin: 0 0.5rem; /* mx-2 */
+    }
+    
+    .footer-content {
+        flex-direction: column; /* Stack footer sections */
+        gap: 1.5rem; /* Increased gap for stacked sections */
+        text-align: center; /* Center text in footer sections */
+        align-items: center; /* Center sections themselves */
+    }
+    
+    .footer-section {
+        align-items: center; /* Center content within each section */
+        width: 100%; /* Make sections take full width */
+    }
+    
+    .footer-links {
+        justify-content: center; /* Center links */
+        gap: 1rem; /* Adjust gap for links */
+    }
+    
+    .fancy-card-actions {
+        right: var(--space-2); /* e.g., 0.5rem */
+        bottom: var(--space-2);
+        gap: var(--space-1); /* e.g., 0.25rem */
+    }
+    
+    .fancy-action-button {
+        width: 2rem; /* w-8 */
+        height: 2rem; /* h-8 */
+        font-size: 0.875rem; /* text-sm */
+    }
+    
+    /* Adjustments for lightbox on mobile if .fancy-lightbox-content exists */
+    .fancy-lightbox-content {
+      /* If it's a flex container for image and info */
+      /* flex-direction: column; */ /* This was in your original, ensure it's intended */
+      width: 95vw;
+      height: auto; /* Allow height to adjust to content */
+      max-height: 95vh;
+    }
+    
+    .fancy-card-info {
+      /* width: 100%; */ /* This was in your original */
+      /* max-height: 45%; */ /* This was in your original, might constrain info too much */
+      /* border-left: none; */
+      /* border-top: 1px solid var(--color-border); */
+      /* order: 2; */ /* This was in your original */
+       overflow-y: auto; /* Allow info to scroll if it's too long */
+    }
+    
+    .fancy-card-image-container {
+      /* order: 1; */ /* This was in your original */
+      padding: var(--space-2); /* e.g., 0.5rem */
+      min-height: 200px; /* Ensure image container has some min height */
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        padding: 0.5rem; /* p-2 */
+    }
+    
+    .title-glow { /* Assuming .title-glow is for the main title */
+        font-size: 1.25rem; /* text-xl */
+    }
+    
+    /* Search container already full width from 768px breakpoint */
+    
+    .footer-links {
+        flex-direction: column; /* Stack links vertically */
+        gap: 0.75rem; /* gap-3 */
+    }
+    
+    .gallery-controls {
+        padding: 0.5rem; /* p-2 */
+        /* Further simplify gallery controls if needed */
+    }
+    
+    #search-stats {
+        font-size: 0.75rem; /* text-xs */
+    }
+    
+    #access-controls {
+        gap: 0.25rem; /* gap-1, if buttons are icon-only */
+        /* If access-controls itself wraps, ensure it's centered or full width */
+        justify-content: center; 
+        width: 100%;
+    }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    .app-header,
+    .app-set-navigation,
+    .app-sidebar,
+    .gallery-controls,
+    .app-footer,
+    #fancy-lightbox { /* Assuming #fancy-lightbox is the ID of your lightbox container */
+        display: none !important;
+    }
+    
+    .app-main-content {
+        flex-direction: column; /* Ensure content flows linearly */
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .app-gallery-area {
+        padding: 0;
+        width: 100%;
+    }
+    
+    .thumbnail { /* Assuming .thumbnail is your card container in the gallery */
+        break-inside: avoid; /* Try to prevent cards from splitting across pages */
+        page-break-inside: avoid; /* Older syntax */
+        box-shadow: none !important;
+        border: 1px solid #ccc; /* Simple border for print */
+        margin: 0.5cm;
+    }
+
+    /* Hide any interactive elements within cards if necessary */
+    .thumbnail button, .thumbnail a {
+        display: none !important;
+    }
+
+    body {
+        background-color: white !important;
+        color: black !important;
+        font-size: 10pt; /* Adjust base font size for print */
+    }
+
+    /* Ensure images are constrained */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
