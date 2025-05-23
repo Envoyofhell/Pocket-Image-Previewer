@@ -17,7 +17,7 @@
      * Opens the configured card submission portal link in a new browser tab.
      */
     function openSubmissionPortal() {
-        if (!SUBMISSION_PORTAL_URL || SUBMISSION_PORTAL_URL === "YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE") {
+        if (!SUBMISSION_PORTAL_URL || SUBMISSION_PORTAL_URL === "https://script.google.com/macros/s/AKfycbwesoXMd6ng8y8EHFUzCt2tWPOlMlMlYgY1nJN2l9nlW5O3A_crAn-C45fyOlRxwYMO/exec") {
             console.warn("[Submissions] Submission Portal URL is not configured in js/submissions.js. Please update it with your deployed Apps Script web app URL.");
             alert("The Card Submission Portal link is not configured yet. Please contact the site administrator.");
             return;

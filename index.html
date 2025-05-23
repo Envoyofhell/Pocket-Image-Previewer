@@ -10,197 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     
-    <script src="filter_config.js"></script> 
-    <style>
-        :root {
-            --color-primary: #f87171; --color-secondary: #5a0866; --color-bg-dark: #0f172a;
-            --color-bg-panel: rgba(23, 37, 59, 0.97); --color-bg-input: rgba(30, 41, 59, 0.9);
-            --color-text-primary: #e5e7eb; --color-text-secondary: #9ca3af;
-            --color-text-placeholder: #6b7280; --color-border: rgba(55, 65, 81, 0.7);
-            --color-border-light: rgba(71, 85, 105, 0.5); --color-accent: #fbbf24;
-            --color-error: #ef4444; --color-success: #22c55e; --color-info: #3b82f6;
-            --color-focus-ring: rgba(99, 102, 241, 0.5);
-        }
-        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        body {
-            background-color: var(--color-bg-dark); color: var(--color-text-primary);
-            font-family: 'Inter', sans-serif; display: flex; flex-direction: column;
-        }
-        .font-pirata { font-family: 'Pirata One', cursive; }
-
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(17,24,39,0.3); border-radius:4px; }
-        ::-webkit-scrollbar-thumb { background: var(--color-secondary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7e2c92; }
-
-        .app-header { flex-shrink: 0; background-color: var(--color-bg-panel); box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 100;}
-        .app-set-navigation { flex-shrink: 0; background-color: rgba(17, 24, 39, 0.85); padding: 0.5rem 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 90;}
-        .app-main-content { flex-grow: 1; display: flex; overflow: hidden; }
-        .app-sidebar { width: 280px; flex-shrink: 0; background-color: var(--color-bg-panel); padding: 1rem; overflow-y: auto; border-right: 1px solid var(--color-border); }
-        .app-gallery-area { flex-grow: 1; padding: 1rem; overflow-y: auto; }
-        
-        @media (max-width: 1023px) { 
-            .app-main-content { flex-direction: column; }
-            .app-sidebar { width: 100%; max-height: 45vh; border-right: none; border-bottom: 1px solid var(--color-border); }
-        }
-
-        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; max-width: 1400px; margin: 0 auto; }
-        .brand-area { display: flex; align-items: center; gap: 0.75rem; }
-        .logo { max-height: 40px; width: auto; filter: drop-shadow(0 0 5px rgba(248,113,113,0.5)); }
-        .title-glow { font-family: 'Pirata One', cursive; font-size: 1.75rem; color: var(--color-primary); text-shadow: 0 0 4px #f87171, 0 0 8px #f87171; }
-        
-        .filter-group { margin-bottom: 1.25rem; }
-        .filter-label { display: block; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 0.5rem; font-size: 0.875rem; }
-        .filter-select {
-            width: 100%; background-color: var(--color-bg-input); color: var(--color-text-primary);
-            border: 1px solid var(--color-border); border-radius: 0.375rem; padding: 0.5rem 0.75rem;
-            font-size: 0.875rem; appearance: none;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em;
-        }
-        .filter-select:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 2px var(--color-focus-ring); }
-
-        #tab-container { 
-            display: flex; flex-direction: row; flex-wrap: wrap; 
-            justify-content: center; gap: 0.5rem; 
-        }
-        .tab {
-            background-color: transparent; color: var(--color-text-secondary);
-            border: 1px solid transparent; border-bottom: 3px solid transparent; 
-            border-radius: 0.375rem 0.375rem 0 0; padding: 0.6rem 1rem; 
-            font-size: 0.875rem; font-weight: 500;
-            cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
-        }
-        .tab:hover { 
-            background-color: rgba(255,255,255,0.03); /* Lighter hover */
-            color: var(--color-text-primary);
-            border-bottom-color: rgba(255,255,255,0.1);
-        }
-        .tab.active {
-            background-color: var(--tab-active-bg-color, var(--color-bg-panel)); 
-            color: var(--tab-active-text-color, var(--color-primary));
-            border-color: var(--color-border-light); /* Lighter border for active tab */
-            border-bottom-color: var(--tab-active-border-color, var(--color-primary)); 
-            font-weight: 600;
-        }
-
-        #item-gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); } 
-        .thumbnail {
-            position: relative; background-color: rgba(42,48,71,0.7); 
-            border-radius: 0.375rem; overflow: hidden;
-            cursor: pointer; aspect-ratio: 2.5 / 3.5;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .thumbnail:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
-        .thumbnail img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .forte-indicator {
-             position: absolute; top: 0.25rem; right: 0.25rem; background: rgba(220, 38, 38, 0.85); color: white;
-             border-radius: 50%; width: 1.25rem; height: 1.25rem; display: flex; align-items: center;
-             justify-content: center; font-size: 0.65rem; box-shadow: 0 0 4px black;
-        }
-        #empty-folder-message { text-align: center; padding: 2rem; color: var(--color-text-secondary); }
-        .loader { 
-             border: 4px solid rgba(229,231,235,0.2); border-top: 4px solid var(--color-primary);
-             border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
-        }
-        #page-loading-overlay { position: fixed; inset:0; background:var(--color-bg-dark); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; transition: opacity 0.5s ease; }
-        #page-loading-overlay.loaded { opacity: 0; pointer-events: none; }
-        #loading-text { margin-top: 1rem; color: var(--color-primary); font-weight: 500; }
-
-        #fancy-lightbox {
-            position: fixed; inset: 0; background-color: rgba(0,0,0,0.92); 
-            z-index: 10000; display: none; /* Initially hidden */
-            align-items: center; justify-content: center; padding: 1rem;
-            opacity: 0; transition: opacity 0.25s ease-in-out;
-        }
-        #fancy-lightbox.visible { display: flex; opacity: 1; }
-        .fancy-lightbox-content {
-            background-color: var(--color-bg-dark); 
-            color: var(--color-text-primary);
-            border: 1px solid var(--color-border); 
-            border-radius: 0.5rem; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7); 
-            width: 90vw; max-width: 1000px; height: 90vh; max-height: 750px;
-            display: flex; flex-direction: column; position: relative;
-            overflow: hidden; 
-        }
-        .fancy-lightbox-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0.6rem 1rem; border-bottom: 1px solid var(--color-border);
-            flex-shrink: 0; background-color: var(--color-bg-panel); 
-        }
-        .fancy-lightbox-title { font-size: 1.1rem; font-weight: 600; color: var(--color-primary); }
-        .fancy-lightbox-close {
-            background: none; border: none; color: var(--color-text-secondary); font-size: 1.4rem; 
-            cursor: pointer; padding: 0.4rem; line-height: 1;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-        .fancy-lightbox-close:hover { color: var(--color-primary); transform: rotate(90deg) scale(1.1); }
-
-        .fancy-lightbox-body { flex-grow: 1; display: flex; overflow: hidden; }
-        .fancy-card-image-container { 
-            flex-grow: 1; display: flex; align-items: center; justify-content: center;
-            padding: 0.5rem; overflow: hidden; position: relative; 
-            background-color: rgba(0,0,0,0.2); 
-        }
-        #fancy-card-image {
-            display: block; max-width: 100%; max-height: 100%; 
-            object-fit: contain; border-radius: 0.375rem; 
-            opacity: 0; transition: opacity 0.3s ease; 
-        }
-        #fancy-card-image.loaded { opacity: 1; }
-        #fancy-spinner { 
-            border-width: 3px; width: 30px; height: 30px;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-        }
-
-        .fancy-card-info {
-            width: 300px; 
-            flex-shrink: 0; padding: 1rem; overflow-y: auto;
-            border-left: 1px solid var(--color-border);
-            background-color: var(--color-bg-panel); 
-        }
-        .card-detail-section { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border-light); }
-        .card-detail-section:last-child { border-bottom: none; margin-bottom: 0;}
-        .info-section-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-secondary); margin-bottom: 0.4rem; display:flex; align-items:center; }
-        .info-section-title i { margin-right: 0.4rem; color: var(--color-accent); font-size: 0.8rem; }
-        .info-item { margin-bottom: 0.4rem; }
-        .info-label { font-size: 0.7rem; color: var(--color-text-secondary); }
-        .info-value { font-size: 0.8rem; color: var(--color-text-primary); word-break: break-word; }
-        .card-types { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top:0.1rem;}
-        .card-type-badge { padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.7rem; }
-        
-        .attack-cost, #retreat-cost { display: flex; flex-wrap: wrap; gap: 0.2rem; }
-        .energy-symbol {
-            width: 16px; height: 16px; border-radius: 50%; display: inline-flex;
-            align-items: center; justify-content: center; font-size: 0.65rem;
-            font-weight: bold; color: white; border: 1px solid rgba(0,0,0,0.1);
-        }
-        .energy-grass { background-color: #78C850; } .energy-fire { background-color: #F08030; }
-        .energy-water { background-color: #6890F0; } .energy-lightning { background-color: #F8D030; color: #333; }
-        .energy-fighting { background-color: #C03028; } .energy-psychic { background-color: #F85888; }
-        .energy-colorless { background-color: #A8A878; } .energy-darkness { background-color: #705848; }
-        .energy-metal { background-color: #B8B8D0; color: #333;} .energy-dragon { background-color: #7038F8; }
-        .energy-fairy { background-color: #EE99AC; color: #333;}
-        .ability-container, .attack-container { background: rgba(0,0,0,0.1); padding: 0.4rem; border-radius: 0.25rem; margin-bottom: 0.4rem; }
-        .ability-name, .attack-name { font-weight: 600; color: var(--color-accent); font-size:0.85rem; }
-        .ability-text, .attack-text { font-size: 0.75rem; margin-top: 0.2rem; line-height: 1.3; }
-
-        .fancy-nav-controls { position: absolute; top: 50%; left: 0.25rem; right: 0.25rem; transform: translateY(-50%); display: flex; justify-content: space-between; pointer-events: none; z-index:10; }
-        .fancy-nav-button { background: rgba(0,0,0,0.3); color: white; border:none; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; pointer-events:auto; transition: background-color 0.2s; }
-        .fancy-nav-button:hover:not(:disabled) { background: rgba(0,0,0,0.6); }
-        .fancy-nav-button:disabled { opacity:0.3; cursor:not-allowed; }
-        #fancy-normal-view { display: none; } 
-
-        @media (max-width: 768px) {
-            .app-sidebar { max-height: 50vh; } 
-            .fancy-lightbox-content { flex-direction: column; width: 95vw; height: 95vh; max-height: 95vh; }
-            .fancy-card-info { width: 100%; max-height: 45%; border-left: none; border-bottom: 1px solid var(--color-border); order: 2; }
-            .fancy-card-image-container { order: 1; padding: 0.5rem; }
-            .fancy-nav-controls { left:0.1rem; right:0.1rem; }
-            .fancy-nav-button { width:30px; height:30px; font-size:0.8rem; }
-        }
-   </style>
+    <script src="filter_config.js"></script>
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
 </head>
 <body>
     <div id="page-loading-overlay">
@@ -215,7 +28,7 @@
                 <h1 class="title-glow">Forte Card Viewer</h1>
             </div>
             <div id="access-controls" class="flex items-center gap-x-3">
-                 <button id="submission-button" title="Submit a Card" style="background: var(--color-secondary); color:white; border-radius: 0.375rem; padding: 0.5rem 0.75rem; font-size: 0.8rem; display:flex; align-items:center; gap: 0.5rem;">
+                 <button id="submission-button" title="Submit a Card" class="access-button">
                     <i class="fas fa-upload"></i>Submit Card
                 </button>
             </div>
@@ -224,7 +37,8 @@
 
     <nav id="set-tab-navigation" class="app-set-navigation w-full">
         <div id="tab-container" class="max-w-7xl mx-auto">
-            </div>
+            <!-- Tabs will be rendered here by JavaScript -->
+        </div>
     </nav>
 
     <div class="app-main-content">
@@ -260,6 +74,7 @@
             <div class="filter-group">
                 <label for="forte-filter" class="filter-label">Forte Status</label>
                 <select id="forte-filter" class="filter-select">
+                    <!-- Will be populated via JS -->
                 </select>
             </div>
              <div class="filter-group">
@@ -290,9 +105,11 @@
                 <button id="fancy-lightbox-close" class="fancy-lightbox-close" aria-label="Close card viewer"><i class="fas fa-times"></i></button>
             </div>
             <div class="fancy-lightbox-body">
-                <div class="fancy-card-image-container">
+                <div class="fancy-card-image-container" id="fancy-holo-container">
                     <div id="fancy-spinner" class="loader"></div>
-                    <img id="fancy-card-image" src="#" alt="Card preview" class="hidden">
+                    <div id="fancy-holo-inner">
+                        <img id="fancy-card-image" src="#" alt="Card preview" class="hidden">
+                    </div>
                 </div>
                 <aside class="fancy-card-info">
                     <div class="card-detail-section">
@@ -370,11 +187,13 @@
             document.body.innerHTML = '<div style="color:red; padding:20px; font-size:1.2em;">Error: Site configuration (filter-config.js) is missing or failed to load. Application cannot start.</div>';
         }
 
+        // Global variables
         let allCardsData = [];
         let currentFilteredCardsForLightbox = [];
         let currentLightboxIndex = -1;
+        const placeholderUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIwIiBoZWlnaHQ9IjMwOCIgdmlld0JveD0iMCAwIDIyMCAzMDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIyMCIgaGVpZ2h0PSIzMDgiIGZpbGw9IiMxRTI5M0IiLz48cGF0aCBkPSJNMTEwIDE1NEMxMzYuNTEgMTU0IDE1OCAxMzIuNTEgMTU4IDEwNkMxNTggNzkuNDkwMyAxMzYuNTEgNTggMTEwIDU4QzgzLjQ5MDMgNTggNjIgNzkuNDkwMyA2MiAxMDZDNjIgMTMyLjUxIDgzLjQ5MDMgMTU0IDExMCAxNTRaIiBmaWxsPSIjNjQ3NDhCIi8+PHBhdGggZD0iTTYyLjUgMjEyLjVDODIuNSAxOTIuNSAxMzcuNSAxOTIuNSAxNTcuNSAyMTIuNSIgc3Ryb2tlPSIjNjQ3NDhCIiBzdHJva2Utd2lkdGg9IjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==';
 
-        // DOM Elements (ensure all are correctly identified)
+        // DOM Elements
         const itemGalleryEl = document.getElementById('item-gallery');
         const tabContainerEl = document.getElementById('tab-container'); 
         const typeFilterEl = document.getElementById('type-filter');
@@ -394,31 +213,53 @@
         const lightboxNextBtn = document.getElementById('fancy-next-button');
         
         const lbElements = { 
-            cardName: document.getElementById('lb-card-name'), setName: document.getElementById('lb-set-name'),
-            cardNumber: document.getElementById('lb-card-number'), rarity: document.getElementById('lb-rarity'),
-            artist: document.getElementById('lb-artist'), pokemonDetails: document.getElementById('lb-pokemon-details'),
-            hp: document.getElementById('lb-hp'), types: document.getElementById('lb-types'),
-            stageItem: document.getElementById('lb-stage-item'), stage: document.getElementById('lb-stage'),
-            evolvesFromItem: document.getElementById('lb-evolves-from-item'), evolvesFrom: document.getElementById('lb-evolves-from'),
-            pokedexItem: document.getElementById('lb-pokedex-item'), pokedexData: document.getElementById('lb-pokedex-data'),
-            trainerDetails: document.getElementById('lb-trainer-details'), trainerSubtypes: document.getElementById('lb-trainer-subtypes'),
-            energyDetails: document.getElementById('lb-energy-details'), energyTypes: document.getElementById('lb-energy-types'),
-            abilitiesSection: document.getElementById('lb-abilities-section'), abilitiesContainer: document.getElementById('lb-abilities-container'),
-            attacksSection: document.getElementById('lb-attacks-section'), attacksContainer: document.getElementById('lb-attacks-container'),
-            rulesSection: document.getElementById('lb-rules-section'), rulesText: document.getElementById('lb-rules-text'),
+            cardName: document.getElementById('lb-card-name'), 
+            setName: document.getElementById('lb-set-name'),
+            cardNumber: document.getElementById('lb-card-number'), 
+            rarity: document.getElementById('lb-rarity'),
+            artist: document.getElementById('lb-artist'), 
+            pokemonDetails: document.getElementById('lb-pokemon-details'),
+            hp: document.getElementById('lb-hp'), 
+            types: document.getElementById('lb-types'),
+            stageItem: document.getElementById('lb-stage-item'), 
+            stage: document.getElementById('lb-stage'),
+            evolvesFromItem: document.getElementById('lb-evolves-from-item'), 
+            evolvesFrom: document.getElementById('lb-evolves-from'),
+            pokedexItem: document.getElementById('lb-pokedex-item'), 
+            pokedexData: document.getElementById('lb-pokedex-data'),
+            trainerDetails: document.getElementById('lb-trainer-details'), 
+            trainerSubtypes: document.getElementById('lb-trainer-subtypes'),
+            energyDetails: document.getElementById('lb-energy-details'), 
+            energyTypes: document.getElementById('lb-energy-types'),
+            abilitiesSection: document.getElementById('lb-abilities-section'), 
+            abilitiesContainer: document.getElementById('lb-abilities-container'),
+            attacksSection: document.getElementById('lb-attacks-section'), 
+            attacksContainer: document.getElementById('lb-attacks-container'),
+            rulesSection: document.getElementById('lb-rules-section'), 
+            rulesText: document.getElementById('lb-rules-text'),
             battleStatsSection: document.getElementById('lb-battle-stats-section'),
-            weaknessContainer: document.getElementById('lb-weakness-container'), weakness: document.getElementById('lb-weakness'),
-            resistanceContainer: document.getElementById('lb-resistance-container'), resistance: document.getElementById('lb-resistance'),
-            retreatCostItem: document.getElementById('lb-retreat-cost-item'), retreatCost: document.getElementById('lb-retreat-cost'),
-            flavorTextSection: document.getElementById('lb-flavor-text-section'), flavorText: document.getElementById('lb-flavor-text'),
-            creator: document.getElementById('lb-creator'), isForte: document.getElementById('lb-is-forte'),
-            regulation: document.getElementById('lb-regulation'), approvedDate: document.getElementById('lb-approved-date')
+            weaknessContainer: document.getElementById('lb-weakness-container'), 
+            weakness: document.getElementById('lb-weakness'),
+            resistanceContainer: document.getElementById('lb-resistance-container'), 
+            resistance: document.getElementById('lb-resistance'),
+            retreatCostItem: document.getElementById('lb-retreat-cost-item'), 
+            retreatCost: document.getElementById('lb-retreat-cost'),
+            flavorTextSection: document.getElementById('lb-flavor-text-section'), 
+            flavorText: document.getElementById('lb-flavor-text'),
+            creator: document.getElementById('lb-creator'), 
+            isForte: document.getElementById('lb-is-forte'),
+            regulation: document.getElementById('lb-regulation'), 
+            approvedDate: document.getElementById('lb-approved-date')
         };
 
+        // State variables
         let currentFilters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
         let currentSort = 'setThenNumber';
         let currentSetTab = SITE_CONFIG.defaultActiveSetTab === 'all' ? 'all' : (SITE_CONFIG.setDisplayNameToCodeMap[SITE_CONFIG.defaultActiveSetTab] || 'all');
 
+        /**
+         * Initialize the application
+         */
         async function initializeApp() {
             try {
                 const response = await fetch('data/cards.json?timestamp=' + new Date().getTime()); 
@@ -442,9 +283,15 @@
             }
         }
 
+        /**
+         * Populate filter dropdowns with options from the card data
+         */
         function populateFilterDropdowns() { 
-            const types = new Set(); const trainerSubtypes = new Set();
-            const rarities = new Set(); const creators = new Set();
+            const types = new Set(); 
+            const trainerSubtypes = new Set();
+            const rarities = new Set(); 
+            const creators = new Set();
+            
             allCardsData.forEach(card => {
                 if (card.supertype === "Pokémon" && card.types) card.types.forEach(t => types.add(t));
                 if (card.supertype === "Trainer" && card.subtypes) card.subtypes.forEach(st => trainerSubtypes.add(st));
@@ -452,75 +299,146 @@
                 if (card.artist) creators.add(card.artist);
                 if (card.forteData?.discordUsername) creators.add(card.forteData.discordUsername);
             });
+            
             const sortAndPopulate = (el, itemsSet, orderConfig, allText) => {
                 const ordered = orderConfig.filter(item => itemsSet.has(item));
                 const unordered = Array.from(itemsSet).filter(item => !orderConfig.includes(item)).sort();
                 populateSelectWithOptions(el, [...ordered, ...unordered], allText);
             };
+            
             const combinedTypesAndSubtypes = new Set([...types, ...trainerSubtypes]);
             const combinedOrder = [...SITE_CONFIG.pokemonTypeOrder, ...SITE_CONFIG.trainerSubtypeOrder];
             sortAndPopulate(typeFilterEl, combinedTypesAndSubtypes, combinedOrder, "All Types/Subtypes");
             sortAndPopulate(rarityFilterEl, rarities, SITE_CONFIG.rarityOrder, "All Rarities");
             populateSelectWithOptions(creatorFilterEl, Array.from(creators).sort(), "All Creators");
+            
             forteFilterEl.innerHTML = '';
             for (const [value, text] of Object.entries(SITE_CONFIG.forteStatusOptions)) {
-                const option = document.createElement('option'); option.value = value; option.textContent = text;
+                const option = document.createElement('option'); 
+                option.value = value; 
+                option.textContent = text;
                 forteFilterEl.appendChild(option);
             }
         }
+        
+        /**
+         * Helper to populate a select element with options
+         */
         function populateSelectWithOptions(selectElement, optionsArray, allText) { 
             selectElement.innerHTML = `<option value="all">${allText}</option>`;
             optionsArray.forEach(opt => {
-                const option = document.createElement('option'); option.value = opt; option.textContent = opt;
+                const option = document.createElement('option'); 
+                option.value = opt; 
+                option.textContent = opt;
                 selectElement.appendChild(option);
             });
         }
 
+        /**
+         * Render set tabs based on the card data and SITE_CONFIG
+         */
         function renderSetTabs() { 
             const setCounts = {};
+            // Count cards by set
             allCardsData.forEach(card => {
-                if (card.set?.id && card.set?.name) { 
+                if (card.set?.id) { 
                     if (!setCounts[card.set.id]) {
-                        setCounts[card.set.id] = { name: card.set.name, count: 0, id: card.set.id };
+                        // Get proper display name from SITE_CONFIG
+                        // Find the display name based on set NAME (not ID)
+                        // This is because card.set.name = "PF1" needs to map to "Forte Arrivals"
+                        let displayName = "Unknown Set";
+                        
+                        // First look for a matching set name in SITE_CONFIG
+                        if (card.set.name) {
+                            const setCodeInConfig = Object.values(SITE_CONFIG.setDisplayNameToCodeMap)
+                                .find(code => code.toUpperCase() === card.set.name.toUpperCase());
+                            
+                            if (setCodeInConfig) {
+                                // If found, get the display name from the key
+                                displayName = Object.keys(SITE_CONFIG.setDisplayNameToCodeMap)
+                                    .find(key => SITE_CONFIG.setDisplayNameToCodeMap[key].toUpperCase() === card.set.name.toUpperCase());
+                            } else {
+                                // Use set name as fallback
+                                displayName = card.set.name;
+                            }
+                        }
+                        
+                        setCounts[card.set.id] = { 
+                            name: displayName, 
+                            count: 0, 
+                            id: card.set.id,
+                            originalName: card.set.name  // Store original name as backup
+                        };
                     }
                     setCounts[card.set.id].count++;
                 } else {
                     const defaultMiscId = "misc_unknown"; 
-                     if (!setCounts[defaultMiscId]) {
+                    if (!setCounts[defaultMiscId]) {
                         setCounts[defaultMiscId] = { name: "Unknown Set", count: 0, id: defaultMiscId };
                     }
                     setCounts[defaultMiscId].count++;
                 }
             });
+            
+            // Order sets according to SITE_CONFIG
             const orderedSetsForTabs = SITE_CONFIG.setOrder
                 .map(setName => {
                     const setCode = SITE_CONFIG.setDisplayNameToCodeMap[setName];
                     return setCode && setCounts[setCode] ? setCounts[setCode] : null;
                 })
                 .filter(Boolean);
+            
+            // Add any sets not in SITE_CONFIG.setOrder
             Object.values(setCounts).forEach(setInfo => {
                 if (!orderedSetsForTabs.find(s => s.id === setInfo.id)) {
                     orderedSetsForTabs.push(setInfo); 
                 }
             });
+            
+            // Clear and rebuild tabs
             tabContainerEl.innerHTML = ''; 
             const allTab = createTabElement('all', `All Sets (${allCardsData.length})`, SITE_CONFIG.setColors['All'] || SITE_CONFIG.setColors['default']);
+            allTab.setAttribute('data-key-num', '0');
             tabContainerEl.appendChild(allTab);
-            orderedSetsForTabs.forEach(setInfo => {
-                const tab = createTabElement(setInfo.id, `${setInfo.name} (${setInfo.count})`, SITE_CONFIG.setColors[setInfo.name] || SITE_CONFIG.setColors['default']);
+            
+            // Create tabs for each set
+            orderedSetsForTabs.forEach((setInfo, index) => {
+                const tab = createTabElement(
+                    setInfo.id, 
+                    `${setInfo.name} (${setInfo.count})`, 
+                    SITE_CONFIG.setColors[setInfo.name] || SITE_CONFIG.setColors['default']
+                );
+                
+                // Add keyboard shortcut indicator (1-9)
+                if (index < 9) {
+                    tab.setAttribute('data-key-num', (index + 1).toString());
+                }
+                
                 tabContainerEl.appendChild(tab);
             });
         }
+        
+        /**
+         * Create a tab element
+         */
         function createTabElement(setId, text, color) { 
             const button = document.createElement('button');
-            button.className = 'tab'; button.dataset.setId = setId; button.textContent = text;
+            button.className = 'tab'; 
+            button.dataset.setId = setId; 
+            button.textContent = text;
+            
             if (color) {
                 button.style.setProperty('--tab-active-border-color', color);
                 button.style.setProperty('--tab-active-bg-color', hexToRgba(color, 0.1)); 
                 button.style.setProperty('--tab-active-text-color', color);
             }
+            
             return button;
         }
+        
+        /**
+         * Convert hex color to rgba
+         */
         function hexToRgba(hex, alpha = 1) { 
             if (!hex || typeof hex !== 'string') return `rgba(107, 114, 128, ${alpha})`;
             hex = hex.replace('#', '');
@@ -530,16 +448,29 @@
             const r = (bigint >> 16) & 255; const g = (bigint >> 8) & 255; const b = bigint & 255;
             return `rgba(${r}, ${g}, ${b}, ${alpha})`;
         }
+        
+        /**
+         * Lighten a hex color by percent
+         */
         function lightenHexColor(hex, percent) { 
-            if (!hex || typeof hex !== 'string') return '#FFFFFF'; hex = hex.replace('#', '');
+            if (!hex || typeof hex !== 'string') return '#FFFFFF'; 
+            hex = hex.replace('#', '');
             if (hex.length === 3) hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
-            const num = parseInt(hex, 16); if (isNaN(num)) return '#FFFFFF';
+            const num = parseInt(hex, 16); 
+            if (isNaN(num)) return '#FFFFFF';
             const amt = Math.round(2.55 * percent * 100);
-            let r = (num >> 16) + amt; let g = ((num >> 8) & 0x00FF) + amt; let b = (num & 0x0000FF) + amt;
-            r = Math.max(0, Math.min(255, r)); g = Math.max(0, Math.min(255, g)); b = Math.max(0, Math.min(255, b));
+            let r = (num >> 16) + amt; 
+            let g = ((num >> 8) & 0x00FF) + amt; 
+            let b = (num & 0x0000FF) + amt;
+            r = Math.max(0, Math.min(255, r)); 
+            g = Math.max(0, Math.min(255, g)); 
+            b = Math.max(0, Math.min(255, b));
             return "#" + (0x1000000 + (r << 16) | (g << 8) | b).toString(16).slice(1).padStart(6, '0');
         }
 
+        /**
+         * Set up event listeners
+         */
         function setupEventListeners() { 
             [typeFilterEl, supertypeFilterEl, rarityFilterEl, creatorFilterEl, forteFilterEl, sortFilterEl].forEach(filter => {
                 if(filter) filter.addEventListener('change', () => {
@@ -552,24 +483,67 @@
                     applyFiltersAndRender();
                 });
             });
+            
             tabContainerEl.addEventListener('click', (e) => {
                 const tab = e.target.closest('.tab');
                 if (tab && !tab.classList.contains('active')) {
                     tabContainerEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active'); currentSetTab = tab.dataset.setId;
+                    tab.classList.add('active'); 
+                    currentSetTab = tab.dataset.setId;
                     applyFiltersAndRender();
                 }
             });
+            
             lightboxCloseBtn.addEventListener('click', closeLightbox);
             lightboxPrevBtn.addEventListener('click', showPreviousCardInLightbox);
             lightboxNextBtn.addEventListener('click', showNextCardInLightbox);
+            
             document.addEventListener('keydown', (e) => {
                 if (lightboxEl.classList.contains('visible')) {
                     if (e.key === 'Escape') closeLightbox();
                     if (e.key === 'ArrowLeft') showPreviousCardInLightbox();
                     if (e.key === 'ArrowRight') showNextCardInLightbox();
+                    if (e.key === 'd' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+                        const downloadButton = document.getElementById('fancy-download-button');
+                        if (downloadButton) downloadButton.click();
+                    }
+                    if (e.key === 'S' && e.shiftKey && !e.ctrlKey && !e.altKey) {
+                        const shareButton = document.getElementById('fancy-share-button');
+                        if (shareButton) shareButton.click();
+                    }
+                } else if (!isInputFocused()) {
+                    // Quick set selection with number keys
+                    const key = parseInt(e.key);
+                    if (!isNaN(key) && key >= 0 && key <= 9) {
+                        const tabs = tabContainerEl.querySelectorAll('.tab');
+                        if (key === 0) {
+                            // Select "All Sets" tab
+                            const allTab = tabs[0];
+                            if (allTab && !allTab.classList.contains('active')) {
+                                allTab.click();
+                                e.preventDefault();
+                            }
+                        } else if (key <= tabs.length - 1) {
+                            // Select specific set tab (1-indexed)
+                            const tab = tabs[key];
+                            if (tab && !tab.classList.contains('active')) {
+                                tab.click();
+                                e.preventDefault();
+                            }
+                        }
+                    }
+                    
+                    // Settings shortcut - 'S' key
+                    if (e.key === 's' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+                        const settingsButton = document.getElementById('settings-button');
+                        if (settingsButton) {
+                            settingsButton.click();
+                            e.preventDefault();
+                        }
+                    }
                 }
             });
+            
             const submissionBtnEl = document.getElementById('submission-button');
             if (submissionBtnEl) {
                 submissionBtnEl.addEventListener('click', () => {
@@ -577,7 +551,21 @@
                 });
             }
         }
+        
+        /**
+         * Check if an input element is focused
+         */
+        function isInputFocused() {
+            const activeElement = document.activeElement;
+            return activeElement.tagName === 'INPUT' || 
+                activeElement.tagName === 'TEXTAREA' || 
+                activeElement.tagName === 'SELECT' ||
+                activeElement.isContentEditable;
+        }
 
+        /**
+         * Apply filters and render the gallery
+         */
         function applyFiltersAndRender() { 
             let tempFilteredCards = allCardsData;
             if (currentSetTab !== 'all') {
@@ -610,6 +598,7 @@
                 const isForteTarget = currentFilters.forte === 'isForte';
                 tempFilteredCards = tempFilteredCards.filter(card => card.forteData && card.forteData.isForte === isForteTarget);
             }
+            
             tempFilteredCards.sort((a,b) => { 
                 switch(currentSort) {
                     case 'name': return (a.name || '').localeCompare(b.name || '');
@@ -628,53 +617,158 @@
                         return (parseInt(a.number) || 99999) - (parseInt(b.number) || 99999);
                 }
             });
+            
             currentFilteredCardsForLightbox = tempFilteredCards;
             renderGalleryThumbs();
         }
 
+        /**
+         * Render gallery thumbnails
+         */
         function renderGalleryThumbs() { 
             itemGalleryEl.innerHTML = '';
-            if (currentFilteredCardsForLightbox.length === 0) { emptyMessageEl.classList.remove('hidden'); return; }
+            if (currentFilteredCardsForLightbox.length === 0) { 
+                emptyMessageEl.classList.remove('hidden'); 
+                return; 
+            }
+            
             emptyMessageEl.classList.add('hidden');
+            
             currentFilteredCardsForLightbox.forEach((card, index) => {
                 const div = document.createElement('div');
-                div.className = 'thumbnail'; div.tabIndex = 0;
-                div.setAttribute('aria-label', card.name); div.dataset.cardIndex = index;
+                div.className = 'thumbnail'; 
+                div.tabIndex = 0;
+                div.setAttribute('aria-label', card.name); 
+                div.dataset.cardIndex = index;
+                
                 const img = document.createElement('img');
                 img.src = card.images?.small || card.images?.large || placeholderUrl;
-                img.alt = card.name; img.className = 'gallery-image'; img.loading = 'lazy';
+                img.alt = card.name; 
+                img.className = 'gallery-image'; 
+                img.loading = 'lazy';
                 img.onerror = () => img.src = placeholderUrl;
                 img.onload = () => img.classList.add('loaded');
+                
                 div.appendChild(img);
+                
                 if (card.forteData?.isForte) {
                     const forteIndicator = document.createElement('div');
                     forteIndicator.className = 'forte-indicator';
                     forteIndicator.innerHTML = '<i class="fas fa-crown"></i>';
                     div.appendChild(forteIndicator);
                 }
+                
                 div.addEventListener('click', () => openLightboxWithCard(card));
-                div.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') openLightboxWithCard(card); });
+                div.addEventListener('keydown', (e) => { 
+                    if (e.key === 'Enter' || e.key === ' ') openLightboxWithCard(card); 
+                });
+                
                 itemGalleryEl.appendChild(div);
             });
         }
 
+        /**
+         * Check for card ID in URL
+         */
+        function getCardIdFromUrl() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#card=')) {
+                return hash.substring(6); // Remove '#card=' prefix
+            }
+            return null;
+        }
+
+        /**
+         * Update URL when opening a card
+         */
+        function updateUrlForCard(cardId) {
+            if (cardId) {
+                window.history.pushState(null, null, `#card=${cardId}`);
+            } else {
+                window.history.pushState(null, null, window.location.pathname);
+            }
+        }
+
+        /**
+         * Open lightbox for a specific card ID
+         */
+        function openLightboxForCardId(cardId) {
+            const card = allCardsData.find(c => c.id === cardId);
+            if (card) {
+                // Make sure filters allow this card to be visible
+                // Reset filters to show all cards
+                currentFilters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
+                currentSetTab = 'all';
+                
+                // Update filter dropdown UI
+                if (typeFilterEl) typeFilterEl.value = 'all';
+                if (supertypeFilterEl) supertypeFilterEl.value = 'all';
+                if (rarityFilterEl) rarityFilterEl.value = 'all';
+                if (creatorFilterEl) creatorFilterEl.value = 'all';
+                if (forteFilterEl) forteFilterEl.value = 'all';
+                
+                // Update tab UI
+                tabContainerEl.querySelectorAll('.tab').forEach(t => {
+                    t.classList.toggle('active', t.dataset.setId === 'all');
+                });
+                
+                // Apply filters and render before opening the lightbox
+                applyFiltersAndRender();
+                
+                // Now open the lightbox
+                openLightboxWithCard(card);
+            }
+        }
+
+        /**
+         * Open the lightbox with a card
+         */
         function openLightboxWithCard(cardObject) { 
+            if (!cardObject) return;
+            
             currentLightboxIndex = currentFilteredCardsForLightbox.findIndex(c => c.id === cardObject.id);
             updateLightboxDetails(cardObject);
             updateLightboxNav();
             lightboxEl.classList.add('visible');
             document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() { 
-            lightboxEl.classList.remove('visible'); document.body.style.overflow = ''; 
+            
+            // Update URL with card ID
+            updateUrlForCard(cardObject.id);
         }
         
+        /**
+         * Close the lightbox
+         */
+        function closeLightbox() { 
+            lightboxEl.classList.remove('visible'); 
+            document.body.style.overflow = ''; 
+            
+            // Clear card ID from URL
+            updateUrlForCard(null);
+        }
+        
+        /**
+         * Update lightbox details with card information
+         */
         function updateLightboxDetails(card) { 
             if (!card) { closeLightbox(); return; }
+            
             lightboxCardTitleEl.textContent = card.name || 'Card Details';
-            lightboxSpinnerEl.classList.remove('hidden'); lightboxCardImageEl.classList.add('hidden');
-            lightboxCardImageEl.onload = () => { lightboxSpinnerEl.classList.add('hidden'); lightboxCardImageEl.classList.remove('hidden'); lightboxCardImageEl.classList.add('loaded'); };
-            lightboxCardImageEl.onerror = () => { lightboxCardImageEl.src = placeholderUrl; lightboxSpinnerEl.classList.add('hidden'); lightboxCardImageEl.classList.remove('hidden');};
+            lightboxSpinnerEl.classList.remove('hidden'); 
+            lightboxCardImageEl.classList.add('hidden');
+            
+            lightboxCardImageEl.onload = () => { 
+                lightboxSpinnerEl.classList.add('hidden'); 
+                lightboxCardImageEl.classList.remove('hidden'); 
+                lightboxCardImageEl.classList.add('loaded'); 
+            };
+            
+            lightboxCardImageEl.onerror = () => { 
+                lightboxCardImageEl.src = placeholderUrl; 
+                lightboxSpinnerEl.classList.add('hidden'); 
+                lightboxCardImageEl.classList.remove('hidden');
+            };
+            
             const imageUrl = card.images?.large || card.images?.small || placeholderUrl;
             console.log("Setting lightbox image to:", imageUrl); 
             lightboxCardImageEl.src = imageUrl; 
@@ -686,7 +780,10 @@
             lbElements.rarity.textContent = card.rarity || '-';
             lbElements.artist.textContent = card.artist || '-';
             
-            const isPoke = card.supertype === 'Pokémon'; const isTrainer = card.supertype === 'Trainer'; const isEnergy = card.supertype === 'Energy';
+            const isPoke = card.supertype === 'Pokémon'; 
+            const isTrainer = card.supertype === 'Trainer'; 
+            const isEnergy = card.supertype === 'Energy';
+            
             lbElements.pokemonDetails.style.display = isPoke ? 'block' : 'none';
             lbElements.trainerDetails.style.display = isTrainer ? 'block' : 'none';
             lbElements.energyDetails.style.display = isEnergy ? 'block' : 'none';
@@ -701,32 +798,50 @@
                 lbElements.types.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
                 lbElements.stage.textContent = card.subtypes?.join(', ') || '-';
                 lbElements.stageItem.style.display = card.subtypes?.length ? 'block' : 'none';
-                if (card.evolvesFrom) { lbElements.evolvesFromItem.style.display = 'block'; lbElements.evolvesFrom.textContent = card.evolvesFrom; } 
-                else { lbElements.evolvesFromItem.style.display = 'none'; }
-                if(card.nationalPokedexNumbers?.length) { lbElements.pokedexItem.style.display = 'block'; lbElements.pokedexData.textContent = card.nationalPokedexNumbers.join(', ');}
-                else { lbElements.pokedexItem.style.display = 'none'; }
+                
+                if (card.evolvesFrom) { 
+                    lbElements.evolvesFromItem.style.display = 'block'; 
+                    lbElements.evolvesFrom.textContent = card.evolvesFrom; 
+                } else { 
+                    lbElements.evolvesFromItem.style.display = 'none'; 
+                }
+                
+                if(card.nationalPokedexNumbers?.length) { 
+                    lbElements.pokedexItem.style.display = 'block'; 
+                    lbElements.pokedexData.textContent = card.nationalPokedexNumbers.join(', ');
+                } else { 
+                    lbElements.pokedexItem.style.display = 'none'; 
+                }
+                
                 lbElements.abilitiesContainer.innerHTML = card.abilities?.map(a => `<div class="ability-container"><div class="ability-name">${a.name} (${a.type})</div><div class="ability-text">${a.text}</div></div>`).join('') || '';
+                
                 lbElements.attacksContainer.innerHTML = card.attacks?.map(atk => `
                     <div class="attack-container">
                         <div class="attack-cost">${atk.cost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || ''}</div>
                         <div class="attack-name">${atk.name} ${atk.damage ? `- ${atk.damage}` : ''}</div>
                         ${atk.text ? `<div class="attack-text">${atk.text}</div>` : ''}
                     </div>`).join('') || '';
+                
                 lbElements.weaknessContainer.style.display = card.weaknesses?.length ? 'flex' : 'none';
                 lbElements.weakness.innerHTML = card.weaknesses?.map(w => `<span class="card-type-badge type-${w.type.toLowerCase()}">${w.type} ${w.value}</span>`).join(', ') || '';
+                
                 lbElements.resistanceContainer.style.display = card.resistances?.length ? 'block' : 'none'; 
                 lbElements.resistance.innerHTML = card.resistances?.map(r => `<span class="card-type-badge type-${r.type.toLowerCase()}">${r.type} ${r.value}</span>`).join(', ') || '';
+                
                 lbElements.retreatCostItem.style.display = card.retreatCost?.length ? 'block' : 'none';
                 lbElements.retreatCost.innerHTML = card.retreatCost?.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('') || '';
             }
+            
             if(isTrainer){
                 lbElements.trainerSubtypes.innerHTML = card.subtypes?.map(st => `<span class="card-type-badge type-trainer">${st}</span>`).join(' ') || '-';
                 lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
             }
+            
             if(isEnergy){
                 lbElements.energyTypes.innerHTML = card.types?.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ') || '-';
-                 lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
+                lbElements.rulesText.innerHTML = card.rules?.join('<br>') || '';
             }
+            
             lbElements.flavorText.textContent = card.flavorText || '-';
             lbElements.creator.textContent = card.forteData?.discordUsername || card.artist || 'Unknown';
             lbElements.isForte.innerHTML = card.forteData?.isForte ? '<span class="forte-badge" style="display:inline-flex; align-items:center; gap:0.25rem; background:var(--color-error); padding:0.2rem 0.4rem; border-radius:0.25rem; font-size:0.8rem;"><i class="fas fa-crown" style="font-size:0.7rem;"></i> Forte</span>' : 'No';
@@ -734,18 +849,565 @@
             lbElements.approvedDate.textContent = card.forteData?.approvedDate || '-';
         }
 
+        /**
+         * Update lightbox navigation buttons
+         */
         function updateLightboxNav() { 
             lightboxPrevBtn.disabled = currentLightboxIndex <= 0;
             lightboxNextBtn.disabled = currentLightboxIndex >= currentFilteredCardsForLightbox.length - 1;
         }
+        
+        /**
+         * Show the previous card in lightbox
+         */
         function showPreviousCardInLightbox() { 
-            if (currentLightboxIndex > 0) { currentLightboxIndex--; updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); updateLightboxNav(); }
-        }
-        function showNextCardInLightbox() { 
-            if (currentLightboxIndex < currentFilteredCardsForLightbox.length - 1) { currentLightboxIndex++; updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); updateLightboxNav(); }
+            if (currentLightboxIndex > 0) { 
+                currentLightboxIndex--; 
+                updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); 
+                updateLightboxNav(); 
+                updateUrlForCard(currentFilteredCardsForLightbox[currentLightboxIndex].id);
+            }
         }
         
+        /**
+         * Show the next card in lightbox
+         */
+        function showNextCardInLightbox() { 
+            if (currentLightboxIndex < currentFilteredCardsForLightbox.length - 1) { 
+                currentLightboxIndex++; 
+                updateLightboxDetails(currentFilteredCardsForLightbox[currentLightboxIndex]); 
+                updateLightboxNav(); 
+                updateUrlForCard(currentFilteredCardsForLightbox[currentLightboxIndex].id);
+            }
+        }
+        
+        /**
+         * Create share button for the lightbox
+         */
+        function createShareButton() {
+            // Check if the button already exists
+            if (document.getElementById('fancy-share-button')) return;
+            
+            // Find or create the action container
+            let actionContainer = document.querySelector('.fancy-card-actions');
+            if (!actionContainer) {
+                actionContainer = document.createElement('div');
+                actionContainer.className = 'fancy-card-actions';
+                
+                const lightboxBody = document.querySelector('.fancy-lightbox-body');
+                if (lightboxBody) {
+                    lightboxBody.appendChild(actionContainer);
+                } else {
+                    console.error("Could not find a place to insert share button");
+                    return;
+                }
+            }
+            
+            // Create Share Button
+            const shareButton = document.createElement('button');
+            shareButton.id = 'fancy-share-button';
+            shareButton.className = 'fancy-action-button';
+            shareButton.innerHTML = '<i class="fas fa-share-alt"></i>';
+            shareButton.title = 'Share Card Link';
+            shareButton.setAttribute('aria-label', 'Share Card Link');
+            
+            // Create Download Button
+            const downloadButton = document.createElement('button');
+            downloadButton.id = 'fancy-download-button';
+            downloadButton.className = 'fancy-action-button';
+            downloadButton.innerHTML = '<i class="fas fa-download"></i>';
+            downloadButton.title = 'Download Image';
+            downloadButton.setAttribute('aria-label', 'Download Image');
+            
+            // Add to container
+            actionContainer.appendChild(downloadButton);
+            actionContainer.appendChild(shareButton);
+            
+            // Add event listeners
+            shareButton.addEventListener('click', handleShareCard);
+            downloadButton.addEventListener('click', handleDownloadImage);
+        }
+        
+        /**
+         * Handle share button click
+         */
+        function handleShareCard() {
+            // Get current card ID
+            const currentCard = currentFilteredCardsForLightbox[currentLightboxIndex];
+            if (!currentCard || !currentCard.id) {
+                showButtonStatus('fancy-share-button', 'error');
+                return;
+            }
+            
+            // Create share URL
+            const shareUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
+            
+            // Try to use navigator.share if available (mobile devices)
+            if (navigator.share) {
+                navigator.share({
+                    title: `Forte Card: ${currentCard.name}`,
+                    text: `Check out this Pokémon card: ${currentCard.name}`,
+                    url: shareUrl
+                })
+                .then(() => showButtonStatus('fancy-share-button', 'success'))
+                .catch(err => {
+                    console.error("Error sharing:", err);
+                    copyToClipboard(shareUrl);
+                });
+            } else {
+                // Fallback to clipboard copy
+                copyToClipboard(shareUrl);
+            }
+        }
+        
+        /**
+         * Copy URL to clipboard
+         */
+        function copyToClipboard(text) {
+            try {
+                // Use the clipboard API
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        console.log("URL copied to clipboard:", text);
+                        showButtonStatus('fancy-share-button', 'success');
+                        // Show a tooltip or message
+                        showCopyTooltip("Link copied to clipboard!");
+                    })
+                    .catch(err => {
+                        console.error("Error copying to clipboard:", err);
+                        showButtonStatus('fancy-share-button', 'error');
+                        
+                        // Fallback method with textarea
+                        fallbackCopyToClipboard(text);
+                    });
+            } catch (e) {
+                console.error("Error in copy function:", e);
+                showButtonStatus('fancy-share-button', 'error');
+                
+                // Try fallback
+                fallbackCopyToClipboard(text);
+            }
+        }
+        
+        /**
+         * Fallback clipboard copy method
+         */
+        function fallbackCopyToClipboard(text) {
+            try {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed'; // Avoid scrolling to bottom
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    console.log("Fallback copy succeeded");
+                    showButtonStatus('fancy-share-button', 'success');
+                    showCopyTooltip("Link copied to clipboard!");
+                } else {
+                    console.error("Fallback copy failed");
+                    showButtonStatus('fancy-share-button', 'error');
+                }
+            } catch (e) {
+                console.error("Fallback copy error:", e);
+                showButtonStatus('fancy-share-button', 'error');
+            }
+        }
+        
+        /**
+         * Handle download image button click
+         */
+        function handleDownloadImage() {
+            if (!lightboxCardImageEl || !lightboxCardImageEl.src) {
+                showButtonStatus('fancy-download-button', 'error');
+                return;
+            }
+            
+            try {
+                // Create a temporary anchor element
+                const link = document.createElement('a');
+                link.href = lightboxCardImageEl.src;
+                
+                // Get base filename from the path
+                const currentCard = currentFilteredCardsForLightbox[currentLightboxIndex];
+                const filename = currentCard?.id ? `${currentCard.id}.png` : 'card.png';
+                link.download = filename;
+                
+                // Append to document, click, and remove
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showButtonStatus('fancy-download-button', 'success');
+            } catch (e) {
+                console.error("Error downloading image:", e);
+                showButtonStatus('fancy-download-button', 'error');
+            }
+        }
+        
+        /**
+         * Show success/error status on a button
+         */
+        function showButtonStatus(buttonId, status) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+            
+            button.classList.add(status);
+            
+            // Reset after animation
+            setTimeout(() => {
+                button.classList.remove(status);
+            }, 1500);
+        }
+        
+        /**
+         * Show a tooltip
+         */
+        function showCopyTooltip(message) {
+            // Check if tooltip already exists and remove it
+            const existingTooltip = document.getElementById('copy-tooltip');
+            if (existingTooltip) {
+                existingTooltip.remove();
+            }
+            
+            // Create tooltip
+            const tooltip = document.createElement('div');
+            tooltip.id = 'copy-tooltip';
+            tooltip.className = 'copy-tooltip';
+            tooltip.textContent = message;
+            
+            document.body.appendChild(tooltip);
+            
+            // Fade in
+            setTimeout(() => {
+                tooltip.style.opacity = '1';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+                setTimeout(() => {
+                    if (tooltip.parentNode) {
+                        tooltip.parentNode.removeChild(tooltip);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        // Gallery Size Controls and Other Fixes for Forte Card Viewer
+
+/**
+ * Add gallery size controls to the page
+ */
+function addGalleryControls() {
+    // Create container for controls
+    const controlsContainer = document.createElement('div');
+    controlsContainer.className = 'gallery-controls';
+    
+    // Create size control elements
+    const sizeControlGroup = document.createElement('div');
+    sizeControlGroup.className = 'flex items-center';
+    
+    const sizeLabel = document.createElement('label');
+    sizeLabel.className = 'size-control-label';
+    sizeLabel.textContent = 'Card Size:';
+    sizeLabel.htmlFor = 'gallery-size-slider';
+    
+    const sizeSlider = document.createElement('input');
+    sizeSlider.type = 'range';
+    sizeSlider.id = 'gallery-size-slider';
+    sizeSlider.className = 'size-control-slider';
+    sizeSlider.min = '1';
+    sizeSlider.max = '5';
+    sizeSlider.value = '3'; // Default to medium
+    sizeSlider.step = '1';
+    
+    const sizeValue = document.createElement('div');
+    sizeValue.className = 'size-value-indicator';
+    sizeValue.textContent = 'M';
+    
+    // Assemble controls
+    sizeControlGroup.appendChild(sizeLabel);
+    sizeControlGroup.appendChild(sizeSlider);
+    sizeControlGroup.appendChild(sizeValue);
+    controlsContainer.appendChild(sizeControlGroup);
+    
+    // Insert controls after set-tab-navigation
+    const setTabNavigation = document.getElementById('set-tab-navigation');
+    if (setTabNavigation && setTabNavigation.nextElementSibling) {
+        setTabNavigation.parentNode.insertBefore(controlsContainer, setTabNavigation.nextElementSibling);
+    }
+    
+    // Add event listener
+    sizeSlider.addEventListener('input', updateGallerySize);
+    
+    // Initialize with default size
+    updateGallerySize({ target: sizeSlider });
+}
+
+/**
+ * Update gallery size based on slider value
+ */
+function updateGallerySize(event) {
+    const value = parseInt(event.target.value);
+    const gallery = document.getElementById('item-gallery');
+    const sizeValue = document.querySelector('.size-value-indicator');
+    
+    // Remove all existing size classes
+    gallery.classList.remove('gallery-size-xs', 'gallery-size-s', 'gallery-size-m', 'gallery-size-l', 'gallery-size-xl');
+    
+    // Add appropriate size class
+    switch(value) {
+        case 1:
+            gallery.classList.add('gallery-size-xs');
+            sizeValue.textContent = 'XS';
+            break;
+        case 2:
+            gallery.classList.add('gallery-size-s');
+            sizeValue.textContent = 'S';
+            break;
+        case 3:
+            gallery.classList.add('gallery-size-m');
+            sizeValue.textContent = 'M';
+            break;
+        case 4:
+            gallery.classList.add('gallery-size-l');
+            sizeValue.textContent = 'L';
+            break;
+        case 5:
+            gallery.classList.add('gallery-size-xl');
+            sizeValue.textContent = 'XL';
+            break;
+    }
+    
+    // Save preference to localStorage
+    try {
+        localStorage.setItem('forteGallerySize', value.toString());
+    } catch (e) {
+        console.warn('Could not save gallery size preference:', e);
+    }
+}
+
+/**
+ * Load saved gallery size preference
+ */
+function loadGallerySizePreference() {
+    try {
+        const savedSize = localStorage.getItem('forteGallerySize');
+        if (savedSize) {
+            const sizeSlider = document.getElementById('gallery-size-slider');
+            if (sizeSlider) {
+                sizeSlider.value = savedSize;
+                updateGallerySize({ target: sizeSlider });
+            }
+        }
+    } catch (e) {
+        console.warn('Could not load gallery size preference:', e);
+    }
+}
+
+/**
+ * Initialize the legend popup
+ */
+function initLegendPopup() {
+    if (document.getElementById('key-info-button')) return; // Already exists
+
+    const button = document.createElement('button');
+    button.id = 'key-info-button';
+    button.className = 'key-info-button';
+    button.title = 'Show Info & Controls';
+    button.setAttribute('aria-label', 'Show Info & Controls');
+    button.innerHTML = '<i class="fas fa-info-circle"></i><span>Info</span>';
+
+    const accessControls = document.getElementById('access-controls');
+    if (accessControls) {
+        // Add before submission button
+        const submissionButton = document.getElementById('submission-button');
+        if (submissionButton) {
+            accessControls.insertBefore(button, submissionButton);
+        } else {
+            accessControls.appendChild(button);
+        }
+    }
+
+    const modal = document.createElement('div');
+    modal.id = 'key-popup-modal';
+    modal.className = 'key-popup-overlay';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.style.display = 'none';
+
+    modal.innerHTML = `
+        <div class="key-popup-content">
+            <div class="key-popup-header">
+                <h3 class="key-popup-title"><i class="fas fa-info-circle mr-2"></i>Info & Controls</h3>
+                <button id="key-popup-close" class="key-popup-close" aria-label="Close key">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="key-popup-body">
+                <h4>Data Source</h4>
+                <ul>
+                    <li>Card information is loaded from a central <code>cards.json</code> file.</li>
+                    <li>This file is automatically updated from a Google Sheet when new cards are approved.</li>
+                </ul>
+                <h4>Gallery Navigation</h4>
+                <ul>
+                    <li><kbd>Click Thumbnail</kbd> or <kbd>Enter</kbd>/<kbd>Space</kbd> on a focused thumbnail: Open card viewer.</li>
+                    <li><kbd>Tab</kbd>: Navigate between interactive elements.</li>
+                    <li><kbd>S</kbd>: Open settings panel.</li>
+                </ul>
+                <h4>Card Viewer (Lightbox)</h4>
+                <ul>
+                    <li><kbd>←</kbd> / <kbd>→</kbd>: Navigate to Previous/Next card in the current filtered view.</li>
+                    <li><kbd>Esc</kbd>: Close the card viewer.</li>
+                    <li><kbd>Shift</kbd> + <kbd>S</kbd>: Share current card (copies link to clipboard).</li>
+                    <li><kbd>D</kbd>: Download card image.</li>
+                </ul>
+                <h4>Filtering & Sorting</h4>
+                <ul>
+                    <li>Use the dropdowns in the sidebar to filter cards by Category, Type/Subtype, Rarity, Creator, and Forte Status.</li>
+                    <li>Use the "Sort By" dropdown to change the order of cards in the gallery.</li>
+                    <li>Click on Set tabs at the top to view cards from specific sets or all sets.</li>
+                    <li><kbd>1</kbd>-<kbd>9</kbd>: Quick select set tabs (if available).</li>
+                    <li><kbd>0</kbd>: Select "All Sets" tab.</li>
+                </ul>
+                <h4>Card Size Control</h4>
+                <ul>
+                    <li>Use the slider above the gallery to adjust card thumbnail size.</li>
+                    <li>Size preference is saved between visits.</li>
+                </ul>
+                <h4>Card Sharing</h4>
+                <ul>
+                    <li>Click the <i class="fas fa-share-alt"></i> button in the card viewer to copy a direct link to the card.</li>
+                    <li>Share the link to allow others to view the specific card.</li>
+                </ul>
+                <p class="note">This previewer is a fan project. Pokémon and its trademarks are ©1995-2025 Nintendo, Creatures Inc., GAME FREAK inc.</p>
+            </div>
+        </div>`;
+    document.body.appendChild(modal);
+
+    // Add event listeners
+    button.addEventListener('click', openLegendPopup);
+    document.getElementById('key-popup-close').addEventListener('click', closeLegendPopup);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) closeLegendPopup();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('visible')) {
+            closeLegendPopup();
+            event.stopPropagation();
+        }
+    });
+}
+
+/**
+ * Open the legend popup
+ */
+function openLegendPopup() {
+    const modal = document.getElementById('key-popup-modal');
+    if (!modal) return;
+    
+    modal.style.display = 'flex';
+    requestAnimationFrame(() => {
+        modal.classList.add('visible');
+    });
+    modal.setAttribute('aria-hidden', 'false');
+    document.getElementById('key-popup-close').focus();
+}
+
+/**
+ * Close the legend popup
+ */
+function closeLegendPopup() {
+    const modal = document.getElementById('key-popup-modal');
+    if (!modal) return;
+    
+    modal.classList.remove('visible');
+    modal.setAttribute('aria-hidden', 'true');
+    
+    const handleTransitionEnd = () => {
+        if (!modal.classList.contains('visible')) {
+            modal.style.display = 'none';
+        }
+    };
+    
+    modal.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    
+    // Fallback
+    setTimeout(() => {
+        if (!modal.classList.contains('visible')) {
+            modal.style.display = 'none';
+        }
+    }, 300);
+    
+    document.getElementById('key-info-button').focus();
+}
+
+/**
+ * Enhanced initialization function 
+ */
+function enhancedInit() {
+    // Add gallery size controls
+    addGalleryControls();
+    
+    // Load saved size preference
+    loadGallerySizePreference();
+    
+    // Initialize legend popup
+    initLegendPopup();
+    
+    // The rest of the initialization from before
+    createShareButton();
+    
+    // Check for card ID in URL
+    const cardId = getCardIdFromUrl();
+    if (cardId) {
+        // Wait for cards to load first
+        const checkCardsLoaded = setInterval(() => {
+            if (allCardsData && allCardsData.length > 0) {
+                clearInterval(checkCardsLoaded);
+                openLightboxForCardId(cardId);
+            }
+        }, 100);
+    }
+}
+
+// Replace the original initializeEnhancements function with our enhanced version
+window.initializeEnhancements = enhancedInit;
+        /**
+         * Initialize enhancements
+         */
+        function initializeEnhancements() {
+            console.log("[Enhancements] Initializing Forte Card Viewer enhancements...");
+            
+            // Create share button for lightbox
+            createShareButton();
+            
+            // Check for card ID in URL
+            const cardId = getCardIdFromUrl();
+            if (cardId) {
+                // Wait for cards to load first
+                const checkCardsLoaded = setInterval(() => {
+                    if (allCardsData && allCardsData.length > 0) {
+                        clearInterval(checkCardsLoaded);
+                        openLightboxForCardId(cardId);
+                    }
+                }, 100);
+            }
+            
+            console.log("[Enhancements] Initialization complete!");
+        }
+        
+        // Initialize the app
         document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        // Initialize enhancements after the app loads
+        window.addEventListener('load', initializeEnhancements);
    </script>
 </body>
 </html>
