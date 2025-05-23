@@ -8,7 +8,7 @@
     ],
     "hp": 50,
     "types": [
-      "Dark"
+      "Fire"
     ],
     "attacks": [
       {
@@ -30,6 +30,12 @@
         "text": "Flip a coin. If tails, this attack does nothing."
       }
     ],
+    "weaknesses": [
+      {
+        "type": "water",
+        "value": "2"
+      }
+    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -48,7 +54,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/05/23",
-      "updatedAt": "2025-05-23T17:07:29.158Z",
+      "updatedAt": "2025-05-23T17:12:15.013Z",
       "images": {
         "symbol": "",
         "logo": ""
