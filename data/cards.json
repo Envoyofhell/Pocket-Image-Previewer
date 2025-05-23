@@ -1,5 +1,87 @@
 [
   {
+    "id": "misc-015",
+    "name": "Torchic",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "ex (Stage 2)"
+    ],
+    "hp": 50,
+    "types": [
+      "Dark"
+    ],
+    "attacks": [
+      {
+        "name": "Peck",
+        "cost": [
+          "TypeID:11 x1"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 10,
+        "text": ""
+      },
+      {
+        "name": "Run Around",
+        "cost": [
+          "TypeID:11 x1"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": "Flip a coin. If tails, this attack does nothing."
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/05/23",
+      "updatedAt": "2025-05-23T17:06:22.856Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "15",
+    "artist": "Yuka Morii",
+    "rarity": "",
+    "flavorText": "It has a flame sac inside its belly that perpetually burns. It feels warm if it is hugged.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png"
+    },
+    "forteData": {
+      "discordUsername": "#brainshock_omega",
+      "originalJsonFileName": "Torchic.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/05/23",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-035",
     "name": "Arrokuda",
     "supertype": "Trainer",
