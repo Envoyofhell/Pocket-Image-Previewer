@@ -173,6 +173,92 @@
     }
   },
   {
+    "id": "misc-003",
+    "name": "Venusaur",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": "0",
+    "types": [],
+    "abilities": [
+      {
+        "name": "Amplifying Pollen",
+        "text": "During Pokémon Checkup, put 3 damage counters on your opponent's Poisoned Pokémon with Forte Markers on them instead of 1.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Poisonous Vines",
+        "cost": [
+          "Grass x2",
+          "Neutral x1"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": 100,
+        "text": "Your opponent's Active Pokémon is now Poisoned."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "fire",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-05-23T17:20:08.116Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "3",
+    "artist": "Endou Hyouga",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1JU86eflPJOk518WR6__s22sA08xfO7qG/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1JU86eflPJOk518WR6__s22sA08xfO7qG/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(003) Venusaur.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-015",
     "name": "Torchic",
     "supertype": "Pokémon",
