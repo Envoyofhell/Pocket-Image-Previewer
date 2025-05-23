@@ -856,6 +856,107 @@
     }
   },
   {
+    "id": "misc-077",
+    "name": "Hoopa",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "ex (Basic)"
+    ],
+    "hp": 190,
+    "types": [
+      "Dark"
+    ],
+    "abilities": [
+      {
+        "name": "Distortion Gate Forte",
+        "text": "For each different kind of Forte Marker, choose a Pokémon in play. Put a Forte Marker of that kind on that Pokémon. (You cannot use more than 1 Forte attack in a game)",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Crush",
+        "cost": [
+          "dark x1"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 30,
+        "text": ""
+      },
+      {
+        "name": "Dimensional Hands",
+        "cost": [
+          "dark x3"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "N/A",
+        "text": "Put 10 damage counters on 1 of your opponent's Pokémon with a Forte Marker on it."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fairy x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Psychic",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-05-23T17:34:12.457Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "77",
+    "artist": "TiMi Studios Inc.",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(077) Hoopa Forte.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-105",
     "name": "Pidgeotto",
     "supertype": "Pokémon",
