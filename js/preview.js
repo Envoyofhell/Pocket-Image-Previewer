@@ -37,12 +37,12 @@
     
     // --- Create unlock button ---
     function createUnlockButton() {
-        let accessControlArea = document.getElementById('access-controls');
+        let accessControlArea = document.getElementById('discord-button');
         if (!accessControlArea) {
             const filterControls = document.getElementById('filter-controls');
             if (filterControls && filterControls.parentElement) {
                 accessControlArea = document.createElement('div');
-                accessControlArea.id = 'access-controls';
+                accessControlArea.id = 'discord-button';
                 accessControlArea.className = 'flex items-center gap-x-3 ml-auto pl-4';
                 filterControls.parentElement.appendChild(accessControlArea);
             } else {

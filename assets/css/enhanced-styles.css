@@ -53,11 +53,15 @@
     gap: 0.75rem;
     margin-left: auto; 
 }
-
+#discords-button {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
 #access-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 /* === FLICKERING TITLE EFFECT === */
@@ -180,19 +184,38 @@
 }
 
 #submission-button {
-    background-color: #dc2626; 
+    background-color: #43084e;
     color: white;
-    border-color: #dc2626;
+    border-color: #34063a;
     font-weight: 600;
 }
 
 #submission-button:hover {
-    background-color: #b91c1c;
-    border-color: #b91c1c;
+    background-color: #9800df;
+    border-color: #a002e9;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
 }
-
+button#key-info-button-initialized {
+    background-color: rgb(67, 8, 78); /* Matches other buttons */
+    border: 1px solid rgb(52, 6, 58); /* Matches other buttons */
+    padding: 8px 12px; /* Matches other buttons */
+    color: rgb(255, 255, 255); /* Matches other buttons */
+    font-size: 14px; /* Matches other buttons */
+    border-radius: 6px; /* Matches other buttons */
+    display: flex; /* Matches other buttons */
+    align-items: center; /* Good practice for flex buttons with icons and text */
+    justify-content: center; /* Good practice for flex buttons */
+    /* Remove or adjust the margin-left if it's causing extra space */
+    margin-left: 0;
+  }
+  
+  /* If the icon inside needs adjustment, you might need specific styles */
+  button#key-info-button-initialized i {
+      margin-right: 4px; /* Add some spacing between icon and text if needed */
+      font-weight: 600; /* Make the text semi-bold like the Submit button */
+  }
+  
 .key-info-button, .settings-button {
     background-color: rgba(107, 114, 128, 0.2);
     color: var(--color-text-secondary);
@@ -215,14 +238,14 @@
 }
 
 .discord-button {
-    background-color: #5865f2;
+    background-color: #43084e;
     color: white;
-    border-color: #5865f2;
+    border-color: #34063a;
 }
 
 .discord-button:hover {
-    background-color: #4752c4;
-    border-color: #4752c4;
+    background-color: #9800df;
+    border-color: #a002e9;
     transform: translateY(-1px);
 }
 

@@ -1,0 +1,86 @@
+/* General footer styling */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--color-background-panel, #222);
+    border-top: .5px solid var(--color-border, #444);
+    padding: 2px 4px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between; /* Ensures left and right sections are spaced */
+    align-items: center;
+    color: var(--color-text-secondary, #fff);
+    z-index: 1000;
+}
+
+/* Footer content container */
+.footer-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Space between left and right sections */
+    align-items: center;
+}
+
+/* Footer links */
+.footer-links {
+    display: flex;
+    gap: px;
+}
+
+.footer-link {
+    color: var(--color-text-secondary, #fff);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--color-text-primary, #00bcd4);
+}
+
+.footer-link i {
+    margin-right: 5px;
+}
+
+/* Copyright section */
+.footer-copyright {
+    text-align: right; /* Align text to the right */
+    font-size: 8px;
+    line-height: 1.2;
+    color: var(--color-text-secondary, #ccc);
+}
+
+.version-beta {
+    background-color: var(--color-secondary, #5a0866);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .app-footer {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+
+    .footer-copyright {
+        text-align: center;
+    }
+}

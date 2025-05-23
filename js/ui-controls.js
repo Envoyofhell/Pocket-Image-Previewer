@@ -187,107 +187,131 @@ window.ForteUIControls = {
         // No action needed here during init.
     },
 
-    openCredits() {
-        // Close any existing credits modal first
-        const existingModal = document.querySelector('.credits-popup-overlay');
-        if (existingModal) {
-            existingModal.remove();
-        }
+    // In js/ui-controls.js
+// Replace the existing openCredits() method within the ForteUIControls object
 
-        const creditsModal = document.createElement('div');
-        // Using a more specific class to avoid conflict with key-popup-overlay if styles differ
-        creditsModal.className = 'credits-popup-overlay key-popup-overlay'; 
-        creditsModal.style.display = 'flex'; // Ensure it's visible
-        creditsModal.style.opacity = '0';    // Start transparent for fade-in
-        
-        creditsModal.innerHTML = `
-            <div class="key-popup-content" style="max-width: 600px;">
-                <div class="key-popup-header">
-                    <h3 class="key-popup-title">
-                        <i class="fas fa-info-circle mr-2"></i>Credits & Acknowledgments
-                    </h3>
-                    <button class="key-popup-close" aria-label="Close credits">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="key-popup-body">
-                    <h4>Development Team</h4>
-                    <ul>
-                        <li><strong>WebDesigner</strong> - Frontend Development & UI Design</li>
-                        <li><strong>EnvoyOfHell</strong> - Project Lead & Backend Integration</li>
-                        <li><strong>Forte Community Team</strong> - Card Data Management</li>
-                    </ul>
-                    
-                    <h4>Artwork & Design</h4>
-                    <ul>
-                        <li>All card artwork belongs to their respective artists as credited on each card</li>
-                        <li>UI Design inspired by modern card collection applications</li>
-                    </ul>
-                    
-                    <h4>Technologies Used</h4>
-                    <ul>
-                        <li>HTML5, CSS3, JavaScript (ES6+)</li>
-                        <li>TailwindCSS for utility styling (Note: custom CSS is primary)</li>
-                        <li>Font Awesome for icons</li>
-                        <li>Google Fonts (Inter & Pirata One)</li>
-                        <li>GitHub for code hosting</li>
-                        <li>Cloudflare Pages for deployment</li>
-                    </ul>
-                    
-                    <h4>Special Thanks</h4>
-                    <ul>
-                        <li>The entire Forte community for their support and contributions</li>
-                        <li>Card creators and artists for their amazing work</li>
-                        <li>Beta testers who provided valuable feedback</li>
-                    </ul>
-                    
-                    <p class="note">Version 2.5 - Forte Card Previewer &copy; 2023-2025</p>
+openCredits() {
+    // Close any existing credits modal first
+    const existingModal = document.querySelector('.credits-popup-overlay');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    const currentYear = new Date().getFullYear();
+    const creditsModal = document.createElement('div');
+    // Using existing classes from legend_popup.js (or your main modal styles) for consistency
+    creditsModal.className = 'credits-popup-overlay key-popup-overlay'; 
+    creditsModal.style.display = 'flex'; // Ensure it's visible
+    creditsModal.style.opacity = '0';    // Start transparent for fade-in
+    
+    creditsModal.innerHTML = `
+        <div class="key-popup-content" style="max-width: 700px;"> <div class="key-popup-header">
+                <h3 class="key-popup-title">
+                    <i class="fas fa-users mr-2"></i>Credits & Acknowledgments
+                </h3>
+                <button class="key-popup-close" aria-label="Close credits">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="key-popup-body">
+                <h4>Project Core Team</h4>
+                <ul>
+                    <li><strong>EnvoyOfHell (WebDesigner)</strong> - Project Lead, Web Design & Development, Backend Integration, UI/UX</li>
+                    <li><strong>MegaAmpharosTheDragon</strong> - Original Concept & Idea, Primary Set Design & Metagame Direction</li>
+                </ul>
+                
+                <h4>Forte Generals &amp; Design Council</h4>
+                <p style="font-size: var(--text-xs, 0.75rem); color: var(--color-text-secondary); margin-top: -0.5rem; margin-bottom: 0.5rem;">Key contributors spearheading design, metagame development, and community direction:</p>
+                <ul>
+                    <li><strong>Ultima</strong> - Set Design, Card Concepts, Metagame Structure, Pokémon Selection Lead</li>
+                    <li><strong>Avalan</strong> - Art Direction, Card Design, Balance & Rulings Consultation</li>
+                    <li><strong>LPBvgc (LPBvgcPKMN)</strong> - Metagame Feedback, PTCG Sim Expertise & Tutorials</li>
+                    <li><strong>Runescript</strong> - Initial Template Design, Asset & Resource Setup, Metagame Balance</li>
+                    <li><strong>Fizzy (MachineGunFizzy)</strong> - Metagame Ideas & Feedback, Community Growth Initiatives</li>
+                </ul>
+
+                <h4>Key Community Contributors & Special Thanks</h4>
+                <ul>
+                    <li><strong>RazberBOSS</strong> - Active Playtesting, Card Feedback, Metagame Discussion</li>
+                    <li><strong>Mister MC</strong> - Valuable Feedback and Insights</li>
+                    <li><strong>Galaa_974</strong> - Community Engagement and Playtesting</li>
+                    <li>To all the <strong>Forte Creators, Card Artists, & Beta Testers</strong> within the community for their creativity, artwork, and dedication to improving the Forte format.</li>
+                    <li>The entire <strong>Forte Community</strong> for ongoing support, card data management, and enthusiasm!</li>
+                </ul>
+                
+                <h4>Technologies & Resources Used</h4>
+                <ul>
+                    <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                    <li>Pokécardmaker (for card creation inspiration and tooling)</li>
+                    <li>Font Awesome (for icons)</li>
+                    <li>Google Fonts (Inter & Pirata One)</li>
+                    <li>GitHub (for code hosting & version control)</li>
+                    <li>Cloudflare Pages (for deployment)</li>
+                    <li>Discord (for community and development communication)</li>
+                </ul>
+                
+                <hr style="border-color: var(--color-border-light, #4b5563); margin: var(--space-4, 1rem) 0 var(--space-3, 0.75rem) 0;">
+                
+                <div class="note" style="border-top: none; padding-top: 0; margin-top: 0; font-size: calc(var(--text-xs, 0.75rem) - 0.05rem);">
+                    <p style="margin-bottom: var(--space-2, 0.5rem);"><strong>Version 2.5</strong> - Forte Card Previewer. Project by EnvoyOfHell &copy; 2023-${currentYear}.</p>
+                    <p style="margin-bottom: var(--space-2, 0.5rem);">This card previewer is a non-commercial fan project created for personal enjoyment and community sharing. It's inspired by a crossover between Wuthering Waves and Pokémon, utilizing custom card creation processes and the "Forte" game mechanic.</p>
+                    <p style="margin-bottom: var(--space-2, 0.5rem);">This project is not affiliated with, endorsed by, or sponsored by Kuro Games, Nintendo, Creatures Inc., or GAME FREAK inc.</p>
+                    <p style="margin-bottom: var(--space-2, 0.5rem);">Wuthering Waves and all related characters/elements are trademarks and © Kuro Games. Pokémon and all related characters/elements are trademarks and © 1995-${currentYear} Nintendo, Creatures Inc., GAME FREAK inc.</p>
+                    <p>All intellectual property belongs to their respective owners. No copyright infringement is intended. All contributed card artwork is the property of their respective artists and is used for illustrative, non-commercial purposes within this fan project.</p>
                 </div>
             </div>
-        `;
-        
-        document.body.appendChild(creditsModal);
-        
-        // Animate in
-        requestAnimationFrame(() => {
-            creditsModal.style.opacity = '1';
-        });
-        
-        // Close handlers
-        const closeButton = creditsModal.querySelector('.key-popup-close');
-        const closeModal = () => {
-            creditsModal.style.opacity = '0';
-            // Remove from DOM after transition
-            creditsModal.addEventListener('transitionend', () => {
-                if (document.body.contains(creditsModal)) {
-                    document.body.removeChild(creditsModal);
-                }
-            }, { once: true });
-        };
-        
-        if (closeButton) {
-            closeButton.addEventListener('click', closeModal);
-        }
-        // Click on overlay to close
-        creditsModal.addEventListener('click', (e) => {
-            if (e.target === creditsModal) closeModal();
-        });
-        
-        // ESC key to close
-        const escHandler = (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', escHandler);
-            }
-        };
-        document.addEventListener('keydown', escHandler);
-        // Ensure listener is removed if modal is closed by other means
+        </div>
+    `;
+    
+    document.body.appendChild(creditsModal);
+    
+    // Animate in
+    requestAnimationFrame(() => {
+        creditsModal.style.opacity = '1';
+    });
+    
+    // Close handlers
+    const closeButton = creditsModal.querySelector('.key-popup-close');
+    
+    const closeModalFunction = () => {
+        creditsModal.style.opacity = '0';
+        const escHandlerRef = creditsModal.escHandlerRef; // Retrieve the stored reference
+
         creditsModal.addEventListener('transitionend', () => {
-            if (creditsModal.style.opacity === '0') {
-                 document.removeEventListener('keydown', escHandler);
+            if (document.body.contains(creditsModal)) {
+                document.body.removeChild(creditsModal);
             }
-        });
-    },
+            if (escHandlerRef) {
+                document.removeEventListener('keydown', escHandlerRef);
+            }
+        }, { once: true });
+        
+        // Fallback to ensure modal is removed if transitionend doesn't fire (e.g., if display:none is set too early)
+        setTimeout(() => {
+            if (document.body.contains(creditsModal)) {
+                document.body.removeChild(creditsModal);
+            }
+            if (escHandlerRef) {
+                 document.removeEventListener('keydown', escHandlerRef);
+            }
+        }, 300); // Match typical transition duration
+    };
+    
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModalFunction);
+    }
+
+    creditsModal.addEventListener('click', (e) => {
+        if (e.target === creditsModal) closeModalFunction();
+    });
+    
+    creditsModal.escHandlerRef = (e) => {
+        if (e.key === 'Escape') {
+            closeModalFunction();
+        }
+    };
+    document.addEventListener('keydown', creditsModal.escHandlerRef);
+},
 
     showToast(message, type = 'info') {
         const toast = document.createElement('div');

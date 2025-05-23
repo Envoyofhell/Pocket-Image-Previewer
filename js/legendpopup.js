@@ -120,13 +120,13 @@
         button.className = 'key-info-button';
         button.title = 'Show Info & Controls Key';
         button.setAttribute('aria-label', 'Show Info & Controls Key');
-        button.innerHTML = '<i class="fas fa-info-circle"></i>'; // Changed icon
+        button.innerHTML = '<i class="fas fa-info-circle"> </i> Info'; // Changed icon
 
-        const accessControls = document.getElementById('access-controls');
-        if (accessControls) {
-            accessControls.insertBefore(button, accessControls.firstChild); // Add before submission button
+        const discordbutton = document.getElementById('discords-button');
+        if (discordbutton) {
+            discordbutton.insertBefore(button, discordbutton.firstChild); // Add before submission button
         } else {
-            console.warn("[Legend Popup] #access-controls not found. Appending button to body as fallback.");
+            console.warn("[Legend Popup] #sdiscord-button not found. Appending button to body as fallback.");
             document.body.appendChild(button);
             button.style.cssText = 'position:fixed; top:15px; right:60px; z-index:1001;'; // Adjust fallback position
         }
@@ -145,6 +145,7 @@
                     <h3 class="key-popup-title"><i class="fas fa-info-circle mr-2"></i>Info & Controls</h3>
                     <button id="key-popup-close" class="key-popup-close" aria-label="Close key">
                         <i class="fas fa-times"></i>
+                        
                     </button>
                 </div>
                 <div class="key-popup-body">

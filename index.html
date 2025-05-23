@@ -4,143 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forte Card Previewer - v2.5</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- 
+      CSS Load Order:
+      1. Main theme/variables (enhanced-styles.css or theme.css)
+      2. Other global styles (custom.css, mobile.css)
+      3. Component-specific styles (layouts/header.css, layouts/footer.css)
+    -->
+    <link rel="stylesheet" href="assets/css/enhanced-styles.css"> <link rel="stylesheet" href="assets/css/theme.css"> <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/mobile.css">
-    <link rel="stylesheet" href="assets/css/enhanced-styles.css"> 
     
-    <script src="filter_config.js"></script>
+    <link rel="stylesheet" href="layouts/header.css">   <link rel="stylesheet" href="layouts/footer.css">   <script src="filter_config.js"></script>
 
     <style>
-        /* Critical layout fixes */
+        /* This inline <style> block should primarily contain critical layout definitions 
+          that need to be applied immediately, or overrides if necessary. 
+          Most :root variables should ideally be in a linked CSS file like enhanced-styles.css or theme.css.
+        */
         :root {
+            /* Ensure these layout variables are defined here or in a linked CSS file loaded above */
             --header-height: 80px;
             --nav-height: 60px;
             --footer-height: 60px;
+            
+            /* Make sure ALL theme variables used by header.css, footer.css, and other components
+               (e.g., --color-background, --color-text-primary, --color-background-panel, --color-border, etc.)
+               are defined in a :root block, preferably in enhanced-styles.css or theme.css.
+               If some are only here, ensure they are comprehensive.
+            */
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', var(--font-sans, sans-serif); /* Using var as fallback */
             background-color: var(--color-background, #0a101e);
             color: var(--color-text-primary, #f3f4f6);
             margin: 0;
             padding: 0;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrollbars on the body itself */
+            display: flex;
+            flex-direction: column; /* Allows header, main, footer stacking */
         }
 
-        /* Fixed header layout */
-        .app-header {
+        /* --- Fixed Layout Shells --- */
+        /* These define the main page regions. Content is injected or placed within. */
+        
+        .app-header { /* Shell for dynamic header content */
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: var(--header-height);
-            z-index: 1000;
+            z-index: var(--z-sticky, 1000); /* Use z-index variable if defined */
+            /* Background, border, etc., will be styled by layouts/header.css or enhanced-styles.css */
         }
 
-        .app-set-navigation {
+        .app-set-navigation { /* Shell for dynamic tab navigation */
             position: fixed;
             top: var(--header-height);
             left: 0;
             right: 0;
             height: var(--nav-height);
-            z-index: 999;
+            z-index: var(--z-sticky, 999); /* Below header */
+            /* Background, etc., styled by enhanced-styles.css or theme.css */
         }
 
-        .app-main-content {
+        .app-main-content { /* Container for sidebar and gallery */
             position: fixed;
             top: calc(var(--header-height) + var(--nav-height));
             left: 0;
             right: 0;
             bottom: var(--footer-height);
             display: flex;
-            overflow: hidden;
+            overflow: hidden; /* Important for internal scrolling of children */
         }
 
-        .app-footer {
+        .app-footer { /* Shell for dynamic footer content */
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             height: var(--footer-height);
-            z-index: 1000;
+            z-index: var(--z-sticky, 1000);
+            /* Background, border, etc., will be styled by layouts/footer.css or enhanced-styles.css */
         }
 
-        /* Ensure scrollable content */
-        .app-gallery-area {
-            overflow-y: auto;
-            height: 100%;
-        }
-
+        /* Ensure scrollable content areas within .app-main-content */
         .app-sidebar {
-            overflow-y: auto;
+            /* width, background etc. from enhanced-styles.css */
             height: 100%;
+            overflow-y: auto; /* Allows sidebar content to scroll */
         }
 
-        /* Header content layout fixes */
-        .header-content {
+        .app-gallery-area {
+            /* flex-grow, background etc. from enhanced-styles.css */
             height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1.5rem;
-            gap: 1rem;
+            overflow-y: auto; /* Allows gallery content to scroll */
         }
 
-        .brand-area {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-left: auto;
-        }
-
-        .search-container {
-            flex: 0 0 300px;
-        }
-
+        /* --- Mobile Adjustments for Layout Shells (Example) --- */
+        /* Your mobile.css or enhanced-styles.css should handle more detailed responsive changes */
         @media (max-width: 768px) {
-            .search-container {
-                flex: 1 1 100%;
-                order: 3;
-            }
-            
-            .brand-area {
-                flex: 1 1 100%;
-                order: 1;
-                justify-content: center;
-            }
-            
-            .header-actions {
-                flex: 1 1 100%;
-                order: 2;
-                justify-content: center;
-                margin-left: 0;
-            }
-
-            :root {
-                --header-height: 120px; /* Taller for wrapped content */
-            }
-
-            .app-set-navigation {
-                top: var(--header-height);
-            }
-
-            .app-main-content {
-                top: calc(var(--header-height) + var(--nav-height));
-            }
+            /* If header height changes on mobile due to wrapping, this variable might need to be dynamic
+               or JavaScript might need to calculate offsets. For simplicity, if it wraps,
+               you might allow .app-header to have height: auto and adjust top offsets below.
+            */
+            /* Example: If header becomes taller on mobile */
+            /* :root { --header-height-mobile: 120px; }
+            .app-header { height: var(--header-height-mobile); }
+            .app-set-navigation { top: var(--header-height-mobile); }
+            .app-main-content { top: calc(var(--header-height-mobile) + var(--nav-height)); } */
         }
     </style>
 </head>
@@ -152,44 +133,17 @@
         </div>
     </div>
 
-    <header class="app-header">
-        <div class="header-content">
-            <div class="brand-area">
-                <h1 class="title-glow">Forte Card Viewer</h1>
-            </div>
-            
-            <div class="search-container">
-                <input type="text" id="card-search" class="search-input" placeholder="Search cards..." autocomplete="off">
-                <i class="fas fa-search search-icon"></i>
-                <i class="fas fa-times clear-search" id="clear-search"></i>
-            </div>
-            
-            <div class="header-actions">
-                <a href="https://discord.gg/fortecommunity" target="_blank" class="discord-button">
-                    <i class="fab fa-discord"></i>
-                    <span>Join Discord</span>
-                </a>
-                
-                <div id="access-controls"> 
-                    <button id="submission-button" class="access-button">
-                        <i class="fas fa-upload"></i>
-                        <span>Submit Card</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <header class="app-header"></header>
 
     <nav id="set-tab-navigation" class="app-set-navigation">
         <div id="tab-container" class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-        </div>
+            </div>
     </nav>
 
     <div class="app-main-content">
         <aside class="app-sidebar" id="filter-sidebar">
             <div class="sidebar-content">
                 <h2 class="text-lg font-semibold mt-1 mb-3 text-[var(--color-text-primary)]">Filters</h2>
-                
                 <div class="filter-group">
                     <label for="supertype-filter" class="filter-label">Card Category</label>
                     <select id="supertype-filter" class="filter-select">
@@ -199,34 +153,29 @@
                         <option value="Energy">Energy</option>
                     </select>
                 </div>
-                
                 <div class="filter-group">
                     <label for="type-filter" class="filter-label">Type / Subtype</label>
                     <select id="type-filter" class="filter-select">
                         <option value="all">All Types</option>
                     </select>
                 </div>
-                
                 <div class="filter-group">
                     <label for="rarity-filter" class="filter-label">Rarity</label>
                     <select id="rarity-filter" class="filter-select">
                         <option value="all">All Rarities</option>
                     </select>
                 </div>
-                
                 <div class="filter-group">
                     <label for="creator-filter" class="filter-label">Creator/Artist</label>
                     <select id="creator-filter" class="filter-select">
                         <option value="all">All Creators</option>
                     </select>
                 </div>
-                
                 <div class="filter-group">
                     <label for="forte-filter" class="filter-label">Forte Status</label>
                     <select id="forte-filter" class="filter-select">
-                    </select>
+                        </select>
                 </div>
-                
                 <div class="filter-group">
                     <label for="sort-filter" class="filter-label">Sort By</label>
                     <select id="sort-filter" class="filter-select">
@@ -238,67 +187,32 @@
                         <option value="recent">Recently Added</option>
                     </select>
                 </div>
-                <div class="filter-separator"></div> 
-
+                <div class="filter-separator"></div>
                 <div class="filter-group">
                     <h3 class="text-md font-medium mb-2 text-[var(--color-text-primary)]">Display Options</h3>
-                
                     <label for="gallery-size-slider" class="filter-label">Card Size</label>
-                    <div class="slider-wrapper"> <input type="range" id="gallery-size-slider" class="size-control-slider" min="1" max="5" value="3" step="1">
+                    <div class="slider-wrapper">
+                        <input type="range" id="gallery-size-slider" class="size-control-slider" min="1" max="5" value="3" step="1">
                         <div class="size-value-indicator">M</div> 
                     </div>
-                
-                    <div class="stats-wrapper" style="margin-top: 1rem;"> <label class="filter-label"></label>
-                         <div id="search-stats" class="sidebar-search-stats"></div> </div>
+                    <div class="stats-wrapper" style="margin-top: 1rem;">
+                         <div id="search-stats" class="sidebar-search-stats"></div>
+                    </div>
                 </div>
             </div>
-        </aside>
+            </aside>
 
         <main class="app-gallery-area">
-            <div class="gallery-controls">
-                <div class="flex items-center">
-                    <label for="gallery-size-slider" class="size-control-label">Card Size:</label>
-                    <input type="range" id="gallery-size-slider" class="size-control-slider" min="1" max="5" value="3" step="1">
-                    <div class="size-value-indicator">M</div>
+            <div id="item-gallery" role="grid" class="p-2 md:p-4">
                 </div>
-                <div id="search-stats" class="text-sm text-[var(--color-text-secondary)] ml-auto"></div>
-            </div>
-            
-            <div id="item-gallery" role="grid" class="p-2 md:p-4"></div>
             <p id="empty-folder-message" class="text-center mt-8 text-lg text-[var(--color-text-secondary)] hidden">
                 No cards match your current filters. Try adjusting them!
             </p>
         </main>
     </div>
     
-    <footer class="app-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-links">
-                    <a href="https://discord.gg/fortecommunity" target="_blank" class="footer-link">
-                        <i class="fab fa-discord"></i> Community Discord
-                    </a>
-                    <a href="https://github.com/Envoyofhell/Pocket-Image-Previewer" target="_blank" class="footer-link">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="https://discord.gg/webdesigner" target="_blank" class="footer-link"> 
-                        <i class="fab fa-discord"></i> WebDesigner
-                    </a>
-                    <button id="footer-credits-link" class="footer-link">
-                        <i class="fas fa-info-circle"></i> Credits
-                    </button>
-                </div>
-            </div>
-            <div class="footer-section">
-                <div class="copyright">
-                    <p>Designed by <a href="https://discordapp.com/users/your-discord-id-here" target="_blank">WebDesigner</a>. 
-                    Pokémon © Nintendo, Game Freak, Creatures. Version 2.5 <span class="text-xs px-2 py-1 bg-purple-900 text-purple-200 rounded-full">Beta</span></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <footer class="app-footer"></footer>
 
-    <!-- Lightbox HTML -->
     <div id="fancy-lightbox" class="fancy-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="fancy-lightbox-content">
             <div class="fancy-lightbox-header">
@@ -325,7 +239,6 @@
                         <div class="info-item"><span class="info-label">Number:</span> <span id="lb-card-number" class="info-value">-</span></div>
                         <div class="info-item"><span class="info-label">Rarity:</span> <span id="lb-rarity" class="info-value">-</span></div>
                     </div>
-
                     <div id="lb-pokemon-details" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-dna"></i><span>Pokémon Info</span></div>
                         <div class="info-item"><span class="info-label">HP:</span> <span id="lb-hp" class="info-value">-</span></div>
@@ -334,44 +247,36 @@
                         <div class="info-item" id="lb-evolves-from-item" style="display:none;"><span class="info-label">Evolves From:</span> <span id="lb-evolves-from" class="info-value">-</span></div>
                         <div class="info-item" id="lb-pokedex-item" style="display:none;"><span class="info-label">Pokédex Data:</span> <span id="lb-pokedex-data" class="info-value">-</span></div>
                     </div>
-                    
                     <div id="lb-trainer-details" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-briefcase"></i><span>Trainer Info</span></div>
                         <div class="info-item"><span class="info-label">Subtype(s):</span> <div id="lb-trainer-subtypes" class="card-types info-value"></div></div>
                     </div>
-                    
                     <div id="lb-energy-details" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-bolt"></i><span>Energy Info</span></div>
                         <div class="info-item"><span class="info-label">Type:</span> <div id="lb-energy-types" class="card-types info-value"></div></div>
                     </div>
-
                     <div id="lb-abilities-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-star"></i><span>Abilities</span></div>
                         <div id="lb-abilities-container"></div>
                     </div>
-                    
                     <div id="lb-attacks-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-fist-raised"></i><span>Attacks</span></div>
                         <div id="lb-attacks-container"></div>
                     </div>
-                    
                     <div id="lb-rules-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-scroll"></i><span>Rules/Effect</span></div>
                         <div id="lb-rules-text" class="info-value" style="white-space: pre-wrap;"></div>
                     </div>
-
                     <div id="lb-battle-stats-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-shield-alt"></i><span>Battle Stats</span></div>
                         <div id="lb-weakness-container" class="info-item" style="display:none;"><span class="info-label">Weakness:</span> <span id="lb-weakness" class="info-value"></span></div>
                         <div id="lb-resistance-container" class="info-item" style="display:none;"><span class="info-label">Resistance:</span> <span id="lb-resistance" class="info-value"></span></div>
                         <div id="lb-retreat-cost-item" class="info-item" style="display:none;"><span class="info-label">Retreat Cost:</span> <div id="lb-retreat-cost" class="attack-cost"></div></div>
                     </div>
-
                     <div id="lb-flavor-text-section" class="card-detail-section" style="display:none;">
                         <div class="info-section-title"><i class="fas fa-quote-left"></i><span>Flavor Text</span></div>
                         <div id="lb-flavor-text" class="info-value" style="font-style: italic; opacity: 0.9;">-</div>
                     </div>
-
                     <div class="card-detail-section">
                         <div class="info-section-title"><i class="fas fa-pencil-alt"></i><span>Credits & Meta</span></div>
                         <div class="info-item"><span class="info-label">Artist:</span> <span id="lb-artist" class="info-value">-</span></div>
@@ -391,33 +296,33 @@
                 </button>
             </div>
             <div class="fancy-card-actions">
-            </div>
+                </div>
         </div>
     </div>
     
     <div class="copy-tooltip" id="copy-tooltip">Copied to clipboard!</div>
 
-    <!-- Scripts -->
     <script src="js/app.js"></script>
     <script src="js/search.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/navigation.js"></script>
-    <script src="js/ui-controls.js"></script>
+    <script src="js/ui-controls.js"></script> 
     <script src="js/simple-effects.js"></script>
-    
-    <script src="js/settings.js"></script>
-    <script src="js/legendpopup.js"></script>
+    <script src="js/legendpopup.js"></script> 
     <script src="js/submissions.js"></script>
+    
+    <script src="layouts/header.js" defer></script>
+    <script src="layouts/footer.js" defer></script>
+    <script src="js/changelogData.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize loading styles
             const style = document.createElement('style');
             style.textContent = `
                 .loader {
                     border: 4px solid rgba(229, 231, 235, 0.2);
-                    border-top-color: #dc2626;
+                    border-top-color: var(--color-primary, #dc2626); /* Use CSS variable */
                     border-radius: 50%;
                     width: 40px;
                     height: 40px;

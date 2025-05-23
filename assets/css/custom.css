@@ -44,6 +44,9 @@ body {
     gap: 0.75rem;
     margin-right: auto; /* Push everything else to the right */
 }
+#discords-button {
+    margin-left: auto; /* Ensure this stays right aligned */
+}
 
 #access-controls {
     margin-left: auto; /* Ensure this stays right aligned */
