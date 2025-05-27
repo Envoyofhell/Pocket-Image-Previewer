@@ -49,14 +49,26 @@
             cardLikes[cardPath].count = Math.max(0, cardLikes[cardPath].count - 1);
             cardLikes[cardPath].userLiked = false;
             userLikesCount = Math.max(0, userLikesCount - 1);
+            console.log(`Unliked card: ${cardPath}, new count: ${cardLikes[cardPath].count}`);
         } else {
             cardLikes[cardPath].count++;
             cardLikes[cardPath].userLiked = true;
             userLikesCount++;
+            console.log(`Liked card: ${cardPath}, new count: ${cardLikes[cardPath].count}`);
         }
         
         // Make the API call to update the database
         updateLikeInDatabase(cardPath, !isLiked);
+        
+        // Also save to localStorage as backup for local testing
+        try {
+            localStorage.setItem('forte_card_likes', JSON.stringify({
+                cardLikes: cardLikes,
+                userLikesCount: userLikesCount
+            }));
+        } catch (e) {
+            console.error('Error saving to localStorage:', e);
+        }
         
         return !isLiked; // Return the new liked state
     };
@@ -65,12 +77,47 @@
         return userLikesCount;
     };
 
+    // Function to clear all likes (called from settings)
+    window.clearAllLikes = function() {
+        cardLikes = {};
+        userLikesCount = 0;
+        
+        // Clear from localStorage as fallback
+        try {
+            localStorage.removeItem('forte_card_likes');
+        } catch (e) {
+            console.error('Error clearing localStorage:', e);
+        }
+        
+        // Refresh UI
+        if (window.ForteGallery && window.ForteGallery.refreshLikeButtons) {
+            window.ForteGallery.refreshLikeButtons();
+        }
+        
+        // Update lightbox if open
+        const lightboxLikeButton = document.getElementById('fancy-like-button');
+        if (lightboxLikeButton && window.ForteLightbox && window.ForteLightbox.getCurrentCard) {
+            const currentCard = window.ForteLightbox.getCurrentCard();
+            if (currentCard) {
+                const cardPath = currentCard.images?.large || currentCard.images?.small || '';
+                if (cardPath && window.ForteLightbox.updateLikeButton) {
+                    window.ForteLightbox.updateLikeButton(cardPath);
+                }
+            }
+        }
+        
+        console.log('All likes cleared');
+    };
+
     // --- Initialize ---
     function init() {
         console.log('Initializing Cloudflare D1 Database integration...');
         
         // Generate or retrieve session ID
         ensureSessionId();
+        
+        // Try to load from localStorage first (for local testing)
+        loadFromLocalStorage();
         
         // Initial data load to get like counts for all cards
         loadAllLikes().then(() => {
@@ -81,6 +128,27 @@
             // Fall back to local mode if database connection fails
             fallbackToLocalMode();
         });
+    }
+
+    /**
+     * Load likes from localStorage (for local testing persistence)
+     */
+    function loadFromLocalStorage() {
+        try {
+            const stored = localStorage.getItem('forte_card_likes');
+            if (stored) {
+                const data = JSON.parse(stored);
+                if (data.cardLikes) {
+                    cardLikes = data.cardLikes;
+                }
+                if (data.userLikesCount !== undefined) {
+                    userLikesCount = data.userLikesCount;
+                }
+                console.log('Loaded likes from localStorage for local testing');
+            }
+        } catch (e) {
+            console.error('Error loading from localStorage:', e);
+        }
     }
 
     /**
@@ -286,15 +354,30 @@
             if (isLiked) {
                 cardLikes[cardPath].count = Math.max(0, cardLikes[cardPath].count - 1);
                 cardLikes[cardPath].userLiked = false;
-                userLikesCount--;
+                userLikesCount = Math.max(0, userLikesCount - 1);
+                console.log(`LocalStorage: Unliked card: ${cardPath}, new count: ${cardLikes[cardPath].count}`);
             } else {
                 cardLikes[cardPath].count++;
                 cardLikes[cardPath].userLiked = true;
                 userLikesCount++;
+                console.log(`LocalStorage: Liked card: ${cardPath}, new count: ${cardLikes[cardPath].count}`);
             }
             
             // Save to localStorage
             saveToLocalStorage();
+            
+            // Trigger UI updates immediately
+            setTimeout(() => {
+                // Update gallery buttons
+                if (window.ForteGallery && window.ForteGallery.refreshLikeButtons) {
+                    window.ForteGallery.refreshLikeButtons();
+                }
+                
+                // Update lightbox button if open
+                if (window.ForteLightbox && window.ForteLightbox.updateLikeButton) {
+                    window.ForteLightbox.updateLikeButton(cardPath);
+                }
+            }, 10);
             
             return !isLiked;
         };
@@ -302,9 +385,11 @@
         // Function to save to localStorage
         function saveToLocalStorage() {
             try {
-                localStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify({
-                    cardLikes: cardLikes
+                localStorage.setItem('forte_card_likes', JSON.stringify({
+                    cardLikes: cardLikes,
+                    userLikesCount: userLikesCount
                 }));
+                console.log('Saved likes to localStorage:', { cardLikes, userLikesCount });
             } catch (e) {
                 console.error('Error saving likes to local storage:', e);
             }

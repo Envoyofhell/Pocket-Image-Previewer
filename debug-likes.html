@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Likes Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: white; }
+        .debug-section { margin: 20px 0; padding: 15px; background: #333; border-radius: 8px; }
+        .card-item { margin: 10px 0; padding: 10px; background: #444; border-radius: 4px; }
+        button { padding: 10px 15px; margin: 5px; background: #555; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #666; }
+        pre { background: #222; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Debug Likes System</h1>
+    
+    <div class="debug-section">
+        <h2>Current localStorage Data</h2>
+        <button onclick="showLocalStorageData()">Show localStorage</button>
+        <button onclick="clearLocalStorage()">Clear localStorage</button>
+        <pre id="localStorage-data">Click "Show localStorage" to view data</pre>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Like Data Functions Test</h2>
+        <button onclick="testLikeFunctions()">Test Like Functions</button>
+        <pre id="function-test">Click "Test Like Functions" to run tests</pre>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Card Like Counts</h2>
+        <button onclick="loadAndShowCards()">Load Cards & Show Likes</button>
+        <div id="card-likes"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Test Specific Card</h2>
+        <input type="text" id="test-card-path" placeholder="Enter card path (e.g., images/cards/bulbasaur.png)" style="width: 300px; padding: 5px; margin: 5px;">
+        <button onclick="testSpecificCard()">Test Card</button>
+        <div id="specific-card-result"></div>
+    </div>
+
+    <script src="db-likes.js"></script>
+    <script>
+        function showLocalStorageData() {
+            const data = localStorage.getItem('forte_card_likes');
+            const output = document.getElementById('localStorage-data');
+            
+            if (data) {
+                try {
+                    const parsed = JSON.parse(data);
+                    output.textContent = JSON.stringify(parsed, null, 2);
+                } catch (e) {
+                    output.textContent = 'Error parsing localStorage data: ' + e.message;
+                }
+            } else {
+                output.textContent = 'No localStorage data found';
+            }
+        }
+        
+        function clearLocalStorage() {
+            localStorage.removeItem('forte_card_likes');
+            document.getElementById('localStorage-data').textContent = 'localStorage cleared';
+            if (window.clearAllLikes) {
+                window.clearAllLikes();
+            }
+        }
+        
+        function testLikeFunctions() {
+            const output = document.getElementById('function-test');
+            let result = 'Testing like functions:\n\n';
+            
+            // Test if functions exist
+            result += `window.getLikeData exists: ${typeof window.getLikeData}\n`;
+            result += `window.toggleLike exists: ${typeof window.toggleLike}\n`;
+            result += `window.getUserLikeCount exists: ${typeof window.getUserLikeCount}\n\n`;
+            
+            // Test with a sample path
+            const testPath = 'images/cards/test.png';
+            
+            if (window.getLikeData) {
+                const initialData = window.getLikeData(testPath);
+                result += `Initial data for ${testPath}: ${JSON.stringify(initialData)}\n`;
+                
+                if (window.toggleLike) {
+                    // Like the card
+                    const likeResult = window.toggleLike(testPath);
+                    result += `After liking: ${likeResult}\n`;
+                    
+                    const afterLike = window.getLikeData(testPath);
+                    result += `Data after like: ${JSON.stringify(afterLike)}\n`;
+                    
+                    // Unlike the card
+                    const unlikeResult = window.toggleLike(testPath);
+                    result += `After unliking: ${unlikeResult}\n`;
+                    
+                    const afterUnlike = window.getLikeData(testPath);
+                    result += `Data after unlike: ${JSON.stringify(afterUnlike)}\n`;
+                }
+            }
+            
+            output.textContent = result;
+        }
+        
+        async function loadAndShowCards() {
+            try {
+                const response = await fetch('data/cards.json');
+                const cards = await response.json();
+                
+                const container = document.getElementById('card-likes');
+                container.innerHTML = '';
+                
+                // Get like data for each card and sort by likes
+                const cardLikes = cards.map(card => {
+                    const path = card.images?.large || card.images?.small || '';
+                    const likeData = window.getLikeData ? window.getLikeData(path) : { count: 0, liked: false };
+                    return {
+                        name: card.name,
+                        path: path,
+                        likes: likeData.count,
+                        liked: likeData.liked
+                    };
+                }).sort((a, b) => b.likes - a.likes);
+                
+                // Show top 10 most liked cards
+                const top10 = cardLikes.slice(0, 10);
+                
+                container.innerHTML = '<h3>Top 10 Most Liked Cards:</h3>';
+                top10.forEach(card => {
+                    const div = document.createElement('div');
+                    div.className = 'card-item';
+                    div.innerHTML = `
+                        <strong>${card.name}</strong><br>
+                        Likes: ${card.likes} | User Liked: ${card.liked}<br>
+                        Path: ${card.path}<br>
+                        <button onclick="toggleCardLike('${card.path}', '${card.name}')">Toggle Like</button>
+                    `;
+                    container.appendChild(div);
+                });
+                
+                // Show cards with 0 likes that user has interacted with
+                const userInteracted = cardLikes.filter(card => card.liked || card.likes > 0);
+                if (userInteracted.length > 10) {
+                    container.innerHTML += '<h3>All Cards with Likes:</h3>';
+                    userInteracted.slice(10).forEach(card => {
+                        const div = document.createElement('div');
+                        div.className = 'card-item';
+                        div.innerHTML = `
+                            <strong>${card.name}</strong> - Likes: ${card.likes} | User Liked: ${card.liked}<br>
+                            <button onclick="toggleCardLike('${card.path}', '${card.name}')">Toggle Like</button>
+                        `;
+                        container.appendChild(div);
+                    });
+                }
+                
+            } catch (error) {
+                document.getElementById('card-likes').innerHTML = 'Error loading cards: ' + error.message;
+            }
+        }
+        
+        function toggleCardLike(path, name) {
+            if (window.toggleLike) {
+                const result = window.toggleLike(path);
+                console.log(`Toggled like for ${name}: ${result}`);
+                
+                // Refresh the display
+                setTimeout(() => {
+                    loadAndShowCards();
+                    showLocalStorageData();
+                }, 100);
+            }
+        }
+        
+        function testSpecificCard() {
+            const path = document.getElementById('test-card-path').value;
+            const resultDiv = document.getElementById('specific-card-result');
+            
+            if (!path) {
+                resultDiv.innerHTML = 'Please enter a card path';
+                return;
+            }
+            
+            if (window.getLikeData) {
+                const data = window.getLikeData(path);
+                resultDiv.innerHTML = `
+                    <div class="card-item">
+                        <strong>Card Path:</strong> ${path}<br>
+                        <strong>Like Count:</strong> ${data.count}<br>
+                        <strong>User Liked:</strong> ${data.liked}<br>
+                        <button onclick="toggleCardLike('${path}', 'Test Card')">Toggle Like</button>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = 'getLikeData function not available';
+            }
+        }
+        
+        // Auto-load data when page loads
+        setTimeout(() => {
+            showLocalStorageData();
+            testLikeFunctions();
+        }, 1000);
+    </script>
+</body>
+</html> 

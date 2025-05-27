@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like System Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: white; }
+        .test-card { 
+            width: 200px; 
+            height: 280px; 
+            background: #333; 
+            border-radius: 8px; 
+            position: relative; 
+            margin: 20px;
+            display: inline-block;
+        }
+        .gallery-like-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 0.375rem;
+            width: auto;
+            height: auto;
+            padding: 0.375rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+            color: white;
+            font-size: 0.875rem;
+            backdrop-filter: blur(4px);
+        }
+        .gallery-like-button:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+        .gallery-like-button.liked {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .gallery-like-button .fa-heart {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.2s ease;
+        }
+        .gallery-like-button .fa-heart.liked {
+            color: #ff6b6b;
+        }
+        .gallery-like-button:hover .fa-heart {
+            color: #ff6b6b;
+        }
+        .gallery-like-button .like-count {
+            margin-left: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .gallery-like-button.liked .like-count {
+            color: white;
+        }
+        .debug { margin: 20px 0; padding: 10px; background: #444; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Like System Test</h1>
+    <div class="debug">
+        <h3>Debug Info:</h3>
+        <div id="debug-info">Loading...</div>
+    </div>
+    
+    <div class="test-card">
+        <button class="gallery-like-button" data-card-path="test-card-1">
+            <i class="fas fa-heart"></i>
+            <span class="like-count"></span>
+        </button>
+        <div style="padding: 20px;">Test Card 1</div>
+    </div>
+    
+    <div class="test-card">
+        <button class="gallery-like-button" data-card-path="test-card-2">
+            <i class="fas fa-heart"></i>
+            <span class="like-count"></span>
+        </button>
+        <div style="padding: 20px;">Test Card 2</div>
+    </div>
+
+    <script src="db-likes.js"></script>
+    <script>
+        function updateDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            const userLikeCount = window.getUserLikeCount ? window.getUserLikeCount() : 0;
+            const card1Data = window.getLikeData ? window.getLikeData('test-card-1') : {count: 0, liked: false};
+            const card2Data = window.getLikeData ? window.getLikeData('test-card-2') : {count: 0, liked: false};
+            
+            debugDiv.innerHTML = `
+                <p>User Like Count: ${userLikeCount}</p>
+                <p>Card 1: ${card1Data.count} likes, ${card1Data.liked ? 'LIKED' : 'not liked'}</p>
+                <p>Card 2: ${card2Data.count} likes, ${card2Data.liked ? 'LIKED' : 'not liked'}</p>
+                <p>LocalStorage: ${localStorage.getItem('forte_card_likes') ? 'Has data' : 'Empty'}</p>
+            `;
+        }
+
+        function updateLikeButton(button, likeData) {
+            const isLiked = likeData.liked;
+            const count = likeData.count;
+            
+            button.innerHTML = `
+                <i class="fas fa-heart ${isLiked ? 'liked' : ''}"></i>
+                <span class="like-count">${count > 0 ? count : ''}</span>
+            `;
+            
+            button.classList.toggle('liked', isLiked);
+        }
+
+        // Wait for like system to initialize
+        setTimeout(() => {
+            updateDebugInfo();
+            
+            // Set up like buttons
+            document.querySelectorAll('.gallery-like-button').forEach(button => {
+                const cardPath = button.dataset.cardPath;
+                const likeData = window.getLikeData(cardPath);
+                updateLikeButton(button, likeData);
+                
+                button.addEventListener('click', () => {
+                    console.log(`Clicking like button for ${cardPath}`);
+                    const newLikedState = window.toggleLike(cardPath);
+                    console.log(`New liked state: ${newLikedState}`);
+                    
+                    if (newLikedState !== false) {
+                        const newLikeData = window.getLikeData(cardPath);
+                        updateLikeButton(button, newLikeData);
+                        updateDebugInfo();
+                    }
+                });
+            });
+        }, 1000);
+    </script>
+</body>
+</html> 

@@ -133,6 +133,10 @@ window.ForteGallery = {
 
         div.appendChild(img);
 
+        // Add like button
+        const likeButton = this.createLikeButton(card);
+        div.appendChild(likeButton);
+
         // Add Forte indicator if applicable
         if (card.forteData?.isForte) {
             const indicator = document.createElement('div');
@@ -158,6 +162,93 @@ window.ForteGallery = {
         });
 
         return div;
+    },
+
+    createLikeButton(card) {
+        const likeButton = document.createElement('button');
+        likeButton.className = 'gallery-like-button';
+        likeButton.setAttribute('aria-label', 'Like this card');
+        likeButton.dataset.cardPath = card.images?.large || card.images?.small || '';
+        
+        // Get initial like data
+        const cardPath = likeButton.dataset.cardPath;
+        const likeData = window.getLikeData ? window.getLikeData(cardPath) : { count: 0, liked: false };
+        
+        // Set initial state
+        this.updateLikeButton(likeButton, likeData);
+        
+        // Add click handler
+        likeButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent opening lightbox
+            
+            const cardPath = likeButton.dataset.cardPath;
+            if (!cardPath || !window.toggleLike) return;
+            
+            console.log(`Gallery: Toggling like for ${cardPath}`);
+            const newLikedState = window.toggleLike(cardPath);
+            
+            if (newLikedState !== false) { // false means action was prevented (e.g., rate limit)
+                // Immediately update this button's state
+                const newLikeData = window.getLikeData(cardPath);
+                this.updateLikeButton(likeButton, newLikeData);
+                console.log(`Gallery: Updated button state - liked: ${newLikeData.liked}, count: ${newLikeData.count}`);
+                
+                // Update lightbox if it's showing the same card
+                if (window.ForteLightbox && window.ForteLightbox.getCurrentCard) {
+                    const currentCard = window.ForteLightbox.getCurrentCard();
+                    if (currentCard) {
+                        const currentCardPath = currentCard.images?.large || currentCard.images?.small || '';
+                        if (currentCardPath === cardPath && window.ForteLightbox.updateLikeButton) {
+                            window.ForteLightbox.updateLikeButton(cardPath);
+                        }
+                    }
+                }
+            }
+        });
+        
+        return likeButton;
+    },
+
+    updateLikeButton(button, likeData) {
+        const isLiked = likeData.liked;
+        const count = likeData.count;
+        
+        button.innerHTML = `
+            <i class="fas fa-heart ${isLiked ? 'liked' : ''}"></i>
+            <span class="like-count">${count > 0 ? count : ''}</span>
+        `;
+        
+        button.classList.toggle('liked', isLiked);
+        button.setAttribute('aria-label', isLiked ? 'Unlike this card' : 'Like this card');
+    },
+
+    handleLikeClick(button) {
+        const cardPath = button.dataset.cardPath;
+        if (!cardPath || !window.toggleLike) return;
+        
+        const newLikedState = window.toggleLike(cardPath);
+        if (newLikedState !== false) { // false means action was prevented (e.g., rate limit)
+            // Update button state
+            const newLikeData = window.getLikeData ? window.getLikeData(cardPath) : { count: 0, liked: newLikedState };
+            this.updateLikeButton(button, newLikeData);
+            
+            // Update any lightbox like button if open
+            if (window.ForteLightbox && window.ForteLightbox.updateLikeButton) {
+                window.ForteLightbox.updateLikeButton(cardPath);
+            }
+        }
+    },
+
+    // Method to refresh all like buttons (called when like data is updated)
+    refreshLikeButtons() {
+        const likeButtons = this.galleryElement.querySelectorAll('.gallery-like-button');
+        likeButtons.forEach(button => {
+            const cardPath = button.dataset.cardPath;
+            if (cardPath && window.getLikeData) {
+                const likeData = window.getLikeData(cardPath);
+                this.updateLikeButton(button, likeData);
+            }
+        });
     },
 
     showEmptyMessage() {

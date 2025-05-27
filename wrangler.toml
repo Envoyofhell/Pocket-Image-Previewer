@@ -1,0 +1,19 @@
+name = "forte-card-previewer"
+compatibility_date = "2024-01-01"
+
+# D1 Database binding for card likes
+[[d1_databases]]
+binding = "CARD_LIKES_DB"
+database_name = "forte-card-likes"
+database_id = "your-database-id-here"
+
+# Environment variables (if needed)
+[vars]
+# Add any environment variables here
+
+# For preview deployments (Forte-Master branch)
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "CARD_LIKES_DB"
+database_name = "forte-card-likes-preview"
+database_id = "your-preview-database-id-here" 

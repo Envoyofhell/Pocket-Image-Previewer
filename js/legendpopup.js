@@ -1,4 +1,3 @@
-
 // legend_popup.js
 // Provides a popup explaining controls and data sources for the Forte Card Previewer.
 
@@ -21,24 +20,6 @@
 
     function injectLegendCSS() {
         const css = `
-            .key-info-button {
-                background-color: rgba(107, 114, 128, 0.2); /* More subtle */
-                color: var(--color-text-secondary, ${hoopaColors.textSecondary});
-                border: 1px solid var(--color-border, ${hoopaColors.textSecondary});
-                border-radius: 0.375rem; /* Rounded-md */
-                padding: 0.4rem 0.6rem; /* Adjusted padding */
-                font-size: 0.8rem;
-                line-height: 1;
-                cursor: pointer;
-                transition: all 0.2s ease-in-out;
-                margin-left: 0.5rem;
-                align-self: center;
-            }
-            .key-info-button:hover {
-                background-color: rgba(107, 114, 128, 0.4);
-                color: var(--color-text-primary, ${hoopaColors.textPrimary});
-                border-color: var(--color-accent, ${hoopaColors.border});
-            }
             .key-popup-overlay {
                 position: fixed; inset: 0;
                 background-color: ${hoopaColors.overlayBg};
@@ -122,11 +103,17 @@
         button.setAttribute('aria-label', 'Show Info & Controls Key');
         button.innerHTML = '<i class="fas fa-info-circle"> </i> Info'; // Changed icon
 
-        const discordbutton = document.getElementById('discords-button');
-        if (discordbutton) {
-            discordbutton.insertBefore(button, discordbutton.firstChild); // Add before submission button
+        // Find the discords-button-container and insert the info button before the Discord button
+        const discordContainer = document.getElementById('discords-button-container');
+        if (discordContainer) {
+            const discordButton = discordContainer.querySelector('.discord-button');
+            if (discordButton) {
+                discordContainer.insertBefore(button, discordButton); // Add before Discord button
+            } else {
+                discordContainer.appendChild(button); // Fallback: add to container
+            }
         } else {
-            console.warn("[Legend Popup] #sdiscord-button not found. Appending button to body as fallback.");
+            console.warn("[Legend Popup] #discords-button-container not found. Appending button to body as fallback.");
             document.body.appendChild(button);
             button.style.cssText = 'position:fixed; top:15px; right:60px; z-index:1001;'; // Adjust fallback position
         }

@@ -120,6 +120,15 @@ window.ForteLightbox = {
         downloadButton.setAttribute('aria-label', 'Download Image');
         downloadButton.addEventListener('click', () => this.downloadImage());
 
+        // Like button
+        const likeButton = document.createElement('button');
+        likeButton.id = 'fancy-like-button';
+        likeButton.className = 'fancy-action-button like-button';
+        likeButton.innerHTML = '<i class="fas fa-heart"></i><span class="like-count"></span>';
+        likeButton.title = 'Like this card';
+        likeButton.setAttribute('aria-label', 'Like this card');
+        likeButton.addEventListener('click', () => this.handleLikeClick());
+
         // Share button
         const shareButton = document.createElement('button');
         shareButton.id = 'fancy-share-button';
@@ -130,6 +139,7 @@ window.ForteLightbox = {
         shareButton.addEventListener('click', () => this.shareCard());
 
         actionContainer.appendChild(downloadButton);
+        actionContainer.appendChild(likeButton);
         actionContainer.appendChild(shareButton);
     },
 
@@ -203,6 +213,12 @@ window.ForteLightbox = {
 
         this.loadImage(card);
         this.populateCardInfo(card);
+        
+        // Update like button state
+        const cardPath = card.images?.large || card.images?.small || '';
+        if (cardPath) {
+            this.updateLikeButton(cardPath);
+        }
     },
 
     loadImage(card) {
@@ -538,5 +554,46 @@ window.ForteLightbox = {
             
             setTimeout(() => this.open(card), 50);
         }
+    },
+
+    handleLikeClick() {
+        const currentCard = this.getCurrentCard();
+        if (!currentCard) return;
+        
+        const cardPath = currentCard.images?.large || currentCard.images?.small || '';
+        if (!cardPath || !window.toggleLike) return;
+        
+        console.log(`Lightbox: Toggling like for ${cardPath}`);
+        const newLikedState = window.toggleLike(cardPath);
+        
+        if (newLikedState !== false) { // false means action was prevented (e.g., rate limit)
+            // Immediately update lightbox like button
+            this.updateLikeButton(cardPath);
+            console.log(`Lightbox: Updated button state for ${cardPath}`);
+            
+            // Update gallery like button if visible
+            if (window.ForteGallery && window.ForteGallery.refreshLikeButtons) {
+                window.ForteGallery.refreshLikeButtons();
+            }
+        }
+    },
+
+    updateLikeButton(cardPath) {
+        const likeButton = document.getElementById('fancy-like-button');
+        if (!likeButton || !window.getLikeData) return;
+        
+        const likeData = window.getLikeData(cardPath);
+        const isLiked = likeData.liked;
+        const count = likeData.count;
+        
+        likeButton.innerHTML = `<i class="fas fa-heart ${isLiked ? 'liked' : ''}"></i><span class="like-count">${count > 0 ? count : ''}</span>`;
+        likeButton.classList.toggle('liked', isLiked);
+        likeButton.title = isLiked ? 'Unlike this card' : 'Like this card';
+        likeButton.setAttribute('aria-label', isLiked ? 'Unlike this card' : 'Like this card');
+    },
+
+    getCurrentCard() {
+        const cards = this.app.getFilteredCards();
+        return cards[this.currentIndex] || null;
     }
 };

@@ -323,6 +323,23 @@ class ForteCardApp {
                 const dateA = new Date(a.forteData?.approvedDate || a.set?.releaseDate || '1900-01-01');
                 const dateB = new Date(b.forteData?.approvedDate || b.set?.releaseDate || '1900-01-01');
                 return dateB - dateA;
+            case 'likes':
+                // Get like counts for both cards
+                const pathA = a.images?.large || a.images?.small || '';
+                const pathB = b.images?.large || b.images?.small || '';
+                const likesA = window.getLikeData ? window.getLikeData(pathA).count : 0;
+                const likesB = window.getLikeData ? window.getLikeData(pathB).count : 0;
+                
+                // Debug logging for likes sorting
+                if (this.currentSort === 'likes' && (likesA > 0 || likesB > 0)) {
+                    console.log(`Sorting: ${a.name} (${likesA} likes) vs ${b.name} (${likesB} likes)`);
+                }
+                
+                // Sort by likes (descending), then by name (ascending) as tiebreaker
+                if (likesB !== likesA) {
+                    return likesB - likesA;
+                }
+                return (a.name || '').localeCompare(b.name || '');
             case 'setThenNumber':
             default:
                 const setIdA = a.set?.id || 'zzz';
