@@ -5,7 +5,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "CARD_LIKES_DB"
 database_name = "forte-card-likes"
-database_id = "your-database-id-here"
+database_id = "ea8ee56c-6c56-43e4-8c21-ec03c2d9268d"
 
 # Environment variables (if needed)
 [vars]
@@ -16,4 +16,4 @@ database_id = "your-database-id-here"
 [[env.preview.d1_databases]]
 binding = "CARD_LIKES_DB"
 database_name = "forte-card-likes-preview"
-database_id = "your-preview-database-id-here" 
+database_id = "a2ede33f-225f-4be0-8071-d801eba4fee6" 
