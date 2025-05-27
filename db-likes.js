@@ -123,6 +123,12 @@
         loadAllLikes().then(() => {
             isInitialized = true;
             console.log('Like system initialized with database integration');
+            
+            // Refresh gallery like buttons now that we have the data
+            if (window.ForteGallery && window.ForteGallery.refreshLikeButtons) {
+                window.ForteGallery.refreshLikeButtons();
+                console.log('Refreshed gallery like buttons with database data');
+            }
         }).catch(err => {
             console.error('Failed to initialize like system:', err);
             // Fall back to local mode if database connection fails
@@ -396,6 +402,12 @@
         }
         
         isInitialized = true;
+        
+        // Refresh gallery like buttons now that we have the data
+        if (window.ForteGallery && window.ForteGallery.refreshLikeButtons) {
+            window.ForteGallery.refreshLikeButtons();
+            console.log('Refreshed gallery like buttons with localStorage data');
+        }
     }
 
     // Initialize on load
