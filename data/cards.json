@@ -625,11 +625,11 @@
     "name": "Prinplup",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Water"
     ],
     "hp": 100,
     "types": [
-      "Dark"
+      "Fire"
     ],
     "evolvesFrom": "Piplup",
     "attacks": [
@@ -676,8 +676,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-05-23T17:26:49.354Z",
+      "releaseDate": "2025/05/31",
+      "updatedAt": "2025-06-01T03:28:30.003Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -704,7 +704,7 @@
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/05/31",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
