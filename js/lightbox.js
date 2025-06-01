@@ -317,6 +317,22 @@ window.ForteLightbox = {
 
     formatTypes(types) {
         if (!types) return '-';
+        
+        // Use the new type mapping system to show icons with text
+        if (window.ForteTypeMapping) {
+            return types.map(t => {
+                const typeInfo = window.ForteTypeMapping.getTypeInfo(t);
+                if (typeInfo) {
+                    return `<span class="card-type-badge type-${t.toLowerCase()}">
+                        <img src="${typeInfo.icon}" alt="${typeInfo.name}" class="type-icon-inline" title="${typeInfo.name}" />
+                        ${t}
+                    </span>`;
+                }
+                return `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`;
+            }).join(' ');
+        }
+        
+        // Fallback to old format
         return types.map(t => `<span class="card-type-badge type-${t.toLowerCase()}">${t}</span>`).join(' ');
     },
 
@@ -347,7 +363,25 @@ window.ForteLightbox = {
     },
 
     formatEnergyCost(cost) {
-        if (!cost) return '';
+        if (!cost || !Array.isArray(cost)) return '';
+        
+        // Use the new type mapping system
+        if (window.ForteTypeMapping) {
+            const parsedCosts = [];
+            for (const costItem of cost) {
+                if (typeof costItem === 'string') {
+                    const parsed = window.ForteTypeMapping.parseEnergyCost(costItem);
+                    parsedCosts.push(...parsed);
+                } else {
+                    // Handle legacy format
+                    const typeInfo = window.ForteTypeMapping.getTypeInfo(costItem);
+                    if (typeInfo) parsedCosts.push(typeInfo);
+                }
+            }
+            return window.ForteTypeMapping.formatEnergyCostHTML(parsedCosts);
+        }
+        
+        // Fallback to old format
         return cost.map(c => `<span class="energy-symbol energy-${c.toLowerCase()}">${c.charAt(0)}</span>`).join('');
     },
 
@@ -355,25 +389,50 @@ window.ForteLightbox = {
         // Weakness
         this.toggleSection('lb-weakness-container', card.weaknesses?.length);
         if (card.weaknesses?.length) {
-            const weakness = card.weaknesses.map(w => 
-                `<span class="card-type-badge type-${w.type.toLowerCase()}">${w.type} ${w.value}</span>`
-            ).join(', ');
-            this.setHTML('lb-weakness', weakness);
+            const weaknessHTML = card.weaknesses.map(w => {
+                if (window.ForteTypeMapping) {
+                    const weaknessStr = `${w.type} ${w.value}`;
+                    console.log('[Lightbox] Parsing weakness:', weaknessStr); // Debug log
+                    const parsed = window.ForteTypeMapping.parseWeaknessResistance(weaknessStr);
+                    if (parsed) {
+                        console.log('[Lightbox] Parsed weakness:', parsed); // Debug log
+                        return window.ForteTypeMapping.formatWeaknessResistanceHTML(parsed);
+                    } else {
+                        console.warn('[Lightbox] Failed to parse weakness:', weaknessStr); // Debug log
+                        return weaknessStr;
+                    }
+                }
+                return `<span class="card-type-badge type-${w.type.toLowerCase()}">${w.type} ${w.value}</span>`;
+            }).join(', ');
+            this.setHTML('lb-weakness', `<div class="weakness-container">${weaknessHTML}</div>`);
         }
 
         // Resistance
         this.toggleSection('lb-resistance-container', card.resistances?.length);
         if (card.resistances?.length) {
-            const resistance = card.resistances.map(r => 
-                `<span class="card-type-badge type-${r.type.toLowerCase()}">${r.type} ${r.value}</span>`
-            ).join(', ');
-            this.setHTML('lb-resistance', resistance);
+            const resistanceHTML = card.resistances.map(r => {
+                if (window.ForteTypeMapping) {
+                    const resistanceStr = `${r.type} ${r.value}`;
+                    console.log('[Lightbox] Parsing resistance:', resistanceStr); // Debug log
+                    const parsed = window.ForteTypeMapping.parseWeaknessResistance(resistanceStr);
+                    if (parsed) {
+                        console.log('[Lightbox] Parsed resistance:', parsed); // Debug log
+                        return window.ForteTypeMapping.formatWeaknessResistanceHTML(parsed);
+                    } else {
+                        console.warn('[Lightbox] Failed to parse resistance:', resistanceStr); // Debug log
+                        return resistanceStr;
+                    }
+                }
+                return `<span class="card-type-badge type-${r.type.toLowerCase()}">${r.type} ${r.value}</span>`;
+            }).join(', ');
+            this.setHTML('lb-resistance', `<div class="resistance-container">${resistanceHTML}</div>`);
         }
 
         // Retreat cost
         this.toggleSection('lb-retreat-cost-item', card.retreatCost?.length);
         if (card.retreatCost?.length) {
-            this.setHTML('lb-retreat-cost', this.formatEnergyCost(card.retreatCost));
+            const retreatHTML = this.formatEnergyCost(card.retreatCost);
+            this.setHTML('lb-retreat-cost', `<div class="retreat-cost-container">${retreatHTML}</div>`);
         }
     },
 

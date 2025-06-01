@@ -972,3 +972,138 @@ body {
 .thumbnail {
     position: relative;
 }
+
+/* ===== TYPE AND ENERGY ICONS ===== */
+/* Styles for type icons used in weakness, resistance, retreat costs, and attack costs */
+
+.energy-icon, .type-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.energy-icon:hover, .type-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Attack cost container */
+.attack-cost {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
+.attack-cost .energy-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Weakness and resistance styling */
+.weakness-container, .resistance-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.weakness-container .type-icon,
+.resistance-container .type-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* Retreat cost styling */
+.retreat-cost-container {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.retreat-cost-container .energy-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Lightbox specific sizing */
+.fancy-lightbox .energy-icon,
+.fancy-lightbox .type-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.fancy-lightbox .attack-cost .energy-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Card type badges in lightbox */
+.card-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    margin: 2px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: white;
+    background-color: var(--color-primary, #dc2626);
+    gap: 4px; /* Add gap between icon and text */
+}
+
+/* Inline type icons within badges */
+.type-icon-inline {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Type-specific badge colors */
+.card-type-badge.type-grass { background-color: #4ade80; }
+.card-type-badge.type-fire { background-color: #ef4444; }
+.card-type-badge.type-water { background-color: #3b82f6; }
+.card-type-badge.type-lightning,
+.card-type-badge.type-electric { background-color: #eab308; }
+.card-type-badge.type-psychic { background-color: #a855f7; }
+.card-type-badge.type-fighting { background-color: #f97316; }
+.card-type-badge.type-darkness,
+.card-type-badge.type-dark { background-color: #374151; }
+.card-type-badge.type-metal { background-color: #6b7280; }
+.card-type-badge.type-dragon { background-color: #7c3aed; }
+.card-type-badge.type-fairy { background-color: #ec4899; }
+.card-type-badge.type-colorless,
+.card-type-badge.type-neutral,
+.card-type-badge.type-normal { background-color: #9ca3af; }
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .energy-icon, .type-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .attack-cost .energy-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .weakness-container .type-icon,
+    .resistance-container .type-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .type-icon-inline {
+        width: 14px;
+        height: 14px;
+    }
+}
