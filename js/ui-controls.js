@@ -1,4 +1,3 @@
-
 // js/ui-controls.js - UI Controls Module
 // Handles sidebar toggle, footer, and other UI controls
 
@@ -253,7 +252,7 @@ openCredits() {
                 <hr style="border-color: var(--color-border-light, #4b5563); margin: var(--space-4, 1rem) 0 var(--space-3, 0.75rem) 0;">
                 
                 <div class="note" style="border-top: none; padding-top: 0; margin-top: 0; font-size: calc(var(--text-xs, 0.75rem) - 0.05rem);">
-                    <p style="margin-bottom: var(--space-2, 0.5rem);"><strong>Version 2.5</strong> - Forte Card Previewer. Project by EnvoyOfHell &copy; 2023-${currentYear}.</p>
+                    <p style="margin-bottom: var(--space-2, 0.5rem);"><strong>Version 2.5.1</strong> - Forte Card Previewer. Project by EnvoyOfHell &copy; 2023-${currentYear}.</p>
                     <p style="margin-bottom: var(--space-2, 0.5rem);">This card previewer is a non-commercial fan project created for personal enjoyment and community sharing. It's inspired by a crossover between Wuthering Waves and Pokémon, utilizing custom card creation processes and the "Forte" game mechanic.</p>
                     <p style="margin-bottom: var(--space-2, 0.5rem);">This project is not affiliated with, endorsed by, or sponsored by Kuro Games, Nintendo, Creatures Inc., or GAME FREAK inc.</p>
                     <p style="margin-bottom: var(--space-2, 0.5rem);">Wuthering Waves and all related characters/elements are trademarks and © Kuro Games. Pokémon and all related characters/elements are trademarks and © 1995-${currentYear} Nintendo, Creatures Inc., GAME FREAK inc.</p>

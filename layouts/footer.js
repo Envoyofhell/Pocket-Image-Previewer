@@ -7,7 +7,7 @@
      */
     function createFooterContentHTML() {
         const currentYear = new Date().getFullYear();
-        const projectVersion = "2.5";
+        const projectVersion = "2.5.1";
         const designerDiscordLink = "https://discordapp.com/users/your-discord-id-here";
 
         return `

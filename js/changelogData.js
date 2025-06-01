@@ -7,7 +7,7 @@ console.log('[ChangelogData] Script execution started.');
  */
 const changelogData = [
   {
-    version: "2.5.0",
+    version: "2.5.1",
     date: "2025-05-23", // Placeholder: Update with actual release date
     title: "UI Overhaul & Dynamic Content Integration",
     isOpen: true,
