@@ -7,7 +7,7 @@
     // --- Configuration ---
     // IMPORTANT: Replace this URL with your *actual deployed Google Apps Script web app URL*
     // This URL is for the Forte Card Submission Portal (Index.html served by your Apps Script).
-    const SUBMISSION_PORTAL_URL = "YOUR_APPS_SCRIPT_SUBMISSION_WEB_APP_URL_HERE"; 
+    const SUBMISSION_PORTAL_URL = "https://script.google.com/macros/s/AKfycbwesoXMd6ng8y8EHFUzCt2tWPOlMlMlYgY1nJN2l9nlW5O3A_crAn-C45fyOlRxwYMO/exec"; 
     // Example: "[https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec](https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec)";
     // --------------------------------------------------------------------
     
