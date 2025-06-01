@@ -5,10 +5,8 @@
     'use strict';
 
     // --- Configuration ---
-    // IMPORTANT: Replace this URL with your *actual deployed Google Apps Script web app URL*
-    // This URL is for the Forte Card Submission Portal (Index.html served by your Apps Script).
+    // Forte Card Submission Portal URL
     const SUBMISSION_PORTAL_URL = "https://script.google.com/macros/s/AKfycbwesoXMd6ng8y8EHFUzCt2tWPOlMlMlYgY1nJN2l9nlW5O3A_crAn-C45fyOlRxwYMO/exec"; 
-    // Example: "[https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec](https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec)";
     // --------------------------------------------------------------------
     
     const SUBMISSION_BUTTON_ID = 'submission-button'; // ID of the button in index.html
@@ -17,12 +15,6 @@
      * Opens the configured card submission portal link in a new browser tab.
      */
     function openSubmissionPortal() {
-        if (!SUBMISSION_PORTAL_URL || SUBMISSION_PORTAL_URL === "https://script.google.com/macros/s/AKfycbwesoXMd6ng8y8EHFUzCt2tWPOlMlMlYgY1nJN2l9nlW5O3A_crAn-C45fyOlRxwYMO/exec") {
-            console.warn("[Submissions] Submission Portal URL is not configured in js/submissions.js. Please update it with your deployed Apps Script web app URL.");
-            alert("The Card Submission Portal link is not configured yet. Please contact the site administrator.");
-            return;
-        }
-
         console.log("[Submissions] Opening submission portal link:", SUBMISSION_PORTAL_URL);
         // Open the URL in a new tab securely
         window.open(SUBMISSION_PORTAL_URL, '_blank', 'noopener,noreferrer');
