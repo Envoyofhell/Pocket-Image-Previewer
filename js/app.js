@@ -284,9 +284,19 @@ class ForteCardApp {
         // Apply forte status filter
         if (this.filters.forte !== 'all') {
             const isForteTarget = this.filters.forte === 'isForte';
-            filteredCards = filteredCards.filter(card => 
-                card.forteData && card.forteData.isForte === isForteTarget
-            );
+            console.log('[App] Forte filter active:', this.filters.forte, 'isForteTarget:', isForteTarget);
+            
+            filteredCards = filteredCards.filter(card => {
+                const hasForteData = card.forteData && typeof card.forteData.isForte !== 'undefined';
+                const cardIsForte = card.forteData?.isForte;
+                const matches = hasForteData && cardIsForte === isForteTarget;
+                
+                if (hasForteData) {
+                    console.log(`[App] Card: ${card.name}, isForte: ${cardIsForte}, target: ${isForteTarget}, matches: ${matches}`);
+                }
+                
+                return matches;
+            });
         }
 
         // Apply search filter

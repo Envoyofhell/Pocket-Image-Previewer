@@ -805,7 +805,7 @@
     "name": "Hoopa",
     "supertype": "Pokémon",
     "subtypes": [
-      "Forte"
+      "Basic"
     ],
     "hp": 190,
     "types": [
@@ -894,7 +894,7 @@
       "subname": "",
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/05/31",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",

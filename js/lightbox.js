@@ -208,7 +208,21 @@ window.ForteLightbox = {
 
         // Update title and image
         if (this.elements['card-title-lightbox']) {
-            this.elements['card-title-lightbox'].textContent = card.name || 'Card Details';
+            let titleText = card.name || 'Card Details';
+            
+            // Add "Forte" to title for forte cards
+            if (card.forteData?.isForte) {
+                titleText += ' <span class="forte-title-text">Forte</span>';
+            }
+            
+            this.elements['card-title-lightbox'].innerHTML = titleText;
+            
+            // Add type-based class to lightbox header title
+            if (card.supertype === 'Pokémon' && card.types && card.types[0]) {
+                this.elements['card-title-lightbox'].className = `type-${card.types[0].toLowerCase()}`;
+            } else {
+                this.elements['card-title-lightbox'].className = '';
+            }
         }
 
         this.loadImage(card);
@@ -250,6 +264,15 @@ window.ForteLightbox = {
     populateCardInfo(card) {
         // Basic info
         this.setText('lb-card-name', card.name);
+        
+        // Add type-based class to Pokemon name
+        const nameElement = this.elements['lb-card-name'];
+        if (nameElement && card.supertype === 'Pokémon' && card.types && card.types[0]) {
+            nameElement.className = `info-value type-${card.types[0].toLowerCase()}`;
+        } else if (nameElement) {
+            nameElement.className = 'info-value';
+        }
+        
         this.setText('lb-set-name', card.set?.name);
         this.setText('lb-card-number', `${card.number || '-'}${card.set?.printedTotal ? ` / ${card.set.printedTotal}` : ''}`);
         this.setText('lb-rarity', card.rarity);
@@ -273,8 +296,18 @@ window.ForteLightbox = {
         if (isPokemon) {
             this.setText('lb-hp', card.hp);
             this.setHTML('lb-types', this.formatTypes(card.types));
-            this.setText('lb-stage', card.subtypes?.join(', '));
-            this.toggleSection('lb-stage-item', card.subtypes?.length);
+            
+            // Format stage with Forte indicator if applicable
+            let stageText = card.subtypes?.join(', ') || '';
+            if (card.forteData?.isForte) {
+                const forteIcon = '<img src="img/types/Forte.png" alt="Forte" class="forte-stage-icon" title="Forte" />';
+                stageText = `<div class="forte-stage-container">
+                    <span class="forte-stage-text">${stageText}</span>
+                    ${forteIcon}
+                </div>`;
+            }
+            this.setHTML('lb-stage', stageText);
+            this.toggleSection('lb-stage-item', card.subtypes?.length || card.forteData?.isForte);
             
             if (card.evolvesFrom) {
                 this.toggleSection('lb-evolves-from-item', true);
@@ -290,8 +323,8 @@ window.ForteLightbox = {
                 this.toggleSection('lb-pokedex-item', false);
             }
 
-            this.setHTML('lb-abilities-container', this.formatAbilities(card.abilities));
-            this.setHTML('lb-attacks-container', this.formatAttacks(card.attacks));
+            this.setHTML('lb-abilities-container', this.formatAbilities(card.abilities, card.types));
+            this.setHTML('lb-attacks-container', this.formatAttacks(card.attacks, card.types));
             this.formatBattleStats(card);
         }
 
@@ -341,25 +374,57 @@ window.ForteLightbox = {
         return subtypes.map(st => `<span class="card-type-badge type-${prefix}">${st}</span>`).join(' ');
     },
 
-    formatAbilities(abilities) {
+    formatAbilities(abilities, cardTypes) {
         if (!abilities) return '';
-        return abilities.map(a => `
-            <div class="ability-container">
-                <div class="ability-name">${a.name} (${a.type})</div>
-                <div class="ability-text">${a.text}</div>
+        const primaryType = cardTypes && cardTypes[0] ? cardTypes[0].toLowerCase() : '';
+        return abilities.map(a => {
+            const hasForteRestriction = a.text && a.text.toLowerCase().includes('you cannot use more than 1 forte attack in a game');
+            const useForteIcon = hasForteRestriction;
+            
+            return `
+            <div class="ability-box ${primaryType ? `type-${primaryType}` : ''}">
+                <div class="ability-header">
+                    <div class="ability-name-damage">
+                        <span class="ability-name">${a.name}</span>
+                        ${a.damage && a.damage !== 'NA' && a.damage !== 'N/A' ? `<span class="ability-damage">${a.damage}</span>` : ''}
+                    </div>
+                    ${useForteIcon ? 
+                        `<img src="img/types/ForteBw.png" alt="Forte" class="ability-type-icon" title="Forte Ability" />` : 
+                        (a.type === 'Ability' ? 
+                            `<img src="img/types/Ability.png" alt="Ability" class="ability-type-icon" title="Ability" />` : 
+                            `<span class="ability-type">(${a.type})</span>`
+                        )
+                    }
+                </div>
+                <div class="ability-description">${a.text}</div>
             </div>
-        `).join('');
+        `;
+        }).join('');
     },
 
-    formatAttacks(attacks) {
+    formatAttacks(attacks, cardTypes) {
         if (!attacks) return '';
-        return attacks.map(atk => `
-            <div class="attack-container">
-                <div class="attack-cost">${this.formatEnergyCost(atk.cost)}</div>
-                <div class="attack-name">${atk.name}${atk.damage ? ` - ${atk.damage}` : ''}</div>
-                ${atk.text ? `<div class="attack-text">${atk.text}</div>` : ''}
+        const primaryType = cardTypes && cardTypes[0] ? cardTypes[0].toLowerCase() : '';
+        return attacks.map(atk => {
+            const hasForteRestriction = atk.text && atk.text.toLowerCase().includes('you cannot use more than 1 forte attack in a game');
+            
+            return `
+            <div class="attack-box ${primaryType ? `type-${primaryType}` : ''}">
+                <div class="attack-header">
+                    <div class="attack-cost-icons">${this.formatEnergyCost(atk.cost)}</div>
+                    <div class="attack-name-damage">
+                        <span class="attack-name">${atk.name}</span>
+                        ${atk.damage && atk.damage !== 'NA' && atk.damage !== 'N/A' ? `<span class="attack-damage">${atk.damage}</span>` : ''}
+                    </div>
+                    ${hasForteRestriction ? 
+                        `<img src="img/types/ForteBw.png" alt="Forte Attack" class="attack-forte-icon" title="Forte Attack" />` : 
+                        ''
+                    }
+                </div>
+                ${atk.text ? `<div class="attack-description">${atk.text}</div>` : ''}
             </div>
-        `).join('');
+        `;
+        }).join('');
     },
 
     formatEnergyCost(cost) {
@@ -492,52 +557,41 @@ window.ForteLightbox = {
             return;
         }
 
-        const shareUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
+        const pageUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
 
         if (navigator.share) {
             navigator.share({
                 title: `Forte Card: ${currentCard.name}`,
                 text: `Check out this Pokémon card: ${currentCard.name}`,
-                url: shareUrl
+                url: pageUrl
             })
             .then(() => this.showButtonStatus('fancy-share-button', 'success'))
-            .catch(() => this.copyToClipboard(shareUrl));
+            .catch(() => this.copyToClipboard(pageUrl));
         } else {
-            this.copyToClipboard(shareUrl);
+            this.copyToClipboard(pageUrl);
         }
     },
 
     copyToClipboard(text) {
-        // Determine if we're in development or production
-        const isLocal = window.location.hostname === 'localhost' || 
-                       window.location.hostname === '127.0.0.1' || 
-                       window.location.hostname === '';
+        // Get the current card and create page URL
+        const cards = this.app.getFilteredCards();
+        const currentCard = cards[this.currentIndex];
         
-        let imagePath = text;
-        
-        if (isLocal) {
-            // Show local file path for development
-            const cards = this.app.getFilteredCards();
-            const currentCard = cards[this.currentIndex];
-            if (currentCard?.images?.large) {
-                imagePath = currentCard.images.large;
-            }
-        } else {
-            // Show production URL for hosted version
-            const cards = this.app.getFilteredCards();
-            const currentCard = cards[this.currentIndex];
-            if (currentCard?.images?.large) {
-                imagePath = currentCard.images.large;
-            }
+        if (!currentCard?.id) {
+            this.showButtonStatus('fancy-share-button', 'error');
+            return;
         }
         
-        navigator.clipboard.writeText(imagePath)
+        // Create page URL with card ID
+        const pageUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
+        
+        navigator.clipboard.writeText(pageUrl)
             .then(() => {
                 this.showButtonStatus('fancy-share-button', 'success');
-                this.showTooltip(isLocal ? 'Image path copied!' : 'Link copied to clipboard!');
+                this.showTooltip('Card link copied to clipboard!');
             })
             .catch(() => {
-                this.fallbackCopyToClipboard(imagePath);
+                this.fallbackCopyToClipboard(pageUrl);
             });
     },
 
@@ -555,7 +609,7 @@ window.ForteLightbox = {
             
             if (successful) {
                 this.showButtonStatus('fancy-share-button', 'success');
-                this.showTooltip('Link copied to clipboard!');
+                this.showTooltip('Card link copied to clipboard!');
             } else {
                 this.showButtonStatus('fancy-share-button', 'error');
             }

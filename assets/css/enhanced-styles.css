@@ -1107,3 +1107,402 @@ body {
         height: 14px;
     }
 }
+
+/* ===== ATTACK AND ABILITY STYLING ===== */
+/* Modern card-like boxes for attacks and abilities */
+
+.attack-box, .ability-box {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(51, 65, 85, 0.6));
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.attack-box:hover, .ability-box:hover {
+    border-color: rgba(248, 113, 113, 0.3);
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.attack-box::before, .ability-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary, #f87171), var(--color-accent, #fb923c));
+    border-radius: 12px 12px 0 0;
+}
+
+/* Attack Header Layout */
+.attack-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.attack-cost-icons {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    min-height: 32px;
+}
+
+.attack-name-damage {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.attack-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.attack-damage {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent, #fb923c);
+    background: rgba(251, 146, 60, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.attack-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgba(148, 163, 184, 0.3);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+/* Ability Header Layout */
+.ability-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.ability-name-damage {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.ability-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.ability-damage {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent, #fb923c);
+    background: rgba(251, 146, 60, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.ability-type-icon {
+    width: auto;
+    height: 26px;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-top: 6px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    max-width: 80px;
+    flex-shrink: 0;
+    outline: none;
+    border: none;
+}
+
+/* Special styling for forte ability icons to remove outlines */
+.ability-type-icon[src*="Forte"] {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    background: transparent !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.ability-type-icon[src*="Forte"]:hover,
+.ability-type-icon[src*="Forte"]:focus,
+.ability-type-icon[src*="Forte"]:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    transform: none !important;
+}
+
+/* Only hover effect for ability icons (not forte icons) */
+.ability-type-icon:hover:not([src*="Forte"]) {
+    transform: scale(1.1);
+}
+
+.ability-type {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent, #fb923c);
+    background: rgba(251, 146, 60, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+    flex-shrink: 0;
+}
+
+/* Type-based gradients for attack and ability boxes */
+.attack-box.type-grass::before, .ability-box.type-grass::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.attack-box.type-fire::before, .ability-box.type-fire::before {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.attack-box.type-water::before, .ability-box.type-water::before {
+    background: linear-gradient(90deg, #0ea5e9, #0284c7);
+}
+
+.attack-box.type-lightning::before, .ability-box.type-lightning::before,
+.attack-box.type-electric::before, .ability-box.type-electric::before {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+
+.attack-box.type-psychic::before, .ability-box.type-psychic::before {
+    background: linear-gradient(90deg, #c084fc, #a855f7);
+}
+
+.attack-box.type-fighting::before, .ability-box.type-fighting::before {
+    background: linear-gradient(90deg, #fb923c, #f97316);
+}
+
+.attack-box.type-darkness::before, .ability-box.type-darkness::before,
+.attack-box.type-dark::before, .ability-box.type-dark::before {
+    background: linear-gradient(90deg, #7c3aed, #5b21b6);
+}
+
+.attack-box.type-metal::before, .ability-box.type-metal::before {
+    background: linear-gradient(90deg, #64748b, #475569);
+}
+
+.attack-box.type-dragon::before, .ability-box.type-dragon::before {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.attack-box.type-fairy::before, .ability-box.type-fairy::before {
+    background: linear-gradient(90deg, #f472b6, #ec4899);
+}
+
+.attack-box.type-colorless::before, .ability-box.type-colorless::before,
+.attack-box.type-neutral::before, .ability-box.type-neutral::before,
+.attack-box.type-normal::before, .ability-box.type-normal::before {
+    background: linear-gradient(90deg, #a1a1aa, #71717a);
+}
+
+/* Type-based Pokemon name coloring */
+#lb-card-name.type-grass, #card-title-lightbox.type-grass { color: #22c55e; }
+#lb-card-name.type-fire, #card-title-lightbox.type-fire { color: #ef4444; }
+#lb-card-name.type-water, #card-title-lightbox.type-water { color: #0ea5e9; }
+#lb-card-name.type-lightning, #card-title-lightbox.type-lightning,
+#lb-card-name.type-electric, #card-title-lightbox.type-electric { color: #fbbf24; }
+#lb-card-name.type-psychic, #card-title-lightbox.type-psychic { color: #c084fc; }
+#lb-card-name.type-fighting, #card-title-lightbox.type-fighting { color: #fb923c; }
+#lb-card-name.type-darkness, #card-title-lightbox.type-darkness,
+#lb-card-name.type-dark, #card-title-lightbox.type-dark { color: #7c3aed; }
+#lb-card-name.type-metal, #card-title-lightbox.type-metal { color: #64748b; }
+#lb-card-name.type-dragon, #card-title-lightbox.type-dragon { color: #8b5cf6; }
+#lb-card-name.type-fairy, #card-title-lightbox.type-fairy { color: #f472b6; }
+#lb-card-name.type-colorless, #card-title-lightbox.type-colorless,
+#lb-card-name.type-neutral, #card-title-lightbox.type-neutral,
+#lb-card-name.type-normal, #card-title-lightbox.type-normal { color: #a1a1aa; }
+
+.ability-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--color-primary, #f87171);
+}
+
+/* Energy icons in attack cost */
+.attack-cost-icons .energy-icon {
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Section containers */
+.fancy-lightbox #lb-abilities-container,
+.fancy-lightbox #lb-attacks-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for attack/ability containers */
+.fancy-lightbox #lb-abilities-container::-webkit-scrollbar,
+.fancy-lightbox #lb-attacks-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fancy-lightbox #lb-abilities-container::-webkit-scrollbar-track,
+.fancy-lightbox #lb-attacks-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.fancy-lightbox #lb-abilities-container::-webkit-scrollbar-thumb,
+.fancy-lightbox #lb-attacks-container::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.4);
+    border-radius: 3px;
+}
+
+.fancy-lightbox #lb-abilities-container::-webkit-scrollbar-thumb:hover,
+.fancy-lightbox #lb-attacks-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.6);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .attack-box, .ability-box {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .attack-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .attack-cost-icons {
+        align-self: flex-start;
+    }
+    
+    .attack-name {
+        font-size: 1rem;
+    }
+    
+    .attack-damage {
+        font-size: 0.875rem;
+    }
+    
+    .attack-description, .ability-description {
+        font-size: 0.8rem;
+    }
+    
+    .ability-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}
+
+/* Forte stage styling - table layout */
+.forte-stage-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.forte-stage-text {
+    color: #7c3aed;
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.forte-stage-icon {
+    width: auto;
+    height: 36px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 0;
+    max-width: 110px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: default;
+    background: transparent !important;
+}
+
+.forte-stage-icon:hover,
+.forte-stage-icon:focus,
+.forte-stage-icon:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Forte title styling */
+.forte-title-text {
+    color: #7c3aed;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+/* Attack forte icon */
+.attack-forte-icon {
+    width: auto;
+    height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    border-radius: 0;
+    max-width: 80px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    flex-shrink: 0;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: default;
+    background: transparent !important;
+}
+
+.attack-forte-icon:hover,
+.attack-forte-icon:focus,
+.attack-forte-icon:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
