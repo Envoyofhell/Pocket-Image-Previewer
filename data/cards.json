@@ -817,10 +817,9 @@
       {
         "name": "Waterfall",
         "cost": [
-          "1x water",
-          "2x neutral"
+          "1x water. 2x neutral"
         ],
-        "convertedEnergyCost": 2,
+        "convertedEnergyCost": 1,
         "damage": 80,
         "text": ""
       },
@@ -833,6 +832,16 @@
         "convertedEnergyCost": 2,
         "damage": 160,
         "text": "This Pokémon also does 40 damage to itself."
+      },
+      {
+        "name": "Tyrant's Tantrum Forte",
+        "cost": [
+          "2x water",
+          "1x neutral"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": 200,
+        "text": "Before doing damage, you amy put a Havoc Forte Marker on both Active Pokemon"
       }
     ],
     "weaknesses": [
@@ -861,7 +870,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/13",
-      "updatedAt": "2025-06-14T00:45:08.309Z",
+      "updatedAt": "2025-06-14T01:05:10.093Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -892,11 +901,7 @@
       "customSetIconTextFromJson": "",
       "prevolveImgSize": "",
       "otherSheetData": {
-        "prevolveName": "Magikarp",
-        "Attack 3 Name": "Tyrant's Tantrum Forte",
-        "Attack 3 Cost": "2x water, 1x neutral",
-        "Attack 3 Damage": 200,
-        "Attack 3 Effect": "Before doing damage, you amy put a Havoc Forte Marker on both Active Pokemon"
+        "prevolveName": "Magikarp"
       }
     }
   },
