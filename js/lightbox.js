@@ -407,6 +407,7 @@ window.ForteLightbox = {
         const primaryType = cardTypes && cardTypes[0] ? cardTypes[0].toLowerCase() : '';
         return attacks.map(atk => {
             const hasForteRestriction = atk.text && atk.text.toLowerCase().includes('you cannot use more than 1 forte attack in a game');
+            const hasForteInName = atk.name && atk.name.toLowerCase().includes('forte');
             
             return `
             <div class="attack-box ${primaryType ? `type-${primaryType}` : ''}">
@@ -416,7 +417,7 @@ window.ForteLightbox = {
                         <span class="attack-name">${atk.name}</span>
                         ${atk.damage && atk.damage !== 'NA' && atk.damage !== 'N/A' ? `<span class="attack-damage">${atk.damage}</span>` : ''}
                     </div>
-                    ${hasForteRestriction ? 
+                    ${(hasForteRestriction || hasForteInName) ? 
                         `<img src="img/types/ForteBw.png" alt="Forte Attack" class="attack-forte-icon" title="Forte Attack" />` : 
                         ''
                     }
