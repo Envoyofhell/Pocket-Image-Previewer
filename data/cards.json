@@ -716,6 +716,105 @@
     }
   },
   {
+    "id": "misc-025",
+    "name": "Gyarados",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 230,
+    "types": [
+      "Water"
+    ],
+    "evolvesFrom": "Magikarp",
+    "attacks": [
+      {
+        "name": "Waterfall",
+        "cost": [
+          "1x water",
+          "2x neutral"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": 80,
+        "text": ""
+      },
+      {
+        "name": "Furious Impact",
+        "cost": [
+          "3x water",
+          "1x neutral"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": 160,
+        "text": "This Pokémon also does 40 damage to itself."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "electric",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/13",
+      "updatedAt": "2025-06-14T00:45:08.309Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "25",
+    "artist": "PLANETA Tsuji",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-025.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-025.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(025) Gyarados Forte.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": true,
+      "approvedDate": "2025/06/13",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Magikarp",
+        "Attack 3 Name": "Tyrant's Tantrum Forte",
+        "Attack 3 Cost": "2x water, 1x neutral",
+        "Attack 3 Damage": 200,
+        "Attack 3 Effect": "Before doing damage, you amy put a Havoc Forte Marker on both Active Pokemon"
+      }
+    }
+  },
+  {
     "id": "misc-027",
     "name": "Piplup",
     "supertype": "Pokémon",
