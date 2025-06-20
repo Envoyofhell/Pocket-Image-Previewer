@@ -2537,6 +2537,101 @@
     }
   },
   {
+    "id": "misc-115",
+    "name": "Squawkabilly",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 70,
+    "types": [
+      "Colorless"
+    ],
+    "attacks": [
+      {
+        "name": "Early Flocking",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "If you go first, you can use this attack during your first turn. Search your deck for a Basic Pokémon and put it onto your Bench. Then, shuffle your deck."
+      },
+      {
+        "name": "Fury Attack",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "10×",
+        "text": "Flip 3 coins. This attack does 10 damage for each heads."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Lighting x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:28:28.388Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "115",
+    "artist": "Julie Hang",
+    "rarity": "Full Art",
+    "flavorText": "These Pokémon prefer to live in cities. They form flocks based on the color of their feathers, and they fight over territory.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-115.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-115.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Squawkabilly.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-127",
     "name": "Professor's Research ",
     "supertype": "Trainer",
