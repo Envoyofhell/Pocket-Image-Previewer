@@ -4513,13 +4513,18 @@
   {
     "id": "misc-132",
     "name": "Poké Ball Factory",
-    "supertype": "Pokémon",
+    "supertype": "Trainer",
     "subtypes": [
-      "ex (Stage 2)"
+      "Stadium"
     ],
-    "hp": "0",
     "types": [
       "Trainer"
+    ],
+    "rules": [
+      "Once during each player’s turn, that player may search",
+      "their deck for an Item card that has “Ball” in its",
+      "name, reveal it, and put it into their hand. Then, that",
+      "player shuffles their deck."
     ],
     "weaknesses": [
       {
@@ -4553,7 +4558,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-20T23:24:02.034Z",
+      "updatedAt": "2025-06-20T23:46:14.900Z",
       "images": {
         "symbol": "",
         "logo": ""
