@@ -2843,6 +2843,99 @@
     }
   },
   {
+    "id": "misc-103",
+    "name": "Noivern",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 110,
+    "types": [
+      "Dragon"
+    ],
+    "evolvesFrom": "Noibat",
+    "abilities": [
+      {
+        "name": "Windstorm",
+        "text": "Once during your turn, if this Pokémon is on your Bench and has an Aero Forte Marker on it, you may switch it with your Active Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Echo Burst",
+        "cost": [
+          "Psychic",
+          "Darkness"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20+",
+        "text": "You may discard up to 2 Energy from this Pokemon. This attack does 60 more damage for each Energy you discarded in this way."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fairy",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:39:03.026Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "103",
+    "artist": "Shin Nagasawa",
+    "rarity": "Full Art",
+    "flavorText": "Flying through the darkness, it weakens enemies with ultrasonic waves that could crush stone. Its fangs finish the fight.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-103.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-103.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Noivern.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Noibat"
+      }
+    }
+  },
+  {
     "id": "misc-104",
     "name": "Pidgey",
     "supertype": "Pokémon",
