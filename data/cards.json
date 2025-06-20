@@ -1566,6 +1566,107 @@
     }
   },
   {
+    "id": "misc-062",
+    "name": "Tyranitar",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 180,
+    "types": [
+      "Fighting"
+    ],
+    "evolvesFrom": "Pupitar",
+    "abilities": [
+      {
+        "name": "Sand Stream",
+        "text": "During Pokémon Checkup, if this Pokémon is in the Active Spot, you may discard the top card of your opponent’s deck.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Earthquake",
+        "cost": [
+          "Fighting",
+          "Fighting",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 4,
+        "damage": "120",
+        "text": "This attack also does 10 damage to each Benched Pokémon __(both yours and your opponent’s). (Don’t apply Weakness and Resistance for Benched Pokémon.)__"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:17:39.218Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "62",
+    "artist": "Uninori",
+    "rarity": "Full Art",
+    "flavorText": "Extremely strong, it can change the landscape. It has an insolent nature that makes it not care about others.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-062.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-062.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Tyranitar.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Pupitar"
+      }
+    }
+  },
+  {
     "id": "misc-066",
     "name": "Gallade",
     "supertype": "Pokémon",
