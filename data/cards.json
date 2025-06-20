@@ -4438,13 +4438,16 @@
   {
     "id": "misc-130",
     "name": "Verina",
-    "supertype": "Pokémon",
+    "supertype": "Trainer",
     "subtypes": [
-      "ex (Stage 2)"
+      "Supporter"
     ],
-    "hp": "0",
     "types": [
       "Trainer"
+    ],
+    "rules": [
+      "Heal 120 damage from 1 of your Pokémon. If you do,",
+      "discard all Energy from that Pokémon."
     ],
     "weaknesses": [
       {
@@ -4478,7 +4481,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-20T23:23:19.175Z",
+      "updatedAt": "2025-06-20T23:46:18.983Z",
       "images": {
         "symbol": "",
         "logo": ""
