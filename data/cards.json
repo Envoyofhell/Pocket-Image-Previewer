@@ -2956,6 +2956,106 @@
     }
   },
   {
+    "id": "misc-090",
+    "name": "Kirlia",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Fairy"
+    ],
+    "evolvesFrom": "Ralts",
+    "attacks": [
+      {
+        "name": "Fairy Steps",
+        "cost": [
+          "Dragon"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Draw a card for each [Y] Energy attached to this Pokémon."
+      },
+      {
+        "name": "Magical Shot",
+        "cost": [
+          "Dragon",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "50",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 137,
+      "total": 137,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:45:14.205Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "90",
+    "artist": "kawayoo",
+    "rarity": "Full Art",
+    "flavorText": "If its Trainer becomes happy, it overflows with energy, dancing joyously while spinning about.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-090.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-090.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Kirlia.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Ralts"
+      }
+    }
+  },
+  {
     "id": "misc-092",
     "name": "Mawile",
     "supertype": "Pokémon",
