@@ -555,6 +555,108 @@
     }
   },
   {
+    "id": "misc-013",
+    "name": "Magmortar   ",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1 (Forte)"
+    ],
+    "hp": 210,
+    "types": [
+      "Fire"
+    ],
+    "evolvesFrom": "Magmar",
+    "attacks": [
+      {
+        "name": "Lava Plume",
+        "cost": [
+          "Fire",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "70",
+        "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Burned."
+      },
+      {
+        "name": "Violent Finale",
+        "cost": [
+          "Fire",
+          "Fire",
+          "Fire"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "200",
+        "text": "Discard all [R] Energy from this Pokémon, and put a Fusion Forte Marker on each of your opponent’s Evolution Pokémon. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:44:26.569Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "13",
+    "artist": "Hajime Kusajima",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Magmortar Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Magmar"
+      }
+    }
+  },
+  {
     "id": "misc-015",
     "name": "Torchic",
     "supertype": "Pokémon",
