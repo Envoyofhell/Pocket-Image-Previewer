@@ -2171,6 +2171,91 @@
     }
   },
   {
+    "id": "misc-093",
+    "name": "Flabébé",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 40,
+    "types": [
+      "Fairy"
+    ],
+    "attacks": [
+      {
+        "name": "Flower Gift",
+        "cost": [
+          "Dragon"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Search your deck for a Basic [Y] Energy card and attach it to 1 of your Pokémon. Then, shuffle your deck."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:22:32.674Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "93",
+    "artist": "5ban Graphics",
+    "rarity": "Full Art",
+    "flavorText": "This Flabébé rides a red flower. Immediately after birth, this Pokémon begins flying around in search of a flower it likes.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Flabébé.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-094",
     "name": "Floette",
     "supertype": "Pokémon",
