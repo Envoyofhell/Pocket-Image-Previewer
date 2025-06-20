@@ -2843,6 +2843,103 @@
     }
   },
   {
+    "id": "misc-105",
+    "name": "Pidgeotto",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Colorless"
+    ],
+    "evolvesFrom": "Pidgey",
+    "attacks": [
+      {
+        "name": "Wing Attack",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "40",
+        "text": ""
+      },
+      {
+        "name": "Whirlwind",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "",
+        "text": "Flip a coin. If heads, choose 1 of your opponent’s Benched Pokémon. Shuffle that Pokémon and all attached cards into their deck."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Lighting x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:36:21.439Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "105",
+    "artist": "Kariya",
+    "rarity": "Full Art",
+    "flavorText": "\tIt renders its prey immobile using well-developed claws, then carries the prey more than 60 miles to its nest.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-105.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-105.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Pidgeotto.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": 0,
+      "otherSheetData": {
+        "prevolveName": "Pidgey"
+      }
+    }
+  },
+  {
     "id": "misc-106",
     "name": "Pidgeot",
     "supertype": "Pokémon",
