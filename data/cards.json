@@ -1369,6 +1369,102 @@
     }
   },
   {
+    "id": "misc-060",
+    "name": "Larvitar",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 80,
+    "types": [
+      "Fighting"
+    ],
+    "attacks": [
+      {
+        "name": "Eat Soil",
+        "cost": [
+          "Fighting"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Discard the top card of your opponent’s deck."
+      },
+      {
+        "name": "Rock Throw",
+        "cost": [
+          "Fighting",
+          "Fighting"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:14:39.050Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "60",
+    "artist": "Ken Sugimori",
+    "rarity": "Full Art",
+    "flavorText": "It is born deep underground. It can't emerge until it has entirely consumed the soil around it.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-060.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-060.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Larvitar.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-061",
     "name": "Pupitar",
     "supertype": "Pokémon",
