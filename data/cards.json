@@ -2426,5 +2426,80 @@
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
+  },
+  {
+    "id": "misc-130",
+    "name": "Verina",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "ex (Stage 2)"
+    ],
+    "hp": "0",
+    "types": [
+      "Trainer"
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-20T23:23:19.175Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "130",
+    "artist": "Kuro Games",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-130.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-130.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Verina.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
   }
 ]
