@@ -2491,6 +2491,94 @@
     }
   },
   {
+    "id": "misc-036",
+    "name": "Barraskewda",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 110,
+    "types": [
+      "Water"
+    ],
+    "evolvesFrom": "Arrokuda",
+    "attacks": [
+      {
+        "name": "Anger Strike",
+        "cost": [
+          "Neutral"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 90,
+        "text": "If you didn't use Cramarant's Gup Up Ability this turn, this attack does nothing."
+      },
+      {
+        "name": "Corkscrew Dive",
+        "cost": [
+          "Water"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 40,
+        "text": "Switch this Pokémonwith 1 of your Benched Pokémon"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-21T00:51:57.610Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "36",
+    "artist": "Kouki Saitou",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-036.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-036.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(036) Barraskewda.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-040",
     "name": "Mareep",
     "supertype": "Pokémon",
