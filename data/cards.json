@@ -5409,6 +5409,93 @@
     }
   },
   {
+    "id": "misc-107",
+    "name": "Ditto",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 150,
+    "types": [
+      "Neutral"
+    ],
+    "attacks": [
+      {
+        "name": "Stretchy Punch",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 50,
+        "text": ""
+      },
+      {
+        "name": "Mimicry Forte",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Choose 1 of your opponent's Pokémon Forte's attacks and use it as this attack. (You can choose Forte Attacks in this way.)(You can't use more than 1 Forte Attack in a game.)"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:29:13.187Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "107",
+    "artist": "Saki Hayashiro",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-107.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-107.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(107) Ditto Forte.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-109",
     "name": "Porygon ",
     "supertype": "Pokémon",
