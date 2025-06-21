@@ -3809,6 +3809,113 @@
     }
   },
   {
+    "id": "misc-082",
+    "name": "Empoleon",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2 (Forte)"
+    ],
+    "hp": 240,
+    "types": [
+      "Metal"
+    ],
+    "evolvesFrom": "Prinplup",
+    "abilities": [
+      {
+        "name": "Glacial Gauntlet",
+        "text": "This Pokémon can use the attacks of Pokémon on your Bench with Glacio Forte Markers on them. __(You still need the necessary Energy to use each attack.)__",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Tundra Wing",
+        "cost": [
+          "Metal",
+          "Metal",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "90",
+        "text": "Put a Glacio Forte Marker on 1 of your Pokémon."
+      },
+      {
+        "name": "Fortune's Favor",
+        "cost": [
+          "Metal"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "50",
+        "text": "==Draw a card for each Glacio Forte Marker in play __(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:14:33.852Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "82",
+    "artist": "TPCi",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1oIk4fQ_5Me0yIiFqeKBYJNNJAfxhyCck/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1oIk4fQ_5Me0yIiFqeKBYJNNJAfxhyCck/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Empoleon Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": true,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": 0,
+      "otherSheetData": {
+        "prevolveName": "Prinplup"
+      }
+    }
+  },
+  {
     "id": "misc-083",
     "name": "Ferroseed",
     "supertype": "Pokémon",
