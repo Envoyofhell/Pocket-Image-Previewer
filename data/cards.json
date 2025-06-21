@@ -9608,7 +9608,7 @@
     "convertedRetreatCost": 3,
     "set": {
       "id": "misc",
-      "name": "PFI",
+      "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
       "total": 139,
@@ -9620,7 +9620,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T18:20:42.586Z",
+      "updatedAt": "2025-06-21T18:36:08.839Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -9648,7 +9648,7 @@
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
       "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PFI",
+      "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PFI",
       "prevolveImgSize": ""
     }
