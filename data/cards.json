@@ -91,85 +91,6 @@
     }
   },
   {
-    "id": "misc-006",
-    "name": "Phantump",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 50,
-    "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Branch Poke",
-        "cost": [
-          "Grass"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": 20,
-        "text": ""
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Fire x",
-        "value": "2"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T06:49:38.584Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "6",
-    "artist": "5ban Graphics",
-    "rarity": "",
-    "flavorText": "This Pokémon came to be when the spirit of a deceased child possessed a tree stump. It now wanders the forest searching for friends.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-006.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-006.png"
-    },
-    "forteData": {
-      "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(006) Phantump.json",
-      "subname": "",
-      "regulationMark": "N/A",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-007",
     "name": "Trevenant",
     "supertype": "Pokémon",
@@ -9501,6 +9422,85 @@
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
       "originalJsonFileName": "(003) Venusaur.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
+    "id": "misc-006",
+    "name": "Phantump",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 50,
+    "types": [
+      "Grass"
+    ],
+    "attacks": [
+      {
+        "name": "Branch Poke",
+        "cost": [
+          "Grass"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T20:05:11.809Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "6",
+    "artist": "5ban Graphics",
+    "rarity": "",
+    "flavorText": "This Pokémon came to be when the spirit of a deceased child possessed a tree stump. It now wanders the forest searching for friends.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-006.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-006.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(006) Phantump.json",
       "subname": "",
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
