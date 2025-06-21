@@ -901,7 +901,7 @@
   },
   {
     "id": "misc-013",
-    "name": "Magmortar   ",
+    "name": "Magmortar Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1 (Forte)"
@@ -965,8 +965,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-20T23:44:26.569Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:42:42.891Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -992,7 +992,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/20",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": "",
