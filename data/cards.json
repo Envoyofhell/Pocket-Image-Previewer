@@ -14,7 +14,7 @@
       {
         "name": "Poison powder",
         "cost": [
-          "Neutral x2"
+          "Neutral x1"
         ],
         "convertedEnergyCost": 1,
         "damage": "",
@@ -54,7 +54,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T06:46:38.654Z",
+      "updatedAt": "2025-06-21T17:04:55.679Z",
       "images": {
         "symbol": "",
         "logo": ""
