@@ -1727,105 +1727,6 @@
     }
   },
   {
-    "id": "misc-022",
-    "name": "Salazzle",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Stage 1"
-    ],
-    "hp": 90,
-    "types": [
-      "Fire"
-    ],
-    "evolvesFrom": "Salandit",
-    "attacks": [
-      {
-        "name": "Ignite",
-        "cost": [
-          "Fire"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Search your deck for up to 2 Basic [R] Energy cards and attach them to this Pokémon. Then, shuffle your deck."
-      },
-      {
-        "name": "Disorienting Breath",
-        "cost": [
-          "Fire",
-          "Fire"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": "40",
-        "text": "Choose 1 of your opponent’s Active Pokémon’s attacks. That Pokémon can’t use that attack during your opponent’s next turn."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Water x",
-        "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T07:10:16.765Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "22",
-    "artist": "Midori Harada",
-    "rarity": "Full Art",
-    "flavorText": "Salazzle makes its opponents light-headed with poisonous gas, then captivates them with alluring movements to turn them into loyal servants.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Salazzle.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/20",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Salandit"
-      }
-    }
-  },
-  {
     "id": "misc-023",
     "name": "Jynx",
     "supertype": "Pokémon",
@@ -9608,6 +9509,102 @@
         "typeImgAmount": 1,
         "typeImgId": 11
       }
+    }
+  },
+  {
+    "id": "misc-022",
+    "name": "Chien-Pao",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 180,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      {
+        "name": "As long as this Pokémon has a [D] Energy attached, your Active Pokémon takes 10 less damage from attacks __(before applying Weakness and Resistance)__.",
+        "text": "",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Glacial Lance",
+        "cost": [
+          "Water",
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": 90,
+        "text": ""
+      },
+      {
+        "name": "Frozen Curse Forte",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "30x",
+        "text": "This attack does 30 damage for each Forte Marker in play."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 94,
+      "total": 94,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T20:04:59.398Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "22",
+    "artist": "akay CG Works",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png"
+    },
+    "forteData": {
+      "discordUsername": "@AvalanWasTaken",
+      "originalJsonFileName": "Chien-Pao.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
     }
   },
   {
