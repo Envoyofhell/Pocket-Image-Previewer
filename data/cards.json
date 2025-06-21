@@ -3321,8 +3321,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T04:42:36.128Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:44:23.203Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -3348,7 +3348,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": true,
-      "approvedDate": "2025/06/20",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": 0,
