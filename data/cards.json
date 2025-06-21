@@ -4761,10 +4761,10 @@
   },
   {
     "id": "misc-077",
-    "name": "Hoopa",
+    "name": "Hoopa Forte",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Forte"
     ],
     "hp": 190,
     "types": [
@@ -4827,8 +4827,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/05/31",
-      "updatedAt": "2025-06-01T03:51:11.227Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:43:05.495Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -4844,8 +4844,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png"
+      "small": "https://drive.google.com/file/d/1OZJI3CJFtwm1Xu4WG_3LGVvEJxmaGs6z/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1OZJI3CJFtwm1Xu4WG_3LGVvEJxmaGs6z/view?usp=drivesdk"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
@@ -4854,7 +4854,7 @@
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": true,
-      "approvedDate": "2025/05/31",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
