@@ -5,7 +5,9 @@
     "main": "index.html",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "build:images": "node generate_image_structure.js"
+      "build:images": "node generate_image_structure.js",
+      "build:sitemap": "node generate_sitemap.js",
+      "build:all": "npm run build:images && npm run build:sitemap"
     },
     "keywords": [],
     "author": "",

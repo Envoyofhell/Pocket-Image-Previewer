@@ -22,7 +22,6 @@ window.ForteLightbox = {
         this.cacheElements();
         this.setupEventListeners();
         this.createActionButtons();
-        this.checkUrlForCard();
         
         console.log('[Lightbox] Module initialized');
     },
@@ -152,7 +151,7 @@ window.ForteLightbox = {
         this.updateDetails(card);
         this.updateNavigation();
         this.show();
-        this.updateUrl(card.id);
+        this.updateUrl(card);
     },
 
     close() {
@@ -176,9 +175,10 @@ window.ForteLightbox = {
         const cards = this.app.getFilteredCards();
         if (this.currentIndex > 0) {
             this.currentIndex--;
-            this.updateDetails(cards[this.currentIndex]);
+            const card = cards[this.currentIndex];
+            this.updateDetails(card);
             this.updateNavigation();
-            this.updateUrl(cards[this.currentIndex].id);
+            this.updateUrl(card);
         }
     },
 
@@ -186,9 +186,10 @@ window.ForteLightbox = {
         const cards = this.app.getFilteredCards();
         if (this.currentIndex < cards.length - 1) {
             this.currentIndex++;
-            this.updateDetails(cards[this.currentIndex]);
+            const card = cards[this.currentIndex];
+            this.updateDetails(card);
             this.updateNavigation();
-            this.updateUrl(cards[this.currentIndex].id);
+            this.updateUrl(card);
         }
     },
 
@@ -550,12 +551,15 @@ window.ForteLightbox = {
         const cards = this.app.getFilteredCards();
         const currentCard = cards[this.currentIndex];
         
-        if (!currentCard?.id) {
+        if (!currentCard) {
             this.showButtonStatus('fancy-share-button', 'error');
             return;
         }
 
-        const pageUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
+        // Use new URL format: /set/name-number
+        const pageUrl = window.ForteURLUtils ? 
+            window.ForteURLUtils.generateCardUrl(currentCard) : 
+            `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
 
         if (navigator.share) {
             navigator.share({
@@ -575,13 +579,15 @@ window.ForteLightbox = {
         const cards = this.app.getFilteredCards();
         const currentCard = cards[this.currentIndex];
         
-        if (!currentCard?.id) {
+        if (!currentCard) {
             this.showButtonStatus('fancy-share-button', 'error');
             return;
         }
         
-        // Create page URL with card ID
-        const pageUrl = `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
+        // Use new URL format: /set/name-number
+        const pageUrl = window.ForteURLUtils ? 
+            window.ForteURLUtils.generateCardUrl(currentCard) : 
+            `${window.location.origin}${window.location.pathname}#card=${currentCard.id}`;
         
         navigator.clipboard.writeText(pageUrl)
             .then(() => {
@@ -642,12 +648,34 @@ window.ForteLightbox = {
         }, 3000);
     },
 
-    updateUrl(cardId) {
-        const url = cardId ? `#card=${cardId}` : window.location.pathname;
-        window.history.pushState(null, null, url);
+    updateUrl(card) {
+        if (!card) {
+            // Reset to home page
+            if (window.ForteRouting) {
+                window.ForteRouting.navigateToHome();
+            } else {
+                window.history.pushState(null, null, window.location.pathname);
+            }
+            return;
+        }
+        
+        // Use routing system if available
+        if (window.ForteRouting) {
+            window.ForteRouting.navigateToCard(card);
+        } else {
+            // Fallback to old format
+            const newUrl = `${window.location.pathname}#card=${card.id}`;
+            window.history.pushState(null, null, newUrl);
+        }
     },
 
     checkUrlForCard() {
+        // Let the routing system handle this
+        if (window.ForteRouting) {
+            return;
+        }
+        
+        // Fallback to old hash format
         const hash = window.location.hash;
         if (hash && hash.startsWith('#card=')) {
             const cardId = hash.substring(6);
@@ -655,8 +683,28 @@ window.ForteLightbox = {
         }
     },
 
+    openCardByPath(setPath, cardSlug) {
+        // Find card by set path and card slug
+        let card = null;
+        
+        if (window.ForteURLUtils) {
+            card = window.ForteURLUtils.findCardByPath(this.app.getAllCards(), setPath, cardSlug);
+        }
+        
+        if (card) {
+            // Reset filters to show all cards
+            this.app.filters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
+            this.app.currentSetTab = 'all';
+            this.app.applyFiltersAndRender();
+            
+            setTimeout(() => this.open(card), 50);
+        }
+    },
+
     openCardById(cardId) {
+        // Fallback to original ID-based search
         const card = this.app.getAllCards().find(c => c.id === cardId);
+        
         if (card) {
             // Reset filters to show all cards
             this.app.filters = { type: 'all', supertype: 'all', rarity: 'all', creator: 'all', forte: 'all' };
