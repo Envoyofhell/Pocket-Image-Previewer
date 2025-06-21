@@ -7895,6 +7895,85 @@
     }
   },
   {
+    "id": "misc-117",
+    "name": "Great Ball",
+    "supertype": "Trainer",
+    "subtypes": [
+      "Item"
+    ],
+    "types": [
+      "Trainer"
+    ],
+    "rules": [
+      "Look at the top 7 cards of your deck. You may reveal",
+      "a Pokémon you find there and put it into your hand.",
+      "Shuffle the other cards back into your deck."
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T17:16:55.742Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "117",
+    "artist": "Studio Bora Inc.",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1hLGJ8IiR3IiEW7ZMXVu7OsRy7XKtyhuh/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1hLGJ8IiR3IiEW7ZMXVu7OsRy7XKtyhuh/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(117) Great Ball.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-119",
     "name": "Potion",
     "supertype": "Trainer",
