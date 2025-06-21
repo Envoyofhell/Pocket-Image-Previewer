@@ -10050,7 +10050,7 @@
     "convertedRetreatCost": 3,
     "set": {
       "id": "misc",
-      "name": "PFI",
+      "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
       "total": 139,
@@ -10286,7 +10286,7 @@
       "isForte": false,
       "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PFI",
+      "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": 0,
       "otherSheetData": {
         "prevolveName": "Riolu"
