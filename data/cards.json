@@ -1379,6 +1379,94 @@
     }
   },
   {
+    "id": "misc-020",
+    "name": "Chandelure",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 140,
+    "types": [
+      "Fire"
+    ],
+    "evolvesFrom": "Lampent",
+    "abilities": [
+      {
+        "name": "Fusion Soul",
+        "text": "During Pokémon Checkup, if this Pokémon is in the Active Spot, put 2 damage counters on each Pokémon with a Fusion Forte Marker on it __(both yours and your opponents)__.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Flame Helix",
+        "cost": [
+          "Fire"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 60,
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-21T00:42:58.495Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "20",
+    "artist": "so-taro",
+    "rarity": "",
+    "flavorText": "It absorbs spirits, which it then burns. By waving the flames on its arms, it puts its foes into a hypnotic trance.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-020.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-020.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(020) Chandelure.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-021",
     "name": "Salandit",
     "supertype": "Pokémon",
