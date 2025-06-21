@@ -4828,7 +4828,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T04:43:05.495Z",
+      "updatedAt": "2025-06-21T04:45:11.097Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -4836,7 +4836,7 @@
     },
     "number": "77",
     "artist": "TiMi Studios Inc.",
-    "rarity": "Full Art",
+    "rarity": "",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -4844,8 +4844,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1OZJI3CJFtwm1Xu4WG_3LGVvEJxmaGs6z/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1OZJI3CJFtwm1Xu4WG_3LGVvEJxmaGs6z/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-077.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
