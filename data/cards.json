@@ -6309,7 +6309,7 @@
   },
   {
     "id": "misc-107",
-    "name": "Ditto",
+    "name": "Ditto Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Basic"
@@ -6362,7 +6362,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T04:35:11.018Z",
+      "updatedAt": "2025-06-21T04:45:05.001Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -6387,7 +6387,7 @@
       "subname": "",
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "",
