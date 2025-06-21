@@ -10035,13 +10035,19 @@
         ],
         "convertedEnergyCost": 3,
         "damage": "",
-        "text": "Choose an attack from any Pokémon __**Forte**__ in play and use it as this attack. You cannot use __**Forte**__ Attacks this way."
+        "text": "Choose an attack from any Pokémon __**Forte**__ in play and use it as this attack. (You cannot choose __**Forte**__ attacks in this way.)"
       }
     ],
     "weaknesses": [
       {
         "type": "Psychic x",
         "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -10051,7 +10057,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFI",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
       "total": 139,
@@ -10063,7 +10069,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T18:00:00.648Z",
+      "updatedAt": "2025-06-21T19:25:38.815Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10071,7 +10077,7 @@
     },
     "number": "65",
     "artist": "krisAki",
-    "rarity": "",
+    "rarity": "Full Art",
     "flavorText": "It concentrates its mental energy and fires off mysterious waves called auras, which can crush boulders of large size to dust.",
     "legalities": {
       "standard": "Legal",
@@ -10085,15 +10091,15 @@
     },
     "forteData": {
       "discordUsername": "@LPBvgc",
-      "originalJsonFileName": "Lucario.json",
+      "originalJsonFileName": "Lucario (1).json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
       "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": 0.7,
+      "customSetIconTextFromSheet": "PFI",
+      "customSetIconTextFromJson": "PFI",
+      "prevolveImgSize": 0,
       "otherSheetData": {
         "prevolveName": "Riolu"
       }
