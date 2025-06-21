@@ -1,96 +1,5 @@
 [
   {
-    "id": "misc-004",
-    "name": "Shuckle",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 80,
-    "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Berry Picking",
-        "cost": [
-          "Neutral"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Search your deck for up to 2 Basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck."
-      },
-      {
-        "name": "Ram",
-        "cost": [
-          "Grass",
-          "Neutral",
-          "Neutral"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": 30,
-        "text": ""
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Fire x",
-        "value": "2"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 2,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T06:49:28.352Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "4",
-    "artist": "HYOGONOSUKE",
-    "rarity": "",
-    "flavorText": "It stores berries inside its shell. To avoid attacks, it hides beneath rocks and remains completly still.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-004.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-004.png"
-    },
-    "forteData": {
-      "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(004) Shuckle.json",
-      "subname": "",
-      "regulationMark": "N/A",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-007",
     "name": "Trevenant",
     "supertype": "Pokémon",
@@ -7512,6 +7421,97 @@
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
       "originalJsonFileName": "(003) Venusaur.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
+    "id": "misc-004",
+    "name": "Shuckle",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 80,
+    "types": [
+      "Grass"
+    ],
+    "attacks": [
+      {
+        "name": "Berry Picking",
+        "cost": [
+          "Neutral"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Search your deck for up to 2 Basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck."
+      },
+      {
+        "name": "Ram",
+        "cost": [
+          "Grass",
+          "Neutral",
+          "Neutral"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": 30,
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T21:19:09.916Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "4",
+    "artist": "HYOGONOSUKE",
+    "rarity": "",
+    "flavorText": "It stores berries inside its shell. To avoid attacks, it hides beneath rocks and remains completly still.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-004.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-004.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(004) Shuckle.json",
       "subname": "",
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
