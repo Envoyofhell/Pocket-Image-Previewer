@@ -2403,6 +2403,94 @@
     }
   },
   {
+    "id": "misc-035",
+    "name": "Arrokuda",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "basic"
+    ],
+    "hp": 50,
+    "types": [
+      "Water"
+    ],
+    "attacks": [
+      {
+        "name": "Peck",
+        "cost": [
+          "Neutral"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": ""
+      },
+      {
+        "name": "Flip Turn",
+        "cost": [
+          "Water"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 10,
+        "text": "Switch this Pokémonwith 1 of your Benched Pokémon"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:50:07.950Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "35",
+    "artist": "Hitoshi Ariga",
+    "rarity": "",
+    "flavorText": "After it's eaten its fill, its movements become extremely sluggish. That's when Cramorant swallows it up.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-035.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-035.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(035) Arrokuda.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-040",
     "name": "Mareep",
     "supertype": "Pokémon",
