@@ -3637,6 +3637,112 @@
     }
   },
   {
+    "id": "misc-091",
+    "name": "Gardevoir",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2 (Forte)"
+    ],
+    "hp": 250,
+    "types": [
+      "Dark"
+    ],
+    "evolvesFrom": "Kirlia",
+    "abilities": [
+      {
+        "name": "Spectro Dance",
+        "text": "Once during your turn, if this Pokémon is in the Active Spot, you may put a Spectro Forte Marker on 1 of your Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Elegant Pulse",
+        "cost": [
+          "Dragon",
+          "Dragon"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "90",
+        "text": ""
+      },
+      {
+        "name": "Star Arrow",
+        "cost": [
+          "Dragon"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "==This attack does 20 damage to 1 of your opponent’s Pokémon for each [Y] Energy attached to all of your Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.) (You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:00:09.275Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "91",
+    "artist": "TPCi",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Gardevoir Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": true,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": 0.16,
+      "otherSheetData": {
+        "prevolveName": "Kirlia"
+      }
+    }
+  },
+  {
     "id": "misc-092",
     "name": "Mawile",
     "supertype": "Pokémon",
