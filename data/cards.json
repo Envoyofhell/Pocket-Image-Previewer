@@ -9910,6 +9910,93 @@
     }
   },
   {
+    "id": "misc-037",
+    "name": "Electabuzz",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 70,
+    "types": [
+      "Electric"
+    ],
+    "attacks": [
+      {
+        "name": "Thunder Punch",
+        "cost": [
+          "Lightning",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30",
+        "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T19:13:23.707Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "37",
+    "artist": "NC Empire",
+    "rarity": "Full Art",
+    "flavorText": "Electricity runs across the surface of its body. In darkness, its entire body glows a whitish-blue.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-037.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-037.png"
+    },
+    "forteData": {
+      "discordUsername": "MachineGunFizzy",
+      "originalJsonFileName": "Electabuzz.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-057",
     "name": "Onix",
     "supertype": "Pokémon",
