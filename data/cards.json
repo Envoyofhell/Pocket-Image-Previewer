@@ -4449,6 +4449,120 @@
     }
   },
   {
+    "id": "misc-069",
+    "name": "Venusaur Forte",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2 (Forte)"
+    ],
+    "hp": 250,
+    "types": [
+      "Dark"
+    ],
+    "evolvesFrom": "Ivysaur",
+    "attacks": [
+      {
+        "name": "Powder Pursuit",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "",
+        "text": "Switch in 1 of your opponent’s Benched Pokémon to the Active Spot. Put an Electro Forte Marker on the new Active Pokémon."
+      },
+      {
+        "name": "Pollen Hazard",
+        "cost": [
+          "Darkness",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "50",
+        "text": "Your opponent’s Active Pokémon is now Burned, Confused and Poisoned."
+      },
+      {
+        "name": "Sycamore Slam",
+        "cost": [
+          "Darkness",
+          "Darkness",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 4,
+        "damage": "240",
+        "text": "==__(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:43:01.274Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "69",
+    "artist": "5ban Graphics",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1Kgn5jMO3q-jUuViaoje-_mbCCcJDq7mm/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1Kgn5jMO3q-jUuViaoje-_mbCCcJDq7mm/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Venusaur Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": true,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": 0,
+      "otherSheetData": {
+        "prevolveName": "Ivysaur"
+      }
+    }
+  },
+  {
     "id": "misc-075",
     "name": "Trubbish",
     "supertype": "Pokémon",
