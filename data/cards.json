@@ -4683,8 +4683,8 @@
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
       "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PFI",
-      "customSetIconTextFromJson": "PFI",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
   },
@@ -5339,7 +5339,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -6243,7 +6243,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -6341,7 +6341,7 @@
     ],
     "convertedRetreatCost": 1,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -6440,7 +6440,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -6539,7 +6539,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -6933,7 +6933,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -7032,7 +7032,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -7136,7 +7136,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -8089,7 +8089,7 @@
     ],
     "convertedRetreatCost": 1,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -8185,7 +8185,7 @@
     ],
     "convertedRetreatCost": 1,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -8297,7 +8297,7 @@
     ],
     "convertedRetreatCost": 1,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -10772,7 +10772,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -10865,7 +10865,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
@@ -10941,7 +10941,7 @@
     ],
     "convertedRetreatCost": 3,
     "set": {
-      "id": "misc",
+      "id": "PF1",
       "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,

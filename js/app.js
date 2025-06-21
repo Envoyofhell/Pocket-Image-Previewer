@@ -74,6 +74,12 @@ class ForteCardApp {
             throw new Error('Card data is not an array');
         }
         
+        // Fix set IDs to ensure consistency between set.name and set.id
+        if (window.ForteURLUtils && window.ForteURLUtils.fixAllCardSetIds) {
+            console.log('[App] Fixing set IDs for consistency...');
+            this.allCardsData = window.ForteURLUtils.fixAllCardSetIds(this.allCardsData);
+        }
+        
         console.log(`[App] Loaded ${this.allCardsData.length} cards`);
     }
 

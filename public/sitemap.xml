@@ -13,6 +13,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://your-domain.com/#set=misc</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://your-domain.com/#PF1/bulbasaur-1</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -307,6 +313,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://your-domain.com/#PF1/onix-57</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://your-domain.com/#PF1/paldean-wooper-58</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -338,6 +350,12 @@
   </url>
   <url>
     <loc>https://your-domain.com/#PF1/blaziken-forte-63</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/lucario-65</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -391,6 +409,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://your-domain.com/#PF1/steelix-forte-78</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/beldum-79</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/metang-80</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/metagross-81</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://your-domain.com/#PF1/empoleon-forte-82</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -404,6 +446,24 @@
   </url>
   <url>
     <loc>https://your-domain.com/#PF1/ferrothorn-84</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/klink-85</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/klang-86</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/klinklang-87</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -458,6 +518,24 @@
   </url>
   <url>
     <loc>https://your-domain.com/#PF1/mimikyu-98</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/gible-99</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/gabite-100</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/garchomp-forte-101</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -626,6 +704,24 @@
   </url>
   <url>
     <loc>https://your-domain.com/#PF1/pok-ball-factory-132</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/pokmon-center-133</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/technical-machine-tacet-distortion-138</loc>
+    <lastmod>2025-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://your-domain.com/#PF1/elemental-energy-139</loc>
     <lastmod>2025-06-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

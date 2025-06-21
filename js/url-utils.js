@@ -142,20 +142,54 @@ function parseCardPath(path) {
     };
 }
 
+/**
+ * Automatically fix set ID based on set name to ensure consistency
+ * @param {Object} card - The card object
+ * @returns {Object} The card object with corrected set.id
+ */
+function fixCardSetId(card) {
+    if (!card || !card.set) {
+        return card;
+    }
+    
+    // Set name to ID mapping based on filter_config.js
+    const setMapping = {
+        "PF1": "PF1",      // Forte Arrivals
+        "PFI": "PF1",      // Forte Arrivals (typo fix)
+        "PF1a": "PF1a",    // Celestial Resonance  
+        "pf1b": "pf1b",    // Ancient Awakenings
+        "Promo": "promo",  // Promo
+        "Unbound": "misc"  // Unbound (actual misc cards)
+    };
+    
+    // If set.name exists and set.id doesn't match the mapping, fix it
+    if (card.set.name && setMapping[card.set.name] && card.set.id !== setMapping[card.set.name]) {
+        console.log(`[URL Utils] Fixing set ID for ${card.name}: ${card.set.id} → ${setMapping[card.set.name]} (${card.set.name})`);
+        card.set.id = setMapping[card.set.name];
+    }
+    
+    return card;
+}
+
+/**
+ * Fix set IDs for all cards in an array
+ * @param {Array} cards - Array of card objects
+ * @returns {Array} Array of cards with corrected set IDs
+ */
+function fixAllCardSetIds(cards) {
+    if (!Array.isArray(cards)) {
+        return cards;
+    }
+    
+    return cards.map(card => fixCardSetId(card));
+}
+
 // Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        generateSEOUrl,
-        generateCardUrl,
-        findCardByPath,
-        parseCardPath
-    };
-} else {
-    // Browser environment
-    window.ForteURLUtils = {
-        generateSEOUrl,
-        generateCardUrl,
-        findCardByPath,
-        parseCardPath
-    };
-} 
+window.ForteURLUtils = {
+    generateCardUrl,
+    generateSEOUrl,
+    parseCardPath,
+    findCardByPath,
+    fixCardSetId,
+    fixAllCardSetIds
+}; 

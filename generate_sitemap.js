@@ -43,6 +43,34 @@ function generateSEOUrl(card) {
 }
 
 /**
+ * Automatically fix set ID based on set name to ensure consistency
+ * @param {Object} card - The card object
+ * @returns {Object} The card object with corrected set.id
+ */
+function fixCardSetId(card) {
+    if (!card || !card.set) {
+        return card;
+    }
+    
+    // Set name to ID mapping based on filter_config.js
+    const setMapping = {
+        "PF1": "PF1",      // Forte Arrivals
+        "PFI": "PF1",      // Forte Arrivals (typo fix)
+        "PF1a": "PF1a",    // Celestial Resonance  
+        "pf1b": "pf1b",    // Ancient Awakenings
+        "Promo": "promo",  // Promo
+        "Unbound": "misc"  // Unbound (actual misc cards)
+    };
+    
+    // If set.name exists and set.id doesn't match the mapping, fix it
+    if (card.set.name && setMapping[card.set.name] && card.set.id !== setMapping[card.set.name]) {
+        card.set.id = setMapping[card.set.name];
+    }
+    
+    return card;
+}
+
+/**
  * Generate XML sitemap content
  */
 function generateSitemapXML(urls) {
@@ -107,8 +135,10 @@ function generateCardUrls(cards) {
     const now = new Date().toISOString().split('T')[0];
     
     return cards.map(card => {
-        const seoUrl = generateSEOUrl(card);
-        const setId = card.set?.id || 'unknown';
+        // Fix set ID before generating URL
+        const fixedCard = fixCardSetId(card);
+        const seoUrl = generateSEOUrl(fixedCard);
+        const setId = fixedCard.set?.id || 'unknown';
         
         return {
             loc: `${SITE_URL}/#${setId}/${seoUrl}`,
@@ -254,8 +284,10 @@ function generateJSONSitemap(cards) {
         version: '1.0',
         generated: now,
         pages: cards.map(card => {
-            const seoUrl = generateSEOUrl(card);
-            const setId = card.set?.id || 'unknown';
+            // Fix set ID before generating URL
+            const fixedCard = fixCardSetId(card);
+            const seoUrl = generateSEOUrl(fixedCard);
+            const setId = fixedCard.set?.id || 'unknown';
             
             return {
                 url: `${SITE_URL}/#${setId}/${seoUrl}`,
