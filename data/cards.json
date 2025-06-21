@@ -6893,8 +6893,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-11T16:54:43.554Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:29:58.720Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -6914,13 +6914,13 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-127.png"
     },
     "forteData": {
-      "discordUsername": "@AvalanWasTaken",
+      "discordUsername": "Avalan (@AvalanWasTaken)",
       "originalJsonFileName": "Professors Research_data.json",
       "subname": "Professor Sycamore",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
