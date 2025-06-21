@@ -1748,6 +1748,96 @@
     }
   },
   {
+    "id": "misc-033",
+    "name": "Cryogonal",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 80,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      {
+        "name": "Glacio Overclock",
+        "text": "Once during your turn, you may put a Glacio Forte Marker on 2 of your Pokémon. If you use this Ability, this Pokémon is Knocked Out. You can’t use more than 1 Glacio Overclock  Ability each turn.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Freeze-Dry",
+        "cost": [
+          "Water",
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70+",
+        "text": "If your opponent’s Active Pokémon is a [W] Pokémon, this attack does 30 more damage."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-21T00:10:22.101Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "33",
+    "artist": "Kagemaru Himeno",
+    "rarity": "Full Art",
+    "flavorText": "When the weather gets hot, these Pokémon turn into water vapor. Cryogonal are almost never seen during summer.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-033.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-033.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Cryogonal.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-040",
     "name": "Mareep",
     "supertype": "Pokémon",
