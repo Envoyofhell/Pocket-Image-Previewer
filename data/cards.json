@@ -2407,7 +2407,7 @@
     "name": "Arrokuda",
     "supertype": "Pokémon",
     "subtypes": [
-      "basic"
+      "Basic"
     ],
     "hp": 50,
     "types": [
@@ -2457,7 +2457,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:50:07.950Z",
+      "updatedAt": "2025-06-21T00:50:23.663Z",
       "images": {
         "symbol": "",
         "logo": ""
