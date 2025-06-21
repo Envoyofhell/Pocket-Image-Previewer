@@ -7986,85 +7986,6 @@
     }
   },
   {
-    "id": "misc-129",
-    "name": "Youhu",
-    "supertype": "Trainer",
-    "subtypes": [],
-    "types": [
-      "Trainer"
-    ],
-    "rules": [
-      "Search your deck for up to 2 Basic Pokémon, reveal",
-      "them, and put them into your hand. Then, shuffle",
-      "your deck."
-    ],
-    "weaknesses": [
-      {
-        "type": "Fighting",
-        "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-20"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 2,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:15:51.793Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "129",
-    "artist": "Kaekaeki",
-    "rarity": "Full Art",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-129.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-129.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Youhu (1).json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/20",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "dualTypeId": 0
-      }
-    }
-  },
-  {
     "id": "misc-130",
     "name": "Verina",
     "supertype": "Trainer",
@@ -11395,6 +11316,68 @@
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
+    }
+  },
+  {
+    "id": "misc-129",
+    "name": "Youhu",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Trainer"
+    ],
+    "rules": [
+      "Search your deck for up to 2 Basic Pokémon, reveal",
+      "them, and put them into your hand. Then, shuffle",
+      "your deck."
+    ],
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T20:19:44.759Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "129",
+    "artist": "Kaekaeki",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-129.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-129.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Youhu (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "dualTypeId": 0
+      }
     }
   }
 ]
