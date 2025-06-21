@@ -11168,10 +11168,30 @@
     "name": "Professor's Research ",
     "supertype": "Trainer",
     "subtypes": [],
-    "types": [],
+    "types": [
+      "Dark"
+    ],
     "rules": [
       "Discard your hand and draw 7 cards."
     ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
     "set": {
       "id": "misc",
       "name": "PF1",
@@ -11186,7 +11206,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T20:19:31.059Z",
+      "updatedAt": "2025-06-21T21:16:09.115Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -11194,7 +11214,7 @@
     },
     "number": "127",
     "artist": "Teeziro",
-    "rarity": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
