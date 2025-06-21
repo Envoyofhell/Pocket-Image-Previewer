@@ -1666,33 +1666,41 @@
     ],
     "hp": 160,
     "types": [
-      "Dark"
+      "Water"
     ],
     "evolvesFrom": "Prinplup",
     "attacks": [
       {
         "name": "Recall",
         "cost": [
-          "Water x1"
+          "Water"
         ],
         "convertedEnergyCost": 1,
-        "damage": "N/A",
+        "damage": "",
         "text": "Choose an attack from 1 of this Pokémon’s previous Evolutions and use it as this attack."
       },
       {
         "name": "Ice Wing",
         "cost": [
-          "Water x2. Neutral x1"
+          "Water",
+          "Water",
+          "Colorless"
         ],
-        "convertedEnergyCost": 1,
-        "damage": 80,
-        "text": "During your opponent’s next turn, this Pokémon takes 30 less damage from attacks (after applying Weakness and Resistance)."
+        "convertedEnergyCost": 3,
+        "damage": "80",
+        "text": "During your opponent’s next turn, this Pokémon takes 30 less damage from attacks __(after applying Weakness and Resistance).__"
       }
     ],
     "weaknesses": [
       {
         "type": "Grass x",
         "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -1713,8 +1721,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-05-23T17:27:41.258Z",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:22:50.923Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -1722,7 +1730,7 @@
     },
     "number": "29",
     "artist": "Naoki Saito",
-    "rarity": "",
+    "rarity": "Full Art",
     "flavorText": "If anyone were to hurt its pride, it would slash them with wings that can cleave through an ice floe.",
     "legalities": {
       "standard": "Legal",
@@ -1735,15 +1743,15 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-029.png"
     },
     "forteData": {
-      "discordUsername": "#brainshock_omega",
+      "discordUsername": "Brainshock_Omega",
       "originalJsonFileName": "Empoleon.json",
       "subname": "",
       "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/06/20",
       "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
+      "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
   },
