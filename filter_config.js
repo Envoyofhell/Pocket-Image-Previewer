@@ -17,7 +17,7 @@ const SITE_CONFIG = {
     // Ensure the CODES ("pf1", "misc", etc.) match exactly what's in card.set.id in your cards.json
     setDisplayNameToCodeMap: {
         "Forte Arrivals": "PF1",
-        "Celestial Resonance": "pf1a",
+        "Celestial Resonance": "PF1a",
         "Ancient Awakenings": "pf1b",
         "Promo": "promo",
         "Unbound": "misc" // This display name maps to the 'misc' set ID
