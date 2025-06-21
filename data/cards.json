@@ -852,105 +852,6 @@
     }
   },
   {
-    "id": "misc-017",
-    "name": "Blaziken",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Stage 2"
-    ],
-    "hp": 150,
-    "types": [
-      "Fire"
-    ],
-    "evolvesFrom": "Combusken",
-    "abilities": [
-      {
-        "name": "Firestarter",
-        "text": "Once during your turn, you may attach a [R] Energy card from your discard pile to 1 of your Benched Pokémon.",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Fire Stream",
-        "cost": [
-          "Fire",
-          "Fire",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "90",
-        "text": "Discard a [R] Energy from this Pokémon. This attack also does 20 damage to each of your opponent’s Benched Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.)__"
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Water x",
-        "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 2,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:24:42.338Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "17",
-    "artist": "Kouki Saitou",
-    "rarity": "Full Art",
-    "flavorText": "When facing a tough foe, it looses flames from its wrists. Its powerful legs let it jump clear over buildings.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-017.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-017.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Blaziken.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/20",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Combusken"
-      }
-    }
-  },
-  {
     "id": "misc-018",
     "name": "Litwick",
     "supertype": "Pokémon",
@@ -8525,6 +8426,99 @@
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
+    }
+  },
+  {
+    "id": "misc-017",
+    "name": "Blaziken",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 150,
+    "types": [
+      "Fire"
+    ],
+    "evolvesFrom": "Combusken",
+    "abilities": [
+      {
+        "name": "Firestarter",
+        "text": "Once during your turn, you may attach a [R] Energy card from your discard pile to 1 of your Benched Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Fire Stream",
+        "cost": [
+          "Fire",
+          "Fire",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": 90,
+        "text": "Discard a [R] Energy from this Pokémon. This attack also does 20 damage to each of your opponent’s Benched Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.)__"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T20:20:13.419Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "17",
+    "artist": "Kouki Saitou",
+    "rarity": "",
+    "flavorText": "When facing a tough foe, it looses flames from its wrists. Its powerful legs let it jump clear over buildings.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-017.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-017.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Blaziken.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/20",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Combusken"
+      }
     }
   },
   {
