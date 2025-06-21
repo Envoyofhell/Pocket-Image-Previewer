@@ -3248,7 +3248,7 @@
   },
   {
     "id": "misc-053",
-    "name": "Malamar",
+    "name": "Malamar Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1 (Forte)"
@@ -3322,7 +3322,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-20T23:21:00.455Z",
+      "updatedAt": "2025-06-21T04:42:36.128Z",
       "images": {
         "symbol": "",
         "logo": ""
