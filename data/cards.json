@@ -4672,7 +4672,7 @@
   },
   {
     "id": "misc-082",
-    "name": "Empoleon",
+    "name": "Empoleon Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 2 (Forte)"
@@ -4741,8 +4741,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:14:33.852Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:34:34.658Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -4758,8 +4758,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1oIk4fQ_5Me0yIiFqeKBYJNNJAfxhyCck/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1oIk4fQ_5Me0yIiFqeKBYJNNJAfxhyCck/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-082.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-082.png"
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
@@ -4768,7 +4768,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": true,
-      "approvedDate": "2025/06/20",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": 0,
