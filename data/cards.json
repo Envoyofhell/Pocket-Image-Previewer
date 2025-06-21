@@ -10101,37 +10101,32 @@
   },
   {
     "id": "misc-068",
-    "name": "Lucario",
+    "name": "Falinks",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic"
     ],
-    "hp": 130,
+    "hp": 100,
     "types": [
       "Fighting"
     ],
-    "evolvesFrom": "Riolu",
+    "abilities": [
+      {
+        "name": "Call for Backup",
+        "text": "If this Pokémon is in the Active Spot and is damaged by an attack from your opponent’s Pokémon __(even if this Pokémon is Knocked Out)__, you may search your deck for a Pokémon that has “Falinks” in its name and put it onto your Bench. Then, shuffle your deck.",
+        "type": "Ability"
+      }
+    ],
     "attacks": [
       {
-        "name": "Rush",
+        "name": "All Out Attack",
         "cost": [
           "Fighting",
           "Colorless"
         ],
         "convertedEnergyCost": 2,
-        "damage": "50",
-        "text": ""
-      },
-      {
-        "name": "Resonation",
-        "cost": [
-          "Fighting",
-          "Fighting",
-          "Fighting"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "",
-        "text": "Choose an attack from any Pokémon __**Forte**__ in play and use it as this attack. (You cannot choose __**Forte**__ attacks in this way.)"
+        "damage": "20×",
+        "text": "This attack does 20 damage for each of your Falinks in play."
       }
     ],
     "weaknesses": [
@@ -10165,16 +10160,16 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T19:17:04.144Z",
+      "updatedAt": "2025-06-21T19:22:46.994Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "68",
-    "artist": "krisAki",
+    "artist": "Misa Tsutsui",
     "rarity": "Full Art",
-    "flavorText": "It concentrates its mental energy and fires off mysterious waves called auras, which can crush boulders of large size to dust.",
+    "flavorText": "The six of them work together as one Pokémon. Teamwork is also their battle strategy, and they constantly change their formation as they fight.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -10186,8 +10181,8 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-068.png"
     },
     "forteData": {
-      "discordUsername": "@LPBvgc",
-      "originalJsonFileName": "Lucario.json",
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Falinks.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
@@ -10195,10 +10190,7 @@
       "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": 0,
-      "otherSheetData": {
-        "prevolveName": "Riolu"
-      }
+      "prevolveImgSize": ""
     }
   },
   {
