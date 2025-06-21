@@ -2956,6 +2956,91 @@
     }
   },
   {
+    "id": "misc-045",
+    "name": "Gastly",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 50,
+    "types": [
+      "Psychic"
+    ],
+    "attacks": [
+      {
+        "name": "Shadow Drop",
+        "cost": [
+          "Psychic"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Put 1 damage counter on your opponent’s Active Pokémon."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Dark x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-21T06:32:49.709Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "45",
+    "artist": "Takashi Yamaguchi",
+    "rarity": "Full Art",
+    "flavorText": "Its body is made of gas. Despite lacking substance, it can envelop an opponent of any size and cause suffocation.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1ofoyxKVyH9ZfMx0EemZfedMEo-5uNJXh/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1ofoyxKVyH9ZfMx0EemZfedMEo-5uNJXh/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Gastly.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-046",
     "name": "Haunter",
     "supertype": "Pokémon",
