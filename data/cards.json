@@ -7827,6 +7827,12 @@
         "value": "2"
       }
     ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -7845,7 +7851,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T20:19:37.071Z",
+      "updatedAt": "2025-06-21T21:16:12.883Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -7853,7 +7859,7 @@
     },
     "number": "10",
     "artist": "Heisuke Kitazawa",
-    "rarity": "",
+    "rarity": "Full Art",
     "flavorText": "It anchors itself in the ground with its single leg, then basks in the sun. After absorbing enough sunlight, its petals spread as it blooms brilliantly.",
     "legalities": {
       "standard": "Legal",
@@ -7862,8 +7868,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-010.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-010.png"
+      "small": "https://drive.google.com/file/d/1NZ7iZU3o26f4Lc0uH9lETCuoBv2VcKc-/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1NZ7iZU3o26f4Lc0uH9lETCuoBv2VcKc-/view?usp=drivesdk"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
