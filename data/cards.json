@@ -4217,7 +4217,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T04:43:07.344Z",
+      "updatedAt": "2025-06-21T04:45:00.450Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -4242,7 +4242,7 @@
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
