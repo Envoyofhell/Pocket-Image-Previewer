@@ -1335,21 +1335,21 @@ body {
 }
 
 /* Type-based Pokemon name coloring */
-#lb-card-name.type-grass, #card-title-lightbox.type-grass { color: #22c55e; }
-#lb-card-name.type-fire, #card-title-lightbox.type-fire { color: #ef4444; }
-#lb-card-name.type-water, #card-title-lightbox.type-water { color: #0ea5e9; }
+#lb-card-name.type-grass, #card-title-lightbox.type-grass { color: #22c55e !important; background-color: transparent !important; }
+#lb-card-name.type-fire, #card-title-lightbox.type-fire { color: #ef4444 !important; background-color: transparent !important; }
+#lb-card-name.type-water, #card-title-lightbox.type-water { color: #0ea5e9 !important; background-color: transparent !important; }
 #lb-card-name.type-lightning, #card-title-lightbox.type-lightning,
-#lb-card-name.type-electric, #card-title-lightbox.type-electric { color: #fbbf24; }
-#lb-card-name.type-psychic, #card-title-lightbox.type-psychic { color: #c084fc; }
-#lb-card-name.type-fighting, #card-title-lightbox.type-fighting { color: #fb923c; }
+#lb-card-name.type-electric, #card-title-lightbox.type-electric { color: #fbbf24 !important; background-color: transparent !important; }
+#lb-card-name.type-psychic, #card-title-lightbox.type-psychic { color: #c084fc !important; background-color: transparent !important; }
+#lb-card-name.type-fighting, #card-title-lightbox.type-fighting { color: #fb923c !important; background-color: transparent !important; }
 #lb-card-name.type-darkness, #card-title-lightbox.type-darkness,
-#lb-card-name.type-dark, #card-title-lightbox.type-dark { color: #7c3aed; }
-#lb-card-name.type-metal, #card-title-lightbox.type-metal { color: #64748b; }
-#lb-card-name.type-dragon, #card-title-lightbox.type-dragon { color: #8b5cf6; }
-#lb-card-name.type-fairy, #card-title-lightbox.type-fairy { color: #f472b6; }
+#lb-card-name.type-dark, #card-title-lightbox.type-dark { color: #7c3aed !important; background-color: transparent !important; }
+#lb-card-name.type-metal, #card-title-lightbox.type-metal { color: #64748b !important; background-color: transparent !important; }
+#lb-card-name.type-dragon, #card-title-lightbox.type-dragon { color: #8b5cf6 !important; background-color: transparent !important; }
+#lb-card-name.type-fairy, #card-title-lightbox.type-fairy { color: #f472b6 !important; background-color: transparent !important; }
 #lb-card-name.type-colorless, #card-title-lightbox.type-colorless,
 #lb-card-name.type-neutral, #card-title-lightbox.type-neutral,
-#lb-card-name.type-normal, #card-title-lightbox.type-normal { color: #a1a1aa; }
+#lb-card-name.type-normal, #card-title-lightbox.type-normal { color: #a1a1aa !important; background-color: transparent !important; }
 
 .ability-description {
     font-family: 'Inter', sans-serif;

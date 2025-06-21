@@ -210,10 +210,7 @@ window.ForteLightbox = {
         if (this.elements['card-title-lightbox']) {
             let titleText = card.name || 'Card Details';
             
-            // Add "Forte" to title for forte cards
-            if (card.forteData?.isForte) {
-                titleText += ' <span class="forte-title-text">Forte</span>';
-            }
+            
             
             this.elements['card-title-lightbox'].innerHTML = titleText;
             
