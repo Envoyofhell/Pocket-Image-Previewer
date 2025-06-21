@@ -1,93 +1,5 @@
 [
   {
-    "id": "misc-001",
-    "name": "Bulbasaur",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 70,
-    "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Poison powder",
-        "cost": [
-          "Neutral x1"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Poisoned."
-      },
-      {
-        "name": "Headbutt",
-        "cost": [
-          "Neutral x2"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": 20,
-        "text": ""
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "fire",
-        "value": "2"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T17:04:55.679Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "1",
-    "artist": "jaksinart",
-    "rarity": "",
-    "flavorText": "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png"
-    },
-    "forteData": {
-      "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(001) Bulbasaur.json",
-      "subname": "",
-      "regulationMark": "N/A",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-002",
     "name": "Ivysaur",
     "supertype": "Pokémon",
@@ -9509,6 +9421,94 @@
         "typeImgAmount": 1,
         "typeImgId": 11
       }
+    }
+  },
+  {
+    "id": "misc-001",
+    "name": "Bulbasaur",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 70,
+    "types": [
+      "Grass"
+    ],
+    "attacks": [
+      {
+        "name": "Poison powder",
+        "cost": [
+          "Neutral x1"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Poisoned."
+      },
+      {
+        "name": "Headbutt",
+        "cost": [
+          "Neutral x2"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T20:05:02.804Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "1",
+    "artist": "jaksinart",
+    "rarity": "",
+    "flavorText": "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(001) Bulbasaur.json",
+      "subname": "",
+      "regulationMark": "N/A",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
     }
   },
   {
