@@ -5347,7 +5347,7 @@
   },
   {
     "id": "misc-091",
-    "name": "Gardevoir",
+    "name": "Gardevoir Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 2 (Forte)"
@@ -5415,8 +5415,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:02:30.225Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:42:52.062Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -5442,7 +5442,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": true,
-      "approvedDate": "2025/06/20",
+      "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": 0.16,
