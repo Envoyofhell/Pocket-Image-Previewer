@@ -3142,6 +3142,104 @@
     }
   },
   {
+    "id": "misc-047",
+    "name": "Gengar",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 110,
+    "types": [
+      "Psychic"
+    ],
+    "evolvesFrom": "Haunter",
+    "abilities": [
+      {
+        "name": "Cursed Call",
+        "text": "Once during your turn, you may put 2 damage counters on this Pokémon.  If you do, during this turn, attacks used by your [P] Pokémon do 20 more damage to your opponent’s Active Pokémon (before applying Weakness and Resistance). You can’t use more than 1 Cursed Call Ability during your turn.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Shadow Wave",
+        "cost": [
+          "Psychic",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "100",
+        "text": "During your next turn, this Pokémon can’t use Shadow Wave."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Dark x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T06:32:52.211Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "47",
+    "artist": "Narumi Sato",
+    "rarity": "Full Art",
+    "flavorText": "To steal the life of its target, it slips into the prey's shadow and silently waits for an opportunity.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-047.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-047.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Gengar.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Haunter"
+      }
+    }
+  },
+  {
     "id": "misc-048",
     "name": "Drowzee",
     "supertype": "Pokémon",
