@@ -1488,25 +1488,26 @@
     ],
     "hp": 60,
     "types": [
-      "Dark"
+      "Water"
     ],
     "attacks": [
       {
         "name": "Cold Peck",
         "cost": [
-          "TypeID:11 x1"
+          "Colorless"
         ],
         "convertedEnergyCost": 1,
-        "damage": 10,
+        "damage": "10",
         "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed. If tails, this attack does nothing."
       },
       {
         "name": "Reckless Waddle",
         "cost": [
-          "TypeID:11 x2"
+          "Colorless",
+          "Colorless"
         ],
-        "convertedEnergyCost": 1,
-        "damage": 30,
+        "convertedEnergyCost": 2,
+        "damage": "30",
         "text": "This Pokémon also does 10 damage to itself."
       }
     ],
@@ -1514,6 +1515,12 @@
       {
         "type": "Grass x",
         "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -1533,8 +1540,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/05/23",
-      "updatedAt": "2025-05-23T17:24:05.719Z",
+      "releaseDate": "2025/06/20",
+      "updatedAt": "2025-06-21T00:24:05.292Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -1543,7 +1550,7 @@
     "number": "27",
     "artist": "Suwama Chiaki",
     "rarity": "Full Art",
-    "flavorText": "A poor walker, it often falls down. However, its strong pride makes it puff up its chest without a care.",
+    "flavorText": "\tA poor walker, it often falls down. However, its strong pride makes it puff up its chest without a care.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -1555,15 +1562,15 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-027.png"
     },
     "forteData": {
-      "discordUsername": "#brainshock_omega",
+      "discordUsername": "Brainshock_Omega",
       "originalJsonFileName": "Piplup.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/05/23",
+      "approvedDate": "2025/06/20",
       "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
+      "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
   },
