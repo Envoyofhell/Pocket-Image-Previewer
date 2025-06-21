@@ -1916,7 +1916,7 @@
   },
   {
     "id": "misc-025",
-    "name": "Gyarados",
+    "name": "Gyarados Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1"
@@ -1983,7 +1983,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T04:35:15.803Z",
+      "updatedAt": "2025-06-21T04:45:08.431Z",
       "images": {
         "symbol": "",
         "logo": ""
