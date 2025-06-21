@@ -3645,7 +3645,7 @@
     ],
     "hp": 250,
     "types": [
-      "Dark"
+      "Fairy"
     ],
     "evolvesFrom": "Kirlia",
     "abilities": [
@@ -3707,7 +3707,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-21T00:00:09.275Z",
+      "updatedAt": "2025-06-21T00:02:30.225Z",
       "images": {
         "symbol": "",
         "logo": ""
