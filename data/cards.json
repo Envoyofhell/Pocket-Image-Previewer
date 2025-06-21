@@ -10245,7 +10245,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PFI",
+      "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
       "total": 139,
@@ -10256,8 +10256,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-21T19:09:09.746Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T19:17:04.144Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10284,8 +10284,8 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
-      "customSetIconTextFromSheet": "PFI",
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PFI",
       "prevolveImgSize": 0,
       "otherSheetData": {
