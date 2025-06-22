@@ -8916,6 +8916,85 @@
     }
   },
   {
+    "id": "misc-064",
+    "name": "Riolu",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Fighting"
+    ],
+    "attacks": [
+      {
+        "name": "Jab",
+        "cost": [
+          "Fighting"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "20",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "×2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-22T02:12:20.114Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "64",
+    "artist": "AKIRA EGAWA",
+    "rarity": "",
+    "flavorText": "It knows how people and Pokémon feel by looking at their auras. It doesn't approach dangerous opponents.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-064.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-064.png"
+    },
+    "forteData": {
+      "discordUsername": "@LPBvgc",
+      "originalJsonFileName": "Riolu (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-065",
     "name": "Lucario",
     "supertype": "Pokémon",
