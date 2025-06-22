@@ -5573,85 +5573,6 @@
     }
   },
   {
-    "id": "misc-117",
-    "name": "Great Ball",
-    "supertype": "Trainer",
-    "subtypes": [
-      "Item"
-    ],
-    "types": [
-      "Trainer"
-    ],
-    "rules": [
-      "Look at the top 7 cards of your deck. You may reveal",
-      "a Pokémon you find there and put it into your hand.",
-      "Shuffle the other cards back into your deck."
-    ],
-    "weaknesses": [
-      {
-        "type": "Fighting",
-        "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 3,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T17:22:26.156Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "117",
-    "artist": "Studio Bora Inc.",
-    "rarity": "Full Art",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-117.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-117.png"
-    },
-    "forteData": {
-      "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(117) Great Ball.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-119",
     "name": "Potion",
     "supertype": "Trainer",
@@ -11004,6 +10925,85 @@
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
       "originalJsonFileName": "(116) Poké Ball.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
+    "id": "misc-117",
+    "name": "Great Ball",
+    "supertype": "Trainer",
+    "subtypes": [
+      "Item"
+    ],
+    "types": [
+      "Trainer"
+    ],
+    "rules": [
+      "Look at the top 7 cards of your deck. You may reveal",
+      "a Pokémon you find there and put it into your hand.",
+      "Shuffle the other cards back into your deck."
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-22T02:11:47.639Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "117",
+    "artist": "Studio Bora Inc.",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-117.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-117.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(117) Great Ball.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
