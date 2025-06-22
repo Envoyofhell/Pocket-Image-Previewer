@@ -3285,100 +3285,6 @@
     }
   },
   {
-    "id": "misc-074",
-    "name": "Sableye",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 80,
-    "types": [
-      "Dark"
-    ],
-    "attacks": [
-      {
-        "name": "Gem Search",
-        "cost": [
-          "Colorless"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Look at the top card of your deck. You may put that card into your hand. If you don’t, discard that card and draw a card."
-      },
-      {
-        "name": "Crazy Claws",
-        "cost": [
-          "Darkness"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "100",
-        "text": "If neither Active Pokémon have any Forte Markers on them, this attack does nothing."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Grass x",
-        "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-21T17:23:06.461Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "74",
-    "artist": "Eri Yamaki",
-    "rarity": "Full Art",
-    "flavorText": "It feeds on gemstone crystals. In darkness, its eyes sparkle with the glitter of jewels.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-074.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-074.png"
-    },
-    "forteData": {
-      "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(074) Sableye.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "1969/12/31",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-076",
     "name": "Garbodor",
     "supertype": "Pokémon",
@@ -9828,6 +9734,100 @@
         "prevolveName": "Nidorino",
         "dualTypeId": 0
       }
+    }
+  },
+  {
+    "id": "misc-074",
+    "name": "Sableye",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 80,
+    "types": [
+      "Dark"
+    ],
+    "attacks": [
+      {
+        "name": "Gem Search",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Look at the top card of your deck. You may put that card into your hand. If you don’t, discard that card and draw a card."
+      },
+      {
+        "name": "Crazy Claws",
+        "cost": [
+          "Darkness"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "100",
+        "text": "If neither Active Pokémon have any Forte Markers on them, this attack does nothing."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-22T02:09:46.011Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "74",
+    "artist": "Eri Yamaki",
+    "rarity": "Full Art",
+    "flavorText": "It feeds on gemstone crystals. In darkness, its eyes sparkle with the glitter of jewels.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-074.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-074.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(074) Sableye.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
     }
   },
   {
