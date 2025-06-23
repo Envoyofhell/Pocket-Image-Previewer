@@ -6347,41 +6347,25 @@
   },
   {
     "id": "misc-004",
-    "name": "Shuckle",
+    "name": "Basic [L] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Basic Energy"
     ],
-    "hp": 80,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Berry Picking",
-        "cost": [
-          "Neutral"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Search your deck for up to 2 Basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck."
-      },
-      {
-        "name": "Ram",
-        "cost": [
-          "Grass",
-          "Neutral",
-          "Neutral"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": 30,
-        "text": ""
-      }
+      "Electric"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -6391,10 +6375,10 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6402,17 +6386,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T21:19:09.916Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:02:07.647Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "4",
-    "artist": "HYOGONOSUKE",
-    "rarity": "",
-    "flavorText": "It stores berries inside its shell. To avoid attacks, it hides beneath rocks and remains completly still.",
+    "artist": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6425,15 +6408,19 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(004) Shuckle.json",
+      "originalJsonFileName": "(004) Basic [L] Energy.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "typeImgAmount": 1,
+        "typeImgId": 4
+      }
     }
   },
   {
