@@ -6369,44 +6369,25 @@
   },
   {
     "id": "misc-007",
-    "name": "Trevenant",
+    "name": "Basic [D] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic Energy"
     ],
-    "hp": 130,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "evolvesFrom": "Phantump",
-    "attacks": [
-      {
-        "name": "Forest's Miasma",
-        "cost": [
-          "Grass",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": "30x",
-        "text": "This attack does 30 damage for each Forte Marker on your opponent's Pokémon."
-      },
-      {
-        "name": "Jungle Hammer",
-        "cost": [
-          "Grass",
-          "Grass",
-          "Neutral",
-          "Neutral"
-        ],
-        "convertedEnergyCost": 4,
-        "damage": 150,
-        "text": "This Pokemon also does 50 damage to itself."
-      }
+      "Dark"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -6416,10 +6397,10 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6427,17 +6408,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-23T22:06:43.451Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:19:55.561Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "7",
-    "artist": "5ban Graphics",
-    "rarity": "",
-    "flavorText": "Trevenant is very kind to pokemon living in the forest. It does't even care if these Pokemon take up residen in the greenery of its head.",
+    "artist": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6445,20 +6425,24 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1o0fKTbs5PjJ1F_Q-lIShQ5yAZ0PXT_Ft/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1o0fKTbs5PjJ1F_Q-lIShQ5yAZ0PXT_Ft/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-007.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-007.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(007) Trevenant.json",
+      "originalJsonFileName": "(007) Basic [D] Energy.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "typeImgAmount": 1,
+        "typeImgId": 7
+      }
     }
   },
   {
