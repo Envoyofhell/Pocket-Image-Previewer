@@ -5821,7 +5821,7 @@
     }
   },
   {
-    "id": "misc-001",
+    "id": "PFE-001",
     "name": "Basic [G] Energy",
     "supertype": "Pokémon",
     "subtypes": [
@@ -5849,7 +5849,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PFE",
       "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
@@ -5899,7 +5899,7 @@
     }
   },
   {
-    "id": "misc-002",
+    "id": "PFE-002",
     "name": "Basic [R] Energy",
     "supertype": "Pokémon",
     "subtypes": [
@@ -5927,7 +5927,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PFE",
       "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
@@ -5977,7 +5977,7 @@
     }
   },
   {
-    "id": "misc-003",
+    "id": "PFE-003",
     "name": "Basic [W] Energy",
     "supertype": "Pokémon",
     "subtypes": [
@@ -6005,7 +6005,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PFE",
       "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
@@ -6055,7 +6055,7 @@
     }
   },
   {
-    "id": "misc-004",
+    "id": "PFE-004",
     "name": "Basic [L] Energy",
     "supertype": "Pokémon",
     "subtypes": [
@@ -6083,7 +6083,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PFE",
       "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
@@ -6133,7 +6133,7 @@
     }
   },
   {
-    "id": "misc-005",
+    "id": "PFE-005",
     "name": "Basic [P] Energy",
     "supertype": "Pokémon",
     "subtypes": [
@@ -6161,7 +6161,7 @@
     ],
     "convertedRetreatCost": 2,
     "set": {
-      "id": "misc",
+      "id": "PFE",
       "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
@@ -7108,105 +7108,7 @@
       "prevolveImgSize": ""
     }
   },
-  {
-    "id": "misc-020",
-    "name": "Chandelure",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 130,
-    "types": [
-      "Water"
-    ],
-    "evolvesFrom": "Lampent",
-    "abilities": [
-      {
-        "name": "Eternal Pyre",
-        "text": "If this Pokémon is in the Active Spot and is damaged by an attack from your opponent’s Pokémon (even if this Pokémon is Knocked Out), the Attacking Pokémon is now Burned.",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Searing Torch",
-        "cost": [
-          "Fire",
-          "Fire",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "40+",
-        "text": "This attack does 20 more damage for each Benched Pokémon (both yours and your opponent’s)."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Fighting",
-        "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Metal",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 2,
-    "set": {
-      "id": "misc",
-      "name": "PFE",
-      "series": "Scarlet & Violet",
-      "printedTotal": 130,
-      "total": 130,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:13:09.206Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "20",
-    "artist": "PLANETA",
-    "rarity": "Full Art",
-    "flavorText": "It absorbs spirits, which it then burns. By waving the flames on its arms, it puts its foes into a hypnotic trance.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-020.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-020.png"
-    },
-    "forteData": {
-      "discordUsername": "test",
-      "originalJsonFileName": "133 Chandelure.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/23",
-      "customSetIconTextFromSheet": "PFE",
-      "customSetIconTextFromJson": "ART",
-      "prevolveImgSize": 0.88,
-      "otherSheetData": {
-        "prevolveName": "Lampent"
-      }
-    }
-  },
+  
   {
     "id": "misc-022",
     "name": "Salazzle",
