@@ -6105,11 +6105,11 @@
     "name": "Basic [G] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "ex (Basic)"
+      "Basic Energy"
     ],
     "hp": "0",
     "types": [
-      "Dragon"
+      "Grass"
     ],
     "weaknesses": [
       {
@@ -6142,7 +6142,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T21:59:38.928Z",
+      "updatedAt": "2025-06-23T22:02:03.280Z",
       "images": {
         "symbol": "",
         "logo": ""
