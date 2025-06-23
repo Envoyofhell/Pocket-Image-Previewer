@@ -11519,5 +11519,84 @@
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
+  },
+  {
+    "id": "misc-137",
+    "name": "Jinzhou Skewers",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Trainer Tool"
+    ],
+    "rules": [
+      "If this card is attached to 1 of your Pokémon, discard",
+      "it at the end of your turn.",
+      "Attacks used by the Pokémon this card is attached",
+      "to do 20 more damage to your opponent's Active",
+      "Pokémon __(before applying Weakness and Resistance)__."
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T03:46:49.869Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "137",
+    "artist": "Kuro Games Inc.",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-137.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-137.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(137) Jinzhou Skewers.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
   }
 ]
