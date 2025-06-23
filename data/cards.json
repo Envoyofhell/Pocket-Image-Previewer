@@ -6056,6 +6056,80 @@
     }
   },
   {
+    "id": "PFE-009",
+    "name": "Basic [Y] Energy",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic Energy"
+    ],
+    "hp": "0",
+    "types": [
+      "Fairy"
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PFE",
+      "name": "Forte Energy",
+      "series": "Scarlet & Violet",
+      "printedTotal": 0,
+      "total": 0,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PFE",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T23:21:07.478Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "9",
+    "artist": "",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(009) Basic [Y] Energy.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-001",
     "name": "Bulbasaur",
     "supertype": "Pokémon",
