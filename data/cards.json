@@ -11601,9 +11601,11 @@
     "id": "misc-137",
     "name": "Jinzhou Skewers",
     "supertype": "Trainer",
-    "subtypes": [],
+    "subtypes": [
+      "Pokemon Tool"
+    ],
     "types": [
-      "Trainer Tool"
+      "Pokemon Tool"
     ],
     "rules": [
       "If this card is attached to 1 of your Pokémon, discard",
@@ -11644,7 +11646,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/22",
-      "updatedAt": "2025-06-23T03:49:31.659Z",
+      "updatedAt": "2025-06-23T03:50:05.175Z",
       "images": {
         "symbol": "",
         "logo": ""
