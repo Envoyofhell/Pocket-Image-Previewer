@@ -11324,11 +11324,11 @@
     "name": "Sylveon",
     "supertype": "Pokémon",
     "subtypes": [
-      "ex (Basic)"
+      "Stage 1"
     ],
     "hp": 110,
     "types": [
-      "Dragon"
+      "Fairy"
     ],
     "evolvesFrom": "Eevee",
     "attacks": [
@@ -11354,8 +11354,8 @@
     ],
     "weaknesses": [
       {
-        "type": "Fighting",
-        "value": "×2"
+        "type": "Metal",
+        "value": "2"
       }
     ],
     "resistances": [
@@ -11383,7 +11383,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T23:46:39.559Z",
+      "updatedAt": "2025-06-23T23:47:55.450Z",
       "images": {
         "symbol": "",
         "logo": ""
