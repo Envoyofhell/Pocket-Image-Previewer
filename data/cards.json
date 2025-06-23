@@ -5821,6 +5821,80 @@
     }
   },
   {
+    "id": "PFE-001",
+    "name": "Basic [G] Energy",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic Energy"
+    ],
+    "hp": "0",
+    "types": [
+      "Grass"
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PFE",
+      "name": "PFE",
+      "series": "Scarlet & Violet",
+      "printedTotal": 0,
+      "total": 0,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PFE",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:46:02.418Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "1",
+    "artist": "",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(001) Basic [G] Energy.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-001",
     "name": "Bulbasaur",
     "supertype": "Pokémon",
@@ -5908,7 +5982,6 @@
       "prevolveImgSize": ""
     }
   },
-  
   {
     "id": "misc-006",
     "name": "Phantump",
