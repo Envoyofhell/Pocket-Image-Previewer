@@ -10645,7 +10645,7 @@
     ],
     "hp": 90,
     "types": [
-      "Dragon"
+      "Dark"
     ],
     "evolvesFrom": "Gible",
     "attacks": [
@@ -10671,7 +10671,7 @@
     ],
     "weaknesses": [
       {
-        "type": "Fairy x",
+        "type": "Fairy",
         "value": "2"
       }
     ],
@@ -10698,8 +10698,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-21T17:38:19.546Z",
+      "releaseDate": "2025/06/22",
+      "updatedAt": "2025-06-23T03:45:29.130Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10726,7 +10726,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/06/22",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": "",
