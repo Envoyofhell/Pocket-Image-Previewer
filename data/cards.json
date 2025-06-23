@@ -6180,40 +6180,25 @@
   },
   {
     "id": "misc-002",
-    "name": "Ivysaur",
+    "name": "Basic [R] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic Energy"
     ],
-    "hp": 110,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "evolvesFrom": "Bulbasaur",
-    "attacks": [
-      {
-        "name": "Spread Pollen",
-        "cost": [
-          "Neutral x1"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "20+",
-        "text": "If your opponent's Active Pokémon is affected by any Special Conditions, or if it has any Forte Markers on it, this attack does 20 more damage."
-      },
-      {
-        "name": "Headbutt",
-        "cost": [
-          "Neutral x3"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": 50,
-        "text": ""
-      }
+      "Fire"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -6223,10 +6208,10 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6234,17 +6219,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T20:05:04.749Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T22:02:00.741Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "2",
-    "artist": "Kouki Saitou",
-    "rarity": "",
-    "flavorText": "The bulb on its back grows as it absorbs nutrients. The bulb gives off a pleasant armoa when it blooms.",
+    "artist": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6257,15 +6241,19 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(002) Ivysaur.json",
+      "originalJsonFileName": "(002) Basic [R] Energy.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "typeImgAmount": 1,
+        "typeImgId": 2
+      }
     }
   },
   {
