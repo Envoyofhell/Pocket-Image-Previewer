@@ -6556,8 +6556,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:19:55.561Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T22:30:03.372Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -6583,14 +6583,10 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/23",
+      "approvedDate": "1969/12/31",
       "customSetIconTextFromSheet": "PFE",
       "customSetIconTextFromJson": "PFE",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "typeImgAmount": 1,
-        "typeImgId": 7
-      }
+      "prevolveImgSize": ""
     }
   },
   {
