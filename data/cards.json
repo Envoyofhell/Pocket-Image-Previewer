@@ -9768,7 +9768,7 @@
     ],
     "hp": 250,
     "types": [
-      "Steel"
+      "Metal"
     ],
     "evolvesFrom": "Onix",
     "attacks": [
@@ -9827,8 +9827,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-22T02:09:48.400Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T04:47:18.598Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -9844,8 +9844,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/f8cbac9700f04cbb7e373fb77290415d60bf97ce/img/approved/misc/misc-078.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/f8cbac9700f04cbb7e373fb77290415d60bf97ce/img/approved/misc/misc-078.png"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-078.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-078.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
@@ -9854,7 +9854,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
+      "approvedDate": "2025/06/23",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": "",
