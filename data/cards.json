@@ -10560,7 +10560,7 @@
     ],
     "hp": 60,
     "types": [
-      "Dragon"
+      "Dark"
     ],
     "attacks": [
       {
@@ -10575,7 +10575,7 @@
     ],
     "weaknesses": [
       {
-        "type": "Fairy x",
+        "type": "Fairy",
         "value": "2"
       }
     ],
@@ -10602,8 +10602,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T17:38:25.312Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T03:45:25.396Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10630,7 +10630,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
+      "approvedDate": "1969/12/31",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
