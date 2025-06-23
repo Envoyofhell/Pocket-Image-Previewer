@@ -6245,7 +6245,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:30:39.676Z",
+      "updatedAt": "2025-06-23T22:46:31.500Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -6262,8 +6262,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1zSZfJWvLHJa6V-vfh2a-TcfMSp_OfdbB/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1zSZfJWvLHJa6V-vfh2a-TcfMSp_OfdbB/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
