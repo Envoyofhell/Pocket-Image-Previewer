@@ -11826,8 +11826,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/22",
-      "updatedAt": "2025-06-23T03:50:07.304Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T05:05:30.643Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -11843,8 +11843,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1R-LbbQll6DgccnVqy8wu0oES8HRjO4SX/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1R-LbbQll6DgccnVqy8wu0oES8HRjO4SX/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-136.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-136.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
@@ -11853,7 +11853,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/22",
+      "approvedDate": "2025/06/23",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
