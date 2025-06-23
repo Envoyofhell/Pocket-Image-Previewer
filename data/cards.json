@@ -5937,7 +5937,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "PFE",
-      "name": "Forte Energy",
+      "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
       "total": 0,
@@ -6011,7 +6011,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "PFE",
-      "name": "Forte Energy",
+      "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
       "total": 0,
@@ -6085,7 +6085,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "PFE",
-      "name": "Forte Energy",
+      "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
       "total": 0,
@@ -7650,102 +7650,6 @@
       "isForte": false,
       "approvedDate": "2025/06/23",
       "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
-    }
-  },
-  {
-    "id": "misc-022",
-    "name": "Chien-Pao",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 180,
-    "types": [
-      "Water"
-    ],
-    "abilities": [
-      {
-        "name": "As long as this Pokémon has a [D] Energy attached, your Active Pokémon takes 10 less damage from attacks __(before applying Weakness and Resistance)__.",
-        "text": "",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Glacial Lance",
-        "cost": [
-          "Water",
-          "Water",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": 90,
-        "text": ""
-      },
-      {
-        "name": "Frozen Curse Forte",
-        "cost": [
-          "Colorless"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "30x",
-        "text": "This attack does 30 damage for each Forte Marker in play."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Metal",
-        "value": "2"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "misc",
-      "name": "PF1a",
-      "series": "Scarlet & Violet",
-      "printedTotal": 94,
-      "total": 94,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-23T22:30:39.250Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "22",
-    "artist": "akay CG Works",
-    "rarity": "",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-022.png"
-    },
-    "forteData": {
-      "discordUsername": "@AvalanWasTaken",
-      "originalJsonFileName": "Chien-Pao.json",
-      "subname": "",
-      "regulationMark": "N/A",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
     }
