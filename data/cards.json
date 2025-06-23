@@ -6587,30 +6587,19 @@
   },
   {
     "id": "misc-008",
-    "name": "Cutiefly",
+    "name": "Basic [M] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Basic Energy"
     ],
-    "hp": 40,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Absorb",
-        "cost": [
-          "Grass"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "10",
-        "text": "Heal 10 damage from this Pokémon."
-      }
+      "Metal"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
       }
     ],
     "resistances": [
@@ -6619,12 +6608,17 @@
         "value": "-30"
       }
     ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6632,17 +6626,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/20",
-      "updatedAt": "2025-06-23T22:06:53.964Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T22:30:12.327Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "8",
-    "artist": "Yukiko Baba",
+    "artist": "",
     "rarity": "Full Art",
-    "flavorText": "Cutiefly can pick up the auras of living things. It skillfully reads those auras to predict its foes' movements and make fools of them.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6654,15 +6647,15 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-008.png"
     },
     "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Cutiefly.json",
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(008) Basic [M] Energy.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/20",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
       "prevolveImgSize": ""
     }
   },
