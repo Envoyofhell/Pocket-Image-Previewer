@@ -6212,38 +6212,42 @@
   },
   {
     "id": "misc-006",
-    "name": "Basic [F] Energy",
+    "name": "Phantump",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic Energy"
+      "Basic"
     ],
-    "hp": "0",
+    "hp": 50,
     "types": [
-      "Fighting"
+      "Grass"
+    ],
+    "attacks": [
+      {
+        "name": "Branch Poke",
+        "cost": [
+          "Grass"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": ""
+      }
     ],
     "weaknesses": [
       {
-        "type": "Fighting",
-        "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
+        "type": "Fire",
+        "value": "2"
       }
     ],
     "retreatCost": [
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 2,
+    "convertedRetreatCost": 1,
     "set": {
       "id": "misc",
-      "name": "PFE",
+      "name": "PF1",
       "series": "Scarlet & Violet",
-      "printedTotal": 0,
-      "total": 0,
+      "printedTotal": 139,
+      "total": 139,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6251,16 +6255,17 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:06:21.763Z",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-23T22:06:38.919Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "6",
-    "artist": "",
-    "rarity": "Full Art",
+    "artist": "5ban Graphics",
+    "rarity": "",
+    "flavorText": "This Pokémon came to be when the spirit of a deceased child possessed a tree stump. It now wanders the forest searching for friends.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6273,19 +6278,15 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(006) Basic [F] Energy.json",
+      "originalJsonFileName": "(006) Phantump.json",
       "subname": "",
-      "regulationMark": "",
+      "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/23",
-      "customSetIconTextFromSheet": "PFE",
-      "customSetIconTextFromJson": "PFE",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "typeImgAmount": 1,
-        "typeImgId": 6
-      }
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
     }
   },
   {
