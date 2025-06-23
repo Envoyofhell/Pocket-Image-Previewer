@@ -11547,7 +11547,9 @@
     "id": "misc-134",
     "name": "Black Shores",
     "supertype": "Trainer",
-    "subtypes": [],
+    "subtypes": [
+      "Stadium"
+    ],
     "types": [
       "Stadium"
     ],
@@ -11587,8 +11589,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/22",
-      "updatedAt": "2025-06-23T03:46:54.748Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T04:12:49.393Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -11609,12 +11611,12 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Black Shores.json",
+      "originalJsonFileName": "Black Shores (1).json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/22",
+      "approvedDate": "1969/12/31",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
