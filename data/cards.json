@@ -10737,14 +10737,14 @@
   },
   {
     "id": "misc-101",
-    "name": "Garchomp Forte",
+    "name": "Garchomp          ",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 2"
     ],
     "hp": 240,
     "types": [
-      "Dragon"
+      "Dark"
     ],
     "evolvesFrom": "Gabite",
     "attacks": [
@@ -10783,7 +10783,7 @@
     ],
     "weaknesses": [
       {
-        "type": "Fairy x",
+        "type": "Fairy",
         "value": "2"
       }
     ],
@@ -10811,7 +10811,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-21T17:38:22.033Z",
+      "updatedAt": "2025-06-23T03:45:30.601Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10836,7 +10836,7 @@
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "1969/12/31",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
