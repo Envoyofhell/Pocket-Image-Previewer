@@ -6672,48 +6672,19 @@
   },
   {
     "id": "misc-009",
-    "name": "Ribombee Forte",
+    "name": "Basic [Y] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1 (Forte)"
+      "Basic Energy"
     ],
-    "hp": 180,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "evolvesFrom": "Cutiefly",
-    "abilities": [
-      {
-        "name": "Sweet Gather",
-        "text": "Once during your turn, you may search your deck for an Energy card, reveal it, and put it into your hand. Then, shuffle your deck.",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Fluttering Wings",
-        "cost": [
-          "Colorless",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": "50",
-        "text": ""
-      },
-      {
-        "name": "Starflower Blooms",
-        "cost": [
-          "Grass"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Put a Spectro Forte Marker on each of your Benched Pokémon that have any damage counters on them. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
-      }
+      "Fairy"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
       }
     ],
     "resistances": [
@@ -6723,15 +6694,16 @@
       }
     ],
     "retreatCost": [
+      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 1,
+    "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6739,15 +6711,15 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-23T22:07:08.472Z",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-06-23T22:30:05.830Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "9",
-    "artist": "TheAdorableOshawott",
+    "artist": "",
     "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
@@ -6760,19 +6732,16 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-009.png"
     },
     "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Ribombee Forte.json",
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(009) Basic [Y] Energy.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": true,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Cutiefly"
-      }
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": ""
     }
   },
   {
