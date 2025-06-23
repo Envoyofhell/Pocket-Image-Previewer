@@ -6083,53 +6083,38 @@
   },
   {
     "id": "misc-003",
-    "name": "Venusaur",
+    "name": "Basic [W] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 2"
+      "Basic Energy"
     ],
-    "hp": 170,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "evolvesFrom": "Ivysaur",
-    "abilities": [
-      {
-        "name": "Amplifying Pollen",
-        "text": "During Pokémon Checkup, put 3 damage counters on your opponent's Poisoned Pokémon with Forte Markers on them instead of 1.",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Poisonous Vines",
-        "cost": [
-          "Grass x2",
-          "Neutral x1"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": 100,
-        "text": "Your opponent's Active Pokémon is now Poisoned."
-      }
+      "Water"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
       "Colorless",
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 3,
+    "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6137,16 +6122,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T20:05:06.577Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:06:09.112Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "3",
-    "artist": "Endou Hyouga",
-    "rarity": "",
+    "artist": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6159,15 +6144,19 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(003) Venusaur.json",
+      "originalJsonFileName": "(003) Basic [W] Energy.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "typeImgAmount": 1,
+        "typeImgId": 3
+      }
     }
   },
   {
