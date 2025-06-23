@@ -11624,7 +11624,7 @@
   },
   {
     "id": "misc-135",
-    "name": "Warp Portal",
+    "name": "Black Shores",
     "supertype": "Trainer",
     "subtypes": [
       "Stadium"
@@ -11669,7 +11669,7 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T04:12:46.023Z",
+      "updatedAt": "2025-06-23T04:38:59.513Z",
       "images": {
         "symbol": "",
         "logo": ""
