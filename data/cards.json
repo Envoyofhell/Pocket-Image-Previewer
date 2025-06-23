@@ -10460,6 +10460,106 @@
     }
   },
   {
+    "id": "misc-095",
+    "name": "Florges",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 110,
+    "types": [
+      "Fairy"
+    ],
+    "evolvesFrom": "Floette",
+    "attacks": [
+      {
+        "name": "Wither Once Again",
+        "cost": [
+          "Dragon"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Put this Pokémon and all attached cards into your hand."
+      },
+      {
+        "name": "Blossoming Barrage",
+        "cost": [
+          "Dragon",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "60+",
+        "text": "If your opponent's Active Pokemon has a Spectro Forte Marker on it, this attack does 60 more damage."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/22",
+      "updatedAt": "2025-06-23T03:53:15.654Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "95",
+    "artist": "5ban Graphics",
+    "rarity": "Full Art",
+    "flavorText": "They say that flower gardens created by Florges are constantly showered with a power that can heal both body and spirit.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-095.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-095.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Florges.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/22",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Floette"
+      }
+    }
+  },
+  {
     "id": "misc-097",
     "name": "Klefki",
     "supertype": "Pokémon",
