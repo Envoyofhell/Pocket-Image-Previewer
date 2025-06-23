@@ -5895,6 +5895,80 @@
     }
   },
   {
+    "id": "PFE-002",
+    "name": "Basic [R] Energy",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic Energy"
+    ],
+    "hp": "0",
+    "types": [
+      "Fire"
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PFE",
+      "name": "PFE",
+      "series": "Scarlet & Violet",
+      "printedTotal": 0,
+      "total": 0,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PFE",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:46:18.166Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "2",
+    "artist": "",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-002.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-002.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(002) Basic [R] Energy.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PFE-003",
     "name": "Basic [W] Energy",
     "supertype": "Pokémon",
