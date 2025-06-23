@@ -189,100 +189,6 @@
     }
   },
   {
-    "id": "misc-015",
-    "name": "Torchic",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 50,
-    "types": [
-      "Fire"
-    ],
-    "attacks": [
-      {
-        "name": "Peck",
-        "cost": [
-          "Colorless"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "10",
-        "text": ""
-      },
-      {
-        "name": "Run Around",
-        "cost": [
-          "Colorless"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "20",
-        "text": "Flip a coin. If tails, this attack does nothing."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Water x",
-        "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-21T00:25:40.178Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "15",
-    "artist": "Yuka Morii",
-    "rarity": "Full Art",
-    "flavorText": "It has a flame sac inside its belly that perpetually burns. It feels warm if it is hugged.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Torchic.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "1969/12/31",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-021",
     "name": "Salandit",
     "supertype": "Pokémon",
@@ -7088,6 +6994,100 @@
       "otherSheetData": {
         "prevolveName": "Gossifleur"
       }
+    }
+  },
+  {
+    "id": "misc-015",
+    "name": "Torchic",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 50,
+    "types": [
+      "Fire"
+    ],
+    "attacks": [
+      {
+        "name": "Peck",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "10",
+        "text": ""
+      },
+      {
+        "name": "Run Around",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "20",
+        "text": "Flip a coin. If tails, this attack does nothing."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-23T22:47:12.089Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "15",
+    "artist": "Yuka Morii",
+    "rarity": "Full Art",
+    "flavorText": "It has a flame sac inside its belly that perpetually burns. It feels warm if it is hugged.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-015.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Torchic.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
     }
   },
   {
