@@ -5567,7 +5567,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "PFE",
-      "name": "Forte Energy",
+      "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
       "total": 0,
@@ -5863,7 +5863,7 @@
     "convertedRetreatCost": 2,
     "set": {
       "id": "PFE",
-      "name": "Forte Energy",
+      "name": "PFE",
       "series": "Scarlet & Violet",
       "printedTotal": 0,
       "total": 0,
@@ -10968,7 +10968,7 @@
     "convertedRetreatCost": 3,
     "set": {
       "id": "misc",
-      "name": "Forte Arrivals",
+      "name": "PF1",
       "series": "Scarlet & Violet",
       "printedTotal": 139,
       "total": 139,
@@ -13133,106 +13133,4 @@
       "prevolveImgSize": ""
     }
   },
-  {
-    "id": "pf1-084",
-    "name": "Ferrothorn",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Stage 1"
-    ],
-    "hp": 130,
-    "types": [
-      "Metal"
-    ],
-    "evolvesFrom": "Ferroseed",
-    "attacks": [
-      {
-        "name": "Thorny Body",
-        "cost": [
-          "Metal"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "During your opponent’s next turn, if this Pokémon is damaged by an attack (even if this Pokémon is Knocked Out), put damage counters on the Attacking Pokémon equal to the damage done to this Pokémon."
-      },
-      {
-        "name": "Spike Cannon",
-        "cost": [
-          "Metal",
-          "Colorless",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "30×",
-        "text": "Flip 4 coins. This attack does 30 damage for each heads."
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Fire",
-        "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless",
-      "Colorless",
-      "Colorless"
-    ],
-    "convertedRetreatCost": 3,
-    "set": {
-      "id": "pf1",
-      "name": "Forte Arrivals",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "PF1",
-      "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T23:15:27.830Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "84",
-    "artist": "Miki Tanaka",
-    "rarity": "Full Art",
-    "flavorText": "It fights by swinging around its three spiky feelers. A hit from these steel spikes can reduce a boulder to rubble.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/pf1/pf1-084.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/pf1/pf1-084.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Ferrothorn.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "2025/06/23",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Ferroseed"
-      }
-    }
-  }
 ]
