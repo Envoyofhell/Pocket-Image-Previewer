@@ -1320,99 +1320,6 @@
     }
   },
   {
-    "id": "misc-040",
-    "name": "Mareep",
-    "supertype": "Pokémon",
-    "subtypes": [
-      "Basic"
-    ],
-    "hp": 60,
-    "types": [
-      "Electirc"
-    ],
-    "abilities": [
-      {
-        "name": "Fluffy ",
-        "text": "This Pokémon takes 20 less damage from attacks (after applying Weakness and Resistance).",
-        "type": "Ability"
-      }
-    ],
-    "attacks": [
-      {
-        "name": "Static Wool",
-        "cost": [
-          "Lightning",
-          "Lightning"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": "20",
-        "text": "This attack also does 10 damage to 1 of your opponent’s Benched Pokémon. (Don’t apply Weakness and Resistance for Benched Pokémon.)"
-      }
-    ],
-    "weaknesses": [
-      {
-        "type": "Fighting",
-        "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
-    "retreatCost": [
-      "Colorless"
-    ],
-    "convertedRetreatCost": 1,
-    "set": {
-      "id": "PF1",
-      "name": "PF1",
-      "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
-      "legalities": {
-        "standard": "Legal",
-        "expanded": "Legal",
-        "custom": "Legal",
-        "forteFormat": "Legal"
-      },
-      "ptcgoCode": "MISC",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-06-20T23:43:10.727Z",
-      "images": {
-        "symbol": "",
-        "logo": ""
-      }
-    },
-    "number": "40",
-    "artist": "Masakazu Fukuda",
-    "rarity": "Full Art",
-    "flavorText": "If static electricity builds in its body, its fleece doubles in volume. Touching it will shock you.",
-    "legalities": {
-      "standard": "Legal",
-      "expanded": "Legal",
-      "custom": "Legal",
-      "forteFormat": "Legal"
-    },
-    "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-040.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-040.png"
-    },
-    "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Mareep.json",
-      "subname": "",
-      "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
-      "approvedDate": "1969/12/31",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
-      "prevolveImgSize": ""
-    }
-  },
-  {
     "id": "misc-041",
     "name": "Flaaffy",
     "supertype": "Pokémon",
@@ -8329,6 +8236,99 @@
       "otherSheetData": {
         "prevolveName": "Electabuzz"
       }
+    }
+  },
+  {
+    "id": "misc-040",
+    "name": "Mareep",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      {
+        "name": "Fluffy ",
+        "text": "This Pokémon takes 20 less damage from attacks (after applying Weakness and Resistance).",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Static Wool",
+        "cost": [
+          "Lightning",
+          "Lightning"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20",
+        "text": "This attack also does 10 damage to 1 of your opponent’s Benched Pokémon. (Don’t apply Weakness and Resistance for Benched Pokémon.)"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "misc",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T04:46:41.731Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "40",
+    "artist": "Masakazu Fukuda",
+    "rarity": "Full Art",
+    "flavorText": "If static electricity builds in its body, its fleece doubles in volume. Touching it will shock you.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-040.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-040.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Mareep.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
     }
   },
   {
