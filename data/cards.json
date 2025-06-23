@@ -6212,38 +6212,51 @@
   },
   {
     "id": "misc-001",
-    "name": "Basic [G] Energy",
+    "name": "Bulbasaur",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic Energy"
+      "Basic"
     ],
-    "hp": "0",
+    "hp": 70,
     "types": [
       "Grass"
     ],
-    "weaknesses": [
+    "attacks": [
       {
-        "type": "Fighting",
-        "value": "×2"
+        "name": "Poison powder",
+        "cost": [
+          "Neutral x1"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Poisoned."
+      },
+      {
+        "name": "Headbutt",
+        "cost": [
+          "Neutral x2"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": 20,
+        "text": ""
       }
     ],
-    "resistances": [
+    "weaknesses": [
       {
-        "type": "Grass",
-        "value": "-30"
+        "type": "Fire",
+        "value": "2"
       }
     ],
     "retreatCost": [
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 2,
+    "convertedRetreatCost": 1,
     "set": {
       "id": "misc",
-      "name": "PFE",
+      "name": "PF1",
       "series": "Scarlet & Violet",
-      "printedTotal": 0,
-      "total": 0,
+      "printedTotal": 139,
+      "total": 139,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6252,15 +6265,16 @@
       },
       "ptcgoCode": "MISC",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:29:49.817Z",
+      "updatedAt": "2025-06-23T22:30:39.676Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "1",
-    "artist": "",
-    "rarity": "Full Art",
+    "artist": "jaksinart",
+    "rarity": "",
+    "flavorText": "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6268,19 +6282,19 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png"
+      "small": "https://drive.google.com/file/d/1zSZfJWvLHJa6V-vfh2a-TcfMSp_OfdbB/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1zSZfJWvLHJa6V-vfh2a-TcfMSp_OfdbB/view?usp=drivesdk"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(001) Basic [G] Energy.json",
+      "originalJsonFileName": "(001) Bulbasaur.json",
       "subname": "",
-      "regulationMark": "",
+      "regulationMark": "N/A",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
       "approvedDate": "2025/06/23",
-      "customSetIconTextFromSheet": "PFE",
-      "customSetIconTextFromJson": "PFE",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "",
       "prevolveImgSize": ""
     }
   },
