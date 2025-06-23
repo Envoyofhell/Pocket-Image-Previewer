@@ -6239,42 +6239,38 @@
   },
   {
     "id": "misc-006",
-    "name": "Phantump",
+    "name": "Basic [F] Energy",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Basic Energy"
     ],
-    "hp": 50,
+    "hp": "0",
     "types": [
-      "Grass"
-    ],
-    "attacks": [
-      {
-        "name": "Branch Poke",
-        "cost": [
-          "Grass"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": 20,
-        "text": ""
-      }
+      "Fighting"
     ],
     "weaknesses": [
       {
-        "type": "Fire",
-        "value": "2"
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
       }
     ],
     "retreatCost": [
+      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 1,
+    "convertedRetreatCost": 2,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "PFE",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 0,
+      "total": 0,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -6282,17 +6278,16 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T20:39:45.414Z",
+      "releaseDate": "2025/06/23",
+      "updatedAt": "2025-06-23T22:06:21.763Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "6",
-    "artist": "5ban Graphics",
-    "rarity": "",
-    "flavorText": "This Pokémon came to be when the spirit of a deceased child possessed a tree stump. It now wanders the forest searching for friends.",
+    "artist": "",
+    "rarity": "Full Art",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6305,15 +6300,19 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(006) Phantump.json",
+      "originalJsonFileName": "(006) Basic [F] Energy.json",
       "subname": "",
-      "regulationMark": "N/A",
+      "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "",
-      "prevolveImgSize": ""
+      "approvedDate": "2025/06/23",
+      "customSetIconTextFromSheet": "PFE",
+      "customSetIconTextFromJson": "PFE",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "typeImgAmount": 1,
+        "typeImgId": 6
+      }
     }
   },
   {
