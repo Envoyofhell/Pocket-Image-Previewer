@@ -9,6 +9,7 @@ const SITE_CONFIG = {
         "Forte Arrivals",
         "Celestial Resonance",
         "Ancient Awakenings",
+        "Forte Energy",
         "Promo",
         "Unbound" // Display name for cards with set.id 'misc'
     ],
@@ -17,6 +18,7 @@ const SITE_CONFIG = {
     // Ensure the CODES ("pf1", "misc", etc.) match exactly what's in card.set.id in your cards.json
     setDisplayNameToCodeMap: {
         "Forte Arrivals": "PF1",
+        "Forte Energy": "PFE",
         "Celestial Resonance": "PF1a",
         "Ancient Awakenings": "pf1b",
         "Promo": "promo",
@@ -46,6 +48,7 @@ const SITE_CONFIG = {
         "Forte Arrivals": "#4ade80",
         "Celestial Resonance": "#a78bfa",
         "Ancient Awakenings": "#fbbf24",
+        "Forte Energy": "#fbcf24",
         "Promo": "#A0A0A0",
         "Unbound": "#71717a",
         "All": "#DC2626",
