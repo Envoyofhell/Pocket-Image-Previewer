@@ -5860,9 +5860,9 @@
         "custom": "Legal",
         "forteFormat": "Legal"
       },
-      "ptcgoCode": "MISC",
+      "ptcgoCode": "PFE",
       "releaseDate": "2025/06/23",
-      "updatedAt": "2025-06-23T22:06:01.175Z",
+      "updatedAt": "2025-06-23T22:41:13.928Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -5878,8 +5878,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-001.png"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png"
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
@@ -5891,11 +5891,7 @@
       "approvedDate": "2025/06/23",
       "customSetIconTextFromSheet": "PFE",
       "customSetIconTextFromJson": "PFE",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "typeImgAmount": 1,
-        "typeImgId": 1
-      }
+      "prevolveImgSize": ""
     }
   },
   {
