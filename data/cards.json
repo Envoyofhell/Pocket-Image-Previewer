@@ -7591,7 +7591,7 @@
         ],
         "convertedEnergyCost": 3,
         "damage": 90,
-        "text": "Discard a [R] Energy from this Pokémon. This attack also does 20 damage to each of your opponent’s Benched Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.)__"
+        "text": "Discard a [R] Energy from this Pokémon. This attack also does 20 damage to 2 of your opponent’s Benched Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.)__"
       }
     ],
     "weaknesses": [
@@ -9550,8 +9550,7 @@
         "name": "Octopulse",
         "cost": [
           "Psychic",
-          "Psychic",
-          "Colorless"
+          "Psychic"
         ],
         "convertedEnergyCost": 3,
         "damage": "80",
@@ -9760,13 +9759,13 @@
           "Colorless"
         ],
         "convertedEnergyCost": 3,
-        "damage": "130",
+        "damage": "90",
         "text": "Discard the top card from both players' decks."
       }
     ],
     "weaknesses": [
       {
-        "type": "Grass x",
+        "type": "Grass",
         "value": "2"
       }
     ],
