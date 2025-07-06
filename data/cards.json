@@ -8503,7 +8503,7 @@
   },
   {
     "id": "misc-038",
-    "name": "Electivire",
+    "name": "Electivire Forte",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1"
@@ -8587,7 +8587,7 @@
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/06/21",
       "customSetIconTextFromSheet": "PF1",
       "customSetIconTextFromJson": "PF1",
