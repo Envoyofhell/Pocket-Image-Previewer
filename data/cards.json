@@ -40,12 +40,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless",
@@ -231,12 +225,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -325,12 +313,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -523,12 +505,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -616,12 +592,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -715,12 +685,6 @@
       {
         "type": "Metal",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "",
-        "value": ""
       }
     ],
     "set": {
@@ -987,12 +951,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -1070,12 +1028,6 @@
       {
         "type": "Dark",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Fighting",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -1368,12 +1320,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -1465,12 +1411,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -1558,12 +1498,6 @@
       {
         "type": "Dark",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -1754,12 +1688,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -1848,12 +1776,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -1950,12 +1872,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -2046,12 +1962,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -2146,12 +2056,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -2262,12 +2166,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -2360,12 +2258,6 @@
       {
         "type": "Psychic x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "",
-        "value": ""
       }
     ],
     "retreatCost": [
@@ -2672,12 +2564,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless",
@@ -2779,12 +2665,6 @@
       {
         "type": "Fire x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-20"
       }
     ],
     "retreatCost": [
@@ -3061,12 +2941,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "",
-        "value": ""
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -3156,12 +3030,6 @@
       {
         "type": "Metal ",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "",
-        "value": ""
       }
     ],
     "retreatCost": [
@@ -3264,12 +3132,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "",
-        "value": ""
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -3362,12 +3224,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -3446,12 +3302,6 @@
       {
         "type": "Metal x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -3540,12 +3390,6 @@
       {
         "type": "Metal x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -3638,12 +3482,6 @@
       {
         "type": "Metal x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -3827,7 +3665,7 @@
     ],
     "resistances": [
       {
-        "type": "Grass",
+        "type": "Fighting",
         "value": "-30"
       }
     ],
@@ -3920,7 +3758,7 @@
     ],
     "resistances": [
       {
-        "type": "Grass",
+        "type": "Fighting",
         "value": "-30"
       }
     ],
@@ -4014,7 +3852,7 @@
     ],
     "resistances": [
       {
-        "type": "Grass",
+        "type": "Fighting",
         "value": "-30"
       }
     ],
@@ -4197,12 +4035,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -4289,12 +4121,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -4389,12 +4215,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -4487,12 +4307,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -4571,12 +4385,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -4670,12 +4478,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -6595,6 +6397,12 @@
         "text": "Put a Basic Energy card from your discard pile back into your hand."
       }
     ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -6951,12 +6759,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -7036,12 +6838,6 @@
       {
         "type": "Fire",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -7133,12 +6929,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -7220,12 +7010,6 @@
       {
         "type": "Water x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -7311,6 +7095,12 @@
         "convertedEnergyCost": 2,
         "damage": "60",
         "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "2"
       }
     ],
     "retreatCost": [
@@ -7405,12 +7195,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -7500,12 +7284,6 @@
       {
         "type": "Water",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -7945,12 +7723,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -8235,12 +8007,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -8422,12 +8188,6 @@
       {
         "type": "Metal",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -8689,12 +8449,6 @@
         "value": "×2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -8786,12 +8540,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -8888,12 +8636,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless"
     ],
@@ -8982,12 +8724,6 @@
       {
         "type": "Fighting",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -9172,12 +8908,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -9367,12 +9097,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -9463,12 +9187,6 @@
       {
         "type": "Dark",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -9571,12 +9289,6 @@
       {
         "type": "Dark",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -9846,7 +9558,7 @@
     ],
     "weaknesses": [
       {
-        "type": "Water",
+        "type": "Psychic",
         "value": "×2"
       }
     ],
@@ -9942,12 +9654,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -10037,12 +9743,6 @@
       {
         "type": "Psychic x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -10420,12 +10120,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -10516,12 +10210,6 @@
       {
         "type": "Grass x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -11615,12 +11303,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -11715,12 +11397,6 @@
         "value": "2"
       }
     ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
-      }
-    ],
     "retreatCost": [
       "Colorless",
       "Colorless"
@@ -11809,12 +11485,6 @@
       {
         "type": "Metal x",
         "value": "2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [
@@ -12196,7 +11866,7 @@
     ],
     "weaknesses": [
       {
-        "type": "Fighitng",
+        "type": "Fighting",
         "value": "2"
       }
     ],
@@ -12286,12 +11956,6 @@
       {
         "type": "Fighting",
         "value": "×2"
-      }
-    ],
-    "resistances": [
-      {
-        "type": "Grass",
-        "value": "-30"
       }
     ],
     "retreatCost": [

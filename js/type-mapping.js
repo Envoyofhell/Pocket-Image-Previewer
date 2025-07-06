@@ -93,15 +93,28 @@ window.ForteTypeMapping = {
         
         const cleanInput = input.trim();
         
+        // Handle malformed type names (strip trailing ' x' and fix common typos)
+        let normalizedInput = cleanInput;
+        
+        // Remove trailing ' x' from type names like "Fighting x" -> "Fighting"
+        if (normalizedInput.endsWith(' x')) {
+            normalizedInput = normalizedInput.slice(0, -2).trim();
+        }
+        
+        // Fix common typos
+        if (normalizedInput.toLowerCase() === 'lighting') {
+            normalizedInput = 'Lightning';
+        }
+        
         // Try full name first (case-insensitive)
         for (const [typeName, typeInfo] of Object.entries(this.typeMap)) {
-            if (typeName.toLowerCase() === cleanInput.toLowerCase()) {
+            if (typeName.toLowerCase() === normalizedInput.toLowerCase()) {
                 return { name: typeName, ...typeInfo };
             }
         }
         
         // Try initial (case-insensitive)
-        const upperInput = cleanInput.toUpperCase();
+        const upperInput = normalizedInput.toUpperCase();
         if (this.initialMap && this.initialMap[upperInput]) {
             return this.initialMap[upperInput];
         }
@@ -112,7 +125,7 @@ window.ForteTypeMapping = {
     },
 
     // Parse weakness/resistance string
-    // Examples: "Fire x2", "Psychic -30", "F x2", "P -30", "fighting 2", "Fighting ×2"
+    // Examples: "Fire x2", "Psychic -30", "F x2", "P -30", "fighting 2", "Fighting ×2", "Fighting x 2"
     parseWeaknessResistance(input) {
         if (!input) return null;
         
@@ -121,13 +134,17 @@ window.ForteTypeMapping = {
         // Match patterns like:
         // "Fire x2", "F x2" (with x)
         // "Fighting ×2" (with ×)
+        // "Fighting x 2" (with space between x and number)
         // "fighting 2" (just space and number)
         // "Psychic -30", "P -30" (resistance with minus)
-        const match = cleanInput.match(/^(.+?)\s*([x×]\d+|[-+]\d+|\d+)$/i);
+        const match = cleanInput.match(/^(.+?)\s*([x×]\s*\d+|[-+]\d+|\d+)$/i);
         
         if (match) {
             const typeName = match[1].trim();
             let modifier = match[2].trim();
+            
+            // Normalize modifier format - remove spaces in "x 2" -> "x2"
+            modifier = modifier.replace(/([x×])\s+(\d+)/i, '$1$2');
             
             // If it's just a number (like "2"), add "x" prefix
             if (/^\d+$/.test(modifier)) {
