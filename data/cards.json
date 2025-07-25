@@ -1197,7 +1197,7 @@
     "abilities": [
       {
         "name": "Cursed Call",
-        "text": "Once during your turn, you may put 2 damage counters on this Pokémon.  If you do, during this turn, attacks used by your [P] Pokémon do 20 more damage to your opponent’s Active Pokémon (before applying Weakness and Resistance). You can’t use more than 1 Cursed Call Ability during your turn.",
+        "text": "Once during your turn, you may put 2 damage counters on this Pokémon.  If you do, during this turn, attacks used by your [P] Pokémon do 20 more damage to your opponent’s Active Pokémon (before applying Weakness and Resistance).",
         "type": "Ability"
       }
     ],
