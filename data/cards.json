@@ -6494,6 +6494,102 @@
     }
   },
   {
+    "id": "PF1a-042",
+    "name": "Hatenna",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Psychic"
+    ],
+    "attacks": [
+      {
+        "name": "Teleport",
+        "cost": [
+          "Psychic"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Switch this Pokémon with 1 of your Benched Pokémon."
+      },
+      {
+        "name": "Psyshot",
+        "cost": [
+          "Psychic",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Dark",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:55:04.993Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "42",
+    "artist": "Mina Nakai",
+    "rarity": "Full Art",
+    "flavorText": "If this Pokémon senses a strong emotion, it will run away as fast as it can. It prefers areas without people.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/10vG3Z3wfjObD96GCWtIuRjhVbHFPPWt_/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/10vG3Z3wfjObD96GCWtIuRjhVbHFPPWt_/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Hatenna.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-047",
     "name": "Flamigo",
     "supertype": "Pokémon",
