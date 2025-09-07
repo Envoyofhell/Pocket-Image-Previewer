@@ -5340,6 +5340,110 @@
     }
   },
   {
+    "id": "PF1a-006",
+    "name": "Wo-Chien Forte",
+    "supertype": "pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 180,
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      {
+        "name": "Ominous Tablets",
+        "text": "If this Pokémon is in the Active Spot and has a [D] Energy attached, your opponent's Active Pokémon's Retreat Cost is [C] more.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Cursed Vines",
+        "cost": [
+          "Grass",
+          "Grass",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "100",
+        "text": ""
+      },
+      {
+        "name": "Phantom Etching",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "50×",
+        "text": "This attack does 50 damage for each [G] and [D] Energy attached to this Pokémon. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:55:11.333Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "6",
+    "artist": "5ban Graphics",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-006.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-006.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(006) Wo-Chien Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-011",
     "name": "Turtonator",
     "supertype": "Pokémon",
