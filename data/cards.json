@@ -8537,7 +8537,7 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:22:00.805Z",
+      "updatedAt": "2025-09-07T02:47:12.366Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -8562,7 +8562,7 @@
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
