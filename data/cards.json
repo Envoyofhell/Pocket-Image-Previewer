@@ -5340,6 +5340,97 @@
     }
   },
   {
+    "id": "PF1a-036",
+    "name": "Woobat",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 50,
+    "types": [
+      "Psychic"
+    ],
+    "attacks": [
+      {
+        "name": "Dual Draw",
+        "cost": [
+          "Psychic"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Each player draws 2 cards."
+      },
+      {
+        "name": "Small Gust",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "10+",
+        "text": "Flip a coin. If heads, this attack does 20 more damage."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-30"
+      }
+    ],
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T00:29:35.614Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "36",
+    "artist": "Kagemaru Himeno",
+    "rarity": "Full Art",
+    "flavorText": "The heart-shaped mark left on a body after a Woobat has been attached to it is said to bring good fortune.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-036.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-036.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Woobat.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PFE-001",
     "name": "Basic [G] Energy",
     "supertype": "Pokémon",
@@ -11211,7 +11302,6 @@
         "value": "-30"
       }
     ],
-
     "retreatCost": [
       "Colorless",
       "Colorless"
