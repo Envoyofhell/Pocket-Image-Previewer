@@ -7081,41 +7081,39 @@
   },
   {
     "id": "PF1a-023",
-    "name": "Gorebyss",
+    "name": "Magnemite",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic"
     ],
-    "hp": 90,
+    "hp": 60,
     "types": [
-      "Water"
+      "Electric"
     ],
-    "evolvesFrom": "Clamperl",
     "attacks": [
       {
-        "name": "Vitality Feed",
+        "name": "Thunder Wave",
         "cost": [
-          "Water",
-          "Colorless"
+          "Lightning"
         ],
-        "convertedEnergyCost": 2,
-        "damage": "30",
-        "text": "During your opponent’s next turn, Evolution Pokémon in play __(both yours and your opponent’s)__ have no Abilities. __(This includes new Pokémon that come into play.)__"
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed."
       },
       {
-        "name": "Surprise Attack",
+        "name": "Jolt",
         "cost": [
-          "Water",
+          "Lightning",
           "Colorless"
         ],
         "convertedEnergyCost": 2,
-        "damage": "70",
-        "text": "Flip a coin. If tails, this attack does nothing."
+        "damage": "20",
+        "text": ""
       }
     ],
     "weaknesses": [
       {
-        "type": "Electric",
+        "type": "Fighting",
         "value": "2"
       }
     ],
@@ -7143,16 +7141,16 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:21:27.207Z",
+      "updatedAt": "2025-09-07T02:45:48.982Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "23",
-    "artist": "Miki Tanaka",
+    "artist": "Yuka Morii",
     "rarity": "Full Art",
-    "flavorText": "\tIt lives at the bottom of the sea. In the springtime, its pink body turns more vivid for some reason.",
+    "flavorText": "The electromagnetic waves emitted by the units at the sides of its head expel antigravity, which allows it to float.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -7165,7 +7163,7 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Gorebyss.json",
+      "originalJsonFileName": "Magnemite.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
@@ -7173,10 +7171,7 @@
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Clamperl"
-      }
+      "prevolveImgSize": ""
     }
   },
   {
