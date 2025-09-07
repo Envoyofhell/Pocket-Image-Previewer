@@ -6012,34 +6012,24 @@
   },
   {
     "id": "PF1a-000",
-    "name": "Milotic",
+    "name": "Feebas",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic"
     ],
-    "hp": 120,
+    "hp": 30,
     "types": [
       "Water"
     ],
-    "evolvesFrom": "Feebas",
-    "abilities": [
-      {
-        "name": "Tides of Myst",
-        "text": "Once during your turn, if you have Black Shores in play, you may draw 2 cards.",
-        "type": "Ability"
-      }
-    ],
     "attacks": [
       {
-        "name": "Light Pulse",
+        "name": "Scurry Away",
         "cost": [
-          "Water",
-          "Colorless",
           "Colorless"
         ],
-        "convertedEnergyCost": 3,
-        "damage": "80",
-        "text": "This attack's damage isn't affected by any effects on your opponent's Active Pokémon."
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pokémon during your opponent's turn."
       }
     ],
     "weaknesses": [
@@ -6055,10 +6045,9 @@
       }
     ],
     "retreatCost": [
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 2,
+    "convertedRetreatCost": 1,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
@@ -6072,17 +6061,17 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-09-07T00:43:08.602Z",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T00:43:18.611Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "",
-    "artist": "Sanosuke Sakuma",
+    "artist": "Shigenori Negishi",
     "rarity": "Full Art",
-    "flavorText": "It is the world’s most beautiful Pokémon. There are many works of art featuring Milotic.",
+    "flavorText": "This tough Pokémon is perfectly fine even in dirty water. However, due to its ragged, shabby appearance, it isn't popular.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6095,18 +6084,15 @@
     },
     "forteData": {
       "discordUsername": "bambotron",
-      "originalJsonFileName": "Milotic (1).json",
+      "originalJsonFileName": "Feebas.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Feebas"
-      }
+      "prevolveImgSize": ""
     }
   },
   {
