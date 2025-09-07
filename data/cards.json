@@ -6011,6 +6011,114 @@
     }
   },
   {
+    "id": "PF1a-083",
+    "name": "Drampa Forte",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic (Forte)"
+    ],
+    "hp": 180,
+    "types": [
+      "Colorless"
+    ],
+    "attacks": [
+      {
+        "name": "Roaring Winds",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Discard your hand and draw 6 cards."
+      },
+      {
+        "name": "Windqueller",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "80+",
+        "text": "You may remove an Aero Forte marker from this Pokémon. If you do, this attack does 80 more damage."
+      },
+      {
+        "name": "Cloud Nine",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "150",
+        "text": "Move any number of Basic Energy from your Pokémon to your other Pokémon in any way you like. __==(You can't use more than 1 **Forte** attack in a game.)==__"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Psychic",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T00:45:47.737Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "83",
+    "artist": "aky CG Works",
+    "rarity": "Full Art",
+    "flavorText": "Weaving together the cotton of both Cottonee and Eldegoss produces exquisite cloth that’s highly prized by many luxury brands.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-083.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-083.png"
+    },
+    "forteData": {
+      "discordUsername": "bambotron",
+      "originalJsonFileName": "Drampa.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-000",
     "name": "Feebas",
     "supertype": "Pokémon",
