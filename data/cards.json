@@ -7763,24 +7763,47 @@
   },
   {
     "id": "PF1a-038",
-    "name": "Honedge",
+    "name": "Aegislash",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Stage 2"
     ],
-    "hp": 60,
+    "hp": 240,
     "types": [
       "Psychic"
     ],
+    "evolvesFrom": "Doublade",
     "attacks": [
       {
-        "name": "Gouge",
+        "name": "Shadow Blade",
         "cost": [
+          "Psychic",
           "Colorless"
         ],
-        "convertedEnergyCost": 1,
+        "convertedEnergyCost": 2,
+        "damage": "80+",
+        "text": "If your opponent's Active Pokémon has a Havoc Forte Marker on it, ignore the effects of that Forte Marker, and this attack also does 80 more damage."
+      },
+      {
+        "name": "Shield Bash",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "100",
+        "text": ""
+      },
+      {
+        "name": "Power Shift",
+        "cost": [
+          "Psychic",
+          "Psychic"
+        ],
+        "convertedEnergyCost": 2,
         "damage": "",
-        "text": "Put 2 damage counters on 1 of your opponent's Pokémon that has damage on it."
+        "text": "For the rest of the game, attacks used by your Pokémon do 30 more damage to your opponent's Pokemon. __==(You can't use more than 1 **Forte** attack in a game.)==__"
       }
     ],
     "weaknesses": [
@@ -7796,15 +7819,16 @@
       }
     ],
     "retreatCost": [
+      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 1,
+    "convertedRetreatCost": 2,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
       "series": "Scarlet & Violet",
-      "printedTotal": 103,
-      "total": 103,
+      "printedTotal": 98,
+      "total": 98,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -7813,16 +7837,15 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:22:06.617Z",
+      "updatedAt": "2025-09-07T02:46:44.652Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "38",
-    "artist": "5ban Graphics",
+    "artist": "5Ban Graphics",
     "rarity": "Full Art",
-    "flavorText": "The blue eye on the sword’s handguard is the true body of Honedge. With its old cloth, it drains people’s lives away.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -7835,15 +7858,18 @@
     },
     "forteData": {
       "discordUsername": "Avalan (@AvalanWasTaken)",
-      "originalJsonFileName": "(038) Honedge.json",
+      "originalJsonFileName": "(040) Aegislash Forte.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": ""
+      "prevolveImgSize": 0.9,
+      "otherSheetData": {
+        "prevolveName": "Doublade"
+      }
     }
   },
   {
