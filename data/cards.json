@@ -10148,6 +10148,104 @@
     }
   },
   {
+    "id": "PF1a-082",
+    "name": "Hisuian Zoroark",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 110,
+    "types": [
+      "Colorless"
+    ],
+    "evolvesFrom": "Hisuian Zorua",
+    "attacks": [
+      {
+        "name": "Spectral Ambush",
+        "cost": [],
+        "convertedEnergyCost": 0,
+        "damage": "20",
+        "text": "Discard all Special Energy from your opponent’s Active Pokémon."
+      },
+      {
+        "name": "Bond Breaker",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "60+",
+        "text": "If your opponent’s Active Pokémon is a Pokémon **__Forte__**, this attack does 60 more damage."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Dark",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T03:02:20.037Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "82",
+    "artist": "Kouki Saitou",
+    "rarity": "Full Art",
+    "flavorText": "With its disheveled white fur, it looks like an embodiment of death. Heedless of its own safety, Zoroark attacks its nemeses with a bitter energy so intense, it lacerates Zoroark's own body.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-082.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-082.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "#ERROR!",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Hisuian Zorua"
+      }
+    }
+  },
+  {
     "id": "PF1a-083",
     "name": "Drampa Forte",
     "supertype": "Pokémon",
