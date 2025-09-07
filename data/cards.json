@@ -7281,47 +7281,34 @@
   },
   {
     "id": "PF1a-025",
-    "name": "Magnezone Forte",
+    "name": "Magnemite",
     "supertype": "Pokémon",
     "subtypes": [
-      "Stage 2"
+      "Basic"
     ],
-    "hp": 250,
+    "hp": 60,
     "types": [
       "Electric"
     ],
-    "evolvesFrom": "Magneton",
     "attacks": [
       {
-        "name": "Sparking Flash",
+        "name": "Thunder Wave",
         "cost": [
-          "Lightning",
-          "Colorless"
+          "Lightning"
         ],
-        "convertedEnergyCost": 2,
-        "damage": "60+",
-        "text": "Discard any number of [L] Energy cards from your hand. This attack does 30 more damage for each card you discarded in this way."
-      },
-      {
-        "name": "Erratic Charge",
-        "cost": [
-          "Lightning",
-          "Lightning",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "110",
-        "text": ""
-      },
-      {
-        "name": "Forever Seeking",
-        "cost": [
-          "Lightning",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 2,
+        "convertedEnergyCost": 1,
         "damage": "",
-        "text": "==__You may put an Electro Forte Marker on this Pokémon. If you do, you may search your deck for 3 cards and put them into your hand. Then, shuffle your deck. (You can't use more than 1 **Forte** attack in a game.)__=="
+        "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed."
+      },
+      {
+        "name": "Jolt",
+        "cost": [
+          "Lightning",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20",
+        "text": ""
       }
     ],
     "weaknesses": [
@@ -7337,11 +7324,9 @@
       }
     ],
     "retreatCost": [
-      "Colorless",
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 3,
+    "convertedRetreatCost": 1,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
@@ -7356,15 +7341,16 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:46:22.417Z",
+      "updatedAt": "2025-09-07T02:54:11.258Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "25",
-    "artist": "Anesaki Dynamic",
+    "artist": "Yuka Morii",
     "rarity": "Full Art",
+    "flavorText": "The electromagnetic waves emitted by the units at the sides of its head expel antigravity, which allows it to float.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -7377,18 +7363,15 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Magnezone   .json",
+      "originalJsonFileName": "Magnemite.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": true,
+      "isForte": false,
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Magneton"
-      }
+      "prevolveImgSize": ""
     }
   },
   {
