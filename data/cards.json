@@ -8049,6 +8049,87 @@
     }
   },
   {
+    "id": "PF1a-098",
+    "name": "Lostlorn Forest",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Stadium"
+    ],
+    "rules": [
+      "Once during each player’s turn, that player may",
+      "choose a Pokémon that has “Zoroark” in its name in",
+      "their discard pile and switch it with 1 of their",
+      "Pokémon that has “Zoroark” in its name in play. Any",
+      "attached cards, damage counters, Special Conditions,",
+      "turns in play, Forte Markers and any other effects",
+      "remain on the new Pokémon."
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T01:55:52.621Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "98",
+    "artist": "OLM",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-098.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-098.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Lostlorn Forest.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-000",
     "name": "Feebas",
     "supertype": "Pokémon",
