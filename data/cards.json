@@ -7081,39 +7081,41 @@
   },
   {
     "id": "PF1a-023",
-    "name": "Magnemite",
+    "name": "Gorebyss",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Stage 1"
     ],
-    "hp": 60,
+    "hp": 90,
     "types": [
-      "Electric"
+      "Water"
     ],
+    "evolvesFrom": "Clamperl",
     "attacks": [
       {
-        "name": "Thunder Wave",
+        "name": "Vitality Feed",
         "cost": [
-          "Lightning"
-        ],
-        "convertedEnergyCost": 1,
-        "damage": "",
-        "text": "Flip a coin. If heads, your opponent’s Active Pokémon is now Paralyzed."
-      },
-      {
-        "name": "Jolt",
-        "cost": [
-          "Lightning",
+          "Water",
           "Colorless"
         ],
         "convertedEnergyCost": 2,
-        "damage": "20",
-        "text": ""
+        "damage": "30",
+        "text": "During your opponent’s next turn, Evolution Pokémon in play __(both yours and your opponent’s)__ have no Abilities. __(This includes new Pokémon that come into play.)__"
+      },
+      {
+        "name": "Surprise Attack",
+        "cost": [
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "70",
+        "text": "Flip a coin. If tails, this attack does nothing."
       }
     ],
     "weaknesses": [
       {
-        "type": "Fighting",
+        "type": "Electric",
         "value": "2"
       }
     ],
@@ -7141,16 +7143,16 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:45:48.982Z",
+      "updatedAt": "2025-09-07T03:05:35.684Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "23",
-    "artist": "Yuka Morii",
+    "artist": "Miki Tanaka",
     "rarity": "Full Art",
-    "flavorText": "The electromagnetic waves emitted by the units at the sides of its head expel antigravity, which allows it to float.",
+    "flavorText": "\tIt lives at the bottom of the sea. In the springtime, its pink body turns more vivid for some reason.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -7163,7 +7165,7 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Magnemite.json",
+      "originalJsonFileName": "Gorebyss.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
@@ -7171,7 +7173,10 @@
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": ""
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Clamperl"
+      }
     }
   },
   {
