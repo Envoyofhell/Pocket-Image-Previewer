@@ -6503,6 +6503,105 @@
     }
   },
   {
+    "id": "PF1a-020",
+    "name": "Milotic",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 120,
+    "types": [
+      "Water"
+    ],
+    "evolvesFrom": "Feebas",
+    "abilities": [
+      {
+        "name": "Tides of Myst",
+        "text": "Once during your turn, if you have Black Shores in play, you may draw 2 cards.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Light Pulse",
+        "cost": [
+          "Water",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "80",
+        "text": "This attack's damage isn't affected by any effects on your opponent's Active Pokémon."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T02:06:52.650Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "20",
+    "artist": "Sanosuke Sakuma",
+    "rarity": "Full Art",
+    "flavorText": "It is the world’s most beautiful Pokémon. There are many works of art featuring Milotic.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-020.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-020.png"
+    },
+    "forteData": {
+      "discordUsername": "bambotron",
+      "originalJsonFileName": "Milotic (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Feebas"
+      }
+    }
+  },
+  {
     "id": "PF1a-021",
     "name": "Clamperl",
     "supertype": "Pokémon",
