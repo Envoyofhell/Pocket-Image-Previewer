@@ -5340,6 +5340,99 @@
     }
   },
   {
+    "id": "PF1a-005",
+    "name": "Illumise",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 80,
+    "types": [
+      "Grass"
+    ],
+    "abilities": [
+      {
+        "name": "Aroma Signal",
+        "text": "Once during your turn, if you have Volbeat in play, you may use this Ability. Switch in 1 of your opponent’s Benched Pokémon that has 40 HP or less remaining to the Active Spot.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Soothing Scent",
+        "cost": [
+          "Grass",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20",
+        "text": "This Pokémon recovers from all Special Conditions."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:55:39.840Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "5",
+    "artist": "Orca",
+    "rarity": "Full Art",
+    "flavorText": "With its sweet aroma, it guides Volbeat to draw signs with light in the night sky.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1wcmJSusS2WgAmQj0pO_giCySFFrU6bYQ/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1wcmJSusS2WgAmQj0pO_giCySFFrU6bYQ/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Illumise.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-006",
     "name": "Wo-Chien Forte",
     "supertype": "pokémon",
