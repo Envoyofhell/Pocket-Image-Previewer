@@ -8357,6 +8357,105 @@
     }
   },
   {
+    "id": "PF1a-056",
+    "name": "Hisuian Zoroark",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 120,
+    "types": [
+      "Dark"
+    ],
+    "evolvesFrom": "Zorua",
+    "abilities": [
+      {
+        "name": "Deceptive Draw",
+        "text": "Once during your turn, you may shuffle your hand into your deck. Then, draw a card for each of your Benched Pokémon that has any [D] Energy attached.  You can’t use more than 1 Deceptive Draw Ability during your turn.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Night Daze",
+        "cost": [
+          "Darkness",
+          "Darkness",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T02:22:01.724Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "56",
+    "artist": "nagimiso",
+    "rarity": "Full Art",
+    "flavorText": "Each has the ability to fool a large group of people simultaneously. They protect their lair with illusory scenery.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1dOCLFiSLfl9HXtx4DmzSz0Xr1H6RnhbP/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1dOCLFiSLfl9HXtx4DmzSz0Xr1H6RnhbP/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Zoroark.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Zorua"
+      }
+    }
+  },
+  {
     "id": "PF1a-060",
     "name": "Galarian Stunfisk",
     "supertype": "Pokémon",
