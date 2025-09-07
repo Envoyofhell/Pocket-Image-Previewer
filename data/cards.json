@@ -7173,7 +7173,7 @@
   },
   {
     "id": "PF1a-035",
-    "name": "#ERROR!",
+    "name": "Galarian Mr. Rime",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1"
@@ -7234,7 +7234,7 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T00:49:52.053Z",
+      "updatedAt": "2025-09-07T02:19:00.016Z",
       "images": {
         "symbol": "",
         "logo": ""
