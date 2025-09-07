@@ -6228,6 +6228,111 @@
     }
   },
   {
+    "id": "PF1a-024",
+    "name": "Chien-Pao Forte",
+    "supertype": "pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 170,
+    "types": [
+      "Water"
+    ],
+    "abilities": [
+      {
+        "name": "Ominous Blades",
+        "text": "If this Pokémon is in the Active Spot and has a [D] Energy attached, this Pokémon takes 20 less damage from attacks __(before applying Weakness and Resistance)__.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Blizzard Blades",
+        "cost": [
+          "Water",
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "100",
+        "text": ""
+      },
+      {
+        "name": "Glacial Gaze",
+        "cost": [
+          "Water",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70×",
+        "text": "Discard any number of Energy from this Pokémon. This attack does 70 damage for each Energy discarded in this way. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T01:55:24.167Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "24",
+    "artist": "aky CG Works",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1xoTdrFL9JhP7YyHukz1sIejzCGZH5EJp/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1xoTdrFL9JhP7YyHukz1sIejzCGZH5EJp/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(024) Chien-Pao Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-034",
     "name": "#ERROR!",
     "supertype": "Pokémon",
