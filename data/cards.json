@@ -9842,6 +9842,108 @@
     }
   },
   {
+    "id": "PF1a-078",
+    "name": "Vigoroth",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Colorless"
+    ],
+    "evolvesFrom": "Slakoth",
+    "attacks": [
+      {
+        "name": "Slam",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30×",
+        "text": "Flip 2 coins. This attack does 30 damage for each heads."
+      },
+      {
+        "name": "Adrenaline Rush",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70",
+        "text": "This attack can be used even if this Pokémon is Asleep or Paralyzed."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T03:01:06.752Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "78",
+    "artist": "Suwama Chiaki",
+    "rarity": "Full Art",
+    "flavorText": "Its stress level rises if it cannot keep moving constantly. Too much stress makes it feel sick.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-078.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-078.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Vigoroth.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Slakoth"
+      }
+    }
+  },
+  {
     "id": "PF1a-079",
     "name": "Slaking",
     "supertype": "Pokémon",
