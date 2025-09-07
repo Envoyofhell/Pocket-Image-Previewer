@@ -5542,6 +5542,108 @@
     }
   },
   {
+    "id": "PF1a-014",
+    "name": "Chi-Yu Forte",
+    "supertype": "pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 160,
+    "types": [
+      "Fire"
+    ],
+    "abilities": [
+      {
+        "name": "Ominous Eyes",
+        "text": "If this Pokémon is in the Active Spot and has a [D] Energy attached, this Pokémon's attacks do 20 more damage to your opponent's Active Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Tripartite Flames",
+        "cost": [
+          "Fire",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "90",
+        "text": ""
+      },
+      {
+        "name": "Burning Jealousy",
+        "cost": [
+          "Fire",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30×",
+        "text": "This attack does 30 damage for each damage counter on both Active Pokémon. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:55:17.514Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "14",
+    "artist": "5ban Graphics",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://drive.google.com/file/d/1_TOxjO8gEVyLIx0szyyft6qhjJnRmhXr/view?usp=drivesdk",
+      "large": "https://drive.google.com/file/d/1_TOxjO8gEVyLIx0szyyft6qhjJnRmhXr/view?usp=drivesdk"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(014) Chi-Yu Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-015",
     "name": "Delibird",
     "supertype": "Pokémon",
