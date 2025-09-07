@@ -9206,34 +9206,37 @@
   },
   {
     "id": "PF1a-076",
-    "name": "Snorlax",
+    "name": "Vigoroth",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Stage 1"
     ],
-    "hp": 140,
+    "hp": 90,
     "types": [
       "Colorless"
     ],
-    "abilities": [
-      {
-        "name": "Thick Fat",
-        "text": "This Pokémon takes 30 less damage from attacks from your opponent’s [R] or [W] Pokémon (after applying Weakness and Resistance).",
-        "type": "Ability"
-      }
-    ],
+    "evolvesFrom": "Slakoth",
     "attacks": [
       {
-        "name": "Devouring",
+        "name": "Slam",
         "cost": [
           "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30×",
+        "text": "Flip 2 coins. This attack does 30 damage for each heads."
+      },
+      {
+        "name": "Adrenaline Rush",
+        "cost": [
           "Colorless",
           "Colorless",
           "Colorless"
         ],
-        "convertedEnergyCost": 4,
-        "damage": "80",
-        "text": "Before doing damage, you may discard any number of Pokémon Tools from your Pokémon. Heal 30 damage from this Pokémon for each card you discarded in this way."
+        "convertedEnergyCost": 3,
+        "damage": "70",
+        "text": "This attack can be used even if this Pokémon is Asleep or Paralyzed."
       }
     ],
     "weaknesses": [
@@ -9250,10 +9253,9 @@
     ],
     "retreatCost": [
       "Colorless",
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 3,
+    "convertedRetreatCost": 2,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
@@ -9268,16 +9270,16 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:08:25.571Z",
+      "updatedAt": "2025-09-07T02:32:13.354Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "76",
-    "artist": "kanahei",
+    "artist": "Suwama Chiaki",
     "rarity": "Full Art",
-    "flavorText": "When its belly is full, it becomes too lethargic to even lift a finger, so it is safe to bounce on its belly.",
+    "flavorText": "Its stress level rises if it cannot keep moving constantly. Too much stress makes it feel sick.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -9290,7 +9292,7 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Snorlax.json",
+      "originalJsonFileName": "Vigoroth.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
@@ -9298,7 +9300,10 @@
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": ""
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Slakoth"
+      }
     }
   },
   {
