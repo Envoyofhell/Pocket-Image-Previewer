@@ -5826,6 +5826,105 @@
     }
   },
   {
+    "id": "PF1a-035",
+    "name": "#ERROR!",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 110,
+    "types": [
+      "Psychic"
+    ],
+    "evolvesFrom": "Galarian Mr. Mime",
+    "abilities": [
+      {
+        "name": "Star Dancer",
+        "text": "Once during your turn, you may switch the top card of your deck with 1 of your Prize cards. __(Put the new Prize card face down.)__ You can’t use more than 1 Star Dancer Ability during your turn.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Psybeam",
+        "cost": [
+          "Psychic",
+          "Psychic",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "100",
+        "text": "Discard 2 [P] Energy from this Pokémon."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Darkness",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T00:49:52.053Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "35",
+    "artist": "HYOGONOSUKE",
+    "rarity": "Full Art",
+    "flavorText": "It's highly skilled at tap-dancing. It waves its cane of ice in time with its graceful movements.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-035.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-035.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "#ERROR!",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Galarian Mr. Mime"
+      }
+    }
+  },
+  {
     "id": "PF1a-036",
     "name": "Woobat",
     "supertype": "Pokémon",
