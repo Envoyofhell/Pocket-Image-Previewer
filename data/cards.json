@@ -8636,7 +8636,7 @@
   },
   {
     "id": "PF1a-056",
-    "name": "Hisuian Zoroark",
+    "name": "Zoroark",
     "supertype": "Pokémon",
     "subtypes": [
       "Stage 1"
@@ -8697,7 +8697,7 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:22:01.724Z",
+      "updatedAt": "2025-09-07T02:30:10.750Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -8714,8 +8714,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/1dOCLFiSLfl9HXtx4DmzSz0Xr1H6RnhbP/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/1dOCLFiSLfl9HXtx4DmzSz0Xr1H6RnhbP/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-056.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-056.png"
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
