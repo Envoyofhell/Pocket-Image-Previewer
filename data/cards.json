@@ -6096,6 +6096,103 @@
     }
   },
   {
+    "id": "PF1a-062",
+    "name": "Whimsicott",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 70,
+    "types": [
+      "Fairy"
+    ],
+    "evolvesFrom": "Cottonee",
+    "abilities": [
+      {
+        "name": "Miracle Wind",
+        "text": "Once during your turn, you may discard a [Y] Energy from this Pokémon. If you do, put a Spectro Forte Marker on 1 of your Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Brilliant Shot",
+        "cost": [
+          "Dragon",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "50",
+        "text": "This Pokémon recovers from all Special Conditions."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Dark",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T00:47:14.467Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "62",
+    "artist": "Yumi",
+    "rarity": "Rare",
+    "flavorText": "It rides on the wind and slips into people’s homes. After it has turned a room into a cotton-filled mess, it giggles to itself and takes off.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-062.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-062.png"
+    },
+    "forteData": {
+      "discordUsername": "bambotron",
+      "originalJsonFileName": "Whimsicott (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Cottonee"
+      }
+    }
+  },
+  {
     "id": "PF1a-083",
     "name": "Drampa Forte",
     "supertype": "Pokémon",
