@@ -9842,6 +9842,118 @@
     }
   },
   {
+    "id": "PF1a-079",
+    "name": "Slaking",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 170,
+    "types": [
+      "Colorless"
+    ],
+    "evolvesFrom": "Vigoroth",
+    "abilities": [
+      {
+        "name": "Dire Destruction",
+        "text": "This Pokémon can’t attack unless it is affected by a Special Condition.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Facade",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70+",
+        "text": "If this Pokémon is affected by a Special Condition, this attack does 70 more damage."
+      },
+      {
+        "name": "Hammer Slammer",
+        "cost": [
+          "Colorless",
+          "Colorless",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 4,
+        "damage": "150",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T03:00:46.049Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "79",
+    "artist": "Shibuzoh.",
+    "rarity": "Full Art",
+    "flavorText": "Slaking spends all day lying down and lolling about. It eats grass growing within its reach. If it eats all the grass it can reach, this Pokémon reluctantly moves to another spot.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-079.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-079.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Slaking.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Vigoroth"
+      }
+    }
+  },
+  {
     "id": "PF1a-081",
     "name": "Hisuian Zorua",
     "supertype": "Pokémon",
