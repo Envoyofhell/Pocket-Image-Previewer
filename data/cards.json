@@ -5390,8 +5390,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-09-07T01:56:08.139Z",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T02:14:01.870Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -5408,8 +5408,8 @@
       "forteFormat": "Legal"
     },
     "images": {
-      "small": "https://drive.google.com/file/d/11YwhcEchHs9C4Ok_nyoFKLzP8g-M3p2l/view?usp=drivesdk",
-      "large": "https://drive.google.com/file/d/11YwhcEchHs9C4Ok_nyoFKLzP8g-M3p2l/view?usp=drivesdk"
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-001.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-001.png"
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
@@ -5418,7 +5418,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
       "prevolveImgSize": ""
