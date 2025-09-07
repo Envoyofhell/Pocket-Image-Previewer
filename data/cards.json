@@ -6300,6 +6300,102 @@
     }
   },
   {
+    "id": "PF1a-054",
+    "name": "Absol Forte",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 180,
+    "types": [
+      "Dark"
+    ],
+    "attacks": [
+      {
+        "name": "Stagger Claw",
+        "cost": [
+          "Darkness",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "60",
+        "text": "Flip a coin. If heads, Put an Electro Forte Marker on your opponent’s Active Pokémon. If tails, Put an Electro Forte Marker on this Pokémon."
+      },
+      {
+        "name": "Judgement Strike",
+        "cost": [
+          "Darkness",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "",
+        "text": "This attack does 100 damage to 1 of your opponent’s Benched Pokémon that has any Forte Markers on it. ==__(Don’t apply Weakness and Resistance for Benched Pokémon.) (You can't use more than 1 **Forte** attack in a game.)__=="
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:54:39.835Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "54",
+    "artist": "nagimiso",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-054.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-054.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Absol Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-060",
     "name": "Galarian Stunfisk",
     "supertype": "Pokémon",
