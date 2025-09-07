@@ -5922,6 +5922,106 @@
     }
   },
   {
+    "id": "PF1a-023",
+    "name": "Gorebyss",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Water"
+    ],
+    "evolvesFrom": "Clamperl",
+    "attacks": [
+      {
+        "name": "Vitality Feed",
+        "cost": [
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30",
+        "text": "During your opponent’s next turn, Evolution Pokémon in play __(both yours and your opponent’s)__ have no Abilities. __(This includes new Pokémon that come into play.)__"
+      },
+      {
+        "name": "Surprise Attack",
+        "cost": [
+          "Water",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "70",
+        "text": "Flip a coin. If tails, this attack does nothing."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-07T01:55:00.048Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "23",
+    "artist": "Miki Tanaka",
+    "rarity": "Full Art",
+    "flavorText": "\tIt lives at the bottom of the sea. In the springtime, its pink body turns more vivid for some reason.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-023.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-023.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Gorebyss.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Clamperl"
+      }
+    }
+  },
+  {
     "id": "PF1a-034",
     "name": "#ERROR!",
     "supertype": "Pokémon",
