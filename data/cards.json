@@ -7176,38 +7176,49 @@
   },
   {
     "id": "PF1a-024",
-    "name": "Magneton",
-    "supertype": "Pokémon",
+    "name": "Chien-Pao Forte",
+    "supertype": "pokémon",
     "subtypes": [
-      "Stage 1"
+      "Basic"
     ],
-    "hp": 100,
+    "hp": 170,
     "types": [
-      "Electric"
+      "Water"
     ],
-    "evolvesFrom": "Magnemite",
     "abilities": [
       {
-        "name": "Magnetic Field",
-        "text": "You must discard an Energy card from your hand in order to use this Ability. Once during your turn, you may put up to 2 Basic Energy cards from your discard pile into your hand, except for the Energy card you discarded to use this Ability.",
+        "name": "Ominous Blades",
+        "text": "If this Pokémon is in the Active Spot and has a [D] Energy attached, this Pokémon takes 20 less damage from attacks __(before applying Weakness and Resistance)__.",
         "type": "Ability"
       }
     ],
     "attacks": [
       {
-        "name": "Electro Ball",
+        "name": "Blizzard Blades",
         "cost": [
-          "Lightning",
+          "Water",
+          "Water",
           "Colorless"
         ],
-        "convertedEnergyCost": 2,
-        "damage": "40",
+        "convertedEnergyCost": 3,
+        "damage": "100",
         "text": ""
+      },
+      {
+        "name": "Glacial Gaze",
+        "cost": [
+          "Water",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70×",
+        "text": "Discard any number of Energy from this Pokémon. This attack does 70 damage for each Energy discarded in this way. ==__(You can't use more than 1 **Forte** attack in a game.)__=="
       }
     ],
     "weaknesses": [
       {
-        "type": "Fighting",
+        "type": "Metal",
         "value": "2"
       }
     ],
@@ -7236,16 +7247,15 @@
       },
       "ptcgoCode": "PF1A",
       "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:45:52.108Z",
+      "updatedAt": "2025-09-07T02:47:13.577Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "24",
-    "artist": "Yuka Morii",
+    "artist": "aky CG Works",
     "rarity": "Full Art",
-    "flavorText": "The stronger electromagnetic waves from the three linked Magnemite are enough to dry out surrounding moisture.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -7257,19 +7267,16 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-024.png"
     },
     "forteData": {
-      "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Magneton.json",
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(024) Chien-Pao Forte.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
-      "isForte": false,
+      "isForte": true,
       "approvedDate": "2025/09/06",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": "",
-      "otherSheetData": {
-        "prevolveName": "Magnemite"
-      }
+      "prevolveImgSize": ""
     }
   },
   {
