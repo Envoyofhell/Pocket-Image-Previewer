@@ -10042,6 +10042,82 @@
     }
   },
   {
+    "id": "PF1a-084",
+    "name": "Full Heal",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Item"
+    ],
+    "rules": [
+      "Your Active Pokémon recovers from all Special",
+      "Conditions."
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/06",
+      "updatedAt": "2025-09-07T02:58:18.624Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "84",
+    "artist": "Yoshinobu Saito",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-084.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-084.png"
+    },
+    "forteData": {
+      "discordUsername": "Avalan (@AvalanWasTaken)",
+      "originalJsonFileName": "(084) Full Heal.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/09/06",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-085",
     "name": "Basic Revival Inhaler",
     "supertype": "Trainer",
