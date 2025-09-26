@@ -10397,6 +10397,107 @@
     }
   },
   {
+    "id": "PF1a-069",
+    "name": "Slurpuff",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 100,
+    "types": [
+      "Fairy"
+    ],
+    "evolvesFrom": "Swirlix",
+    "attacks": [
+      {
+        "name": "Spit Up",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "30",
+        "text": "If a Pokémon Tool was discarded from this Pokémon during this turn, you may put that Pokémon Tool from your discard pile back into your hand."
+      },
+      {
+        "name": "Sweet Destruction",
+        "cost": [
+          "Dragon",
+          "Dragon",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70",
+        "text": "This attack ignores the effects of Forte Markers on both Active Pokémon."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Dark",
+        "value": "-20"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/25",
+      "updatedAt": "2025-09-26T01:57:17.307Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "69",
+    "artist": "Saya Tsuruta",
+    "rarity": "",
+    "flavorText": "\tBy taking in a person's scent, it can sniff out their mental and physical condition. It's hoped that this skill will have many medical applications.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-069.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-069.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Slurpuff.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/09/25",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Swirlix",
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-070",
     "name": "Druddigon",
     "supertype": "Pokémon",
