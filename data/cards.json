@@ -11521,6 +11521,72 @@
     }
   },
   {
+    "id": "PF1a-092",
+    "name": "Sanhua",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Supporter"
+    ],
+    "rules": [
+      "Search your deck for a Supporter card and a Stadium card, reveal them, and put them in your hand. Then, shuffle your deck."
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/25",
+      "updatedAt": "2025-09-26T01:52:10.452Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "92",
+    "artist": "Kuro Games Inc.",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-092.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-092.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Sanhua.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/09/25",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-093",
     "name": "Jianxin's Grounding Technique",
     "supertype": "Trainer",
