@@ -8950,6 +8950,96 @@
     }
   },
   {
+    "id": "PF1a-046",
+    "name": "Swinub",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Fighting"
+    ],
+    "abilities": [
+      {
+        "name": "Run Away",
+        "text": "Whenever this Pokémon is in the Active Spot, and is damaged by 1 of your opponent's Pokémon, you may switch this Pokémon with 1 of your Benched Pokémon.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Mud Slap",
+        "cost": [
+          "Fighting",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "20",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/25",
+      "updatedAt": "2025-09-26T01:59:22.194Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "46",
+    "artist": "Nintendo-jr",
+    "rarity": "",
+    "flavorText": "It searches for food by digging into the ground with its snout. Even frozen ground doesn't give it any trouble.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-046.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-046.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Swinub (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/09/25",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-047",
     "name": "Flamigo",
     "supertype": "Pokémon",
