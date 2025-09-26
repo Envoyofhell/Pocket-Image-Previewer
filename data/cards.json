@@ -9720,6 +9720,103 @@
     }
   },
   {
+    "id": "PF1a-066",
+    "name": "Spritzee",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Fairy"
+    ],
+    "attacks": [
+      {
+        "name": "Sweet Scent",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Heal 30 damage from 1 of your Pokémon."
+      },
+      {
+        "name": "Fairy Wind",
+        "cost": [
+          "Dragon"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "10",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Dark",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-09-26T01:48:03.714Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "66",
+    "artist": "MAHOU",
+    "rarity": "",
+    "flavorText": "A scent pouch within this Pokémon's body allows it to create various scents. A change in its diet will alter the fragrance it produces.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-066.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-066.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Spritzee.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-067",
     "name": "Aromatisse",
     "supertype": "Pokémon",
