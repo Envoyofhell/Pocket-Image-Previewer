@@ -9145,6 +9145,102 @@
     }
   },
   {
+    "id": "PF1a-052",
+    "name": "Nidorina",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Dark"
+    ],
+    "evolvesFrom": "Nidoran [+]",
+    "attacks": [
+      {
+        "name": "Gnaw",
+        "cost": [
+          "Darkness"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "30",
+        "text": ""
+      },
+      {
+        "name": "Double Kick",
+        "cost": [
+          "Darkness",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "40×",
+        "text": "Flip 2 coins. This attack does 40 damage times the number of heads."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting x",
+        "value": "2"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/09/25",
+      "updatedAt": "2025-09-26T01:50:37.312Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "52",
+    "artist": "Atsuko Nishida",
+    "rarity": "",
+    "flavorText": "The horn on its head has atrophied. It's thought that this happens so Nidorina's children won't get poked while their mother is feeding them.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-052.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-052.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Nidorina (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/09/25",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Nidoran [+]",
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-053",
     "name": "Nidoqueen",
     "supertype": "Pokémon",
