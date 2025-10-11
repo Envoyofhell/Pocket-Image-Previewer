@@ -6398,6 +6398,105 @@
     }
   },
   {
+    "id": "PF1a-012",
+    "name": "Darmanitan",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 130,
+    "types": [
+      "Grass"
+    ],
+    "evolvesFrom": "Darumaka",
+    "abilities": [
+      {
+        "name": "Sheer Force",
+        "text": "Attacks done to your opponent's Active Pokémon with no attacks effect do 20 more damage. __(before applying Weakness and Resistance)__. The effect of Sheer Force doesn't stack.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "More Heat",
+        "cost": [
+          "Fire",
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "50",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/10",
+      "updatedAt": "2025-10-11T02:28:43.645Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "12",
+    "artist": "OKUBO",
+    "rarity": "Full Art",
+    "flavorText": "The thick arms of this hot-blooded Pokémon can deliver punches capable of obliterating a dump truck.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-012.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-012.png"
+    },
+    "forteData": {
+      "discordUsername": "Sacha",
+      "originalJsonFileName": "Darmanitan.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/10/10",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Darumaka"
+      }
+    }
+  },
+  {
     "id": "PF1a-014",
     "name": "Chi-Yu Forte",
     "supertype": "pokémon",
