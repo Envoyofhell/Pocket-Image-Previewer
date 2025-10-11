@@ -5918,6 +5918,103 @@
     }
   },
   {
+    "id": "PF1a-008",
+    "name": "Sinistcha",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 70,
+    "types": [
+      "Grass"
+    ],
+    "evolvesFrom": "Poltchageist",
+    "abilities": [
+      {
+        "name": "Brew The Tea",
+        "text": "You must discard a Basic [G] Energy card from your hand in order to use this Ability. Once during your turn, you may draw 2 cards.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Matcha Gotcha",
+        "cost": [
+          "Grass"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "30",
+        "text": "Put a Fusion Marker on your opponent's Active Pokémon."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/10",
+      "updatedAt": "2025-10-11T02:23:59.450Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "8",
+    "artist": "TPC",
+    "rarity": "Full Art",
+    "flavorText": "It lives inside a superb teacup that was crafted by a potter of great renown. Collectors positively adore this Pokémon.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-008.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-008.png"
+    },
+    "forteData": {
+      "discordUsername": "Razbersky",
+      "originalJsonFileName": "Sinistcha.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/10/10",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": 0,
+      "otherSheetData": {
+        "prevolveName": "Poltchageist"
+      }
+    }
+  },
+  {
     "id": "PF1a-009",
     "name": "Vulpix",
     "supertype": "Pokémon",
