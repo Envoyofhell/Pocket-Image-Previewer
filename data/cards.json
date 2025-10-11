@@ -12277,6 +12277,84 @@
     }
   },
   {
+    "id": "PF1a-095",
+    "name": "Calcharo",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Supporter"
+    ],
+    "rules": [
+      "Each player shuffles their hand into their deck. If",
+      "either player shuffled a card into their deck in this",
+      "way, each player draws a card for each of their",
+      "remaining Prize Cards."
+    ],
+    "weaknesses": [
+      {
+        "type": "Fire",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-11T02:21:36.567Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "95",
+    "artist": "Kura Games Inc.",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-095.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-095.png"
+    },
+    "forteData": {
+      "discordUsername": "Razbersky",
+      "originalJsonFileName": "Calcharo.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-096",
     "name": "Changli",
     "supertype": "Trainer",
