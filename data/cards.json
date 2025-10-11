@@ -11026,6 +11026,87 @@
     }
   },
   {
+    "id": "PF1a-063",
+    "name": "Flabébé",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 30,
+    "types": [
+      "Fairy"
+    ],
+    "abilities": [
+      {
+        "name": "Flower Veil",
+        "text": "Prevent all effects of attacks from your opponent's Pokémon done to all of your Pokémon with [G] Energy attached. __(Existing effects are not removed. Damage is not an effect.)__",
+        "type": "Ability"
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Dark",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-11T03:51:32.425Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "63",
+    "artist": "tetsuya koizumi",
+    "rarity": "Full Art",
+    "flavorText": "When it finds a flower it likes, it dwells on that flower its whole life long. It floats in the wind’s embrace with an untroubled heart.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-063.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-063.png"
+    },
+    "forteData": {
+      "discordUsername": "Sacha",
+      "originalJsonFileName": "Flabébé.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-066",
     "name": "Spritzee",
     "supertype": "Pokémon",
