@@ -9508,6 +9508,103 @@
     }
   },
   {
+    "id": "PF1a-049",
+    "name": "Flamigo",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 90,
+    "types": [
+      "Fighting"
+    ],
+    "attacks": [
+      {
+        "name": "Drill Peck",
+        "cost": [
+          "Fighting",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "40",
+        "text": ""
+      },
+      {
+        "name": "Dancing Flock",
+        "cost": [
+          "Fighting",
+          "Fighting",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "30+",
+        "text": "This attack does 30 more damage for each of your Benched Flamigo."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Electric x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/10",
+      "updatedAt": "2025-10-11T02:42:29.854Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "49",
+    "artist": "kantaro",
+    "rarity": "Full Art",
+    "flavorText": "Thanks to a behavior of theirs known as “synchronizing,” an entire flock of these Pokémon can attack simultaneously in perfect harmony.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-049.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-049.png"
+    },
+    "forteData": {
+      "discordUsername": "LPBvgc",
+      "originalJsonFileName": "(049) Flamigo.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/10/10",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-050",
     "name": "Ting-Lu Forte",
     "supertype": "pokémon",
