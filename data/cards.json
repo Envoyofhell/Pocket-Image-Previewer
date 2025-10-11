@@ -8129,6 +8129,101 @@
     }
   },
   {
+    "id": "PF1a-032",
+    "name": "Luxray",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 2"
+    ],
+    "hp": 150,
+    "types": [
+      "Electric"
+    ],
+    "evolvesFrom": "Luxio",
+    "attacks": [
+      {
+        "name": "Play Rough",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "30+",
+        "text": "Flip a coin. If heads, this attack does 30 more damage"
+      },
+      {
+        "name": "Scar Strikes",
+        "cost": [
+          "Lightning",
+          "Lightning"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "70+",
+        "text": "If your opponent's Active Pokémon already has any damage counters on it, this attack does 70 more damage."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-11T03:49:28.771Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "32",
+    "artist": "Ryota Murayama",
+    "rarity": "Full Art",
+    "flavorText": "Luxray's ability to see through objects comes in handy when it's scouting for danger.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-032.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-032.png"
+    },
+    "forteData": {
+      "discordUsername": "Sacha",
+      "originalJsonFileName": "Luxray.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Luxio"
+      }
+    }
+  },
+  {
     "id": "PF1a-033",
     "name": "Stunfisk",
     "supertype": "Pokémon",
