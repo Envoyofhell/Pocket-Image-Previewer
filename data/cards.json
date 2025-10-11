@@ -7865,6 +7865,89 @@
     }
   },
   {
+    "id": "PF1a-028",
+    "name": "Chinchou",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 60,
+    "types": [
+      "Electric"
+    ],
+    "abilities": [
+      {
+        "name": "Waves of Rinascita",
+        "text": "As long as this Pokémon is on your Bench, prevent all damage done to this Pokémon by attacks __(both yours and your opponent's)__.",
+        "type": "Ability"
+      }
+    ],
+    "attacks": [
+      {
+        "name": "Flash",
+        "cost": [
+          "Lightning"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "10",
+        "text": ""
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/10",
+      "updatedAt": "2025-10-11T03:38:46.912Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "28",
+    "artist": "Orlek",
+    "rarity": "",
+    "flavorText": "It lives in ocean depths beyond the reach of sunlight. It flashes lights on its antennae to communicate with others of its kind.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-028.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-028.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Chinchou.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/10/10",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "dualTypeId": 0
+      }
+    }
+  },
+  {
     "id": "PF1a-029",
     "name": "Lanturn",
     "supertype": "Pokémon",
