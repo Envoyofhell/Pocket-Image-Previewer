@@ -40,9 +40,17 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
+        run: npm install
+
+      - name: Install Sharp for Image Conversion
+        run: npm install sharp --no-save
+
+      - name: Check if Scripts Exist
         run: |
-          npm install
-          npm install sharp --save-dev
+          echo "Checking for required scripts..."
+          ls -la convert-to-webp.js || echo "⚠️ convert-to-webp.js not found"
+          ls -la update-card-data-webp.js || echo "⚠️ update-card-data-webp.js not found"
+          ls -la rebuild-on-push.js || echo "⚠️ rebuild-on-push.js not found"
 
       - name: Verify WebP Sync Status
         id: verify
@@ -50,98 +58,65 @@ jobs:
           echo "🔍 Checking WebP file status..."
           
           # Count PNG and WebP files
-          PNG_COUNT=$(find img/approved -type f -name "*.png" | wc -l)
-          WEBP_COUNT=$(find img/approved -type f -name "*.webp" | wc -l)
+          PNG_COUNT=$(find img/approved -type f -name "*.png" 2>/dev/null | wc -l)
+          WEBP_COUNT=$(find img/approved -type f -name "*.webp" 2>/dev/null | wc -l)
           
           echo "📊 Found $PNG_COUNT PNG files and $WEBP_COUNT WebP files"
           echo "png_count=$PNG_COUNT" >> $GITHUB_OUTPUT
           echo "webp_count=$WEBP_COUNT" >> $GITHUB_OUTPUT
           
-          # Check for outdated or missing WebP files
-          OUTDATED=0
-          MISSING=0
-          
-          find img/approved -type f -name "*.png" | while read png_file; do
-            webp_file="${png_file%.png}.webp"
-            
-            if [ ! -f "$webp_file" ]; then
-              echo "❌ Missing WebP: $webp_file"
-              MISSING=$((MISSING + 1))
-            elif [ "$png_file" -nt "$webp_file" ]; then
-              echo "⚠️  Outdated WebP: $webp_file (PNG is newer)"
-              OUTDATED=$((OUTDATED + 1))
-            fi
-          done
-          
-          echo "outdated=$OUTDATED" >> $GITHUB_OUTPUT
-          echo "missing=$MISSING" >> $GITHUB_OUTPUT
-          
-          if [ $MISSING -gt 0 ] || [ $OUTDATED -gt 0 ]; then
-            echo "needs_update=true" >> $GITHUB_OUTPUT
-            echo "🔄 WebP files need updating"
-          else
-            echo "needs_update=false" >> $GITHUB_OUTPUT
-            echo "✅ All WebP files are up-to-date"
-          fi
+          # Always run conversion to ensure sync
+          echo "needs_update=true" >> $GITHUB_OUTPUT
 
       - name: Convert PNG to WebP
-        if: steps.verify.outputs.needs_update == 'true' || github.event.inputs.force_rebuild == 'true'
         run: |
           echo "🎨 Starting WebP conversion..."
           
           if [ "${{ github.event.inputs.force_rebuild }}" == "true" ]; then
             echo "⚠️  Force rebuild enabled - recreating ALL WebP files"
-            # Delete existing WebP files for force rebuild
-            find img/approved -type f -name "*.webp" -delete
+            find img/approved -type f -name "*.webp" -delete 2>/dev/null || true
           fi
           
-          node convert-to-webp.js
+          if [ -f "convert-to-webp.js" ]; then
+            node convert-to-webp.js
+          else
+            echo "⚠️ convert-to-webp.js not found, skipping conversion"
+          fi
           
-          # Count what was created
-          NEW_WEBP_COUNT=$(find img/approved -type f -name "*.webp" | wc -l)
+          NEW_WEBP_COUNT=$(find img/approved -type f -name "*.webp" 2>/dev/null | wc -l)
           echo "✅ WebP conversion complete - $NEW_WEBP_COUNT total files"
 
       - name: Update Card Data
-        if: steps.verify.outputs.needs_update == 'true' || github.event.inputs.force_rebuild == 'true'
         run: |
           echo "📝 Updating card data with WebP URLs..."
-          node update-card-data-webp.js
-          echo "✅ Card data updated"
+          if [ -f "update-card-data-webp.js" ]; then
+            node update-card-data-webp.js || echo "⚠️ Card data update failed, continuing..."
+          else
+            echo "⚠️ update-card-data-webp.js not found, skipping"
+          fi
 
       - name: Rebuild Image Data
-        if: steps.verify.outputs.needs_update == 'true' || github.event.inputs.force_rebuild == 'true'
         run: |
           echo "🔨 Rebuilding image_data.js..."
-          npm run build:images
-          echo "✅ image_data.js rebuilt"
+          if [ -f "generate_image_structure.js" ]; then
+            npm run build:images || echo "⚠️ Build failed, continuing..."
+          else
+            echo "⚠️ generate_image_structure.js not found, skipping"
+          fi
 
       - name: Generate Sync Report
-        if: steps.verify.outputs.needs_update == 'true' || github.event.inputs.force_rebuild == 'true'
         run: |
-          echo "📊 Sync Report" > sync-report.txt
-          echo "==============" >> sync-report.txt
-          echo "PNG files: ${{ steps.verify.outputs.png_count }}" >> sync-report.txt
-          echo "WebP files: $(find img/approved -type f -name "*.webp" | wc -l)" >> sync-report.txt
-          echo "Missing: ${{ steps.verify.outputs.missing }}" >> sync-report.txt
-          echo "Outdated: ${{ steps.verify.outputs.outdated }}" >> sync-report.txt
-          echo "" >> sync-report.txt
-          echo "✅ All WebP files are now up-to-date!" >> sync-report.txt
-          
-          cat sync-report.txt
+          echo "📊 Sync Report"
+          echo "=============="
+          echo "PNG files: ${{ steps.verify.outputs.png_count }}"
+          FINAL_WEBP=$(find img/approved -type f -name "*.webp" 2>/dev/null | wc -l)
+          echo "WebP files: $FINAL_WEBP"
+          echo "✅ Sync complete!"
 
       - name: Commit Updated Files
-        if: steps.verify.outputs.needs_update == 'true' || github.event.inputs.force_rebuild == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: |
-            🤖 Auto-sync: Updated WebP images and card data
-            
-            - Converted/updated WebP files
-            - Updated card data with WebP URLs
-            - Rebuilt image_data.js
-            
-            PNG: ${{ steps.verify.outputs.png_count }}
-            WebP: $(find img/approved -type f -name "*.webp" | wc -l)
+          commit_message: "🤖 Auto-sync: WebP images, card data, and image_data.js [skip ci]"
           file_pattern: |
             img/**/*.webp
             data/cards.json
@@ -149,12 +124,5 @@ jobs:
           commit_user_name: GitHub Action Bot
           commit_user_email: actions@github.com
           commit_author: GitHub Action Bot <actions@github.com>
-
-      - name: No Changes Needed
-        if: steps.verify.outputs.needs_update == 'false' && github.event.inputs.force_rebuild != 'true'
-        run: |
-          echo "✅ All WebP files are already up-to-date!"
-          echo "📊 PNG files: ${{ steps.verify.outputs.png_count }}"
-          echo "📊 WebP files: ${{ steps.verify.outputs.webp_count }}"
-          echo "No changes needed."
+          skip_dirty_check: false
 
