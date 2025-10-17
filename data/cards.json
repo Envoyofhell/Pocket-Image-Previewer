@@ -11779,6 +11779,108 @@
     }
   },
   {
+    "id": "PF1a-073",
+    "name": "Appletun",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 110,
+    "types": [
+      "Dragon"
+    ],
+    "evolvesFrom": "Applin",
+    "attacks": [
+      {
+        "name": "Giga Drain",
+        "cost": [
+          "Grass",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30",
+        "text": "Heal from this Pokémon the same amount of damage you did to your opponent’s Active Pokémon."
+      },
+      {
+        "name": "Mucus Burst",
+        "cost": [
+          "Grass",
+          "Fire"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30+",
+        "text": "You may remove up to 2 Forte Markers from your Benched Pokémon. This attack does 30 more damage for each Forte Marker you removed in this way."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fairy x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Water",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-17T17:36:09.504Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "73",
+    "artist": "Oswaldo KATO",
+    "rarity": "Full Art",
+    "flavorText": "It feeds mainly on sweet apples. It will also eat small bug Pokémon that are attracted by its sweet nectar.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-073.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-073.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Appletun.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Applin"
+      }
+    }
+  },
+  {
     "id": "PF1a-075",
     "name": "Slakoth",
     "supertype": "Pokémon",
