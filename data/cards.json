@@ -8094,8 +8094,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "2025/10/10",
-      "updatedAt": "2025-10-11T03:38:19.387Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:50:43.080Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -8122,7 +8122,7 @@
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/10/10",
+      "approvedDate": "2025/10/17",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
       "prevolveImgSize": ""
