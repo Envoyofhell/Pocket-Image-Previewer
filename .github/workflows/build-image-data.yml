@@ -42,47 +42,27 @@ jobs:
       - name: Install Dependencies
         run: npm install # Use 'pnpm install' if you initialized with pnpm
 
-      # Convert PNGs to WebP
-      - name: Convert PNG to WebP
+      # Install sharp for WebP conversion
+      - name: Install Sharp for WebP Conversion
+        run: npm install sharp --save-dev
+
+      # Auto-detect PNG changes and rebuild everything
+      - name: Auto-Rebuild on PNG Changes
         run: |
-          echo "🎨 Converting PNG images to WebP..."
-          # Find all PNG files that don't have a corresponding WebP
-          find img/approved -type f -name "*.png" | while read png_file; do
-            webp_file="${png_file%.png}.webp"
-            # Only convert if WebP doesn't exist or PNG is newer
-            if [ ! -f "$webp_file" ] || [ "$png_file" -nt "$webp_file" ]; then
-              echo "Converting: $png_file"
-              npx @squoosh/cli --webp '{"quality":85}' -d "$(dirname "$png_file")" "$png_file"
-              # Rename output to .webp (squoosh may create different name)
-              if [ -f "${png_file%.png}.webp" ]; then
-                echo "✅ Created: $webp_file"
-              fi
-            else
-              echo "⏭️  Skipped: $webp_file (already exists)"
-            fi
-          done
-          echo "✨ WebP conversion complete!"
+          echo "🔍 Detecting PNG changes and triggering automatic rebuilds..."
+          node rebuild-on-push.js
+          echo "✅ Auto-rebuild complete!"
 
-      # Update card data with WebP URLs
-      - name: Update Card Data with WebP URLs
-        run: |
-          echo "📝 Updating card data JSON files with WebP URLs..."
-          node update-card-data-webp.js
-          echo "✅ Card data updated!"
-
-      # Runs the build script defined in package.json
-      - name: Run Build Script
-        run: npm run build:images # This executes 'node generate_image_structure.js'
-
-      # Commit changes (images, card data, and image_data.js)
+      # Commit changes (WebP images, card data, and image_data.js)
       - name: Commit updated files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automated: Update images (WebP), card data, and image_data.js"
+          commit_message: "🤖 Auto: Converted PNG→WebP, updated card data & image_data.js"
           file_pattern: |
             img/**/*.webp
-            data/*.json
+            data/cards.json
             image_data.js
           commit_user_name: GitHub Action Bot
           commit_user_email: actions@github.com
           commit_author: GitHub Action Bot <actions@github.com>
+          push_options: '--force-with-lease'

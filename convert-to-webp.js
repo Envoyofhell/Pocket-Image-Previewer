@@ -37,10 +37,18 @@ function findPNGFiles(dir, fileList = []) {
 async function convertToWebP(pngPath) {
     const webpPath = pngPath.replace(/\.png$/i, '.webp');
     
-    // Skip if WebP already exists
+    // Check if WebP needs updating (PNG is newer or WebP doesn't exist)
     if (fs.existsSync(webpPath)) {
-        console.log(`⏭️  Skipping (exists): ${path.basename(webpPath)}`);
-        return { skipped: true };
+        const pngStats = fs.statSync(pngPath);
+        const webpStats = fs.statSync(webpPath);
+        
+        // Skip if WebP is newer than PNG
+        if (webpStats.mtime > pngStats.mtime) {
+            console.log(`⏭️  Skipping (up-to-date): ${path.basename(webpPath)}`);
+            return { skipped: true };
+        }
+        
+        console.log(`🔄 Updating (PNG changed): ${path.basename(webpPath)}`);
     }
     
     try {
