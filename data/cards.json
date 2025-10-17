@@ -13469,6 +13469,68 @@
     }
   },
   {
+    "id": "PF1a-088",
+    "name": "Premium Tuner",
+    "supertype": "Trainer",
+    "subtypes": [],
+    "types": [
+      "Item"
+    ],
+    "rules": [
+      "You can only use 1 Premium Tuner in a turn.",
+      "Flip a coin. If heads, return 1 of your Pokémon and all cards attached to it to your hand."
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:42:47.404Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "88",
+    "artist": "Kuro Games Inc.",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-088.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-088.png"
+    },
+    "forteData": {
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Premium Tuner (1).json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "A",
+      "isForte": false,
+      "approvedDate": "2025/10/17",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "PF1a-090",
     "name": "Yangyang's Scouting Report",
     "supertype": "Trainer",
