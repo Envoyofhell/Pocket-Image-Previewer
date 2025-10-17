@@ -18204,56 +18204,56 @@
   },
   {
     "id": "misc-057",
-    "name": "Onix",
+    "name": "Meowth",
     "supertype": "Pokémon",
     "subtypes": [
       "Basic"
     ],
-    "hp": 110,
+    "hp": 70,
     "types": [
-      "Fighting"
+      "Metal"
     ],
     "attacks": [
       {
-        "name": "Slam",
+        "name": "Sharpened Tacet",
+        "cost": [],
+        "convertedEnergyCost": 0,
+        "damage": "",
+        "text": "During your next turn, this Pokémon's Metal Claw attack does 40 more damage __(before applying Weakness and Resistance)__."
+      },
+      {
+        "name": "Metal Claw",
         "cost": [
-          "Colorless",
+          "Metal",
           "Colorless"
         ],
         "convertedEnergyCost": 2,
-        "damage": "30×",
-        "text": "Flip 2 coins. This attack does 30 damage for each heads."
-      },
-      {
-        "name": "Collaspe",
-        "cost": [
-          "Fighting",
-          "Fighting",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 3,
-        "damage": "90",
-        "text": "Discard the top card from both players' decks."
+        "damage": "20",
+        "text": ""
       }
     ],
     "weaknesses": [
       {
-        "type": "Grass",
+        "type": "Fire x",
         "value": "2"
       }
     ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
     "retreatCost": [
-      "Colorless",
-      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 3,
+    "convertedRetreatCost": 1,
     "set": {
       "id": "misc",
-      "name": "PF1",
+      "name": "Forte Arrivals",
       "series": "Scarlet & Violet",
-      "printedTotal": 139,
-      "total": 139,
+      "printedTotal": 103,
+      "total": 103,
       "legalities": {
         "standard": "Legal",
         "expanded": "Legal",
@@ -18261,17 +18261,17 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "MISC",
-      "releaseDate": "2025/06/21",
-      "updatedAt": "2025-06-21T18:20:42.586Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:38:29.806Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "57",
-    "artist": "Tomokazu Komiya",
+    "artist": "Misa Tsutsui",
     "rarity": "",
-    "flavorText": "Burrows at high speed in search of food. The tunnels it leaves are used as homes by Diglett.",
+    "flavorText": "Living with a savage, seafaring people has toughened this Pokémon's body so much that parts of it have turned to iron.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -18283,15 +18283,15 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-057.png"
     },
     "forteData": {
-      "discordUsername": "@LPBvgc",
-      "originalJsonFileName": "Onix (2).json",
-      "subname": "",
+      "discordUsername": "MegaAmpharostheDragon",
+      "originalJsonFileName": "Meowth.json",
+      "subname": "Galarian",
       "regulationMark": "",
-      "rotationSymbol": "Custom Rectangle",
+      "rotationSymbol": "G",
       "isForte": false,
-      "approvedDate": "2025/06/21",
-      "customSetIconTextFromSheet": "PF1",
-      "customSetIconTextFromJson": "PF1",
+      "approvedDate": "2025/10/17",
+      "customSetIconTextFromSheet": "SV1",
+      "customSetIconTextFromJson": "SV1",
       "prevolveImgSize": ""
     }
   },
