@@ -12070,6 +12070,106 @@
     }
   },
   {
+    "id": "PF1a-074",
+    "name": "Dipplin",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 90,
+    "types": [
+      "Dragon"
+    ],
+    "evolvesFrom": "Applin",
+    "attacks": [
+      {
+        "name": "Sweet Scent",
+        "cost": [
+          "Colorless"
+        ],
+        "convertedEnergyCost": 1,
+        "damage": "",
+        "text": "Heal 30 damage from 1 of your Pokémon."
+      },
+      {
+        "name": "Syrup Bomb",
+        "cost": [
+          "Grass",
+          "Fire"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "50",
+        "text": "During your opponent’s next turn, the Defending Pokémon can’t retreat."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fairy x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Water",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 2,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:39:04.610Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "74",
+    "artist": "Shigenori Negishi",
+    "rarity": "Full Art",
+    "flavorText": "The head sticking out belongs to the fore-wyrm, while the tail belongs to the core-wyrm. The two share one apple and help each other out.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-074.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-074.png"
+    },
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Dipplin.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "2025/10/17",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Applin"
+      }
+    }
+  },
+  {
     "id": "PF1a-075",
     "name": "Slakoth",
     "supertype": "Pokémon",
