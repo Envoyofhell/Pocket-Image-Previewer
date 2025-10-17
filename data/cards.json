@@ -18651,6 +18651,105 @@
     }
   },
   {
+    "id": "misc-057",
+    "name": "Onix",
+    "supertype": "Pokemon",
+    "subtypes": [
+      "Basic"
+    ],
+    "hp": 110,
+    "types": [
+      "Fighting"
+    ],
+    "attacks": [
+      {
+        "name": "Slam",
+        "cost": [
+          "Colorless",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30×",
+        "text": "Flip 2 coins. This attack does 30 damage for each heads."
+      },
+      {
+        "name": "Collaspe",
+        "cost": [
+          "Fighting",
+          "Fighting",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "90",
+        "text": "Discard the top card from both players' decks."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Grass x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Grass",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless",
+      "Colorless",
+      "Colorless"
+    ],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "misc",
+      "name": "Forte Arrivals",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-17T18:19:33.168Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "57",
+    "artist": "Tomokazu Komiya",
+    "rarity": "Full Art",
+    "flavorText": "Burrows at high speed in search of food. The tunnels it leaves are used as homes by Diglett.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-057.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-057.png"
+    },
+    "forteData": {
+      "discordUsername": "LBPvgc",
+      "originalJsonFileName": "Onix_data.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  {
     "id": "misc-064",
     "name": "Riolu",
     "supertype": "Pokémon",
