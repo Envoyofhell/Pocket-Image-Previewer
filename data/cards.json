@@ -11194,6 +11194,96 @@
     }
   },
   {
+    "id": "PF1a-064",
+    "name": "Floette",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1"
+    ],
+    "hp": 70,
+    "types": [
+      "Fairy"
+    ],
+    "evolvesFrom": "Flabébé",
+    "attacks": [
+      {
+        "name": "Fairy Wind",
+        "cost": [
+          "Dragon",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 2,
+        "damage": "30",
+        "text": ""
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Metal x",
+        "value": "2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Dark",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": [
+      "Colorless"
+    ],
+    "convertedRetreatCost": 1,
+    "set": {
+      "id": "PF1a",
+      "name": "PF1a",
+      "series": "Scarlet & Violet",
+      "printedTotal": 103,
+      "total": 103,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PF1A",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-17T17:37:57.284Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "64",
+    "artist": "saino misaki",
+    "rarity": "Full Art",
+    "flavorText": "This Pokémon uses red wavelengths of light to pour its own energy into flowers and draw forth their latent potential.",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-064.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-064.png"
+    },
+    "forteData": {
+      "discordUsername": "Sacha",
+      "originalJsonFileName": "Floette.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "PF1a",
+      "customSetIconTextFromJson": "PF1a",
+      "prevolveImgSize": 1,
+      "otherSheetData": {
+        "prevolveName": "Flabébé"
+      }
+    }
+  },
+  {
     "id": "PF1a-066",
     "name": "Spritzee",
     "supertype": "Pokémon",
