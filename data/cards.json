@@ -7403,13 +7403,13 @@
           "Colorless"
         ],
         "convertedEnergyCost": 3,
-        "damage": "80",
+        "damage": "60",
         "text": "This attack's damage isn't affected by any effects on your opponent's Active Pokémon."
       }
     ],
     "weaknesses": [
       {
-        "type": "Electric",
+        "type": "Electric x",
         "value": "2"
       }
     ],
@@ -7437,8 +7437,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:06:52.650Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T23:33:54.887Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -7460,22 +7460,18 @@
     },
     "forteData": {
       "discordUsername": "bambotron",
-      "originalJsonFileName": "Milotic (1).json",
+      "originalJsonFileName": "Milotic.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/09/06",
+      "approvedDate": "2025/10/17",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
       "prevolveImgSize": "",
       "otherSheetData": {
         "prevolveName": "Feebas"
       }
-    },
-    "imagesWebP": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-020.webp",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-020.webp"
     }
   },
   {
