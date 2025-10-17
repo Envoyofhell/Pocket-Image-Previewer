@@ -6577,42 +6577,55 @@
   },
   {
     "id": "PF1a-011",
-    "name": "Darumaka",
+    "name": "Turtonator",
     "supertype": "Pokémon",
     "subtypes": [
       "Basic"
     ],
-    "hp": 80,
+    "hp": 120,
     "types": [
-      "Grass"
+      "FIre"
     ],
     "attacks": [
       {
-        "name": "Flame Charge",
+        "name": "Flame Shot",
         "cost": [
           "Fire"
         ],
         "convertedEnergyCost": 1,
-        "damage": "10",
-        "text": "Search your deck for a [R] Energy card and attach it to this Pokémon. Then, shuffle your deck."
+        "damage": "",
+        "text": "This attack does 20 damage to 1 of your opponent’s Pokémon for each [R] Energy attached to this Pokémon. __(Don’t apply Weakness and Resistance for Benched Pokémon.)__"
+      },
+      {
+        "name": "Inferno Onrush",
+        "cost": [
+          "Fire",
+          "Fire",
+          "Colorless"
+        ],
+        "convertedEnergyCost": 3,
+        "damage": "70",
+        "text": "This Pokémon does 20 damage to itself."
       }
     ],
     "weaknesses": [
       {
         "type": "Water x",
-        "value": "2"
+        "value": "3"
       }
     ],
     "resistances": [
       {
-        "type": "Grass",
-        "value": "-30"
+        "type": "Fighting",
+        "value": "-20"
       }
     ],
     "retreatCost": [
+      "Colorless",
+      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 1,
+    "convertedRetreatCost": 3,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
@@ -6626,17 +6639,17 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "2025/10/10",
-      "updatedAt": "2025-10-11T02:28:46.235Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T23:33:15.285Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "11",
-    "artist": "Mitsuhiro Arita",
+    "artist": "Shin Nagasawa",
     "rarity": "Full Art",
-    "flavorText": "This popular symbol of good fortune will never fall over in its sleep, no matter how it's pushed or pulled.",
+    "flavorText": "Its exploding shell poses a real danger but is sensitive to moisture. On rainy days, Turtonator takes silent refuge in caves.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -6648,20 +6661,16 @@
       "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-011.png"
     },
     "forteData": {
-      "discordUsername": "Sacha",
-      "originalJsonFileName": "Darumaka.json",
+      "discordUsername": "bambotron",
+      "originalJsonFileName": "Turtonator.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/10/10",
+      "approvedDate": "2025/10/17",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
       "prevolveImgSize": ""
-    },
-    "imagesWebP": {
-      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-011.webp",
-      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PF1a/PF1a-011.webp"
     }
   },
   {
