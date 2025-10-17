@@ -10881,8 +10881,8 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "1969/12/31",
-      "updatedAt": "2025-10-17T17:32:28.935Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:52:17.000Z",
       "images": {
         "symbol": "",
         "logo": ""
@@ -10909,7 +10909,7 @@
       "regulationMark": "",
       "rotationSymbol": "A",
       "isForte": false,
-      "approvedDate": "1969/12/31",
+      "approvedDate": "2025/10/17",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
       "prevolveImgSize": "",
