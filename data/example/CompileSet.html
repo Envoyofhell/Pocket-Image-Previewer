@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylph Labs - Compile Set</title>
+    <link rel="stylesheet" href="../theme-silph-labs.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fbfbfd;
+            --bg-secondary: #f5f5f7;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-bg-light: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 0, 0, 0.06);
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --text-tertiary: #aeaeb2;
+            --accent-primary: #007aff;
+            --glass-blur: 20px;
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .content-container {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+        
+        .drag-over {
+            border-color: var(--accent-primary) !important;
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th {
+            background: rgba(55, 65, 81, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        td, th {
+            border: 1px solid var(--glass-border);
+            padding: 8px;
+            text-align: left;
+        }
+        
+        tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .editable-cell {
+            cursor: text;
+            min-width: 100px;
+        }
+        
+        .editable-cell:hover {
+            background: rgba(59, 130, 246, 0.15);
+        }
+        
+        .card-preview {
+            width: 60px;
+            height: 84px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .preview-cell-container {
+            position: relative;
+        }
+        
+        .preview-cell-container:hover .upload-preview-btn {
+            opacity: 1;
+        }
+        
+        .upload-preview-btn {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: rgba(0, 122, 255, 0.9);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 6px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .upload-preview-btn:hover {
+            background: rgba(0, 122, 255, 1);
+            transform: scale(1.05);
+        }
+        
+        /* Make disabled buttons more visible */
+        button:disabled {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+        }
+        
+        #export-btn:disabled {
+            background: #a0aec0 !important;
+        }
+        
+        #clear-all-btn:disabled {
+            background: #fc8181 !important;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen" style="background: #fbfbfd; background-image: radial-gradient(circle, rgba(0, 0, 0, 0.015) 1px, transparent 1px); background-size: 24px 24px; color: var(--text-primary); padding-top: 80px; box-sizing: border-box; overflow-y: auto;">
+
+    <div class="flex-1 w-full" style="padding: 2rem; max-width: 1400px; margin: 0 auto;">
+        
+        <!-- Sylph Labs Header -->
+        <div class="sylph-header">
+            <div class="header-content">
+                <a href="../index.html" class="logo-section">
+                    <img src="../img/logo.png" alt="Sylph Labs Logo">
+                    <h1>Sylph Labs</h1>
+                </a>
+                
+                <a href="../index.html" class="home-arrow">← Home</a>
+                
+                <div class="nav-tabs">
+                    <button class="nav-tab" onclick="window.location.href='../synthesize.html'">Synthesize</button>
+                    <button class="nav-tab" onclick="window.location.href='CompressEnhance.html#compress'">Compress</button>
+                    <button class="nav-tab" onclick="window.location.href='CompressEnhance.html#enhance'">Enhance</button>
+                    <button class="nav-tab active" onclick="window.location.href='CompileSet.html'">Compile</button>
+                    <button class="nav-tab" onclick="window.location.href='Fission/index.html'">Fission</button>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            .sylph-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                background: rgba(255, 255, 255, 0.72);
+                backdrop-filter: blur(20px) saturate(180%);
+                border-bottom: 0.5px solid rgba(0, 0, 0, 0.04);
+                height: 80px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .header-content {
+                display: flex;
+                align-items: center;
+                padding: 0.75rem 2%;
+                width: 100%;
+            }
+            
+            .logo-section {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                margin-right: auto;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+            
+            .logo-section:hover h1 {
+                color: #007aff !important;
+            }
+            
+            .logo-section:hover img {
+                transform: scale(1.05);
+            }
+            
+            .logo-section img {
+                height: 2.5rem;
+                width: 2.5rem;
+                transition: transform 0.3s ease;
+            }
+            
+            .logo-section h1 {
+                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+                font-weight: 600;
+                font-size: 1.375rem;
+                color: #1d1d1f;
+                letter-spacing: -0.02em;
+                margin: 0;
+                transition: color 0.3s ease;
+            }
+            
+            .nav-tabs {
+                display: flex;
+                gap: 0.25rem;
+            }
+            
+            .nav-tab {
+                padding: 0.5rem 0.875rem;
+                border-radius: 0.5rem;
+                font-weight: 600;
+                font-size: 0.9375rem;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                color: #86868b;
+                border: none;
+                background: transparent;
+                white-space: nowrap;
+            }
+            
+            .nav-tab:hover {
+                color: #1d1d1f;
+                background: rgba(0, 0, 0, 0.04);
+            }
+            
+            .nav-tab.active {
+                color: #007aff;
+                background: rgba(0, 122, 255, 0.1);
+            }
+            
+            .home-arrow {
+                margin-right: 0.5rem;
+                padding: 0.5rem 0.75rem;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                color: #86868b;
+                text-decoration: none;
+                font-size: 0.875rem;
+                white-space: nowrap;
+            }
+            
+            .home-arrow:hover {
+                color: #1d1d1f;
+                background: rgba(0, 0, 0, 0.04);
+            }
+        </style>
+
+
+        <div class="content-container">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold" style="color: var(--text-primary);">Compile Card Set</h2>
+            <p class="mt-2" style="color: var(--text-secondary);">Combine multiple card JSONs into a set with shared metadata and image URLs.</p>
+            <div class="mt-3 p-3 rounded-lg" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);">
+                <p class="text-xs font-semibold" style="color: var(--accent-primary);">✨ AUTO-WEBP EXPORT (BETA)</p>
+                <p class="text-xs mt-1" style="color: var(--text-secondary);">Cards with image layers are auto-compressed to WebP and <strong>included in exported JSON</strong>. Override with custom URLs if needed. Beta feature - may not display in all external apps yet.</p>
+            </div>
+        </div>
+
+        <!-- Set Configuration -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <label for="set-id" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Set ID <span class="text-xs" style="color: var(--text-tertiary);">(max 5 chars)</span></label>
+                <input type="text" id="set-id" placeholder="e.g., PFE" class="form-input w-full" value="" maxlength="5">
+            </div>
+            <div>
+                <label for="set-name" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Set Name</label>
+                <input type="text" id="set-name" placeholder="e.g., Pocket Forte Energies" class="form-input w-full" value="">
+            </div>
+            <div>
+                <label for="set-series" class="block text-sm font-medium mb-1" style="color: var(--text-primary);">Series</label>
+                <input type="text" id="set-series" placeholder="e.g., Scarlet & Violet" class="form-input w-full" value="Scarlet & Violet">
+            </div>
+        </div>
+
+        <!-- Mode Tabs -->
+        <div class="flex gap-2 mb-4">
+            <button id="mode-individual" class="px-4 py-2 rounded-lg font-semibold transition-all" style="background: var(--accent-primary); color: var(--text-primary);">
+                Add Individual Cards
+            </button>
+            <button id="mode-set" class="px-4 py-2 rounded-lg font-semibold transition-all hover:bg-gray-600" style="color: var(--text-secondary);">
+                Load Existing Set
+            </button>
+        </div>
+
+        <!-- Drop Zone for Individual Cards -->
+        <div id="drop-zone-individual" class="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors mb-6" style="border-color: var(--glass-border); background: var(--glass-bg-light);">
+            <input type="file" id="file-input-individual" class="hidden" accept=".json" multiple>
+            <svg class="mx-auto h-12 w-12 mb-4" style="color: var(--text-tertiary);" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="text-sm" style="color: var(--text-secondary);">
+                <span class="font-semibold" style="color: var(--accent-primary);">Click to upload</span> or drag & drop individual card JSONs
+            </p>
+            <p class="text-xs mt-2" style="color: var(--text-tertiary);">Upload multiple JSON files (same format as Compress tab)</p>
+        </div>
+
+        <!-- Drop Zone for Set File -->
+        <div id="drop-zone-set" class="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors mb-6 hidden" style="border-color: var(--glass-border); background: var(--glass-bg-light);">
+            <input type="file" id="file-input-set" class="hidden" accept=".json">
+            <svg class="mx-auto h-12 w-12 mb-4" style="color: var(--text-tertiary);" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="text-sm" style="color: var(--text-secondary);">
+                <span class="font-semibold" style="color: var(--accent-primary);">Click to upload</span> or drag & drop a set JSON file
+            </p>
+            <p class="text-xs mt-2" style="color: var(--text-tertiary);">Load an existing set file to edit (like pfe.json, pf1.json, etc.)</p>
+        </div>
+
+        <!-- Cards Counter & Export Controls -->
+        <div class="mb-4 p-4 rounded-lg" style="background: rgba(0, 122, 255, 0.05); border: 1px solid rgba(0, 122, 255, 0.2);">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <p style="color: var(--text-secondary);">
+                        <span class="font-semibold" style="color: var(--text-primary);" id="card-count">0</span> cards in set
+                    </p>
+                    <label class="flex items-center gap-2 cursor-pointer" style="color: var(--text-secondary);">
+                        <input type="checkbox" id="export-webp-checkbox" class="form-checkbox" checked>
+                        <span class="text-sm">Include WebP Data (Beta)</span>
+                    </label>
+                </div>
+                <div class="flex gap-2">
+                    <button id="clear-all-btn" class="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all" disabled title="Load cards to enable">
+                        Clear All
+                    </button>
+                    <button id="export-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all" disabled title="Load cards to enable">
+                        📥 Export Set JSON
+                    </button>
+                </div>
+            </div>
+            <p class="text-xs mt-2" style="color: var(--text-secondary);" id="export-hint">
+                💡 Tip: Load individual cards or drag a set JSON file above. Export button will activate once cards are loaded.
+            </p>
+        </div>
+
+        <!-- Table Container -->
+        <div class="overflow-x-auto overflow-y-auto max-h-[600px] rounded-lg" style="background: var(--bg-secondary);">
+            <table id="cards-table" class="text-sm">
+                <thead>
+                    <tr>
+                        <th class="w-12">#</th>
+                        <th class="w-24">Preview</th>
+                        <th class="w-40">ID</th>
+                        <th class="w-48">Name</th>
+                        <th class="w-96" style="background: rgba(59, 130, 246, 0.2); border-left: 3px solid var(--accent-primary);">🔗 Image URL</th>
+                        <th class="w-32">Supertype</th>
+                        <th class="w-24">HP</th>
+                        <th class="w-32">Rarity</th>
+                        <th class="w-48">Artist</th>
+                        <th class="w-16">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cards-tbody">
+                    <tr>
+                        <td colspan="10" class="text-center py-8" style="color: var(--text-tertiary);">No cards loaded. Drop JSON files above to begin.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+            <!-- Status Area -->
+            <div id="status-area" class="mt-6 text-center"></div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation
+        function switchPage(page) {
+            if (page === 'synthesize' || page === 'compress' || page === 'enhance') {
+                const targets = {
+                    'synthesize': '../synthesize.html',
+                    'compress': 'CompressEnhance.html#compress',
+                    'enhance': 'CompressEnhance.html#enhance'
+                };
+                window.location.href = targets[page];
+            }
+        }
+
+        // Navigation buttons are now in the shared header
+
+        // Listen for messages from parent
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.action === 'switchPanel') {
+                // This page doesn't have panels, but we acknowledge the message
+            }
+        });
+
+        // --- COMPILE SET LOGIC ---
+        const dropZoneIndividual = document.getElementById('drop-zone-individual');
+        const dropZoneSet = document.getElementById('drop-zone-set');
+        const fileInputIndividual = document.getElementById('file-input-individual');
+        const fileInputSet = document.getElementById('file-input-set');
+        const modeIndividualBtn = document.getElementById('mode-individual');
+        const modeSetBtn = document.getElementById('mode-set');
+        const setIdInput = document.getElementById('set-id');
+        const setNameInput = document.getElementById('set-name');
+        const setSeriesInput = document.getElementById('set-series');
+        const cardCountDisplay = document.getElementById('card-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const exportBtn = document.getElementById('export-btn');
+        const cardsTableBody = document.getElementById('cards-tbody');
+        const statusArea = document.getElementById('status-area');
+
+        let compiledCards = [];
+        let currentMode = 'individual';
+
+        // Mode Switching
+        modeIndividualBtn.addEventListener('click', () => switchMode('individual'));
+        modeSetBtn.addEventListener('click', () => switchMode('set'));
+
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            if (mode === 'individual') {
+                modeIndividualBtn.style.background = 'var(--accent-primary)';
+                modeIndividualBtn.style.color = 'var(--text-primary)';
+                modeSetBtn.style.background = '';
+                modeSetBtn.style.color = 'var(--text-secondary)';
+                dropZoneIndividual.classList.remove('hidden');
+                dropZoneSet.classList.add('hidden');
+            } else {
+                modeSetBtn.style.background = 'var(--accent-primary)';
+                modeSetBtn.style.color = 'var(--text-primary)';
+                modeIndividualBtn.style.background = '';
+                modeIndividualBtn.style.color = 'var(--text-secondary)';
+                dropZoneIndividual.classList.add('hidden');
+                dropZoneSet.classList.remove('hidden');
+            }
+        }
+
+        // Event Listeners
+        dropZoneIndividual.addEventListener('click', () => fileInputIndividual.click());
+        dropZoneSet.addEventListener('click', () => fileInputSet.click());
+        fileInputIndividual.addEventListener('change', (e) => handleIndividualFiles(e.target.files));
+        fileInputSet.addEventListener('change', (e) => handleSetFile(e.target.files[0]));
+        clearAllBtn.addEventListener('click', clearAllCards);
+        exportBtn.addEventListener('click', exportSet);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Individual cards drop zone
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZoneIndividual.addEventListener(eventName, preventDefaults, false);
+        });
+        dropZoneIndividual.addEventListener('dragenter', () => dropZoneIndividual.classList.add('drag-over'));
+        dropZoneIndividual.addEventListener('dragover', () => dropZoneIndividual.classList.add('drag-over'));
+        dropZoneIndividual.addEventListener('dragleave', () => dropZoneIndividual.classList.remove('drag-over'));
+        dropZoneIndividual.addEventListener('drop', (e) => {
+            dropZoneIndividual.classList.remove('drag-over');
+            handleIndividualFiles(e.dataTransfer.files);
+        });
+
+        // Set file drop zone
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZoneSet.addEventListener(eventName, preventDefaults, false);
+        });
+        dropZoneSet.addEventListener('dragenter', () => dropZoneSet.classList.add('drag-over'));
+        dropZoneSet.addEventListener('dragover', () => dropZoneSet.classList.add('drag-over'));
+        dropZoneSet.addEventListener('dragleave', () => dropZoneSet.classList.remove('drag-over'));
+        dropZoneSet.addEventListener('drop', (e) => {
+            dropZoneSet.classList.remove('drag-over');
+            handleSetFile(e.dataTransfer.files[0]);
+        });
+
+        async function handleIndividualFiles(files) {
+            const jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
+            
+            if (jsonFiles.length === 0) {
+                showStatus('No JSON files found.', 'error');
+                return;
+            }
+
+            // Check if this is a single file that might be a set file
+            if (jsonFiles.length === 1) {
+                try {
+                    const text = await jsonFiles[0].text();
+                    const jsonData = JSON.parse(text);
+                    
+                    // Check if it's an array (set file)
+                    if (Array.isArray(jsonData) && jsonData.length > 0 && jsonData[0].set) {
+                        // It's a set file! Switch to set mode and handle it
+                        switchMode('set');
+                        showStatus('Detected set file! Switching to set mode...', 'info');
+                        handleSetFile(jsonFiles[0]);
+                        return;
+                    }
+                } catch (e) {
+                    // If parsing fails, continue with individual card processing
+                }
+            }
+
+            showStatus(`Processing ${jsonFiles.length} file(s)...`, 'info');
+
+            for (const file of jsonFiles) {
+                try {
+                    const text = await file.text();
+                    const cardData = JSON.parse(text);
+                    console.log('Processing card:', file.name, cardData);
+                    await processCardJSON(cardData, file.name);
+                    console.log('Cards after processing:', compiledCards.length);
+                } catch (e) {
+                    console.error(`Error processing ${file.name}:`, e);
+                    showStatus(`Error processing ${file.name}: ${e.message}`, 'error');
+                }
+            }
+
+            console.log('Final compiledCards:', compiledCards);
+            updateUI();
+            showStatus(`Successfully loaded ${jsonFiles.length} card(s).`, 'success');
+        }
+
+        async function handleSetFile(file) {
+            if (!file || !file.name.endsWith('.json')) {
+                showStatus('Please provide a valid JSON file.', 'error');
+                return;
+            }
+
+            try {
+                showStatus('Loading set file...', 'info');
+                const text = await file.text();
+                const setData = JSON.parse(text);
+                console.log('Set file loaded:', file.name, 'Cards:', setData.length);
+
+                // Check if it's an array (set format) or single card
+                if (!Array.isArray(setData)) {
+                    showStatus('Error: Set file must be a JSON array of cards.', 'error');
+                    return;
+                }
+
+                // Clear existing cards
+                compiledCards = [];
+
+                // Load set metadata from first card if available
+                if (setData.length > 0 && setData[0].set) {
+                    setIdInput.value = (setData[0].set.id || '').toUpperCase();
+                    setNameInput.value = setData[0].set.name || '';
+                    setSeriesInput.value = setData[0].set.series || 'Scarlet & Violet';
+                    console.log('Set metadata loaded:', setIdInput.value, setNameInput.value);
+                }
+
+                // Load all cards from the set
+                compiledCards = setData.map(card => ({
+                    ...card,
+                    // Ensure images object exists
+                    images: card.images || { small: '', large: '' },
+                    // Add preview image if imageDataWebP exists but no URL
+                    _previewImage: (!card.images?.small && !card.images?.large && card.imageDataWebP) ? card.imageDataWebP : ''
+                }));
+
+                console.log('Loaded cards into compiledCards:', compiledCards.length);
+                console.log('Sample card:', compiledCards[0]);
+                updateUI();
+                showStatus(`Successfully loaded ${compiledCards.length} cards from set.`, 'success');
+            } catch (e) {
+                console.error('Error loading set:', e);
+                showStatus(`Error loading set: ${e.message}`, 'error');
+            }
+        }
+
+        async function processCardJSON(cardData, fileName) {
+            // Convert card creator format to set format - ONLY standard fields
+            // Strip ALL card creator artifacts
+            
+            const setId = setIdInput.value.trim().toUpperCase() || 'CUSTOM';
+            const setName = setNameInput.value.trim() || 'Custom Set';
+            const setSeries = setSeriesInput.value.trim() || 'Scarlet & Violet';
+            
+            // Check if card already has set data - if so, use it to populate Set ID/Name if empty
+            if (cardData.set && !setIdInput.value) {
+                setIdInput.value = cardData.set.id || '';
+                setNameInput.value = cardData.set.name || '';
+                setSeriesInput.value = cardData.set.series || 'Scarlet & Violet';
+            }
+            
+            // Auto-compress images if present in card data
+            let autoGeneratedImageUrl = '';
+            if (cardData.images && Array.isArray(cardData.images) && cardData.images.length > 0) {
+                try {
+                    autoGeneratedImageUrl = await autoCompressCardImages(cardData.images);
+                } catch (e) {
+                    console.warn(`Failed to auto-compress images for ${fileName}:`, e.message);
+                }
+            }
+            
+            // Extract card number from existing data or filename
+            const cardNumber = cardData.number || extractNumberFromFileName(fileName) || (compiledCards.length + 1).toString();
+            
+            // Create ONLY standard TCG set fields - no card creator artifacts
+            const setCard = {
+                id: `${setId}-${String(cardNumber).padStart(3, '0')}`,
+                name: cardData.name || 'Unknown Card',
+                supertype: cardData.supertype || 'Pokémon',
+                subtypes: cardData.subtypes || [],
+                hp: cardData.hp || cardData.stats?.hp || 0,
+                types: normalizeTypes(cardData.types || (cardData.type ? [cardData.type] : [])),
+                evolvesFrom: cardData.evolvesFrom || cardData.evolution?.evolvesFrom || undefined,
+                attacks: Array.isArray(cardData.attacks) ? cardData.attacks.map(attack => ({
+                    name: attack.name,
+                    cost: Array.isArray(attack.cost) ? attack.cost.map(c => normalizeType(c)) : (Array.isArray(attack.energyCost) ? attack.energyCost.map(c => normalizeType(c)) : []),
+                    convertedEnergyCost: attack.convertedEnergyCost || (Array.isArray(attack.cost) ? attack.cost.length : (Array.isArray(attack.energyCost) ? attack.energyCost.length : 0)),
+                    damage: attack.damage ? String(attack.damage) : '',
+                    text: attack.text || attack.description || ''
+                })).filter(a => a.name) : [],
+                abilities: Array.isArray(cardData.abilities) ? cardData.abilities.map(ability => ({
+                    name: ability.name,
+                    text: ability.text || ability.description || '',
+                    type: ability.type || 'Ability'
+                })).filter(a => a.name) : [],
+                weaknesses: Array.isArray(cardData.weaknesses) 
+                    ? cardData.weaknesses.map(w => ({
+                        type: normalizeType(w.type || ''),
+                        value: String(w.value || '')
+                    })) 
+                    : [],
+                resistances: Array.isArray(cardData.resistances) 
+                    ? cardData.resistances.map(r => ({
+                        type: normalizeType(r.type || ''),
+                        value: String(r.value || '')
+                    })) 
+                    : [],
+                retreatCost: Array.isArray(cardData.retreatCost) 
+                    ? cardData.retreatCost.map(rc => normalizeType(rc)) 
+                    : (cardData.retreatCost ? [normalizeType(String(cardData.retreatCost))] : []),
+                convertedRetreatCost: cardData.convertedRetreatCost || (Array.isArray(cardData.retreatCost) ? cardData.retreatCost.length : (cardData.retreatCost ? 1 : 0)),
+                set: {
+                    id: setId,
+                    name: setName,
+                    series: setSeries,
+                    printedTotal: 0,
+                    total: 0,
+                    legalities: {
+                        standard: 'Legal',
+                        expanded: 'Legal',
+                        custom: 'Legal',
+                        forteFormat: 'Legal'
+                    },
+                    ptcgoCode: setId,
+                    releaseDate: new Date().toISOString().split('T')[0].replace(/-/g, '/'),
+                    updatedAt: new Date().toISOString(),
+                    images: {
+                        symbol: '',
+                        logo: ''
+                    }
+                },
+                number: String(cardNumber),
+                artist: cardData.artist || '',
+                rarity: cardData.rarity || '',
+                flavorText: cardData.flavorText || cardData.flavor || undefined,
+                legalities: {
+                    standard: 'Legal',
+                    expanded: 'Legal',
+                    custom: 'Legal',
+                    forteFormat: 'Legal'
+                },
+                images: {
+                    small: '',
+                    large: ''
+                },
+                _previewImage: autoGeneratedImageUrl || '',
+                forteData: cardData.forteData ? {
+                    discordUsername: cardData.forteData.discordUsername || '',
+                    originalJsonFileName: cardData.forteData.originalJsonFileName || fileName,
+                    subname: cardData.forteData.subname || '',
+                    regulationMark: cardData.forteData.regulationMark || '',
+                    rotationSymbol: cardData.forteData.rotationSymbol || 'Custom Rectangle',
+                    isForte: cardData.forteData.isForte || false,
+                    approvedDate: cardData.forteData.approvedDate || new Date().toISOString().split('T')[0].replace(/-/g, '/'),
+                    customSetIconTextFromSheet: cardData.forteData.customSetIconTextFromSheet || setId,
+                    customSetIconTextFromJson: cardData.forteData.customSetIconTextFromJson || '',
+                    prevolveImgSize: cardData.forteData.prevolveImgSize || ''
+                } : undefined
+            };
+
+            // Remove undefined fields to match example structure exactly
+            Object.keys(setCard).forEach(key => {
+                if (setCard[key] === undefined) delete setCard[key];
+            });
+
+            compiledCards.push(setCard);
+        }
+
+        function extractNumberFromFileName(fileName) {
+            // Try to extract number from filename like "(001) CardName.json"
+            const match = fileName.match(/\((\d+)\)/);
+            return match ? match[1] : null;
+        }
+        
+        // Type name mapping: Card Creator → Official TCG Set Format
+        const typeMapping = {
+            'Lightning': 'Electric',      // Card creator uses Lightning, sets use Electric
+            'Darkness': 'Dark',            // Card creator uses Darkness, sets use Dark  
+            'Colorless': 'Colorless',
+            'Fire': 'Fire',
+            'Water': 'Water',
+            'Grass': 'Grass',
+            'Psychic': 'Psychic',
+            'Fighting': 'Fighting',
+            'Metal': 'Metal',
+            'Fairy': 'Fairy',
+            'Dragon': 'Dragon'
+        };
+        
+        function normalizeType(type) {
+            if (!type) return type;
+            // Check if it's already in the correct format
+            return typeMapping[type] || type;
+        }
+        
+        function normalizeTypes(typesArray) {
+            if (!Array.isArray(typesArray)) return [];
+            return typesArray.map(t => normalizeType(t));
+        }
+        
+        // Auto-compression function (borrowed from CompressEnhance logic)
+        async function autoCompressCardImages(imagesArray) {
+            // Filter valid image layers
+            const layers = imagesArray.filter(item => item && typeof item.src === 'string');
+            if (layers.length === 0) return '';
+            
+            // Create stacked canvas
+            const canvas = await createStackedCanvas(layers);
+            if (!canvas) return '';
+            
+            // Convert to WebP with quality 85
+            const webpDataUrl = canvas.toDataURL('image/webp', 0.85);
+            return webpDataUrl;
+        }
+        
+        async function createStackedCanvas(layers) {
+            if (!Array.isArray(layers) || layers.length === 0) return null;
+            
+            const loadedLayers = await Promise.all(layers.map(layer => new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve({ img, layer });
+                img.onerror = () => resolve(null);
+                const src = layer.src;
+                img.src = src.startsWith('data:image') ? src : `data:image/png;base64,${src}`;
+            }))).then(results => results.filter(res => res !== null));
+
+            if(loadedLayers.length === 0) return null;
+            loadedLayers.sort((a, b) => (a.layer.order || 0) - (b.layer.order || 0));
+
+            const canvas = document.createElement('canvas');
+            const CARD_WIDTH = 745;
+            const CARD_HEIGHT = 1040;
+            canvas.width = CARD_WIDTH;
+            canvas.height = CARD_HEIGHT;
+            const ctx = canvas.getContext('2d');
+            
+            loadedLayers.forEach(({ img, layer }) => {
+                const sx = layer.croppedArea ? (layer.croppedArea.x / 100) * img.width : 0;
+                const sy = layer.croppedArea ? (layer.croppedArea.y / 100) * img.height : 0;
+                const sWidth = layer.croppedArea ? (layer.croppedArea.width / 100) * img.width : img.width;
+                const sHeight = layer.croppedArea ? (layer.croppedArea.height / 100) * img.height : img.height;
+                let dx, dy, dWidth, dHeight;
+                if (layer.adjustedWidth != null && layer.adjustedHeight != null) {
+                    dx = layer.xOffset ?? 0;
+                    dy = layer.yOffset ?? 0;
+                    dWidth = layer.adjustedWidth;
+                    dHeight = layer.adjustedHeight;
+                } else {
+                    const sourceRatio = sWidth / sHeight;
+                    const canvasRatio = CARD_WIDTH / CARD_HEIGHT;
+                    if (sourceRatio > canvasRatio) {
+                        dWidth = CARD_WIDTH;
+                        dHeight = CARD_WIDTH / sourceRatio;
+                        dx = 0;
+                        dy = (CARD_HEIGHT - dHeight) / 2;
+                    } else {
+                        dHeight = CARD_HEIGHT;
+                        dWidth = CARD_HEIGHT * sourceRatio;
+                        dx = (CARD_WIDTH - dWidth) / 2;
+                        dy = 0;
+                    }
+                }
+                if (sWidth > 0 && sHeight > 0) ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+            });
+            return canvas;
+        }
+
+        function updateUI() {
+            console.log('updateUI called, compiledCards.length:', compiledCards.length);
+            cardCountDisplay.textContent = compiledCards.length;
+            clearAllBtn.disabled = compiledCards.length === 0;
+            exportBtn.disabled = compiledCards.length === 0;
+            
+            // Show/hide export hint
+            const exportHint = document.getElementById('export-hint');
+            if (exportHint) {
+                exportHint.style.display = compiledCards.length === 0 ? 'block' : 'none';
+            }
+
+            if (compiledCards.length === 0) {
+                cardsTableBody.innerHTML = '<tr><td colspan="10" class="text-center py-8" style="color: var(--text-tertiary);">No cards loaded. Drop JSON files above to begin.</td></tr>';
+                return;
+            }
+
+            // Sort by number
+            compiledCards.sort((a, b) => {
+                const numA = parseInt(a.number) || 0;
+                const numB = parseInt(b.number) || 0;
+                return numA - numB;
+            });
+
+            console.log('About to render table with', compiledCards.length, 'cards');
+            console.log('First card:', compiledCards[0]);
+
+            cardsTableBody.innerHTML = compiledCards.map((card, index) => {
+                // Use preview image for display, but keep URL field for user input
+                const previewUrl = card._previewImage || card.images.small || card.images.large || '';
+                const userUrl = card.images.small || card.images.large || '';
+                const hasAutoPreview = card._previewImage && !userUrl;
+                
+                // ID formatting helper
+                const setId = setIdInput.value.trim().toUpperCase() || 'CUSTOM';
+                const idParts = card.id.split('-');
+                const cardNumPart = idParts.length > 1 ? idParts.slice(1).join('-') : card.id;
+                
+                return `
+                <tr data-index="${index}">
+                    <td class="text-center" style="color: var(--text-secondary);">${index + 1}</td>
+                    <td class="text-center relative preview-cell-container">
+                        ${previewUrl ? `<img src="${previewUrl}" class="card-preview" alt="${card.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-preview bg-gray-700 items-center justify-center text-xs hidden" style="color: var(--text-tertiary);">Error</div>` : '<div class="card-preview bg-gray-700 flex items-center justify-center text-xs" style="color: var(--text-tertiary);">No Image</div>'}
+                        ${hasAutoPreview ? '<div class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs px-1 rounded" title="Preview only - add URL for export">β</div>' : ''}
+                        <button class="upload-preview-btn" onclick="uploadPreviewImage(${index})" title="Upload custom preview image (converts to 745×1040 WebP)">
+                            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"/><path d="M9 13h2v5a1 1 0 11-2 0v-5z"/></svg>
+                        </button>
+                    </td>
+                    <td class="text-center">
+                        <div class="flex items-center justify-center">
+                            <span class="px-2 py-1 rounded" style="background: rgba(59, 130, 246, 0.2); color: var(--text-secondary); font-weight: 600;">${setId}-</span>
+                            <input type="text" class="id-number-input form-input" data-field="id.number" value="${cardNumPart}" maxlength="3" style="width: 60px; text-align: center; margin-left: 4px; padding: 4px 8px;">
+                        </div>
+                    </td>
+                    <td class="editable-cell font-semibold" data-field="name" contenteditable="true" style="color: var(--text-primary);">${card.name}</td>
+                    <td class="editable-cell" data-field="images.url" contenteditable="true" style="font-size: 11px; word-break: break-all; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-primary); font-weight: 500;">${userUrl}${hasAutoPreview ? '<span style="color: #f59e0b; font-style: italic;"></span>' : ''}</td>
+                    <td class="text-center">
+                        <select class="supertype-select form-input" data-field="supertype" style="width: 100%; padding: 4px 8px; font-size: 12px;">
+                            <option value="Pokémon" ${card.supertype === 'Pokémon' ? 'selected' : ''}>Pokémon</option>
+                            <option value="Trainer" ${card.supertype === 'Trainer' ? 'selected' : ''}>Trainer</option>
+                            <option value="Energy" ${card.supertype === 'Energy' ? 'selected' : ''}>Energy</option>
+                            <option value="Other" ${!['Pokémon', 'Trainer', 'Energy'].includes(card.supertype) ? 'selected' : ''}>Other</option>
+                        </select>
+                        <input type="text" class="supertype-custom form-input mt-1 ${['Pokémon', 'Trainer', 'Energy'].includes(card.supertype) ? 'hidden' : ''}" data-field="supertype.custom" value="${!['Pokémon', 'Trainer', 'Energy'].includes(card.supertype) ? card.supertype : ''}" placeholder="Enter custom type" style="width: 100%; padding: 4px 8px; font-size: 12px;">
+                    </td>
+                    <td class="editable-cell" data-field="hp" contenteditable="true">${card.hp}</td>
+                    <td class="editable-cell" data-field="rarity" contenteditable="true">${card.rarity}</td>
+                    <td class="editable-cell" data-field="artist" contenteditable="true">${card.artist}</td>
+                    <td class="text-center">
+                        <button class="delete-card-btn text-red-500 hover:text-red-700 font-bold" data-index="${index}" title="Delete card">✕</button>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+
+            // Add blur event listeners for editable cells
+            document.querySelectorAll('.editable-cell').forEach(cell => {
+                cell.addEventListener('blur', handleCellEdit);
+            });
+            
+            // Add change listeners for ID number inputs
+            document.querySelectorAll('.id-number-input').forEach(input => {
+                input.addEventListener('blur', handleIdNumberEdit);
+                input.addEventListener('input', (e) => {
+                    // Only allow numbers
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+            });
+            
+            // Add change listeners for supertype selects
+            document.querySelectorAll('.supertype-select').forEach(select => {
+                select.addEventListener('change', handleSupertypeChange);
+            });
+            
+            // Add blur listeners for custom supertype inputs
+            document.querySelectorAll('.supertype-custom').forEach(input => {
+                input.addEventListener('blur', handleSupertypeCustomEdit);
+            });
+            
+            // Add click listeners for delete buttons
+            document.querySelectorAll('.delete-card-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    deleteCard(index);
+                });
+            });
+        }
+
+        function handleCellEdit(e) {
+            const cell = e.target;
+            const row = cell.closest('tr');
+            const index = parseInt(row.dataset.index);
+            const field = cell.dataset.field;
+            const newValue = cell.textContent.trim();
+
+            if (field === 'images.url') {
+                // Update both small and large with the same URL
+                compiledCards[index].images.small = newValue;
+                compiledCards[index].images.large = newValue;
+                
+                // Update preview to use user URL if provided, otherwise fall back to preview
+                const preview = row.querySelector('.card-preview');
+                if (preview && preview.tagName === 'IMG') {
+                    const displayUrl = newValue || compiledCards[index]._previewImage || '';
+                    if (displayUrl) {
+                        preview.src = displayUrl;
+                        preview.style.display = '';
+                        preview.nextElementSibling.style.display = 'none';
+                    }
+                }
+                
+                // Refresh UI to update beta badge
+                updateUI();
+            } else if (field.includes('.')) {
+                // Other nested fields
+                const [parent, child] = field.split('.');
+                compiledCards[index][parent][child] = newValue;
+            } else {
+                // Direct field
+                if (field === 'hp') {
+                    compiledCards[index][field] = parseInt(newValue) || 0;
+                } else {
+                    compiledCards[index][field] = newValue;
+                }
+            }
+
+            showStatus('Card updated.', 'success');
+        }
+        
+        function handleIdNumberEdit(e) {
+            const input = e.target;
+            const row = input.closest('tr');
+            const index = parseInt(row.dataset.index);
+            const setId = setIdInput.value.trim().toUpperCase() || 'CUSTOM';
+            const cardNumber = input.value.padStart(3, '0');
+            
+            // Update the card ID and number (number MUST be string)
+            compiledCards[index].id = `${setId}-${cardNumber}`;
+            compiledCards[index].number = String(cardNumber);
+            
+            showStatus('Card ID updated.', 'success');
+        }
+        
+        function handleSupertypeChange(e) {
+            const select = e.target;
+            const row = select.closest('tr');
+            const index = parseInt(row.dataset.index);
+            const customInput = row.querySelector('.supertype-custom');
+            
+            if (select.value === 'Other') {
+                customInput.classList.remove('hidden');
+                customInput.focus();
+            } else {
+                customInput.classList.add('hidden');
+                compiledCards[index].supertype = select.value;
+                showStatus('Supertype updated.', 'success');
+            }
+        }
+        
+        function handleSupertypeCustomEdit(e) {
+            const input = e.target;
+            const row = input.closest('tr');
+            const index = parseInt(row.dataset.index);
+            const newValue = input.value.trim();
+            
+            if (newValue) {
+                compiledCards[index].supertype = newValue;
+                showStatus('Custom supertype updated.', 'success');
+            }
+        }
+
+        function deleteCard(index) {
+            if (confirm(`Delete "${compiledCards[index].name}"?`)) {
+                compiledCards.splice(index, 1);
+                updateUI();
+                showStatus('Card deleted.', 'success');
+            }
+        }
+
+        function clearAllCards() {
+            if (confirm('Clear all cards? This cannot be undone.')) {
+                compiledCards = [];
+                updateUI();
+                showStatus('All cards cleared.', 'info');
+            }
+        }
+
+        function exportSet() {
+            if (compiledCards.length === 0) {
+                showStatus('No cards to export.', 'error');
+                return;
+            }
+
+            // Check for cards without image URLs OR preview images
+            const cardsWithoutUrls = compiledCards
+                .map((card, index) => ({ card, index }))
+                .filter(({ card }) => !card.images.small && !card.images.large && !card._previewImage);
+
+            if (cardsWithoutUrls.length > 0) {
+                // Show warning modal
+                showExportWarning(cardsWithoutUrls);
+                return;
+            }
+
+            // Proceed with export
+            performExport();
+        }
+
+        function showExportWarning(cardsWithoutUrls) {
+            // Highlight rows with missing URLs
+            cardsWithoutUrls.forEach(({ index }) => {
+                const row = document.querySelector(`tr[data-index="${index}"]`);
+                if (row) {
+                    row.style.background = 'rgba(239, 68, 68, 0.2)';
+                    row.style.border = '2px solid #ef4444';
+                }
+            });
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="glass-container p-6 max-w-lg mx-4" style="background: var(--bg-secondary); border: 2px solid #ef4444;">
+                    <h3 class="text-xl font-bold mb-4" style="color: #ef4444;">⚠️ Missing Image URLs</h3>
+                    <div class="mb-4" style="color: var(--text-primary);">
+                        <p class="mb-2"><strong>${cardsWithoutUrls.length} card(s)</strong> have no Image URL set.</p>
+                        <p class="text-sm mb-3" style="color: var(--text-secondary);">Without URLs, these cards <strong>will not display</strong> in other sites, apps, or databases.</p>
+                        <div class="p-3 rounded-lg mb-3" style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; max-height: 150px; overflow-y: auto;">
+                            <p class="text-xs font-semibold mb-2" style="color: #ef4444;">Cards missing URLs:</p>
+                            ${cardsWithoutUrls.map(({ card, index }) => `
+                                <div class="text-xs py-1" style="color: var(--text-secondary);">
+                                    ${index + 1}. ${card.id} - ${card.name}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <p class="text-sm font-semibold" style="color: #ef4444;">Cards are highlighted in red in the table above.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="export-cancel-btn" class="flex-1 px-4 py-2 rounded-lg font-semibold transition-all" style="background: rgba(75, 85, 99, 0.8); color: var(--text-primary);">
+                            Cancel - Add URLs
+                        </button>
+                        <button id="export-confirm-btn" class="flex-1 px-4 py-2 rounded-lg font-semibold transition-all" style="background: #ef4444; color: white;">
+                            Export Anyway
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Event listeners
+            document.getElementById('export-cancel-btn').addEventListener('click', () => {
+                // Remove highlights
+                document.querySelectorAll('tr[data-index]').forEach(row => {
+                    row.style.background = '';
+                    row.style.border = '';
+                });
+                document.body.removeChild(modal);
+                showStatus('Export cancelled. Please add image URLs.', 'info');
+            });
+
+            document.getElementById('export-confirm-btn').addEventListener('click', () => {
+                // Remove highlights
+                document.querySelectorAll('tr[data-index]').forEach(row => {
+                    row.style.background = '';
+                    row.style.border = '';
+                });
+                document.body.removeChild(modal);
+                performExport();
+            });
+        }
+
+        function performExport() {
+            const setId = setIdInput.value.trim() || 'CUSTOM';
+            const setName = setNameInput.value.trim() || 'Custom Set';
+            const setSeries = setSeriesInput.value.trim() || 'Scarlet & Violet';
+            const includeWebP = document.getElementById('export-webp-checkbox').checked;
+
+            const exportCards = compiledCards.map(card => {
+                // Use user URL if provided
+                const userImageUrl = card.images.small || card.images.large || '';
+                
+                // Create clean card with only standard TCG set fields
+                const cleanCard = {
+                    id: String(card.id),  // MUST be string
+                    name: String(card.name),  // MUST be string
+                    supertype: String(card.supertype),  // MUST be string
+                    subtypes: Array.isArray(card.subtypes) ? card.subtypes.map(s => String(s)) : [],
+                    hp: typeof card.hp === 'string' ? card.hp : (card.hp || 0),  // Can be string or number
+                    types: Array.isArray(card.types) ? card.types.map(t => String(t)) : [],
+                    ...(card.evolvesFrom && { evolvesFrom: String(card.evolvesFrom) }),  // MUST be string
+                    ...(card.evolvesTo && { evolvesTo: card.evolvesTo }),  // Array, keep as-is
+                    ...(card.abilities && card.abilities.length > 0 && { abilities: card.abilities }),
+                    ...(card.attacks && card.attacks.length > 0 && { attacks: card.attacks }),
+                    ...(card.weaknesses && card.weaknesses.length > 0 && { 
+                        weaknesses: card.weaknesses.map(w => ({
+                            type: String(w.type),
+                            value: String(w.value)
+                        }))
+                    }),
+                    ...(card.resistances && card.resistances.length > 0 && { 
+                        resistances: card.resistances.map(r => ({
+                            type: String(r.type),
+                            value: String(r.value)
+                        }))
+                    }),
+                    ...(card.retreatCost && card.retreatCost.length > 0 && { 
+                        retreatCost: card.retreatCost.map(rc => String(rc))
+                    }),
+                    ...(card.convertedRetreatCost != null && { convertedRetreatCost: card.convertedRetreatCost }),
+                    set: {
+                        id: setId,
+                        name: setName,
+                        series: setSeries,
+                        printedTotal: compiledCards.length,
+                        total: compiledCards.length,
+                        legalities: {
+                            standard: 'Legal',
+                            expanded: 'Legal',
+                            custom: 'Legal',
+                            forteFormat: 'Legal'
+                        },
+                        ptcgoCode: setId,
+                        releaseDate: new Date().toISOString().split('T')[0].replace(/-/g, '/'),
+                        updatedAt: new Date().toISOString(),
+                        images: {
+                            symbol: '',
+                            logo: ''
+                        }
+                    },
+                    number: String(card.number),  // MUST be string
+                    artist: String(card.artist || ''),  // MUST be string
+                    rarity: String(card.rarity || ''),  // MUST be string
+                    ...(card.flavorText && { flavorText: String(card.flavorText) }),
+                    legalities: {
+                        standard: 'Legal',
+                        expanded: 'Legal',
+                        custom: 'Legal',
+                        forteFormat: 'Legal'
+                    },
+                    images: {
+                        small: userImageUrl,
+                        large: userImageUrl
+                    },
+                    // Include auto-generated WebP in separate field (beta feature) - only if checkbox is enabled
+                    ...(includeWebP && card._previewImage && { imageDataWebP: card._previewImage }),
+                    ...(card.forteData && { forteData: card.forteData })
+                };
+                
+                return cleanCard;
+            });
+
+            const json = JSON.stringify(exportCards, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${setId.toLowerCase()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showStatus(`Exported ${compiledCards.length} cards to ${setId.toLowerCase()}.json`, 'success');
+        }
+
+        function showStatus(message, type = 'info') {
+            const colors = {
+                error: 'text-red-500',
+                success: 'text-green-500',
+                info: 'text-blue-500'
+            };
+            statusArea.innerHTML = `<p class="${colors[type]} font-medium">${message}</p>`;
+            setTimeout(() => statusArea.innerHTML = '', 5000);
+        }
+
+        // Update set info for all cards when set fields change
+        [setIdInput, setNameInput, setSeriesInput].forEach(input => {
+            input.addEventListener('change', () => {
+                if (compiledCards.length > 0) {
+                    updateUI();
+                    showStatus('Set information will be applied on export.', 'info');
+                }
+            });
+        });
+        
+        // Enforce uppercase and max length on Set ID
+        setIdInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase().slice(0, 5);
+        });
+        
+        // --- UPLOAD PREVIEW IMAGE FUNCTION ---
+        function uploadPreviewImage(cardIndex) {
+            // Create a hidden file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/png,image/jpeg,image/jpg,image/webp';
+            fileInput.style.display = 'none';
+            
+            fileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                try {
+                    showStatus('Converting image to 745×1040 WebP...', 'info');
+                    
+                    // Convert image to 745×1040 WebP
+                    const webpDataUrl = await convertImageToWebP(file, 745, 1040);
+                    
+                    // Update the card's preview and imageDataWebP
+                    compiledCards[cardIndex]._previewImage = webpDataUrl;
+                    compiledCards[cardIndex].imageDataWebP = webpDataUrl;
+                    
+                    // Update the UI
+                    updateUI();
+                    
+                    showStatus(`Preview image updated for "${compiledCards[cardIndex].name}"`, 'success');
+                } catch (error) {
+                    console.error('Image upload error:', error);
+                    showStatus(`Failed to upload image: ${error.message}`, 'error');
+                }
+            });
+            
+            // Trigger file selection
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+        
+        // Helper function to convert image to WebP at specific dimensions
+        async function convertImageToWebP(file, targetWidth, targetHeight) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    img.onload = () => {
+                        try {
+                            // Create canvas at target dimensions
+                            const canvas = document.createElement('canvas');
+                            canvas.width = targetWidth;
+                            canvas.height = targetHeight;
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Fill with transparent background
+                            ctx.clearRect(0, 0, targetWidth, targetHeight);
+                            
+                            // Calculate scaling to fit image while maintaining aspect ratio
+                            const imgRatio = img.width / img.height;
+                            const targetRatio = targetWidth / targetHeight;
+                            
+                            let drawWidth, drawHeight, offsetX, offsetY;
+                            
+                            if (imgRatio > targetRatio) {
+                                // Image is wider - fit to width
+                                drawWidth = targetWidth;
+                                drawHeight = targetWidth / imgRatio;
+                                offsetX = 0;
+                                offsetY = (targetHeight - drawHeight) / 2;
+                            } else {
+                                // Image is taller - fit to height
+                                drawHeight = targetHeight;
+                                drawWidth = targetHeight * imgRatio;
+                                offsetX = (targetWidth - drawWidth) / 2;
+                                offsetY = 0;
+                            }
+                            
+                            // Draw image centered
+                            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                            
+                            // Convert to WebP with quality 0.85
+                            const webpDataUrl = canvas.toDataURL('image/webp', 0.85);
+                            resolve(webpDataUrl);
+                        } catch (error) {
+                            reject(new Error('Failed to convert image to WebP'));
+                        }
+                    };
+                    
+                    img.onerror = () => reject(new Error('Failed to load image'));
+                    img.src = e.target.result;
+                };
+                
+                reader.onerror = () => reject(new Error('Failed to read file'));
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+</body>
+</html>
+

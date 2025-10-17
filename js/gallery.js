@@ -118,14 +118,34 @@ window.ForteGallery = {
         div.dataset.cardIndex = index;
 
         const img = document.createElement('img');
-        img.src = card.images?.small || card.images?.large || this.app.placeholderUrl;
         img.alt = card.name;
         img.className = 'gallery-image';
         img.loading = 'lazy';
         
-        img.onerror = () => {
-            img.src = this.app.placeholderUrl;
-        };
+        // Use WebP loader if available, otherwise fallback to PNG
+        if (window.WebPLoader) {
+            const bestUrl = window.WebPLoader.getBestImageUrl(card, 'small');
+            img.src = bestUrl || this.app.placeholderUrl;
+            
+            // Set up fallback chain
+            img.onerror = () => {
+                const urls = window.WebPLoader.getCardImageUrls(card);
+                // If WebP failed, try PNG
+                if (img.src.endsWith('.webp') && urls.png.small) {
+                    img.src = urls.png.small;
+                } else if (urls.embedded) {
+                    img.src = urls.embedded;
+                } else {
+                    img.src = this.app.placeholderUrl;
+                }
+            };
+        } else {
+            // Fallback to original behavior if WebP loader not available
+            img.src = card.images?.small || card.images?.large || this.app.placeholderUrl;
+            img.onerror = () => {
+                img.src = this.app.placeholderUrl;
+            };
+        }
         
         img.onload = () => {
             img.classList.add('loaded');
@@ -265,7 +285,10 @@ window.ForteGallery = {
 
     // Utility methods for external use
     scrollToTop() {
-        if (this.galleryElement) {
+        // If deck exporter has set a scroll container, use that
+        if (this.galleryScrollContainer) {
+            this.galleryScrollContainer.scrollTop = 0;
+        } else if (this.galleryElement) {
             this.galleryElement.scrollTop = 0;
         }
     },

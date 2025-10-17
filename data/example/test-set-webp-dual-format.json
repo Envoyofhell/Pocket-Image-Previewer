@@ -1,0 +1,136 @@
+[
+  {
+    "_comment": "OPTION 1: Dual Format - PNG URLs + WebP URLs + Optional Embedded WebP",
+    "_description": "This keeps PNG URLs for backward compatibility, adds WebP URLs for modern browsers, and optionally includes embedded WebP for offline/future-proofing",
+    
+    "id": "misc-013",
+    "name": "Magmortar Forte",
+    "supertype": "Pokémon",
+    "subtypes": [
+      "Stage 1 (Forte)"
+    ],
+    "hp": 210,
+    "types": [
+      "Fire"
+    ],
+    "evolvesFrom": "Magmar",
+    "attacks": [
+      {
+        "name": "Lava Plume",
+        "cost": ["Fire", "Colorless"],
+        "convertedEnergyCost": 2,
+        "damage": "70",
+        "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Burned."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "×2"
+      }
+    ],
+    "retreatCost": ["Colorless", "Colorless", "Colorless"],
+    "convertedRetreatCost": 3,
+    "set": {
+      "id": "PF1",
+      "name": "PF1",
+      "series": "Scarlet & Violet",
+      "printedTotal": 139,
+      "total": 139,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "2025/06/21",
+      "updatedAt": "2025-06-21T04:44:33.707Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "13",
+    "artist": "Hajime Kusajima",
+    "rarity": "Full Art",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    
+    "images": {
+      "_comment": "Original PNG URLs - kept for backward compatibility",
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.png",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.png"
+    },
+    
+    "imagesWebP": {
+      "_comment": "NEW: WebP URLs for modern browsers - prioritized in viewer",
+      "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.webp",
+      "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-013.webp"
+    },
+    
+    "imageDataWebP": "data:image/webp;base64,UklGRozAAQBXRUJQVlA4WAoAAAAwAAAA...[TRUNCATED FOR EXAMPLE]",
+    "_imageDataWebPComment": "OPTIONAL: Embedded WebP for offline use or when URLs are not available. Can be generated from CompileSet or batch conversion.",
+    
+    "forteData": {
+      "discordUsername": "Brainshock_Omega",
+      "originalJsonFileName": "Magmortar Forte.json",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "Custom Rectangle",
+      "isForte": true,
+      "approvedDate": "2025/06/21",
+      "customSetIconTextFromSheet": "PF1",
+      "customSetIconTextFromJson": "PF1",
+      "prevolveImgSize": ""
+    }
+  },
+  
+  {
+    "_comment": "Example 2: Card with only WebP (no PNG URLs) - like pfe (2).json",
+    
+    "id": "PFE-001",
+    "name": "Basic [G] Energy",
+    "supertype": "Energy",
+    "subtypes": ["Basic Energy"],
+    "hp": "0",
+    "types": ["Grass"],
+    "set": {
+      "id": "PFE",
+      "name": "PFE",
+      "series": "Scarlet & Violet",
+      "printedTotal": 15,
+      "total": 15,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "PFE",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:01:48.668Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "1",
+    "artist": "",
+    "rarity": "Full Art",
+    
+    "images": {
+      "_comment": "Empty URLs - card relies on embedded WebP data",
+      "small": "",
+      "large": ""
+    },
+    
+    "imageDataWebP": "data:image/webp;base64,UklGRozAAQBXRUJQVlA4WAoAAAAwAAAA...[TRUNCATED]",
+    "_imageDataWebPComment": "When images.small/large are empty, viewer should display this embedded WebP"
+  }
+]
+

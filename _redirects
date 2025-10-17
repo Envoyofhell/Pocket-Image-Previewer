@@ -1,0 +1,6 @@
+# Cloudflare Pages Redirects Configuration
+# Optional: Add image optimization rules
+
+# Redirect old PNG URLs to WebP (if needed)
+# /img/approved/*/  200  # Serve as-is, let service worker handle caching
+

@@ -1,0 +1,183 @@
+{
+  "_format": "mtcg-deck",
+  "_version": "1.0-beta",
+  "_experimental": true,
+  "_notice": "⚠️ EXPERIMENTAL FORMAT - This .mtcg format includes embedded WebP images and extended metadata. Not compatible with standard deck viewers yet. Use standard CSV export for compatibility with other tools.",
+  
+  "timestamp": 1729180800000,
+  "deckName": "Gardevoir/Gallade Control",
+  "deckDescription": "Forte Format competitive deck featuring Gardevoir Forte and Gallade",
+  "format": "Forte Format",
+  "author": "",
+  "dateCreated": "2025-10-17",
+  "totalCards": 60,
+  
+  "cards": [
+    {
+      "qty": 2,
+      "id": "misc-093",
+      "name": "Flabébé",
+      "type": "Pokémon",
+      "supertype": "Pokémon",
+      "subtypes": ["Basic"],
+      "hp": "40",
+      "types": ["Psychic"],
+      
+      "images": {
+        "png": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.png",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.png"
+        },
+        "webp": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.webp",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-093.webp"
+        },
+        "webpData": "data:image/webp;base64,UklGRozAAQBXRUJQVlA4WAoAAAAw...[TRUNCATED FOR EXAMPLE - Full base64 would be included]"
+      },
+      
+      "set": {
+        "id": "PF1",
+        "name": "PF1"
+      },
+      "number": "93",
+      "rarity": "Common"
+    },
+    
+    {
+      "qty": 2,
+      "id": "misc-094",
+      "name": "Floette",
+      "type": "Pokémon",
+      "supertype": "Pokémon",
+      "subtypes": ["Stage 1"],
+      "hp": "80",
+      "types": ["Psychic"],
+      
+      "images": {
+        "png": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-094.png",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-094.png"
+        },
+        "webp": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-094.webp",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-094.webp"
+        },
+        "webpData": "data:image/webp;base64,UklGRt4EAQBXRUJQVlA4WAoAAAAg...[TRUNCATED]"
+      },
+      
+      "set": {
+        "id": "PF1",
+        "name": "PF1"
+      },
+      "number": "94",
+      "rarity": "Uncommon"
+    },
+    
+    {
+      "qty": 2,
+      "id": "misc-091",
+      "name": "Gardevoir Forte",
+      "type": "Pokémon",
+      "supertype": "Pokémon",
+      "subtypes": ["Stage 2 (Forte)"],
+      "hp": "150",
+      "types": ["Psychic"],
+      "evolvesFrom": "Kirlia",
+      
+      "images": {
+        "png": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.png",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.png"
+        },
+        "webp": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.webp",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-091.webp"
+        },
+        "webpData": "data:image/webp;base64,UklGRh5WAABXRUJQVlA4WAoAAAAw...[TRUNCATED]"
+      },
+      
+      "set": {
+        "id": "PF1",
+        "name": "PF1"
+      },
+      "number": "91",
+      "rarity": "Full Art",
+      
+      "forteData": {
+        "isForte": true,
+        "discordUsername": "Creator_Name"
+      }
+    },
+    
+    {
+      "qty": 8,
+      "id": "PFE-009",
+      "name": "Basic [Y] Energy",
+      "type": "Energy",
+      "supertype": "Energy",
+      "subtypes": ["Basic Energy"],
+      "types": ["Psychic"],
+      
+      "images": {
+        "png": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png"
+        },
+        "webp": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.webp",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.webp"
+        },
+        "webpData": "data:image/webp;base64,UklGRogrAQBXRUJQVlA4WAoAAAAw...[TRUNCATED]"
+      },
+      
+      "set": {
+        "id": "PFE",
+        "name": "PFE"
+      },
+      "number": "9"
+    },
+    
+    {
+      "qty": 3,
+      "id": "misc-118",
+      "name": "Ultra Ball",
+      "type": "Trainer",
+      "supertype": "Trainer",
+      "subtypes": ["Item"],
+      
+      "images": {
+        "png": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-118.png",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-118.png"
+        },
+        "webp": {
+          "small": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-118.webp",
+          "large": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/misc/misc-118.webp"
+        },
+        "webpData": "data:image/webp;base64,UklGRozAAQBXRUJQVlA4WAoAAAAw...[TRUNCATED]"
+      },
+      
+      "set": {
+        "id": "PF1",
+        "name": "PF1"
+      },
+      "number": "118",
+      "rarity": "Uncommon"
+    }
+  ],
+  
+  "deckStats": {
+    "pokemon": 17,
+    "trainers": 13,
+    "energy": 30
+  },
+  
+  "_exportInfo": {
+    "exportedFrom": "Forte Image Viewer",
+    "exportDate": "2025-10-17T12:00:00.000Z",
+    "exportVersion": "1.0-beta",
+    "includesWebPData": true,
+    "compressionQuality": 0.85
+  }
+}
+

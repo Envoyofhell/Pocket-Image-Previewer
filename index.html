@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     
+    <!-- Preconnect to GitHub for faster image loading -->
+    <link rel="dns-prefetch" href="//raw.githubusercontent.com">
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin="anonymous">
+    
     <!-- 
       CSS Load Order:
       1. Main theme/variables (enhanced-styles.css or theme.css)
@@ -21,6 +25,7 @@
     -->
     <link rel="stylesheet" href="assets/css/enhanced-styles.css"> <link rel="stylesheet" href="assets/css/theme.css"> <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/deck-exporter.css">
     
     <link rel="stylesheet" href="layouts/header.css">   <link rel="stylesheet" href="layouts/footer.css">   <script src="filter_config.js"></script>
     <script src="js/type-mapping.js"></script>
@@ -306,6 +311,9 @@
 
     <script src="js/url-utils.js"></script>
     <script src="js/routing.js"></script>
+    <script src="js/webp-loader.js"></script>
+    <script src="cloudflare-optimization.js"></script>
+    <script src="js/service-worker-cache.js"></script>
     <script src="js/app.js"></script>
     <script src="db-likes.js"></script>
     <script src="js/search.js"></script>
@@ -316,6 +324,7 @@
     <script src="js/simple-effects.js"></script>
     <script src="js/legendpopup.js"></script> 
     <script src="js/submissions.js"></script>
+    <script src="js/deck-exporter.js"></script>
     
     <script src="layouts/header.js" defer></script>
     <script src="layouts/footer.js" defer></script>

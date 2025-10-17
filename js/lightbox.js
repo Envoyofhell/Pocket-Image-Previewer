@@ -248,14 +248,35 @@ window.ForteLightbox = {
             imageEl.classList.add('loaded');
         };
 
-        imageEl.onerror = () => {
-            imageEl.src = this.app.placeholderUrl;
-            spinnerEl.classList.add('hidden');
-            imageEl.classList.remove('hidden');
-        };
-
-        const imageUrl = card.images?.large || card.images?.small || this.app.placeholderUrl;
-        imageEl.src = imageUrl;
+        // Use WebP loader if available
+        if (window.WebPLoader) {
+            const bestUrl = window.WebPLoader.getBestImageUrl(card, 'large');
+            imageEl.src = bestUrl || this.app.placeholderUrl;
+            
+            imageEl.onerror = () => {
+                const urls = window.WebPLoader.getCardImageUrls(card);
+                // If WebP failed, try PNG
+                if (imageEl.src.endsWith('.webp') && urls.png.large) {
+                    console.log(`[Lightbox] WebP failed, trying PNG for ${card.name}`);
+                    imageEl.src = urls.png.large;
+                } else {
+                    imageEl.src = this.app.placeholderUrl;
+                    spinnerEl.classList.add('hidden');
+                    imageEl.classList.remove('hidden');
+                }
+            };
+        } else {
+            // Fallback to PNG
+            const imageUrl = card.images?.large || card.images?.small || this.app.placeholderUrl;
+            imageEl.src = imageUrl;
+            
+            imageEl.onerror = () => {
+                imageEl.src = this.app.placeholderUrl;
+                spinnerEl.classList.add('hidden');
+                imageEl.classList.remove('hidden');
+            };
+        }
+        
         imageEl.alt = card.name;
     },
 
