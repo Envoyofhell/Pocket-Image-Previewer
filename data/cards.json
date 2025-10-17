@@ -21283,5 +21283,57 @@
       "customSetIconTextFromJson": "PF1",
       "prevolveImgSize": ""
     }
+  },
+  {
+    "id": "misc-000",
+    "name": "",
+    "supertype": "",
+    "subtypes": [],
+    "types": [],
+    "set": {
+      "id": "misc",
+      "name": "Forte Arrivals",
+      "series": "",
+      "printedTotal": 0,
+      "total": 0,
+      "legalities": {
+        "standard": "Legal",
+        "expanded": "Legal",
+        "custom": "Legal",
+        "forteFormat": "Legal"
+      },
+      "ptcgoCode": "MISC",
+      "releaseDate": "1969/12/31",
+      "updatedAt": "2025-10-17T17:31:40.536Z",
+      "images": {
+        "symbol": "",
+        "logo": ""
+      }
+    },
+    "number": "",
+    "artist": "",
+    "rarity": "",
+    "legalities": {
+      "standard": "Legal",
+      "expanded": "Legal",
+      "custom": "Legal",
+      "forteFormat": "Legal"
+    },
+    "images": {
+      "small": "",
+      "large": ""
+    },
+    "forteData": {
+      "discordUsername": "",
+      "originalJsonFileName": "",
+      "subname": "",
+      "regulationMark": "",
+      "rotationSymbol": "",
+      "isForte": false,
+      "approvedDate": "1969/12/31",
+      "customSetIconTextFromSheet": "",
+      "customSetIconTextFromJson": "",
+      "prevolveImgSize": ""
+    }
   }
 ]
