@@ -4,15 +4,15 @@ name: Build Image Data
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
+  # Triggers the workflow on push events
   push:
-    branches: [ main ] # Adjust branch name if needed (e.g., master)
-    paths: # Only run if relevant files change (optional but recommended)
+    branches: [ main, test, Forte-Master ] # Support all branches
+    paths: # Only run if relevant files change
       - 'img/**'
       - 'filter_config.json'
       - 'generate_image_structure.js'
       - 'package.json'
-      - 'package-lock.json' # or 'pnpm-lock.yaml' if using pnpm
+      - 'package-lock.json'
       - '.github/workflows/build-image-data.yml'
 
   # Allows you to run this workflow manually from the Actions tab
