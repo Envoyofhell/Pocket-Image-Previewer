@@ -12165,54 +12165,54 @@
   },
   {
     "id": "PF1a-075",
-    "name": "Slakoth",
+    "name": "Hydrapple",
     "supertype": "Pokémon",
     "subtypes": [
-      "Basic"
+      "Stage 2"
     ],
-    "hp": 70,
+    "hp": 150,
     "types": [
-      "Colorless"
+      "Dragon"
+    ],
+    "evolvesFrom": "Dipplin",
+    "abilities": [
+      {
+        "name": "Syrpent's Song",
+        "text": "Once during your turn, you may choose 1 of your Basic Pokémon in play. If you have a Stage 2 card in your hand that evolves from that Pokémon, put that card onto the Basic Pokémon to evolve it, skipping the Stage 1. You can’t use this Ability during your first turn or on a Basic Pokémon that was put into play this turn.",
+        "type": "Ability"
+      }
     ],
     "attacks": [
       {
-        "name": "Lazy Yawn",
+        "name": "Hydra Breath",
         "cost": [
-          "Colorless",
+          "Grass",
+          "Fire",
           "Colorless"
         ],
-        "convertedEnergyCost": 2,
-        "damage": "",
-        "text": "Both Active Pokémon are now Asleep."
-      },
-      {
-        "name": "Tackle",
-        "cost": [
-          "Colorless",
-          "Colorless"
-        ],
-        "convertedEnergyCost": 2,
-        "damage": "20",
-        "text": ""
+        "convertedEnergyCost": 3,
+        "damage": "30+",
+        "text": "Flip 4 coins. This attack does 30 more damage for each heads."
       }
     ],
     "weaknesses": [
       {
-        "type": "Fighting",
+        "type": "Fairy x",
         "value": "2"
       }
     ],
     "resistances": [
       {
-        "type": "Grass",
+        "type": "Water",
         "value": "-30"
       }
     ],
     "retreatCost": [
       "Colorless",
+      "Colorless",
       "Colorless"
     ],
-    "convertedRetreatCost": 2,
+    "convertedRetreatCost": 3,
     "set": {
       "id": "PF1a",
       "name": "PF1a",
@@ -12226,17 +12226,17 @@
         "forteFormat": "Legal"
       },
       "ptcgoCode": "PF1A",
-      "releaseDate": "2025/09/06",
-      "updatedAt": "2025-09-07T02:32:29.236Z",
+      "releaseDate": "2025/10/17",
+      "updatedAt": "2025-10-17T17:40:11.149Z",
       "images": {
         "symbol": "",
         "logo": ""
       }
     },
     "number": "75",
-    "artist": "Shigenori Negishi",
+    "artist": "Oku",
     "rarity": "Full Art",
-    "flavorText": "Slakoth's heart beats just once a minute. Whatever happens, it is content to loaf around motionless. It is rare to see this Pokémon in motion.",
+    "flavorText": "These capricious syrpents have banded together. On the rare occasion that their moods align, their true power is unleashed.",
     "legalities": {
       "standard": "Legal",
       "expanded": "Legal",
@@ -12249,15 +12249,18 @@
     },
     "forteData": {
       "discordUsername": "Brainshock_Omega",
-      "originalJsonFileName": "Slakoth.json",
+      "originalJsonFileName": "Hydrapple.json",
       "subname": "",
       "regulationMark": "",
       "rotationSymbol": "Custom Rectangle",
       "isForte": false,
-      "approvedDate": "2025/09/06",
+      "approvedDate": "2025/10/17",
       "customSetIconTextFromSheet": "PF1a",
       "customSetIconTextFromJson": "PF1a",
-      "prevolveImgSize": ""
+      "prevolveImgSize": "",
+      "otherSheetData": {
+        "prevolveName": "Dipplin"
+      }
     }
   },
   {
