@@ -5262,7 +5262,7 @@
   {
     "id": "misc-139",
     "name": "Elemental Energy",
-    "supertype": "Energy",
+    "supertype": "Trainer",
     "subtypes": [],
     "types": [
       "Special Energy"

@@ -6,7 +6,7 @@
     {
       "id": "PFE-007",
       "name": "Basic [D] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-007.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-007.png",
@@ -90,7 +90,7 @@
     {
       "id": "PFE-006",
       "name": "Basic [F] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-006.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-006.png",
@@ -174,7 +174,7 @@
     {
       "id": "PFE-001",
       "name": "Basic [G] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-001.png",
@@ -258,7 +258,7 @@
     {
       "id": "PFE-004",
       "name": "Basic [L] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-004.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-004.png",
@@ -342,7 +342,7 @@
     {
       "id": "PFE-008",
       "name": "Basic [M] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-008.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-008.png",
@@ -426,7 +426,7 @@
     {
       "id": "PFE-005",
       "name": "Basic [P] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-005.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-005.png",
@@ -510,7 +510,7 @@
     {
       "id": "PFE-002",
       "name": "Basic [R] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-002.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-002.png",
@@ -594,7 +594,7 @@
     {
       "id": "PFE-003",
       "name": "Basic [W] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-003.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-003.png",
@@ -678,7 +678,7 @@
     {
       "id": "PFE-009",
       "name": "Basic [Y] Energy",
-      "supertype": "Pokémon",
+      "supertype": "Energy",
       "isCustom": true,
       "image": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png",
       "imageUrl": "https://raw.githubusercontent.com/Envoyofhell/Pocket-Image-Previewer/Forte-Master/img/approved/PFE/PFE-009.png",

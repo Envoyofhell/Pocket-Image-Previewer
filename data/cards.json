@@ -5494,7 +5494,7 @@
   {
     "id": "misc-139",
     "name": "Elemental Energy",
-    "supertype": "Energy",
+    "supertype": "Trainer",
     "subtypes": [],
     "types": [
       "Special Energy"
@@ -6577,7 +6577,7 @@
   },
   {
     "id": "PF1a-011",
-    "name": "Turtonator",
+    "name": "Darumaka",
     "supertype": "Pokémon",
     "subtypes": [
       "Basic"
@@ -15441,7 +15441,7 @@
   {
     "id": "PFE-001",
     "name": "Basic [G] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15519,7 +15519,7 @@
   {
     "id": "PFE-002",
     "name": "Basic [R] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15597,7 +15597,7 @@
   {
     "id": "PFE-003",
     "name": "Basic [W] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15675,7 +15675,7 @@
   {
     "id": "PFE-004",
     "name": "Basic [L] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15753,7 +15753,7 @@
   {
     "id": "PFE-005",
     "name": "Basic [P] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15831,7 +15831,7 @@
   {
     "id": "PFE-006",
     "name": "Basic [F] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15909,7 +15909,7 @@
   {
     "id": "PFE-007",
     "name": "Basic [D] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -15987,7 +15987,7 @@
   {
     "id": "PFE-008",
     "name": "Basic [M] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],
@@ -16065,7 +16065,7 @@
   {
     "id": "PFE-009",
     "name": "Basic [Y] Energy",
-    "supertype": "Pokémon",
+    "supertype": "Energy",
     "subtypes": [
       "Basic Energy"
     ],

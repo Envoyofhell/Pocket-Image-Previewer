@@ -88,6 +88,9 @@ window.ForteGallery = {
     render(cards) {
         if (!this.galleryElement) return;
 
+        console.log('[Gallery] Rendering', cards.length, 'cards');
+        console.log('[Gallery] First few cards:', cards.slice(0, 3).map(c => ({ name: c.name, id: c.id })));
+
         this.galleryElement.innerHTML = '';
 
         if (cards.length === 0) {
@@ -116,6 +119,14 @@ window.ForteGallery = {
         div.tabIndex = 0;
         div.setAttribute('aria-label', card.name);
         div.dataset.cardIndex = index;
+        
+        // Store the actual card ID for deck builder and other uses
+        if (card.id) {
+            div.dataset.cardId = card.id;
+            console.log('[Gallery] Created thumbnail with cardId:', card.id, 'for card:', card.name);
+        } else {
+            console.warn('[Gallery] Card has no ID:', card.name);
+        }
 
         const img = document.createElement('img');
         img.alt = card.name;
@@ -261,6 +272,10 @@ window.ForteGallery = {
 
     // Method to refresh all like buttons (called when like data is updated)
     refreshLikeButtons() {
+        if (!this.galleryElement) {
+            console.warn('[Gallery] refreshLikeButtons called before gallery initialized');
+            return;
+        }
         const likeButtons = this.galleryElement.querySelectorAll('.gallery-like-button');
         likeButtons.forEach(button => {
             const cardPath = button.dataset.cardPath;

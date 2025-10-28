@@ -76,7 +76,7 @@
   {
     "id": "PFE-001",
     "name": "Unknown Card",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [
@@ -198,7 +198,7 @@
   {
     "id": "PFE-002",
     "name": "Unknown Card",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [
@@ -320,7 +320,7 @@
   {
     "id": "PFE-003",
     "name": "Unknown Card",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [
@@ -812,7 +812,7 @@
   {
     "id": "PFE-011",
     "name": "Unknown Card",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [
@@ -860,7 +860,7 @@
   {
     "id": "PFE-014",
     "name": "Ribombee",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [
@@ -908,7 +908,7 @@
   {
     "id": "PFE-015",
     "name": "Ribombee",
-    "supertype": "[object Object]",
+    "supertype": "Energy",
     "subtypes": [],
     "hp": 0,
     "types": [

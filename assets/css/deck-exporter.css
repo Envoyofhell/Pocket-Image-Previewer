@@ -2,28 +2,39 @@
 /* Deck Builder - Right-side drawer matching left sidebar */
 
 /* ===== Gallery Content + Drawer Layout ===== */
-.app-gallery-area {
+/* Ensure #item-gallery works in its initial state */
+#item-gallery {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    padding: var(--space-4);
+}
+
+/* Only apply flex layout when deck drawer exists */
+.app-gallery-area.has-deck-builder {
     display: flex !important;
     gap: 0 !important;
-    padding: 0 !important;
 }
 
 .gallery-content-wrapper {
-    flex-grow: 1;
+    flex: 1 1 auto;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100%;
-    width: 100%;
-    transition: margin-right 0.3s ease;
+    min-width: 0;
     display: block;
     position: relative;
     padding: var(--space-4);
 }
 
-/* Ensure item-gallery displays correctly */
+/* Ensure item-gallery displays correctly inside wrapper */
 .gallery-content-wrapper #item-gallery {
     display: grid !important;
-    width: 100%;
+    width: 100% !important;
+    gap: var(--space-4) !important;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    padding: var(--space-4) !important;
+    padding-bottom: var(--space-4) !important;
+    margin: 0 !important;
 }
 
 /* Ensure empty message displays correctly */

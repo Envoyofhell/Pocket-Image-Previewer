@@ -56,38 +56,40 @@
             return;
         }
 
-        // Get existing elements BEFORE clearing
-        const itemGallery = document.getElementById('item-gallery');
-        const emptyMessage = document.getElementById('empty-folder-message');
+        // Add class to enable flex layout
+        galleryArea.classList.add('has-deck-builder');
         
-        if (!itemGallery) {
-            console.error('[Deck Exporter] item-gallery not found!');
-            return;
-        }
+        // Get existing galleryContent or create it
+        let galleryContent = document.getElementById('gallery-content-wrapper');
+        if (!galleryContent) {
+            // Get existing elements
+            const itemGallery = document.getElementById('item-gallery');
+            const emptyMessage = document.getElementById('empty-folder-message');
 
-        // Store original parent for reference
-        const originalParent = galleryArea;
-        
-        // Clear and setup flex layout
-        galleryArea.innerHTML = '';
-        galleryArea.style.display = 'flex';
-        galleryArea.style.gap = '0';
+            if (!itemGallery) {
+                console.error('[Deck Exporter] item-gallery not found!');
+                return;
+            }
 
-        // Create gallery content wrapper
-        const galleryContent = document.createElement('div');
-        galleryContent.id = 'gallery-content-wrapper';
-        galleryContent.className = 'gallery-content-wrapper';
-        
-        // Append the preserved elements
-        galleryContent.appendChild(itemGallery);
-        if (emptyMessage) {
-            galleryContent.appendChild(emptyMessage);
-        }
-        
-        // Update ForteGallery's reference to use the wrapper for scrolling
-        if (window.ForteGallery) {
-            window.ForteGallery.galleryScrollContainer = galleryContent;
-            console.log('[Deck Exporter] Updated ForteGallery scroll container');
+            // Create gallery content wrapper
+            galleryContent = document.createElement('div');
+            galleryContent.id = 'gallery-content-wrapper';
+            galleryContent.className = 'gallery-content-wrapper';
+            
+            // Move all existing children to the wrapper
+            const allChildren = Array.from(galleryArea.childNodes);
+            allChildren.forEach(child => {
+                galleryContent.appendChild(child);
+            });
+            
+            // Now append the wrapper to gallery area
+            galleryArea.appendChild(galleryContent);
+            
+            // Update ForteGallery's reference to use the wrapper for scrolling
+            if (window.ForteGallery) {
+                window.ForteGallery.galleryScrollContainer = galleryContent;
+                console.log('[Deck Exporter] Updated ForteGallery scroll container');
+            }
         }
         
         // Create drawer container (matching left sidebar structure)
@@ -271,27 +273,55 @@
      */
     function extractCardDataFromElement(thumbnailElement) {
         try {
-            const cardIndex = parseInt(thumbnailElement.dataset.cardIndex);
+            // First, try to get the card using the stored cardId
+            const cardId = thumbnailElement.dataset.cardId;
+            console.log('[Deck Exporter] Extracting card data. CardId from dataset:', cardId);
             
-            // Get card from global filtered cards array
-            if (window.app && window.app.filteredCards && cardIndex >= 0) {
-                const card = window.app.filteredCards[cardIndex];
+            // Try to find the card by ID in allCardsData
+            const app = window.ForteApp || window.app;
+            if (cardId && app && app.allCardsData) {
+                console.log('[Deck Exporter] Searching allCardsData for cardId:', cardId);
+                const card = app.allCardsData.find(c => c.id === cardId);
+                
                 if (card) {
-                    console.log('[Deck Exporter] Found card:', card.name, 'supertype:', card.supertype);
-                    
-                    // Ensure the card has all necessary properties
-                    const completeCard = {
-                        ...card,
-                        // Ensure set information is included
-                        set: card.set || { id: 'unknown', name: 'Unknown Set' }
-                    };
-                    
-                    // Generate a unique ID if not present
-                    if (!completeCard.id) {
-                        completeCard.id = generateUniqueCardId(completeCard);
-                    }
-                    
-                    return completeCard;
+                    console.log('[Deck Exporter] ✅ Found card by ID:', card.name);
+                    console.log('[Deck Exporter] Card details:', {
+                        id: card.id,
+                        supertype: card.supertype,
+                        types: card.types,
+                        subtypes: card.subtypes,
+                        set: card.set
+                    });
+                    return card;
+                } else {
+                    console.log('[Deck Exporter] ❌ Card not found in allCardsData with ID:', cardId);
+                }
+            } else {
+                console.log('[Deck Exporter] ⚠️ No cardId or app.allCardsData available');
+            }
+            
+            // Fallback: try using cardIndex
+            const cardIndex = parseInt(thumbnailElement.dataset.cardIndex);
+            console.log('[Deck Exporter] Falling back to cardIndex:', cardIndex);
+            
+            // Get filtered cards array
+            let filteredCards = [];
+            if (app) {
+                if (app.getFilteredCards) {
+                    filteredCards = app.getFilteredCards();
+                } else if (app.filteredCards) {
+                    filteredCards = app.filteredCards;
+                } else if (app.currentFilteredCards) {
+                    filteredCards = app.currentFilteredCards;
+                }
+            }
+            
+            // Get card from filtered cards array
+            if (filteredCards && filteredCards.length > 0 && cardIndex >= 0) {
+                const card = filteredCards[cardIndex];
+                if (card) {
+                    console.log('[Deck Exporter] Found card by index:', card.name, 'supertype:', card.supertype, 'id:', card.id);
+                    return card;
                 }
             }
 
@@ -438,22 +468,47 @@
      * Add a card to the deck
      */
     function addCardToDeck(cardData) {
+        console.log('=== [Deck Exporter] Adding card to deck ===');
+        console.log('[Deck Exporter] Card name:', cardData.name);
+        console.log('[Deck Exporter] Card ID:', cardData.id);
+        console.log('[Deck Exporter] Card number:', cardData.number);
+        console.log('[Deck Exporter] Set ID:', cardData.set?.id);
+        console.log('[Deck Exporter] Set name:', cardData.set?.name);
+        console.log('[Deck Exporter] Supertype:', cardData.supertype);
+        
+        // Show all existing card IDs in deck
+        console.log('[Deck Exporter] Cards already in deck:');
+        deck.forEach((item, index) => {
+            console.log(`  ${index + 1}. ID: "${item.card.id}" | Name: "${item.card.name}" | Qty: ${item.qty}`);
+        });
+        
         // Check if card already exists in deck
         const existingCard = deck.find(item => item.card.id === cardData.id);
         
+        if (existingCard) {
+            console.log('[Deck Exporter] ⚠️ MATCH FOUND! Card ID already exists in deck');
+        } else {
+            console.log('[Deck Exporter] ✅ No match found - this is a new card');
+        }
+        
         // Check if card is Energy (unlimited) or regular card (max 4)
-        const isEnergy = cardData.supertype === 'Energy' || 
-                        cardData.name?.toLowerCase().includes('energy');
+        // Note: Special Energy should be treated as regular cards with 4 max (not unlimited)
+        const isSpecialEnergy = cardData.types?.includes('Special Energy') || 
+                               cardData.subtypes?.includes('Special Energy');
+        const isEnergy = (cardData.supertype === 'Energy' && !isSpecialEnergy) || 
+                        (cardData.name?.toLowerCase().includes('energy') && !isSpecialEnergy);
         const maxQty = isEnergy ? 999 : 4;
         
         if (existingCard) {
             // Increment quantity
             if (existingCard.qty < maxQty) {
                 existingCard.qty++;
+                console.log('[Deck Exporter] Incremented quantity to:', existingCard.qty);
             } else {
                 if (!isEnergy) {
                     showNotification('Maximum 4 copies per card', 'warning');
                 }
+                console.log('[Deck Exporter] Maximum quantity reached');
                 return;
             }
         } else {
@@ -462,6 +517,7 @@
                 card: cardData,
                 qty: 1
             });
+            console.log('[Deck Exporter] Added new card to deck');
         }
 
         saveDeckState();
@@ -492,8 +548,11 @@
                 removeCardFromDeck(cardId);
             } else {
                 // Check if Energy (unlimited) or regular card (max 4)
-                const isEnergy = deckItem.card.supertype === 'Energy' || 
-                                deckItem.card.name?.toLowerCase().includes('energy');
+                // Note: Special Energy should be treated as regular cards with 4 max (not unlimited)
+                const isSpecialEnergy = deckItem.card.types?.includes('Special Energy') || 
+                                       deckItem.card.subtypes?.includes('Special Energy');
+                const isEnergy = (deckItem.card.supertype === 'Energy' && !isSpecialEnergy) || 
+                                (deckItem.card.name?.toLowerCase().includes('energy') && !isSpecialEnergy);
                 const maxQty = isEnergy ? 999 : 4;
                 
                 if (newQty <= maxQty) {
@@ -664,8 +723,11 @@
                 imageUrl = item.card.images?.small || item.card.images?.large || '';
             }
             
-            const isEnergy = item.card.supertype === 'Energy' || 
-                           item.card.name?.toLowerCase().includes('energy');
+            // Note: Special Energy should be treated as regular cards with 4 max (not unlimited)
+            const isSpecialEnergy = item.card.types?.includes('Special Energy') || 
+                                   item.card.subtypes?.includes('Special Energy');
+            const isEnergy = (item.card.supertype === 'Energy' && !isSpecialEnergy) || 
+                           (item.card.name?.toLowerCase().includes('energy') && !isSpecialEnergy);
             const maxQty = isEnergy ? 999 : 4;
             
             const cardItem = document.createElement('div');
