@@ -249,6 +249,24 @@
     }
 
     /**
+     * Generate a unique card identifier using set ID and card number
+     * This ensures cards with the same number from different sets are treated as different cards
+     */
+    function generateUniqueCardId(card) {
+        if (!card) return null;
+        
+        // If card already has a unique ID (includes set prefix), use it
+        if (card.id) {
+            return card.id;
+        }
+        
+        // Otherwise, generate one from set and number
+        const setId = card.set?.id || 'unknown';
+        const cardNumber = card.number?.toString() || '';
+        return `${setId}-${cardNumber}`;
+    }
+
+    /**
      * Extract card data from a thumbnail element
      */
     function extractCardDataFromElement(thumbnailElement) {
@@ -259,8 +277,21 @@
             if (window.app && window.app.filteredCards && cardIndex >= 0) {
                 const card = window.app.filteredCards[cardIndex];
                 if (card) {
-                    console.log('[Deck Exporter] Found card:', card.name);
-                    return card;
+                    console.log('[Deck Exporter] Found card:', card.name, 'supertype:', card.supertype);
+                    
+                    // Ensure the card has all necessary properties
+                    const completeCard = {
+                        ...card,
+                        // Ensure set information is included
+                        set: card.set || { id: 'unknown', name: 'Unknown Set' }
+                    };
+                    
+                    // Generate a unique ID if not present
+                    if (!completeCard.id) {
+                        completeCard.id = generateUniqueCardId(completeCard);
+                    }
+                    
+                    return completeCard;
                 }
             }
 
@@ -269,10 +300,20 @@
             const imageUrl = img?.src || '';
             const altText = img?.alt || 'Unknown Card';
             
+            // Try to infer card info from filename or DOM attributes
+            let inferredSupertype = 'Pokémon'; // Default to Pokémon
+            if (altText?.toLowerCase().includes('energy')) {
+                inferredSupertype = 'Energy';
+            } else if (altText?.toLowerCase().includes('trainer')) {
+                inferredSupertype = 'Trainer';
+            }
+            
             return {
                 id: `card-${cardIndex || Date.now()}`,
                 name: altText,
-                supertype: 'Pokémon',
+                supertype: inferredSupertype,
+                set: { id: 'unknown', name: 'Unknown Set' },
+                number: cardIndex?.toString() || '',
                 images: {
                     small: imageUrl,
                     large: imageUrl
@@ -494,6 +535,8 @@
                     id: item.card.id,
                     name: item.card.name,
                     supertype: item.card.supertype,
+                    number: item.card.number,
+                    set: item.card.set, // Include set information
                     images: item.card.images
                 }
             }));
