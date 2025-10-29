@@ -241,6 +241,12 @@ class ForteCardApp {
     }
 
     applyFiltersAndRender() {
+        // Special handling for Starter Decks tab
+        if (this.currentSetTab === 'starter-decks') {
+            this.renderStarterDecks();
+            return;
+        }
+        
         let filteredCards = [...this.allCardsData];
 
         // Apply set filter
@@ -414,6 +420,148 @@ class ForteCardApp {
 
     getSearchQuery() {
         return this.searchQuery;
+    }
+
+    async renderStarterDecks() {
+        try {
+            // Load decks configuration first
+            const configResponse = await fetch('data/starter-decks/decks-config.json');
+            let config = { decks: [] };
+            
+            if (configResponse.ok) {
+                config = await configResponse.json();
+            }
+            
+            const decks = [];
+            
+            // Load each deck from config
+            for (const deckConfig of config.decks) {
+                const folder = deckConfig.folder;
+                try {
+                    // Try JSON first, then CSV
+                    let deckData = null;
+                    let response = await fetch(`data/starter-decks/${folder}/deck.json`);
+                    
+                    if (!response.ok) {
+                        // Try CSV file
+                        response = await fetch(`data/starter-decks/${folder}/${folder}.csv`);
+                        if (response.ok) {
+                            const csvText = await response.text();
+                            deckData = this.parseCSVDeck(csvText, folder);
+                        }
+                    } else {
+                        deckData = await response.json();
+                    }
+                    
+                    if (deckData) {
+                        // Merge config data with deck data
+                        decks.push({
+                            folder: folder,
+                            name: deckConfig.name || folder,
+                            description: deckConfig.description || 'A pre-built starter deck',
+                            setName: deckConfig.setName || 'Starter Decks',
+                            data: deckData
+                        });
+                    }
+                } catch (error) {
+                    console.warn(`Could not load deck from folder ${folder}:`, error);
+                }
+            }
+            
+            if (decks.length === 0) {
+                this.renderEmptyStarterDecks();
+                return;
+            }
+            
+            // Render starter decks as banner cards
+            if (window.ForteGallery) {
+                window.ForteGallery.renderStarterDeckBanners(decks);
+            }
+        } catch (error) {
+            console.error('[App] Error loading starter decks:', error);
+            this.renderEmptyStarterDecks();
+        }
+    }
+
+    renderEmptyStarterDecks() {
+        const gallery = document.getElementById('item-gallery');
+        if (gallery) {
+            gallery.innerHTML = `
+                <div class="col-span-full text-center p-8">
+                    <p class="text-xl font-semibold mb-2">No Starter Decks Available</p>
+                    <p class="text-gray-400">Starter deck files will appear here when added to data/starter-decks/</p>
+                </div>
+            `;
+        }
+    }
+
+    parseCSVDeck(csvText, folder) {
+        const lines = csvText.split('\n').filter(line => line.trim());
+        const headers = lines[0].split(',');
+        
+        const data = [];
+        let totalCards = 0;
+        
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            
+            // Parse CSV line (handle quoted values)
+            const values = this.parseCSVLine(line);
+            if (values.length < 2) continue;
+            
+            const qty = parseInt(values[0]) || 1;
+            const name = values[1].replace(/"/g, '');
+            const url = values[3] || '';
+            
+            // Try to find card by name in all cards
+            const card = this.getAllCards().find(c => c.name === name);
+            const cardId = card ? card.id : null;
+            
+            data.push({
+                id: cardId,
+                name: name,
+                qty: qty,
+                url: url
+            });
+            
+            totalCards += qty;
+        }
+        
+        // Convert folder name to display name
+        const displayName = folder
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        
+        return {
+            name: displayName,
+            description: `${displayName} deck`,
+            totalCards: totalCards,
+            data: data
+        };
+    }
+
+    parseCSVLine(line) {
+        const values = [];
+        let currentValue = '';
+        let inQuotes = false;
+        
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            
+            if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                values.push(currentValue);
+                currentValue = '';
+            } else {
+                currentValue += char;
+            }
+        }
+        values.push(currentValue);
+        
+        return values;
     }
 }
 

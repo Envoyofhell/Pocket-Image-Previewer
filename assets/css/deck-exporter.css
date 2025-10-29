@@ -37,6 +37,13 @@
     margin: 0 !important;
 }
 
+/* Override for starter decks */
+#item-gallery.starter-deck-cards-container {
+    display: flex !important;
+    flex-flow: row wrap !important;
+    grid-template-columns: none !important;
+}
+
 /* Ensure empty message displays correctly */
 .gallery-content-wrapper #empty-folder-message {
     display: block;

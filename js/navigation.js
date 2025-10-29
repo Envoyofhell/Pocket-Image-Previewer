@@ -47,6 +47,11 @@ window.ForteNavigation = {
             
             this.tabContainer.appendChild(tab);
         });
+        
+        // Add "Starter Decks" tab at the end
+        const starterDecksTab = this.createTab('starter-decks', 'Starter Decks', 
+            '#c084fc'); // Purple color
+        this.tabContainer.appendChild(starterDecksTab);
     },
 
     calculateSetCounts() {
@@ -174,6 +179,20 @@ window.ForteNavigation = {
 
     selectTab(setId) {
         console.log('[Navigation] Selecting tab:', setId);
+        
+        // Clean up any expanded starter deck cards
+        document.querySelectorAll('.starter-deck-card.is-expanded').forEach(card => {
+            card.classList.remove('is-expanded');
+            card.classList.add('is-collapsed');
+        });
+        
+        // Remove starter-deck-cards-container class when switching away from starter decks
+        if (setId !== 'starter-decks') {
+            const galleryElement = document.getElementById('item-gallery');
+            if (galleryElement) {
+                galleryElement.classList.remove('starter-deck-cards-container');
+            }
+        }
         
         // Update active state
         this.tabContainer.querySelectorAll('.tab').forEach(tab => {

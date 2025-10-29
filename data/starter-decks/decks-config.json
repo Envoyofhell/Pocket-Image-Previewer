@@ -1,0 +1,17 @@
+{
+  "decks": [
+    {
+      "folder": "grass-starter",
+      "name": "Grass Starter Deck",
+      "description": "A beginner-friendly Grass-type Pokémon deck",
+      "setName": "Starter Decks"
+    },
+    {
+      "folder": "gardevoir-starter",
+      "name": "Gardevoir Starter",
+      "description": "A powerful Gardevoir-focused deck",
+      "setName": "Starter Decks"
+    }
+  ]
+}
+

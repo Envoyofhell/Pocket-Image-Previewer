@@ -1,0 +1,78 @@
+{
+  "name": "Grass Starter Deck",
+  "description": "A beginner-friendly Grass-type Pokémon deck",
+  "totalCards": 60,
+  "data": [
+    {
+      "id": "misc-001",
+      "name": "Bulbasaur",
+      "qty": 4
+    },
+    {
+      "id": "misc-002",
+      "name": "Ivysaur",
+      "qty": 3
+    },
+    {
+      "id": "misc-003",
+      "name": "Venusaur",
+      "qty": 2
+    },
+    {
+      "id": "misc-004",
+      "name": "Shuckle",
+      "qty": 3
+    },
+    {
+      "id": "misc-005",
+      "name": "Leafeon",
+      "qty": 3
+    },
+    {
+      "id": "misc-006",
+      "name": "Phantump",
+      "qty": 3
+    },
+    {
+      "id": "misc-007",
+      "name": "Trevenant",
+      "qty": 2
+    },
+    {
+      "id": "misc-008",
+      "name": "Cutiefly",
+      "qty": 2
+    },
+    {
+      "id": "misc-009",
+      "name": "Ribombee Forte",
+      "qty": 2
+    },
+    {
+      "id": "misc-010",
+      "name": "Gossifleur",
+      "qty": 3
+    },
+    {
+      "id": "misc-011",
+      "name": "Eldegoss",
+      "qty": 3
+    },
+    {
+      "id": "misc-119",
+      "name": "Potion",
+      "qty": 4
+    },
+    {
+      "id": "misc-120",
+      "name": "Full Heal",
+      "qty": 2
+    },
+    {
+      "id": "PFE-001",
+      "name": "Basic [G] Energy",
+      "qty": 20
+    }
+  ]
+}
+
