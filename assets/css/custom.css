@@ -445,7 +445,7 @@ body {
     position: fixed;
     top: 130px;
     right: 40px;
-    z-index: 6000 !important;
+    z-index: 600000 !important;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px);
     border: 2px solid #c084fc;
@@ -512,14 +512,14 @@ body {
 .starter-deck-expander-card-qty {
     position: absolute;
     top: 6px;
-    left: 6px;
+    right: 6px;
     background: rgba(192, 132, 252, 0.95);
     color: white;
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
     font-weight: 700;
     font-size: 0.75rem;
-    z-index: 10;
+    z-index: 20;
 }
 
 

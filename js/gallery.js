@@ -172,7 +172,7 @@ window.ForteGallery = {
         if (card.forteData?.isForte) {
             const indicator = document.createElement('div');
             indicator.className = 'forte-indicator';
-            indicator.innerHTML = '<i class="fas fa-crown"></i>';
+            indicator.innerHTML = '<img src="img/favicon.png" alt="Forte" class="forte-icon" onerror="this.onerror=null; this.src=\'img/types/Forte.png\';" />';
             div.appendChild(indicator);
         }
 
@@ -250,7 +250,7 @@ window.ForteGallery = {
         if (card.forteData?.isForte) {
             const indicator = document.createElement('div');
             indicator.className = 'forte-indicator';
-            indicator.innerHTML = '<i class="fas fa-crown"></i>';
+            indicator.innerHTML = '<img src="img/favicon.png" alt="Forte" class="forte-icon" onerror="this.onerror=null; this.src=\'img/types/Forte.png\';" />';
             div.appendChild(indicator);
         }
 
