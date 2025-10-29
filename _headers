@@ -11,6 +11,10 @@
 
 /*.js
   Cache-Control: public, max-age=31536000, immutable
+  
+/service-worker.js
+  Content-Type: application/javascript
+  Cache-Control: no-cache
 
 # Cache local images aggressively (1 year)
 /img/*
