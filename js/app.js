@@ -440,17 +440,28 @@ class ForteCardApp {
                 try {
                     // Try JSON first, then CSV
                     let deckData = null;
-                    let response = await fetch(`data/starter-decks/${folder}/deck.json`);
                     
-                    if (!response.ok) {
-                        // Try CSV file
-                        response = await fetch(`data/starter-decks/${folder}/${folder}.csv`);
+                    // Try JSON file first
+                    try {
+                        const response = await fetch(`data/starter-decks/${folder}/deck.json`);
                         if (response.ok) {
-                            const csvText = await response.text();
-                            deckData = this.parseCSVDeck(csvText, folder);
+                            deckData = await response.json();
                         }
-                    } else {
-                        deckData = await response.json();
+                    } catch (e) {
+                        // JSON doesn't exist, try CSV
+                    }
+                    
+                    // If no JSON data loaded, try CSV
+                    if (!deckData) {
+                        try {
+                            const response = await fetch(`data/starter-decks/${folder}/${folder}.csv`);
+                            if (response.ok) {
+                                const csvText = await response.text();
+                                deckData = this.parseCSVDeck(csvText, folder);
+                            }
+                        } catch (e) {
+                            console.warn(`Could not load CSV for ${folder}:`, e);
+                        }
                     }
                     
                     if (deckData) {
